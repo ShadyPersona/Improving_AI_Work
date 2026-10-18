@@ -53,7 +53,7 @@ tone-assessmentV2/
 | Guardrails | `WORKFLOW.md` §Guardrails; G4 inbound on step 05, G5 between 05→06; schema-validated, deterministic, automated |
 | Punch-out evidence | `audit/punchout-*.md` + `audit/punchout-log.md` — human decision points with bypass-test columns; `run-state.json` blocks unapproved punch-outs at G5 |
 | End-to-end success rate | `audit/success-log.md` — full-workflow result per run + cumulative rate |
-| Audit trail | `audit/guardrails.jsonl` + `audit/run-YYYYMMDD.jsonl` — per-step model, hashes, tokens, cost; failure traceable to origin step |
+| Audit trail | `audit/guardrails.jsonl` + `audit/run-YYYYMMDD.jsonl` — per-step model, hashes, tokens, cost; failure traceable to origin step. **Metering note:** token/cost metering is not exposed to the Copilot agent runtime, so those fields are recorded as `null`/`"not_reported"` rather than fabricated — expected, not missing data. |
 
 ## Running the workflow
 
