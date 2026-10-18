@@ -1,0 +1,14 @@
+# Secrets and local environment files — never commit real keys.
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# Operating-system and editor noise.
+Thumbs.db
+.DS_Store
+*.swp
+*.swo
+.vscode/settings.json
+.idea/
