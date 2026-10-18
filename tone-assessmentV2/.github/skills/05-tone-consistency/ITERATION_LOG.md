@@ -4,6 +4,13 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 
 ---
 
+## Iteration 8 — Certifiability Flag and Two-Key Punch-Out Closure
+
+**Date:** 2026-10-21
+**Problem:** A punch-out approval was only a flag in `run-state.json` — an agent could self-grant `approved: true` and continue past a halt, and there was no machine-checkable marker distinguishing certifiable runs from working-artifact runs.
+**Change:** Added `certifiable` + `non_certifiable_reasons` to `templates/run-state.json` and `run-state.json` semantics. Step 05 initializes the flag, flips it `false` on punch-out trigger, loop_max exhaustion (G4 or G5), or any recorded bypass attempt. Bypass attempts make it permanent; other `false` states restore only via a logged human decision cited as `closure_evidence`. Outputs produced while `certifiable: false` carry `"certifiable": false` in `tone-changes.json` and no deliverable may be emitted. Punch-out closure is now two-key: `approved: true` AND a `punchout-log.md` row (run_id, decision, resolved by, resolved at).
+**Eval status:** Covered by new E9 non-certifiable-marking case. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set.
+
 ## Iteration 7 — Tables in Scope for Consultative Review
 
 **Date:** 2026-10-21

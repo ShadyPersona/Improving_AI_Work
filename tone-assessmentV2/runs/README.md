@@ -16,6 +16,8 @@ runs/2026-Q3-IRONTRAX/
 └── final-report.<ext>    # step 06 output (client deliverable, template format)
 ```
 
-`tone-changes.json` must validate against `../schemas/tone-changes.schema.json` — the guardrails check this at the G5 handoff. The schema requires `tables_reviewed` and `observations` arrays in addition to `changes`.
+`tone-changes.json` must validate against `../schemas/tone-changes.schema.json` — the guardrails check this at the G5 handoff. The schema requires `tables_reviewed` and `observations` arrays in addition to `changes`, and `certifiable: false` marks outputs of non-certifiable runs.
+
+`run-state.json` carries `certifiable` and `non_certifiable_reasons`: any punch-out trigger, loop_max exhaustion, or recorded bypass attempt flips it `false`; only a human decision logged in `../audit/punchout-log.md` can restore it.
 
 Cross-run evidence (punch-outs, guardrail results, success log, per-step audit records) lives in `../audit/`, which accumulates across runs.

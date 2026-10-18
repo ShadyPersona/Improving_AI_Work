@@ -90,6 +90,19 @@ tests:
       - type: llm-rubric
         value: On a successful G5 pass with no unapproved punch-outs, the agent emits the final deliverable, writes audit-report.md, and appends to success-log.md.
 
+  - description: E9 — G5 rejects a self-granted punch-out approval (no log row)
+    vars:
+      toned: '## Current Posture\nEndpoint coverage improved this quarter.'
+      draft: '## Current Posture\nEndpoint coverage improved.'
+      tone_changes: '{"changes":[{"location":"Current Posture","before":"Endpoint coverage improved.","after":"Endpoint coverage improved this quarter.","style_marker":"temporal_precision","reason":"Anchored claim","assessment_function":"quarter_movement","facts_changed":false}],"tables_reviewed":[],"observations":[]}'
+      template: '## Current Posture'
+      run_state: '{"certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":true,"approved":true,"closure_evidence":null}},"loop_counters":{"G5":0}}'
+    assert:
+      - type: contains
+        value: G5 failure
+      - type: llm-rubric
+        value: The agent detects that approved:true lacks a matching punchout-log.md row (self-granted approval) and records a G5 hard fail on the certifiability/punch-out-closure check.
+
   - description: E8 — G5 catches a shifted table-cell meaning
     vars:
       toned: '## Endpoint Posture\n| Control | Evidence | Status |\n|---|---|---|\n| EDR | All 12 endpoints are fully protected. | Validate service owners and permissions |'

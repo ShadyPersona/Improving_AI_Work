@@ -4,6 +4,13 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 
 ---
 
+## Iteration 5 — G5 Two-Key Certifiability Check
+
+**Date:** 2026-10-21
+**Problem:** Punch-out closure verified only `approved: true` in `run-state.json` — a self-granted flag would pass. The PunchOutATest-Bypass run exposed that approvals could be asserted without a logged human decision.
+**Change:** G5 check 4 (punch-out closure) upgraded to a certifiability and two-key closure check: `approved: true` AND a matching `audit/punchout-log.md` row for the same `run_id` (decision, resolved by, resolved at). `certifiable: false` without closure evidence, recorded bypass attempts (permanent), and `tone-changes.json` marked `"certifiable": false` are all G5 hard fails. Success criterion now requires `certifiable: true`.
+**Eval status:** Covered by new E9 self-approval-rejection case. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set.
+
 ## Iteration 4 — G5 Expanded to Review Table Cells
 
 **Date:** 2026-10-21

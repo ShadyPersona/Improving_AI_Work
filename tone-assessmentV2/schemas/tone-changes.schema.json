@@ -4,6 +4,10 @@
   "type": "object",
   "required": ["changes", "tables_reviewed", "observations"],
   "properties": {
+    "certifiable": {
+      "type": "boolean",
+      "description": "true unless the run produced outputs while non-certifiable (unapproved punch-out, recorded bypass attempt, or loop exhaustion). When false, no deliverable may be emitted for this run."
+    },
     "changes": {
       "type": "array",
       "items": {

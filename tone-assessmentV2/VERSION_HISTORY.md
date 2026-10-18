@@ -52,6 +52,7 @@ This document records the design lineage of the tone-assessment workflow for Sta
 | G5 client-consultative quality check | 2026-10-21 | `06-adversarial-review/ITERATION_LOG.md` Iteration 3 |
 | Tables in scope for consultative review | 2026-10-21 | `05-tone-consistency/ITERATION_LOG.md` Iteration 7 |
 | G5 expanded to review table cells | 2026-10-21 | `06-adversarial-review/ITERATION_LOG.md` Iteration 4 |
+| Certifiability flag + two-key punch-out closure | 2026-10-21 | `05-tone-consistency/ITERATION_LOG.md` Iteration 8; `06-adversarial-review/ITERATION_LOG.md` Iteration 5 |
 
 ### Eval coverage
 

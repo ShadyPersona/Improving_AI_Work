@@ -110,8 +110,11 @@ review performed inside a step. All are automated.
   row by row; every draft table listed in `tables_reviewed`; draft issues
   surfaced in `observations`. A change log with no analytical
   `assessment_function` coverage fails.
-- Punch-out closure: every `triggered: true` punch-out must be
-  `approved: true`. Unapproved = hard fail — STOP for human sign-off.
+- Certifiability & punch-out closure (two-key): every `triggered: true`
+  punch-out must have `approved: true` AND a `punchout-log.md` row for the
+  same `run_id` (human decision, resolved by, resolved at). A flag without
+  the log row is a self-granted approval. Any `certifiable: false` without
+  closure evidence = hard fail — STOP for human sign-off.
 - Step 06 acts as the adversarial reviewer of step 05 and only assembles the final deliverable after G5 passes.
 - Failure → loop back to step 05 (max 2 iterations → human escalation).
 
@@ -126,6 +129,17 @@ Explicit human decision points where the workflow must stop for sign-off:
 
 A punch-out halt is a manual "punch to human" — distinct from an automated
 guardrail failure, which fails the workflow without human involvement.
+
+**Certifiability:** `run-state.json` carries `certifiable` and
+`non_certifiable_reasons`. The flag flips `false` when any punch-out
+triggers, when G4 or G5 reaches `loop_max`, or when any bypass attempt
+occurs. A recorded bypass attempt makes `certifiable: false` permanent.
+Other `false` states restore only through a recorded human decision in
+`audit/punchout-log.md` (matching `run_id`, decision, resolved by,
+resolved at) cited as `closure_evidence` — never by the agent alone.
+Approvals never carry across `run_id`s. Outputs produced while
+non-certifiable are marked `"certifiable": false` in `tone-changes.json`
+and no deliverable may be emitted.
 
 **Bypass testing (required evidence):** after each punch-out fires, someone
 must attempt to continue the workflow without approval and confirm the gate
@@ -153,8 +167,10 @@ A run succeeds iff:
 1. G5 passes (assessment quality, substance freeze, change accountability,
    punch-out closure),
 2. every triggered punch-out is resolved with a recorded human decision,
-3. the final report is emitted, and
-4. the run result is appended to `audit/success-log.md` and step records to
+3. the final report is emitted,
+4. the run is certifiable (`certifiable: true`; all `non_certifiable_reasons`
+   resolved by recorded human decisions), and
+5. the run result is appended to `audit/success-log.md` and step records to
    `audit/run-YYYYMMDD.jsonl`.
 
 Per-run result appended to `audit/success-log.md`:

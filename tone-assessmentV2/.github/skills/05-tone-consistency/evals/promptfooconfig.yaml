@@ -88,6 +88,20 @@ tests:
       - type: llm-rubric
         value: tone-changes.json records at least one change and each entry has location, before, after, style_marker, reason, assessment_function, and facts_changed set to false.
 
+  - description: E9 — Outputs produced during a non-certifiable run are marked certifiable:false
+    vars:
+      draft: '## Current Posture\nEndpoint coverage improved.'
+      template: '## Executive Summary\n<CURRENT_QUARTER>\n## Current Posture'
+      run_state: '{"loop_counters":{"G4":0},"certifiable":false,"non_certifiable_reasons":["unapproved punch-out A: Executive Summary has no draft content"],"punchouts":{"A_missing_content":{"triggered":true,"approved":false}}}'
+    assert:
+      - type: contains-json
+        value: |
+          {
+            "tone-changes.json": {"certifiable": false}
+          }
+      - type: llm-rubric
+        value: The agent marks tone-changes.json with top-level certifiable false, does not emit a deliverable, does not restore certifiable without a logged human decision, and keeps run-state.json consistent.
+
   - description: E8 — Table narrative cells are rewritten for sentence discipline while preserving factual shorthand
     vars:
       draft: '## Endpoint Posture\n| Control | Evidence | Status |\n|---|---|---|\n| EDR | Agent deployment evidence: It was not available | Validate service owners and permissions |\n| DLP | Network telemetry is not sensitive-content disclosure; content totals: It was not available | Confirm approved use and restrictions |'

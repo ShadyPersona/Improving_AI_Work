@@ -31,7 +31,7 @@ tone-assessmentV2/
 │       └── SKILL.md           ← single-file orchestrator for agent use (combines 05 + 06 + workflow)
 ├── schemas/
 │   └── tone-changes.schema.json   (step 05 output contract, checked at G5)
-├── templates/run-state.json   ← loop counters + punch-out approval flags
+├── templates/run-state.json   ← loop counters + punch-out flags + certifiable status
 ├── runs/README.md             ← per-run directory layout (run-id named, 2 inputs)
 └── audit/                     ← cross-run evidence (append-only)
     ├── guardrails.jsonl           (one record per guardrail check)
