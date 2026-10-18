@@ -9,7 +9,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 **Date:** 2026-10-21
 **Problem:** Punch-out closure verified only `approved: true` in `run-state.json` — a self-granted flag would pass. The PunchOutATest-Bypass run exposed that approvals could be asserted without a logged human decision.
 **Change:** G5 check 4 (punch-out closure) upgraded to a certifiability and two-key closure check: `approved: true` AND a matching `audit/punchout-log.md` row for the same `run_id` (decision, resolved by, resolved at). `certifiable: false` without closure evidence, recorded bypass attempts (permanent), and `tone-changes.json` marked `"certifiable": false` are all G5 hard fails. Success criterion now requires `certifiable: true`.
-**Eval status:** Covered by new E9 self-approval-rejection case. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set.
+**Eval status:** Covered by new E9 self-approval-rejection case. Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`.
 
 ## Iteration 4 — G5 Expanded to Review Table Cells
 
@@ -19,7 +19,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 **Design decisions:**
 - Keeps 06 as the adversarial reviewer that independently challenges 05's table handling.
 - Factual tokens inside tables remain protected by the substance freeze.
-**Eval status:** Covered by existing E1–E7 and new E8 table-substance-freeze case (to be added). Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set.
+**Eval status:** Covered by existing E1–E7 and new E8 table-substance-freeze case (to be added). Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`.
 
 ## Iteration 3 — G5 Client-Consultative Quality Check
 
@@ -29,7 +29,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 **Design decisions:**
 - Preserved all existing G5 rigor (assessment depth, substance freeze, change accountability, punch-out closure).
 - Added the new checks as an explicit subsection so the adversarial reviewer can cite them.
-**Eval status:** Added E7 to `evals/promptfooconfig.yaml` to verify G5 failure blocks final deliverable assembly. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set. Run `promptfoo eval` in `evals/` once keys are available.
+**Eval status:** Added E7 to `evals/promptfooconfig.yaml` to verify G5 failure blocks final deliverable assembly. Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`. Run `promptfoo eval` in `evals/` once keys are available.
 
 ## Iteration 2 — Refactor 06 as Adversarial Review & Finalize
 
@@ -39,10 +39,10 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 **Design decisions:**
 - Finalization is blocked until G5 passes and all triggered punch-outs are approved.
 - Failure logs must still be written so the end-to-end success rate has an accurate denominator.
-**Eval status:** Added E7 to `evals/promptfooconfig.yaml`. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set. Run `promptfoo eval` in `evals/` once keys are available.
+**Eval status:** Added E7 to `evals/promptfooconfig.yaml`. Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`. Run `promptfoo eval` in `evals/` once keys are available.
 
 ## Iteration 1 — Align G5 with the Assessment-Synthesis Model
 
 **Date:** 2026-10-14
 **Change:** V2 fork. G5 assessment-quality check now scores `toned.md` against the professional and analytical standards defined in step 05 (conclusion-first elements, quarterly thesis, cross-signal synthesis, voice, tense, terminology, cadence, hedging, explanatory structures, banned patterns, language correctness and sensitivity) instead of prior-report conventions. Assessment-depth requirement kept: an unchanged or word-patched `toned.md` fails even with zero banned patterns. Inputs reduced to `toned.md`, `draft.md`, `template`, `tone-changes.json`, `run-state.json`, audit artifacts.
-**Eval status:** Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set. Once keys are configured, run `promptfoo eval` in `evals/` and paste the summary into this log.
+**Eval status:** Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`. Once keys are configured, run `promptfoo eval` in `evals/` and paste the summary into this log.

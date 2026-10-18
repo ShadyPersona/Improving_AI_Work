@@ -9,7 +9,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 **Date:** 2026-10-21
 **Problem:** A punch-out approval was only a flag in `run-state.json` — an agent could self-grant `approved: true` and continue past a halt, and there was no machine-checkable marker distinguishing certifiable runs from working-artifact runs.
 **Change:** Added `certifiable` + `non_certifiable_reasons` to `templates/run-state.json` and `run-state.json` semantics. Step 05 initializes the flag, flips it `false` on punch-out trigger, loop_max exhaustion (G4 or G5), or any recorded bypass attempt. Bypass attempts make it permanent; other `false` states restore only via a logged human decision cited as `closure_evidence`. Outputs produced while `certifiable: false` carry `"certifiable": false` in `tone-changes.json` and no deliverable may be emitted. Punch-out closure is now two-key: `approved: true` AND a `punchout-log.md` row (run_id, decision, resolved by, resolved at).
-**Eval status:** Covered by new E9 non-certifiable-marking case. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set.
+**Eval status:** Covered by new E9 non-certifiable-marking case. Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`.
 
 ## Iteration 7 — Tables in Scope for Consultative Review
 
@@ -20,7 +20,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 - Table factual tokens remain under the substance freeze.
 - Draft errors and mismatches are reported, not silently fixed.
 - Optional placeholders never trigger a punch-out.
-**Eval status:** Covered by existing E6/E7 and new E8 table-rewrite case (to be added). Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set.
+**Eval status:** Covered by existing E6/E7 and new E8 table-rewrite case (to be added). Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`.
 
 ## Iteration 6 — Client-Consultative Writing Standard
 
@@ -32,7 +32,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 - Short declarative sentences are preferred when they preserve the same meaning.
 - One clear limitation is preferable to several defensive caveats.
 - Plain language must never become unsupported certainty.
-**Eval status:** Added E7 to `evals/promptfooconfig.yaml` to test consultative rewrite of caveat-heavy audit prose. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set. Run `promptfoo eval` in `evals/` once keys are available.
+**Eval status:** Added E7 to `evals/promptfooconfig.yaml` to test consultative rewrite of caveat-heavy audit prose. Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`. Run `promptfoo eval` in `evals/` once keys are available.
 
 ## Iteration 5 — Sentence Discipline and Active Framing
 
@@ -42,7 +42,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 **Design decisions:**
 - Added `style_marker` values: `sentence_discipline`, `complete_sentences`, `scope_clarity`, `evidence_integration`, `active_framing`, `actionable_recommendations`.
 - Mirrored checks in 06 G5 and the orchestrator.
-**Eval status:** Covered by E2, E6, and E7. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set. Run `promptfoo eval` in `evals/` once keys are available.
+**Eval status:** Covered by E2, E6, and E7. Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`. Run `promptfoo eval` in `evals/` once keys are available.
 
 ## Iteration 4 — Language Correctness and Sensitivity
 
@@ -52,7 +52,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 **Design decisions:**
 - Added `style_marker` values: `spelling`, `grammar`, `punctuation`, `inclusive_language`, `neutral_perspective`, `geopolitical_sensitivity`.
 - Mirrored checks in 06 G5, the orchestrator, and `WORKFLOW.md`.
-**Eval status:** Covered by E2 and E6. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set. Run `promptfoo eval` in `evals/` once keys are available.
+**Eval status:** Covered by E2 and E6. Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`. Run `promptfoo eval` in `evals/` once keys are available.
 
 ## Iteration 3 — Security Awareness Exemption
 
@@ -61,7 +61,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 **Change:** Added a **Security Awareness exemption** to instruction 3: sections whose heading matches "Security Awareness" (case-insensitive) are excluded from the conclusion-first analytical rewrite. Their existing content and facts are preserved unchanged; only template formatting alignment and banned-pattern cleanup are applied.
 **Design decisions:**
 - Prevents fabricated quarter movement or significance for this domain while keeping it in the final report.
-**Eval status:** Covered by implicit template-conformance and Security Awareness handling. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set. Run `promptfoo eval` in `evals/` once keys are available.
+**Eval status:** Covered by implicit template-conformance and Security Awareness handling. Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`. Run `promptfoo eval` in `evals/` once keys are available.
 
 ## Iteration 2 — Assessment-Synthesis Overhaul
 
@@ -72,7 +72,7 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 - Prior-quarter reports remain removed; quarterly comparison uses only evidence already in `draft.md`.
 - `facts_changed` must be `false`; any `true` is a G5 hard fail.
 - Added `style_marker` values: `client_significance`, `temporal_precision`, `significance_calibration`, `plain_voice`.
-**Eval status:** E6 updated to include a `quarter_movement` record so the success case passes the coverage check. Attempted 2026-10-21; blocked because `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are not set. Run `promptfoo eval` in `evals/` once keys are available.
+**Eval status:** E6 updated to include a `quarter_movement` record so the success case passes the coverage check. Eval config is ready for Anthropic Claude 3.5 Sonnet (default) or OpenAI; blocked until `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set. Copy `.env.example` to `.env` in the evals folder, add the key, and run `promptfoo eval`. Run `promptfoo eval` in `evals/` once keys are available.
 
 ## Iteration 1 — Pivot to Assessment Synthesis
 
