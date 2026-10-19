@@ -5,15 +5,15 @@ prompts:
   - file://../SKILL.md
 
 # Provider: set the API key in a .env file (see .env.example) or as an environment variable.
-# Anthropic Claude 3.5 Sonnet is used because the prompt is long (full SKILL.md) and Sonnet has a 200K context window.
+# Anthropic Claude 3.5 Haiku is used because it is available on the current API key.
 # OpenAI is commented out but valid; uncomment if you prefer it.
 providers:
-  - id: anthropic:messages:claude-3-5-sonnet-20241022
+  - id: anthropic:messages:claude-3-5-haiku-20241022
   #- id: openai:chat:gpt-4o
 
 defaultTest:
   options:
-    provider: anthropic:messages:claude-3-5-sonnet-20241022
+    provider: anthropic:messages:claude-3-5-haiku-20241022
 
 tests:
   - description: E1 — Editing blocked when G4 fails (missing input document)
