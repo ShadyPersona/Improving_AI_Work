@@ -10,7 +10,8 @@ security-assessment tone, under a substance freeze, with a fail-closed guardrail
 on every handoff, human punch-out gates, adversarial candidate selection, and a
 full audit trail.
 
-Start here: [`WORKFLOW.md`](./WORKFLOW.md)
+Start here: [`WORKFLOW.md`](./WORKFLOW.md)  
+Copilot Studio setup: [`COPILOT_STUDIO_SETUP.md`](./COPILOT_STUDIO_SETUP.md)
 
 ## Inputs (5 per run)
 
@@ -28,6 +29,7 @@ Start here: [`WORKFLOW.md`](./WORKFLOW.md)
 security-assessment/
 ├── WORKFLOW.md          # pipeline definition, step contract, guardrails G1–G5, punch-outs
 ├── README.md            # this file
+├── COPILOT_STUDIO_SETUP.md  # how to build and wire the agents in Copilot Studio
 ├── VERSION_HISTORY.md   # design lineage and Stage 5 migration
 ├── .github/
 │   ├── skills/          # source-of-truth prompts for every agent
@@ -49,25 +51,154 @@ security-assessment/
 └── audit/               # cross-run evidence: punch-outs, guardrails.jsonl, success-log, run-*.jsonl
 ```
 
+## How the system works
+
+This is a **human-supervised, multi-agent pipeline** built in **Copilot Studio**.
+The human retrieves the Defender exports and places all five inputs in a
+SharePoint run folder. After that, the system executes a fixed sequence of
+specialized agents. Each agent has a narrow job, runs an inbound guardrail before
+doing work, and appends a structured record to the audit trail.
+
+The key design choice is **candidate selection**: instead of producing one draft
+and hoping it passes review, the pipeline produces **two drafts** — one minimal
+update and one deeper rewrite — reviews each in isolation, then selects the
+stronger candidate before tone-assessment synthesis.
+
+### The 9 agents
+
+| Agent | Job | Why it is separate |
+|---|---|---|
+| `00-coordinator` | Decides which agent runs next | Must not do real work or access files; only dispatch |
+| `01-ingest` | Validate and index the 5 inputs | Scoped to ingestion only |
+| `02-findings-matrix` | Build the quarter-over-quarter matrix | Scoped to matrix construction |
+| `03-draft-update` | Produce **one** candidate draft | Called twice with different parameters; still scoped to drafting |
+| `04-adversarial-review-candidate-a` | Break candidate A against evidence | **Isolated adversarial context** |
+| `04-adversarial-review-candidate-b` | Break candidate B against evidence | **Isolated adversarial context** |
+| `04b-draft-selector` | Compare reviews, pick winner, run G4 | Scoped to selection only |
+| `05-tone-consistency` | Assessment synthesis + G4 input check | Copied unchanged from `tone-assessmentV2` |
+| `06-adversarial-review` | G5 review + final deliverable assembly | Copied unchanged from `tone-assessmentV2` |
+
+## Data flow
+
+```
+Human places inputs in SharePoint:
+  runs/<YYYY-QN>/inputs/
+    ├── prior-report.docx
+    ├── history-report.docx
+    ├── defender-export-folder/
+    ├── cis.pdf
+    └── nist.pdf
+
+Run starts with templates/run-state.json copied to
+  runs/<YYYY-QN>/run-state.json
+
+Step 01 — Ingest
+  Inputs:  the 5 inputs above
+  Outputs: runs/<YYYY-QN>/inventory.json
+           runs/<YYYY-QN>/evidence-index.json
+           runs/<YYYY-QN>/style-profile.json
+
+Step 02 — Findings Matrix
+  Inputs:  ingest outputs + inputs
+  Outputs: runs/<YYYY-QN>/matrix.json
+           (may trigger punch-outs A or C)
+
+Step 03 — Draft Update (runs twice)
+  Call A:  candidate_id=a, strategy=minimal
+  Call B:  candidate_id=b, strategy=rewrite
+  Inputs:  matrix.json + prior-report.docx + approved punch-outs + run-state.json
+  Outputs: runs/<YYYY-QN>/draft-candidate-a.md  + draft-map-candidate-a.json
+           runs/<YYYY-QN>/draft-candidate-b.md  + draft-map-candidate-b.json
+
+Step 04a — Adversarial Review Candidate A
+  Inputs:  draft-candidate-a.md + draft-map-candidate-a.json + matrix.json + exports
+  Outputs: runs/<YYYY-QN>/review-candidate-a.json + review-candidate-a.md
+           (may trigger punch-outs B or D)
+
+Step 04b — Adversarial Review Candidate B
+  Inputs:  draft-candidate-b.md + draft-map-candidate-b.json + matrix.json + exports
+  Outputs: runs/<YYYY-QN>/review-candidate-b.json + review-candidate-b.md
+           (may trigger punch-outs B or D)
+
+Step 04b — Draft Selector
+  Inputs:  both reviews + both drafts/maps + matrix.json + run-state.json
+  Outputs: runs/<YYYY-QN>/draft.md
+           runs/<YYYY-QN>/draft-map.json
+           runs/<YYYY-QN>/review.json
+           runs/<YYYY-QN>/reviewed.md
+           runs/<YYYY-QN>/selection-report.json
+  Gate:    G4 zero-unresolved-claims check
+
+Step 05 — Tone Consistency
+  Inputs:  draft.md + prior-report.docx (as template) + run-state.json
+  Outputs: runs/<YYYY-QN>/toned.md
+           runs/<YYYY-QN>/tone-changes.json
+
+Step 06 — Adversarial Review Final
+  Inputs:  toned.md + draft.md + prior-report.docx + run-state.json + tone-changes.json
+  Outputs: final client deliverable
+           runs/<YYYY-QN>/audit-report.md
+           updated audit/success-log.md
+```
+
+## How context is kept separate
+
+Stage 5 requires adversarial review to happen in its own context — the reviewer
+must not see the producing agent's reasoning or conversation history.
+
+In this design, separation is enforced by architecture, not by prompt text alone:
+
+1. **Each agent is a separate Copilot Studio agent.** The platform starts a fresh
+   conversation/context for every invocation.
+2. **The coordinator passes only explicit inputs.** It never forwards a previous
+   agent's full conversation or reasoning.
+3. **Adversarial agents have no access to the drafter's prompt.** They receive
+   only the candidate draft, its draft-map, the matrix, and the Defender exports.
+4. **Candidate A and candidate B are reviewed by different agent definitions.**
+   Even if Copilot Studio reuses some runtime infrastructure, the two reviewer
+   prompts are distinct agents, so candidate B's review cannot leak into
+   candidate A's context.
+5. **The final `06-adversarial-review` is also separate from `05-tone-consistency`.**
+   It reviews `toned.md`, not its own output.
+
+This satisfies the Stage 5 requirement: a dedicated adversarial agent reviews
+each output in its own context window.
+
+## Why 9 agents instead of 7
+
+A 7-agent design would merge candidate-A review, candidate-B review, and the
+selector into one step. That would break Stage 5:
+
+- If the same adversarial agent reviewed both candidates, the second review
+  could inherit context from the first.
+- The selector is a different job — comparing two adversarial outputs and
+  making a deterministic choice — and must be auditable in its own right.
+
+Using 9 agents keeps adversarial contexts isolated and makes every step
+independently evaluable.
+
 ## Runtime architecture (Copilot Studio)
 
-This workflow is implemented as a set of connected agents in **Copilot Studio**.
-
-| Agent | Purpose | Isolation |
-|---|---|---|
-| `00-coordinator` | Dispatch-only: decides the next agent and its inputs | No file or content tools |
-| `01-ingest` | Parse and validate the 5 inputs | Scoped to ingest |
-| `02-findings-matrix` | Build the findings matrix | Scoped to findings matrix |
-| `03-draft-update` | Generate one candidate draft (called twice: `minimal` and `rewrite`) | Scoped to draft update |
-| `04-adversarial-review-candidate-a` | Review candidate A | **Isolated adversarial context** |
-| `04-adversarial-review-candidate-b` | Review candidate B | **Isolated adversarial context** |
-| `04b-draft-selector` | Compare reviews, select best candidate, run G4 | Scoped to selection |
-| `05-tone-consistency` | Assessment synthesis + G4 input check | Copied from tone-assessmentV2 |
-| `06-adversarial-review` | G5 adversarial review + final deliverable | Copied from tone-assessmentV2 |
-
 The orchestrator agent (`.github/security-assessment-orchestrator.agent.md`) has
-no direct tools; it invokes `00-coordinator`, which returns the next agent to
-call.
+**no direct tools**. It invokes `00-coordinator`, which returns the next agent to
+call. The orchestrator then dispatches that agent. All file access happens inside
+sub-agents via the **SharePoint connector**.
+
+```
+User asks: "Run 2026-Q4"
+        │
+        ▼
+Security Assessment Orchestrator
+        │
+        ▼
+00-coordinator  ──►  returns next agent name + inputs
+        │
+        ▼
+[sub-agent]  reads/writes SharePoint
+        │
+        ▼
+(repeat until DONE or HALT)
+```
 
 ## Running a quarter
 
@@ -83,7 +214,9 @@ and returns the next agent to invoke.
 8. If HALT, resolve the punch-out file in `audit/`, update `run-state.json`, and
 resume from step 5.
 
-## Candidate selection flow
+See `COPILOT_STUDIO_SETUP.md` for the exact agent-creation and wiring steps.
+
+## Candidate selection flow (compact view)
 
 ```
 matrix.json
@@ -97,10 +230,7 @@ matrix.json
             └──► 04-adversarial-review-candidate-b ──► review-candidate-b.json
                     │
                     ▼
-            04b-draft-selector
-                    │
-                    ▼
-            draft.md + review.json + selection-report.json
+            04b-draft-selector ──► draft.md + review.json + selection-report.json
                     │
                     ▼
             05-tone-consistency ──► toned.md + tone-changes.json
@@ -124,13 +254,14 @@ matrix.json
 Evaluations are run inside Copilot Studio using the **Evaluate** tab with CSV
 datasets. Promptfoo is not used.
 
-Each agent has its own CSV test set. Example columns:
+Each agent has its own CSV test set in `evals/`. Example columns:
 
 ```csv
 run_id,agent_name,strategy,inputs,expected_outputs,expected_guardrail_result
 ```
 
-See `evals/` for sample CSVs (to be created per implementation phase).
+Import the relevant CSV for the agent you are testing, map the columns, and run
+the evaluation.
 
 ## Artifact ↔ schema map
 
@@ -143,7 +274,7 @@ See `evals/` for sample CSVs (to be created per implementation phase).
 | `draft-candidate-a.md` / `draft-candidate-b.md` | (markdown) | 03 | G3 |
 | `draft-map-candidate-a.json` / `draft-map-candidate-b.json` | `schemas/draft-map.schema.json` | 03 | G3 |
 | `review-candidate-a.json` / `review-candidate-b.json` | `schemas/review.schema.json` | 04a / 04b | 04b-selector |
-| `selection-report.json` | (new schema to be added) | 04b-selector | — |
+| `selection-report.json` | `schemas/selection-report.schema.json` | 04b-selector | — |
 | `draft.md` | (markdown) | 04b-selector | G4 |
 | `draft-map.json` | `schemas/draft-map.schema.json` | 04b-selector | G4 |
 | `review.json` | `schemas/review.schema.json` | 04b-selector | G4 |
@@ -155,7 +286,8 @@ See `evals/` for sample CSVs (to be created per implementation phase).
 | Stage 5 artifact | Where it lives |
 |---|---|
 | Dispatch-only coordinator | `.github/skills/00-coordinator/SKILL.md` + `.github/security-assessment-orchestrator.agent.md` |
-| Sub-agents scoped to one workflow | `.github/skills/01-06*/SKILL.md` each define a narrow scope |
+| Sub-agents scoped to one workflow | `.github/skills/*/SKILL.md` each define a narrow scope |
 | Adversarial review in own context | `04-adversarial-review-candidate-a`, `04-adversarial-review-candidate-b`, and `06-adversarial-review` are separate agents |
-| Version-controlled repository | All SKILL.md files + schemas + orchestrator manifest + exported agent definitions |
+| Version-controlled repository | All `SKILL.md` files + schemas + orchestrator manifest + exported agent definitions |
 | Stage 4 continuity | Unchanged `05-tone-consistency` and `06-adversarial-review` from `tone-assessmentV2`; existing G1–G5 guardrails and audit formats preserved |
+| No CLI shells for runtime inference | Runtime is Copilot Studio; coordinator has no shell/terminal tools |
