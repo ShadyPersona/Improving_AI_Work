@@ -1,0 +1,10 @@
+{
+  "name": "04b-draft-selector",
+  "displayName": "04B Draft Selector",
+  "description": "Draft selector agent",
+  "sourceOfTruthPrompt": "../../.github/skills/04b-draft-selector/SKILL.md",
+  "connector": "SharePoint",
+  "scope": "single-workflow-step",
+  "tools": [],
+  "actions": []
+}

@@ -1,0 +1,3 @@
+run_id,inputs,expected_outputs,expected_guardrail_result,expected_punchouts,notes
+2026-Q4-02,"inventory.json;evidence-index.json;style-profile.json;prior-report.docx;history-report.docx;defender-export-folder","matrix.json",pass,none,all exports mapped
+2026-Q4-02-unmapped,"inventory.json;evidence-index-with-unmapped.json;style-profile.json;prior-report.docx;history-report.docx;defender-export-folder","",fail,none,unmapped export file

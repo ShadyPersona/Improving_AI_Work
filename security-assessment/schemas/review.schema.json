@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "review.json — output of 04-adversarial-review (validated by G4)",
+  "title": "review.json — output of an adversarial review step (validated by G4)",
   "type": "object",
   "required": ["claims"],
   "properties": {

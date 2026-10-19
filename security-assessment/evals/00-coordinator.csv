@@ -1,0 +1,9 @@
+run_id,current_step,punchouts_a_triggered,punchouts_a_approved,punchouts_b_triggered,punchouts_b_approved,punchouts_c_triggered,punchouts_c_approved,punchouts_d_triggered,punchouts_d_approved,punchouts_e_triggered,punchouts_e_approved,expected_action,expected_agent,expected_parameters
+2026-Q4,01-ingest,false,false,false,false,false,false,false,false,false,false,DISPATCH,01-ingest,
+2026-Q4,02-findings-matrix,false,false,false,false,false,false,false,false,false,false,DISPATCH,02-findings-matrix,
+2026-Q4,03-draft-update,false,false,false,false,false,false,false,false,false,false,DISPATCH,03-draft-update,candidate_id=a;strategy=minimal
+2026-Q4,04-adversarial-review,false,false,false,false,false,false,false,false,false,false,DISPATCH,04-adversarial-review-candidate-a,
+2026-Q4,04b-draft-selector,false,false,false,false,false,false,false,false,false,false,DISPATCH,04b-draft-selector,
+2026-Q4,05-tone-consistency,false,false,false,false,false,false,false,false,false,false,DISPATCH,05-tone-consistency,
+2026-Q4,06-adversarial-review,false,false,false,false,false,false,false,false,false,false,DISPATCH,06-adversarial-review,
+2026-Q4,01-ingest,false,false,false,false,true,false,false,false,false,false,HALT,punchout-C awaiting approval,

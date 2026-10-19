@@ -1,0 +1,2 @@
+run_id,agent_name,inputs,expected_outputs,expected_guardrail_result,expected_punchouts,notes
+2026-Q4-04b-selector,04b-draft-selector,"review-candidate-a.json;review-candidate-a.md;review-candidate-b.json;review-candidate-b.md;draft-candidate-a.md;draft-candidate-b.md;draft-map-candidate-a.json;draft-map-candidate-b.json;matrix.json;run-state.json","draft.md;draft-map.json;review.json;reviewed.md;selection-report.json",pass,none,selects best candidate and passes G4

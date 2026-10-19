@@ -1,0 +1,10 @@
+{
+  "name": "01-ingest",
+  "displayName": "01 Ingest",
+  "description": "Ingest agent",
+  "sourceOfTruthPrompt": "../../.github/skills/01-ingest/SKILL.md",
+  "connector": "SharePoint",
+  "scope": "single-workflow-step",
+  "tools": [],
+  "actions": []
+}

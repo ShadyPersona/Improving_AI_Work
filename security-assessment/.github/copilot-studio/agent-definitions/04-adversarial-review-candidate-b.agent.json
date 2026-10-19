@@ -1,0 +1,10 @@
+{
+  "name": "04-adversarial-review-candidate-b",
+  "displayName": "04 Adversarial Review Candidate B",
+  "description": "Adversarial reviewer for candidate B",
+  "sourceOfTruthPrompt": "../../.github/skills/04-adversarial-review-candidate-b/SKILL.md",
+  "connector": "SharePoint",
+  "scope": "single-workflow-step",
+  "tools": [],
+  "actions": []
+}

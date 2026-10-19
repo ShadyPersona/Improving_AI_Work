@@ -1,0 +1,10 @@
+{
+  "name": "05-tone-consistency",
+  "displayName": "05 Tone Consistency",
+  "description": "Tone consistency agent",
+  "sourceOfTruthPrompt": "../../.github/skills/05-tone-consistency/SKILL.md",
+  "connector": "SharePoint",
+  "scope": "single-workflow-step",
+  "tools": [],
+  "actions": []
+}

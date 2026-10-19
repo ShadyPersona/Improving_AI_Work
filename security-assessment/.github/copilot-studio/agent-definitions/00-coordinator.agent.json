@@ -1,0 +1,10 @@
+{
+  "name": "00-coordinator",
+  "displayName": "00 Coordinator",
+  "description": "Dispatch-only coordinator",
+  "sourceOfTruthPrompt": "../../.github/skills/00-coordinator/SKILL.md",
+  "connector": "SharePoint",
+  "scope": "single-workflow-step",
+  "tools": [],
+  "actions": []
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "selection-report.json — output of 04b-draft-selector",
+  "type": "object",
+  "required": ["winner", "candidate_a_demerits", "candidate_b_demerits", "selection_reason", "g4_result"],
+  "properties": {
+    "winner": { "type": "string", "enum": ["a", "b"] },
+    "candidate_a_demerits": { "type": "integer", "minimum": 0 },
+    "candidate_b_demerits": { "type": "integer", "minimum": 0 },
+    "selection_reason": { "type": "string" },
+    "g4_result": { "type": "string", "enum": ["pass", "fail-loopback", "fail-escalated"] },
+    "candidate_a_summary": {
+      "type": "object",
+      "properties": {
+        "confirmed": { "type": "integer", "minimum": 0 },
+        "fixed": { "type": "integer", "minimum": 0 },
+        "unresolved": { "type": "integer", "minimum": 0 },
+        "rejected": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "candidate_b_summary": {
+      "type": "object",
+      "properties": {
+        "confirmed": { "type": "integer", "minimum": 0 },
+        "fixed": { "type": "integer", "minimum": 0 },
+        "unresolved": { "type": "integer", "minimum": 0 },
+        "rejected": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

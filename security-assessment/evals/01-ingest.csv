@@ -1,0 +1,3 @@
+run_id,inputs,expected_outputs,expected_guardrail_result,expected_punchouts,notes
+2026-Q4-01,"prior-report.docx;history-report.docx;defender-export-folder;cis.pdf;nist.pdf","inventory.json;evidence-index.json;style-profile.json",pass,none,all inputs present
+2026-Q4-01-missing,"prior-report.docx;history-report.docx;;cis.pdf;nist.pdf","",fail,none,defender export folder missing

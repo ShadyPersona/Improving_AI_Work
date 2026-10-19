@@ -1,0 +1,10 @@
+{
+  "name": "02-findings-matrix",
+  "displayName": "02 Findings Matrix",
+  "description": "Findings matrix agent",
+  "sourceOfTruthPrompt": "../../.github/skills/02-findings-matrix/SKILL.md",
+  "connector": "SharePoint",
+  "scope": "single-workflow-step",
+  "tools": [],
+  "actions": []
+}

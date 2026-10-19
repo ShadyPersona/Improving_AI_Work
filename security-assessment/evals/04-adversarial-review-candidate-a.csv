@@ -1,0 +1,2 @@
+run_id,agent_name,inputs,expected_outputs,expected_guardrail_result,expected_punchouts,notes
+2026-Q4-04a,04-adversarial-review-candidate-a,"draft-candidate-a.md;draft-map-candidate-a.json;matrix.json;defender-export-folder;prior-report.docx","review-candidate-a.json;review-candidate-a.md",pass,none,candidate A clean
