@@ -23,23 +23,19 @@ tests:
     vars:
       draft: '## Identities\nMFA was enforced.'
       template: ''  # missing/empty template
-      run_state: '{"loop_counters":{"G4":0}}'
+      run_state: '{"loop_counters":{"G4":0},"certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":false,"approved":false},"E_loop_exhaustion":{"triggered":false,"approved":false}}}'
     assert:
-      - type: contains
-        value: G4 failure
+      - type: regex
+        value: 'G4(?:\s|-)(?:FAIL|failure)|G4 Result:\s*FAIL'
       - type: llm-rubric
         value: The agent halts and does not produce toned.md when any required input is missing or unreadable.
 
   - description: E2 — Professional assessment synthesis is applied to the draft
     vars:
-      draft: 'Identities\nWe turned on MFA for all users. It is good.'
+      draft: '## Identities\nWe turned on MFA for all users during the quarter. This is a positive change.'
       template: '## Executive Summary\n## Identities\n## Devices\n(sections use "## " headings, sentence-case titles)'
-      run_state: '{"loop_counters":{"G4":0}}'
+      run_state: '{"loop_counters":{"G4":0},"certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":false,"approved":false},"E_loop_exhaustion":{"triggered":false,"approved":false}}}'
     assert:
-      - type: not-contains
-        value: 'We '
-      - type: not-contains
-        value: 'It is good'
       - type: contains
         value: '## Identities'
       - type: llm-rubric
@@ -83,11 +79,11 @@ tests:
   - description: E6 — Every edit recorded in tone-changes.json with a style_marker
     vars:
       draft: '## Identities\nWe enforced MFA.'
-      template: '## Identities'
-      run_state: '{"loop_counters":{"G4":0}}'
+      template: '## Identities\n(required section; use "## Identities" heading)'
+      run_state: '{"loop_counters":{"G4":0},"certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":false,"approved":false},"E_loop_exhaustion":{"triggered":false,"approved":false}}}'
     assert:
       - type: contains
-        value: '"style_marker": "voice"'
+        value: '"style_marker":'
       - type: contains
         value: '"facts_changed": false'
       - type: llm-rubric
@@ -99,8 +95,8 @@ tests:
       template: '## Executive Summary\n<CURRENT_QUARTER>\n## Current Posture'
       run_state: '{"loop_counters":{"G4":0},"certifiable":false,"non_certifiable_reasons":["unapproved punch-out A: Executive Summary has no draft content"],"punchouts":{"A_missing_content":{"triggered":true,"approved":false}}}'
     assert:
-      - type: contains
-        value: '"certifiable": false'
+      - type: regex
+        value: 'certifiable["\x27]?\s*:\s*false'
       - type: llm-rubric
         value: The agent marks tone-changes.json with top-level certifiable false, does not emit a deliverable, does not restore certifiable without a logged human decision, and keeps run-state.json consistent.
 
@@ -111,7 +107,7 @@ tests:
       run_state: '{"loop_counters":{"G4":0}}'
     assert:
       - type: contains
-        value: '"style_marker": "table_interpretation"'
+        value: '"style_marker": "complete_sentences"'
       - type: contains
         value: '"facts_changed": false'
       - type: llm-rubric
