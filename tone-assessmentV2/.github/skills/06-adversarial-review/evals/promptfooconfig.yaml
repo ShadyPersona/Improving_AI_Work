@@ -5,12 +5,12 @@ prompts:
   - file://../SKILL.md
 
 providers:
-  - id: anthropic:claude-3-5-haiku-20241022
+  - id: anthropic:messages:claude-haiku-5-5
   #- id: openai:chat:gpt-4o
 
 defaultTest:
   options:
-    provider: anthropic:claude-3-5-haiku-20241022
+    provider: anthropic:messages:claude-haiku-5-5
 
 tests:
   - description: E1 — G5 fails when tone violates professional assessment standards
