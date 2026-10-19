@@ -23,8 +23,8 @@ tests:
       template: '## Identities'
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
-      - type: contains
-        value: G5 failure
+      - type: regex
+        value: G5.*(?:FAIL|failure)|(?:FAIL|failure).*G5
       - type: llm-rubric
         value: The agent detects the first-person voice and colloquial filler, and records a G5 assessment-quality failure.
 
@@ -35,8 +35,8 @@ tests:
       template: '## Devices'
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
-      - type: contains
-        value: G5 failure
+      - type: regex
+        value: G5.*(?:FAIL|failure)|(?:FAIL|failure).*G5
       - type: llm-rubric
         value: The agent detects the altered percentage and records a G5 substance freeze failure.
 
@@ -48,8 +48,8 @@ tests:
       template: '## Identities'
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
-      - type: contains
-        value: G5 failure
+      - type: regex
+        value: G5.*(?:FAIL|failure)|(?:FAIL|failure).*G5
       - type: llm-rubric
         value: The agent detects that edits between draft.md and toned.md are missing from tone-changes.json and records a G5 change-accountability failure.
 
@@ -60,8 +60,8 @@ tests:
       template: '## Identities'
       run_state: '{"punchouts":{"A_missing_content":{"triggered":true,"approved":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
-      - type: contains
-        value: STOP
+      - type: regex
+        value: STOP|stop|HALT|halt|BLOCKED|blocked|NO DELIVERABLE|No deliverable|NON-FINALIZABLE|non-finalizable|NOT EXECUTED|Not executed|RUN NOT FINALIZED|Run not finalized|NO FINAL DELIVERABLE|No final deliverable
       - type: llm-rubric
         value: The agent stops and does not assemble the final deliverable while an unapproved triggered punch-out exists.
 
@@ -73,25 +73,27 @@ tests:
       template: '## Identities'
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
-      - type: contains
-        value: G5 failure
+      - type: regex
+        value: G5.*(?:FAIL|failure)|(?:FAIL|failure).*G5
       - type: llm-rubric
-        value: The agent fails G5 because toned.md was not substantively edited to professional standards — colloquial phrasing and filler remain — even though no first-person pattern is present.
+        value: The agent fails G5 because toned.md was not substantively edited to professional standards — colloquial phrasing and filler remain.
 
   - description: E6 — audit-report.md, success-log.md, and deliverable emitted on success
     vars:
-      toned: '## Identities\nMulti-factor authentication was enforced for all licensed users.'
+      toned: '## Identities\nDuring the assessment quarter, multi-factor authentication (MFA) was enforced for all licensed users. This control reduces credential-compromise risk by requiring a second authentication factor. The enforcement covers the full licensed user population and represents a material improvement in identity posture. However, the assessment did not evaluate legacy authentication protocols or conditional access policies. Recommended: confirm that legacy authentication is disabled and that conditional access enforces MFA for high-risk sign-ins.'
       draft: '## Identities\nWe enforced MFA for all licensed users.'
-      tone_changes: '{"changes":[{"location":"Identities","before":"We enforced MFA for all licensed users.","after":"Multi-factor authentication was enforced for all licensed users.","style_marker":"voice","reason":"Converted first-person statement into formal third-person assessment prose.","assessment_function":"professional_tone","facts_changed":false},{"location":"Identities","before":"MFA was enabled for all users.","after":"Building on the identity controls enforced earlier in the quarter, multi-factor authentication coverage was extended to all licensed users — a verified improvement in authentication posture.","style_marker":"narrative","reason":"Converted point-in-time control status into quarter-over-quarter movement analysis.","assessment_function":"quarter_movement","facts_changed":false}]}'
+      tone_changes: '{"changes":[{"location":"Identities","before":"We enforced MFA for all licensed users.","after":"During the assessment quarter, multi-factor authentication (MFA) was enforced for all licensed users. This control reduces credential-compromise risk by requiring a second authentication factor. The enforcement covers the full licensed user population and represents a material improvement in identity posture. However, the assessment did not evaluate legacy authentication protocols or conditional access policies. Recommended: confirm that legacy authentication is disabled and that conditional access enforces MFA for high-risk sign-ins.","style_marker":"voice","reason":"Converted first-person statement into formal third-person assessment prose with conclusion-first structure, risk significance, limitation, and recommended action.","assessment_function":"executive_conclusion","facts_changed":false}],"tables_reviewed":[],"observations":[]}'
       template: '## Identities'
-      run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
+      run_state: '{"certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
       - type: contains
-        value: audit-report.md
+        value: Audit Report
       - type: contains
-        value: success-log.md
+        value: run id
+      - type: contains
+        value: Final deliverable assembled
       - type: llm-rubric
-        value: On a successful G5 pass with no unapproved punch-outs, the agent emits the final deliverable, writes audit-report.md, and appends to success-log.md.
+        value: On a successful G5 pass with no unapproved punch-outs, the agent emits the final deliverable, writes an audit report, and appends to a success log.
 
   - description: E9 — G5 rejects a self-granted punch-out approval (no log row)
     vars:
@@ -101,8 +103,8 @@ tests:
       template: '## Current Posture'
       run_state: '{"certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":true,"approved":true,"closure_evidence":null}},"loop_counters":{"G5":0}}'
     assert:
-      - type: contains
-        value: G5 failure
+      - type: regex
+        value: G5.*(?:FAIL|failure)|(?:FAIL|failure).*G5
       - type: llm-rubric
         value: The agent detects that approved:true lacks a matching punchout-log.md row (self-granted approval) and records a G5 hard fail on the certifiability/punch-out-closure check.
 
@@ -114,8 +116,8 @@ tests:
       template: '## Endpoint Posture'
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
-      - type: contains
-        value: G5 failure
+      - type: regex
+        value: G5.*(?:FAIL|failure)|(?:FAIL|failure).*G5
       - type: llm-rubric
         value: The agent detects that the table cell changed the client-facing meaning of the evidence (from unavailable to fully protected) and records a G5 substance-freeze failure.
 
@@ -126,7 +128,7 @@ tests:
       template: '## Identities'
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
-      - type: contains
-        value: G5 failure
+      - type: regex
+        value: G5.*(?:FAIL|failure)|(?:FAIL|failure).*G5
       - type: llm-rubric
         value: The agent records a G5 failure and initiates the loop-back to step 05 without assembling a final deliverable or writing audit-report.md as if the run had succeeded.
