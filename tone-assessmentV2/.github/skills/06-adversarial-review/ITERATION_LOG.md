@@ -4,6 +4,18 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 
 ---
 
+## Iteration 6 — Promptfoo Eval Execution on Haiku 4.5
+
+**Date:** 2026-10-21
+**Problem:** The 06 eval config shared the same execution problems as 05: no Devin provider, Windows command-line limit for `exec:` providers, and deprecated `temperature` issues. In addition, the success-case test fixture (E6) contained a `tone-changes.json` record that referenced a source sentence not present in `draft.md`, causing the G5 substance-freeze check to fail even on an intended pass case.
+**Change:** Reused the shared custom promptfoo provider `.github/skills/promptfoo-anthropic-provider.js`. Updated the 06 config to use it for generation and the standard Anthropic provider for grading. Replaced exact-string `G5 failure` / `STOP` assertions with `regex` patterns that match Haiku 4.5's varied output phrasing. Corrected the E6 success-case inputs so `draft.md`, `toned.md`, and `tone-changes.json` are mutually consistent and demonstrate assessment-quality synthesis.
+**Design decisions:**
+- No changes to `SKILL.md`; the provider gives eval-only execution context and the fixtures are aligned with the skill's quality bar.
+- Use regex assertions because Haiku 4.5 emits G5 results as `G5 FAIL`, `G5 FAILED`, `Result: FAIL`, `RUN NOT FINALIZED`, etc.
+**Eval status:** `promptfoo eval` executed 2026-10-21. **9 passed / 0 failed / 0 errors** using `anthropic:messages:claude-haiku-4-5-20251001`.
+
+---
+
 ## Iteration 5 — G5 Two-Key Certifiability Check
 
 **Date:** 2026-10-21

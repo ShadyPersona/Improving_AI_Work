@@ -81,16 +81,32 @@ For an examiner reviewing this workflow, the evidence lives in:
 | Prompt evolution / EDD | `.github/skills/05-tone-consistency/ITERATION_LOG.md`, `.github/skills/06-adversarial-review/ITERATION_LOG.md` |
 | Version lineage | `VERSION_HISTORY.md` + Git tags `tone-assessment-v1` and `tone-assessment-v2` |
 
-**Note:** Promptfoo evals and real Copilot runs require populated API keys and actual executions. The skill configs and log formats are ready; the pass/fail results and run records must be produced by running the workflow.
+**Note:** Promptfoo evals and real Copilot runs require populated API keys. The evals were executed 2026-10-21 (9/9 pass on both skills); real Copilot run records are in `audit/` and `runs/`.
 
 ## Evals
 
-Each skill ships a Promptfoo config under `evals/`. Run from the skill's
-`evals/` directory after setting `OPENAI_API_KEY` and `ANTHROPIC_API_KEY`:
+Each skill ships a Promptfoo config under `evals/`. The configs use a custom
+provider (`.github/skills/promptfoo-anthropic-provider.js`) that loads the full
+`SKILL.md`, injects the test inputs, and calls the Anthropic Messages API
+through the proxy configured via `ANTHROPIC_BASE_URL` and `ANTHROPIC_API_KEY`.
 
-```
+Run from the skill's `evals/` directory after copying `.env.example` to `.env`
+and filling in the key/base URL:
+
+```powershell
+cd .github/skills/05-tone-consistency/evals
+promptfoo eval
+
+cd .github/skills/06-adversarial-review/evals
 promptfoo eval
 ```
+
+**Latest results (2026-10-21, `claude-haiku-4-5-20251001`):**
+
+| Skill | Pass / Fail / Error |
+|---|---|
+| 05-tone-consistency | **9 / 0 / 0** |
+| 06-adversarial-review | **9 / 0 / 0** |
 
 Record the summary in the corresponding `ITERATION_LOG.md`.
 

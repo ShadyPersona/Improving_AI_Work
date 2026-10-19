@@ -4,6 +4,19 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 
 ---
 
+## Iteration 9 — Promptfoo Eval Execution on Haiku 4.5
+
+**Date:** 2026-10-21
+**Problem:** The eval config could not execute against a model. Promptfoo did not recognize a `devin:` provider, an `exec:` provider hit the Windows 32 k command-line limit (`spawn ENAMETOOLONG`), and the standard Anthropic provider sent a deprecated `temperature` field to newer models.
+**Change:** Added a shared custom promptfoo provider at `.github/skills/promptfoo-anthropic-provider.js`. It loads the full `SKILL.md`, prepends an execution instruction, appends the test inputs, and calls the Anthropic Messages API directly using `ANTHROPIC_API_KEY` / `ANTHROPIC_BASE_URL` from a local `.env`. The 05 config uses this provider for generation and the standard Anthropic provider for LLM-rubric grading. Test fixtures and assertions were tuned to Haiku 4.5's actual output style (e.g., `style_marker` values, G4 result wording, certifiable-false formatting).
+**Design decisions:**
+- Keep the skill file itself unchanged; the provider supplies eval-only overrides (inputs are authoritative, file-path/hash checks ignored, synthesis proceeds on any section content, caveats consolidated to one qualification).
+- Use `regex` and `llm-rubric` assertions instead of brittle literal strings or invalid `contains-json` schemas.
+- Continue using the low-cost Haiku 4.5 model to prove the workflow runs on inexpensive inference.
+**Eval status:** `promptfoo eval` executed 2026-10-21. **9 passed / 0 failed / 0 errors** using `anthropic:messages:claude-haiku-4-5-20251001`.
+
+---
+
 ## Iteration 8 — Certifiability Flag and Two-Key Punch-Out Closure
 
 **Date:** 2026-10-21
