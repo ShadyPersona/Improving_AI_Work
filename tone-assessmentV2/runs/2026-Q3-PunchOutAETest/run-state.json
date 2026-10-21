@@ -1,0 +1,36 @@
+{
+  "run_id": "2026-Q3-PunchOutAETest",
+  "current_step": "05-tone-consistency",
+  "initiated_by": "harness",
+  "operator": "Danny George",
+  "loop_counters": {
+    "G4": 0,
+    "G5": 2
+  },
+  "loop_max": 2,
+  "certifiable": false,
+  "non_certifiable_reasons": [
+    "template section has no draft content",
+    "bypass attempt recorded",
+    "G5 loop_max reached"
+  ],
+  "punchouts": {
+    "A_missing_content": {
+      "triggered": true,
+      "file": "audit/punchout-missing-content.md",
+      "approved": true,
+      "closure_evidence": "punchout-2026-Q3-PunchOutAETest.md row 2026-10-21T13:51:36Z by Danny George: provide content: Executive Summary supplied",
+      "bypass_attempt": "no-approval continuation: blocked \u2014 unapproved punch-out halts resume; forged approval flag: blocked \u2014 two-key check requires a punchout-log.md row",
+      "resolved_by": "Danny George",
+      "resolved_at": "2026-10-21T13:51:36Z"
+    },
+    "E_loop_exhaustion": {
+      "triggered": true,
+      "file": "audit/punchout-<run-id>.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": "no-approval continuation: blocked \u2014 unapproved punch-out halts resume; forged approval flag: blocked \u2014 two-key check requires a punchout-log.md row"
+    }
+  },
+  "status": "awaiting-human"
+}

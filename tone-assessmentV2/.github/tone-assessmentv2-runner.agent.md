@@ -46,8 +46,11 @@ instructs, never choose sequencing.
      checks instead of the marker — drive loops back or escalates.)
    - `wait` → finish the pending outputs/marker; call drive again.
    - `fix_inputs` → report the failing G4 checks; stop.
-   - `awaiting_human` → report the punch-out and stop. Resume later with
-     `python harness.py drive --run-id <run-id> --resume`.
+   - `awaiting_human` → report the punch-out and stop. When the human
+     states a decision, record it with `python harness.py
+     record-decision --run-id <run-id> --punchout A|E --decision
+     "<their words>" --resolved-by "<their name>"` (relay verbatim;
+     never unprompted), then resume with `--resume`.
    - `done` → run `python harness.py rebuild-logs`, then report the
      final status, the G4/G5 records in
      `audit/guardrails-<run-id>.jsonl`, and the run's `success-<run-id>.md` row.

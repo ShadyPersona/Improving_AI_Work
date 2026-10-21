@@ -1,0 +1,3 @@
+| 2026-10-21 | 2026-Q3-PunchOutETest-r2 | E: loop-exhaustion | G5 loop_max reached | none attempted (halt honored) | not applicable (halt honored) | pending: approve retry / accept halt |  |  |
+| 2026-10-21 | 2026-Q3-PunchOutETest-r2 | E: loop-exhaustion | systematic bypass test via harness bypass-test | no-approval continuation; forged approval flag | blocked | bypass test recorded; run permanently non-certifiable | harness | 2026-10-21T16:00:12Z |
+| 2026-10-21 | 2026-Q3-PunchOutETest-r2 | E: loop-exhaustion | human decision recorded via record-decision | none (decision, not bypass) | not applicable | approve retry — banned pattern was a deliberate test fixture | Danny George | 2026-10-21T16:48:49Z |

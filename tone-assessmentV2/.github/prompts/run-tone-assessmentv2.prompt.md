@@ -22,7 +22,11 @@ Loop until the action is `done` or `awaiting_human`:
    write `punchout-missing-content.md` instead of `toned.md`.)
 3. `wait` → finish the missing outputs/marker, call drive again.
 4. `fix_inputs` → report the failing G4 checks; stop.
-5. `awaiting_human` → report the punch-out; stop. On resume use
+5. `awaiting_human` → report the punch-out; stop. When the human
+   states a decision, record it with
+   `python harness.py record-decision --run-id ${input:run-id}
+   --punchout A|E --decision "<their words>" --resolved-by "<their
+   name>"` (relay verbatim; never unprompted), then resume with
    `python harness.py drive --run-id ${input:run-id} --resume`.
 6. `done` → run `python harness.py rebuild-logs` on the mirror, sync
    the rebuilt `guardrails.jsonl` / `success-log.md` /

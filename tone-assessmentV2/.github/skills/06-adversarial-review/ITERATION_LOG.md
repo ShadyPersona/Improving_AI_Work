@@ -4,6 +4,17 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 
 ---
 
+## Iteration 7 — Sonnet 5.5 Migration + Eval Re-execution
+
+**Date:** 2026-10-21
+**Problem:** After the workflow migrated to `claude-sonnet-5-5`, the eval suite initially failed several cases. Diagnosis: Sonnet enforces G5 *more strictly* than Haiku — the E6 happy-path fixture's `toned.md` lacked the analytical depth (conclusion-first, significance, cross-signal synthesis) the G5 assessment-quality check demands, so the intended pass case correctly failed. Phrasing also differed (`G5 FAIL` vs `FAIL — G5`, etc.).
+**Change:** No `SKILL.md` changes. E6 fixture `toned.md` enriched to carry genuine analytical facts; `run_id` added to the fixture and the run-id assertion folded into the rubric; regexes widened to case-insensitive `G5.*(?:FAIL|failure)|(?:FAIL|failure).*G5` shapes; E4 regex widened; the success-log expectation corrected (the harness — not the step — writes success-log).
+**Design decisions:**
+- The failures were fixture/assertion fidelity issues, not skill defects — Sonnet's stricter G5 enforcement is a *feature* confirmation of the gate.
+**Eval status:** `promptfoo eval` executed 2026-10-21 on `anthropic:messages:claude-sonnet-5-5`. **9 passed / 0 failed / 0 errors** (`eval-5cm-2026-10-21T03:52:22`).
+
+---
+
 ## Iteration 6 — Promptfoo Eval Execution on Haiku 4.5
 
 **Date:** 2026-10-21

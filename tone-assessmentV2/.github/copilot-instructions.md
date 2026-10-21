@@ -14,8 +14,12 @@ works in this repository.
 - When `drive` returns `execute_step`: read the `prompt_file`, produce the
   `expected_outputs` in `runs/<run-id>/`, then write the `done_marker`
   file. Call `drive` again.
-- When `drive` returns `awaiting_human`: stop and ask the human. Resume
-  only with `--resume` after the human records a decision.
+- When `drive` returns `awaiting_human`: stop and ask the human. When
+  the human states a decision, record it with
+  `python harness.py record-decision --run-id <id> --punchout A|E
+  --decision "<their words>" --resolved-by "<their name>"`, then resume
+  with `--resume`. Relay the human's words verbatim — never invent or
+  soften a decision, and never run record-decision unprompted.
 - Full usage: `README.md §Running the workflow`; run the driver via
   `.github/prompts/run-tone-assessmentv2.prompt.md` or the
   `tone-assessmentv2-runner` agent.

@@ -1,7 +1,7 @@
 {
   "model": "claude-sonnet-5-5",
   "price_usd_per_1k_tokens": { "input": 0.003, "output": 0.015 },
-  "metering": { "session_log_path": null, "estimation_chars_per_token": 4 },
+  "metering": { "session_log_path": null, "estimation_chars_per_token": 1.75 },
   "loop_max": 2,
   "operator": "Danny George",
   "default_template": "CSA Template.md"

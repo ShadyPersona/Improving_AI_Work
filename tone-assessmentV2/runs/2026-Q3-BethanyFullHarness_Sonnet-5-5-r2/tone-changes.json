@@ -1,0 +1,345 @@
+{
+  "certifiable": true,
+  "changes": [
+    {
+      "location": "Executive Summary › paragraph 4 (score movement)",
+      "before": "The current overall Secure Score is 27.35% (76.02 of 278 points), compared with 27.97% (79.15 of 283 points) in Q2. The changed scoring baseline prevents this difference from being interpreted as a like-for-like deterioration in security. Q3 performance remained broadly around 27–28%, with repeated Outlook add-in scoring swings. User-MFA credit improved modestly during Q3; additional administrator-MFA progress appeared in October, but neither control is complete. No prior recommendation can be confirmed as resolved.",
+      "after": "The Q2-to-Q3 difference in overall Secure Score does not show that security deteriorated. The current overall Secure Score is 27.35% (76.02 of 278 points), compared with 27.97% (79.15 of 283 points) in Q2, and the changed scoring baseline prevents the difference from being interpreted as a like-for-like deterioration in security. Q3 performance remained broadly around 27–28%, with repeated Outlook add-in scoring swings. User-MFA credit improved modestly during Q3; additional administrator-MFA progress appeared in October, but neither control is complete. No prior recommendation can be confirmed as resolved.",
+      "style_marker": "assessment_first",
+      "reason": "Leads with the supported conclusion about score movement before presenting the figures.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Posture Summary › paragraph 1",
+      "before": "Identity Secure Score is 49.32%, Apps is 20.71%, and Data is 0%. Current recommendations evaluate nine available points across DLP, sensitivity labels, data mapping, and automatic labeling, with none credited. Microsoft also credits several identity, email, and audit controls as complete. These credits describe current Microsoft assessment results, not verified Q3 implementation milestones or proof of comprehensive protection. Microsoft has confirmed that some security settings are in place, but important gaps remain, especially in data protection. A completed Secure Score recommendation does not always mean the organization is fully protected.",
+      "after": "Data protection is the weakest area of the current posture: the Data score is 0%, compared with 49.32% for Identity and 20.71% for Apps. Current recommendations evaluate nine available points across DLP, sensitivity labels, data mapping, and automatic labeling, with none credited. Microsoft also credits several identity, email, and audit controls as complete. These credits describe current Microsoft assessment results, not verified Q3 implementation milestones or proof of comprehensive protection. Microsoft has confirmed that some security settings are in place, but important gaps remain, especially in data protection. A completed Secure Score recommendation does not always mean the organization is fully protected.",
+      "style_marker": "assessment_first",
+      "reason": "Replaces a data-first opening with the conclusion the three category scores support.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Posture Summary › paragraph 1",
+      "before": "Data protection is the weakest area of the current posture: the Data score is 0%, compared with 49.32% for Identity and 20.71% for Apps. Current recommendations evaluate nine available points across DLP, sensitivity labels, data mapping, and automatic labeling, with none credited. Microsoft also credits several identity, email, and audit controls as complete. These credits describe current Microsoft assessment results, not verified Q3 implementation milestones or proof of comprehensive protection. Microsoft has confirmed that some security settings are in place, but important gaps remain, especially in data protection. A completed Secure Score recommendation does not always mean the organization is fully protected.",
+      "after": "Data protection is the weakest area of the current posture: the Data score is 0%, compared with 49.32% for Identity and 20.71% for Apps. Current recommendations evaluate nine available points across DLP, sensitivity labels, data mapping, and automatic labeling, with none credited. Microsoft also credits several identity, email, and audit controls as complete. These credits describe current Microsoft assessment results, not verified Q3 implementation milestones or proof of comprehensive protection. Microsoft has confirmed that some security settings are in place, but important gaps remain, especially in data protection. A completed Secure Score recommendation does not by itself establish that the organization is fully protected.",
+      "style_marker": "banned_patterns",
+      "reason": "Removes the banned absolute term and states the calibration limit directly.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Control Movement and Baseline Changes › paragraph 1",
+      "before": "Overall Secure Score moved from 27.23% (77.07/283) in Q1 to 27.97% (79.15/283) in Q2. The current validation value of 27.35% (76.02/278) is 0.62 percentage points and 3.13 earned points below Q2, while possible points decreased from 283 to 278. The Q3 trend remained broadly around 27–28%, with brief spikes. Repeated three-point gains and losses on the Outlook add-in recommendation contribute to the movement, but do not establish deliberate configuration changes or a reporting fault.",
+      "after": "Overall Secure Score stayed within a narrow range from Q1 through the current validation, and the reduction in possible points limits direct comparison. The score moved from 27.23% (77.07/283) in Q1 to 27.97% (79.15/283) in Q2. The current validation value of 27.35% (76.02/278) is 0.62 percentage points and 3.13 earned points below Q2, while possible points decreased from 283 to 278. The Q3 trend remained broadly around 27–28%, with brief spikes. Repeated three-point gains and losses on the Outlook add-in recommendation contribute to the movement, but do not establish deliberate configuration changes or a reporting fault.",
+      "style_marker": "assessment_first",
+      "reason": "Opens with the quarter-over-quarter conclusion and its comparability limit before the supporting scores.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › table › row: Data Protection",
+      "before": "The Data category has zero credit across nine points indicating that Bethany is weak in Data protection and Data Loss Prevention.",
+      "after": "The Data category has zero credit across nine points, which indicates a continuing gap in data protection and Data Loss Prevention.",
+      "style_marker": "neutral_perspective",
+      "reason": "Replaces an evaluative phrase about the client with a neutral statement of the supported gap and fixes the comma.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › table › row: Detection & Operational Readiness",
+      "before": "Audit search is credited but mailbox auditing is not. A separate policy would need created for mailbox auditing.",
+      "after": "Audit search is credited, but mailbox auditing is not. A separate policy would need to be created for mailbox auditing.",
+      "style_marker": "grammar",
+      "reason": "Corrects the missing infinitive and the comma before the contrasting clause.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › table › row: Cloud Workload & Attack Paths",
+      "before": "Cloud workload inventory or attack-path evidence cannot be assessed",
+      "after": "No cloud workload inventory or attack-path evidence was available, so the domain cannot be assessed.",
+      "style_marker": "evidence_integration",
+      "reason": "Integrates the evidence gap as context with a subject, verb, and consequence instead of a bare fragment.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › paragraph 2",
+      "before": "Q1 reported three of eight administrators without MFA protection; Q2 reported four of eight. Q3 reported three out of seven. User-MFA credit rose from 4.73/9 in July to 5.04/9 in September, supporting modest Q3 progress. The earlier student-MFA risk acceptance remains historical context, not a reconfirmed current decision, and should be revisited when the identity baseline is reviewed.",
+      "after": "Unprotected administrator accounts persisted in each quarter. Q1 reported three of eight administrators without MFA protection, Q2 reported four of eight, and Q3 reported three of seven. User-MFA credit rose from 4.73/9 in July to 5.04/9 in September, supporting modest Q3 progress. The earlier student-MFA risk acceptance remains historical context, not a reconfirmed current decision, and should be revisited when the identity baseline is reviewed.",
+      "style_marker": "terminology",
+      "reason": "States the multi-quarter finding first and uses one count format across the three quarters.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › table › row: Administrator MFA 5.71/10; user MFA 5/9",
+      "before": "MFA remains partial and needs addressed.",
+      "after": "MFA credit remains partial, and the gap needs to be addressed.",
+      "style_marker": "complete_sentences",
+      "reason": "Corrects the missing verb form and ties the recommended response to the stated gap.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › table › row: Restrict user consent to applications 0/4",
+      "before": "Review administrator approval of application permissions. The CIS target is no user consent which ensures no malicious consent is granted.",
+      "after": "Review administrator approval of application permissions. The CIS target is no user consent, which is intended to prevent the granting of malicious consent.",
+      "style_marker": "qualification_discipline",
+      "reason": "Calibrates an absolute assurance claim to the intent of the control and fixes the comma.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › table › row: User-risk policy 0/7; sign-in-risk policy 0/7",
+      "before": "Risk-based controls need implemented but are contingent on verified entitlements and business need.",
+      "after": "Risk-based controls need to be implemented, but they are contingent on verified entitlements and business need.",
+      "style_marker": "grammar",
+      "reason": "Corrects the missing infinitive and separates the action from its stated condition.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › paragraph 4",
+      "before": "Microsoft currently credits password hash synchronization, Exchange Online modern authentication, self-service password reset for all users, SharePoint inactive-session sign-out, least-privileged administrative roles, and the presence of more than one global administrator. Those results do not close the MFA gaps. Improving recommends retaining the Q2 identity-baseline recommendation, adding consent and SharePoint authentication checks, and confirming entitlements before selecting Security Defaults, Conditional Access, or risk-based capabilities.",
+      "after": "In the current validation results, Microsoft credits password hash synchronization, Exchange Online modern authentication, self-service password reset for all users, SharePoint inactive-session sign-out, least-privileged administrative roles, and the presence of more than one global administrator. Those results do not close the MFA gaps. Improving recommends retaining the Q2 identity-baseline recommendation, adding consent and SharePoint authentication checks, and confirming entitlements before selecting Security Defaults, Conditional Access, or risk-based capabilities.",
+      "style_marker": "temporal_precision",
+      "reason": "Removes a banned vague temporal term and anchors the statement to the validation results.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › table › row: Default DLP 0/5",
+      "before": "Create a policy meeting institutional needs, its covered locations, and enforcement.",
+      "after": "Create a policy that meets institutional needs and defines its covered locations and enforcement.",
+      "style_marker": "complete_sentences",
+      "reason": "Repairs a malformed parallel structure so the recommended action is unambiguous.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Detection and Operational Readiness › paragraph 1",
+      "before": "Detection and operational readiness have limited configuration assurance. Microsoft 365 audit-log search receives full credit at 3/3, while the separate mailbox-auditing recommendation receives 0/3. These results remain distinct because audit-search availability does not establish complete mailbox logging, retention, monitoring, or investigation coverage. There needs to be a separate mailbox-auditing policy implemented to receive credit for that recommendation. Audit-search credit does not establish detection or response effectiveness. Mailbox auditing should be validated with the collaboration settings.",
+      "after": "Detection and operational readiness have limited configuration assurance. Microsoft 365 audit-log search receives full credit at 3/3, while the separate mailbox-auditing recommendation receives 0/3. These results remain distinct because audit-search availability does not establish complete mailbox logging, retention, monitoring, or investigation coverage. A separate mailbox-auditing policy must be implemented for that recommendation to receive credit. Audit-search credit does not establish detection or response effectiveness. Mailbox auditing should be validated with the collaboration settings.",
+      "style_marker": "plain_voice",
+      "reason": "Replaces an expletive construction with a direct statement of the required action.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Detection and Operational Readiness › paragraph 2",
+      "before": "No alert, incident, investigation, or response-performance evidence was available as Bethany College’s current environment is not set up to include the capabilities needed for that evaluation.",
+      "after": "No alert, incident, investigation, or response-performance evidence was available because Bethany College’s current environment is not set up to include the capabilities needed for that evaluation.",
+      "style_marker": "sentence_discipline",
+      "reason": "States the cause of the evidence gap explicitly.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › table › row: 1",
+      "before": "Open. MFA completion is partial. Improving recommends either implementing Microsoft Security Defaults, or a phased approach based on Bethany College's security requirements, risk tolerance, and budget.Option 1: Enable Microsoft Entra Security Defaults",
+      "after": "Open. MFA completion is partial. Improving recommends either implementing Microsoft Security Defaults, or a phased approach based on Bethany College’s security requirements, risk tolerance, and budget.Option 1: Enable Microsoft Entra Security Defaults",
+      "style_marker": "banned_patterns",
+      "reason": "Replaces the straight apostrophe so punctuation is consistent with the rest of the report.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › table › row: 4",
+      "before": "New priority. Repeated three-point swings between completed and incomplete. Further review is needed.",
+      "after": "New priority. The recommendation showed repeated three-point swings between completed and incomplete, so further review is needed.",
+      "style_marker": "complete_sentences",
+      "reason": "Converts a verbless fragment into a sentence that links the evidence to the recommended response.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › table › row: 5.2.2.1; 5.2.2.2; 5.2.2.3; 5.1.5.1",
+      "before": "MFA and legacy blocking: E3/E5 Level 1. Consent: E3/E5 Level 2. Audit the enabled policy coverage and require administrator consent rather than rely on partial score credit.",
+      "after": "MFA and legacy blocking: E3/E5 Level 1. Consent: E3/E5 Level 2. Audit the enabled policy coverage and require administrator consent rather than relying on partial score credit.",
+      "style_marker": "grammar",
+      "reason": "Corrects the verb form after the preposition.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › table › row: 5.2.2.1; 5.2.2.2; 5.2.2.3; 5.1.5.1",
+      "before": "Open. MFA partial; legacy blocking and consent uncredited.",
+      "after": "Open. MFA is partially credited, while legacy blocking and consent are uncredited.",
+      "style_marker": "complete_sentences",
+      "reason": "Converts a semicolon-joined fragment into a complete sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › table › row: 3.2.1; 3.3.1",
+      "before": "E3/E5 Level 1. Verify a DLP policy meeting institutional needs is enabled for a covered location. Validate published label policies separately from automatic-labeling capabilities.",
+      "after": "E3/E5 Level 1. Verify that a DLP policy meeting institutional needs is enabled for a covered location. Validate published label policies separately from automatic-labeling capabilities.",
+      "style_marker": "grammar",
+      "reason": "Adds the conjunction that makes the instruction grammatical.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › table › row: 3.2.1; 3.3.1",
+      "before": "Open. DLP and labeling uncredited",
+      "after": "Open. DLP and labeling are uncredited.",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the missing verb and terminal punctuation to the status sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › table › row: 1.3.3; 6.3.1",
+      "before": "Open. External Sharing 0/5, and  add-ins 0/3.",
+      "after": "Open. External sharing scores 0/5, and add-ins score 0/3.",
+      "style_marker": "complete_sentences",
+      "reason": "Adds verbs, removes the stray double space, and aligns the label with the rest of the report.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › table › row: 7.2.1",
+      "before": "Open. SharePoint recommendation 0/1",
+      "after": "Open. The SharePoint recommendation scores 0/1.",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the missing verb and terminal punctuation to the status sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › Advisory Recommendations › table › row: 2026 Q1–Q2",
+      "before": "The earlier student-MFA acceptance is not a renewed Q3 decision. Prior unprotected administrator counts were three of eight in Q1 and four of eight in Q2, Q3 reported three out of seven.",
+      "after": "The earlier student-MFA acceptance is not a renewed Q3 decision. Prior unprotected administrator counts were three of eight in Q1 and four of eight in Q2, and Q3 reported three of seven.",
+      "style_marker": "sentence_discipline",
+      "reason": "Repairs a comma splice and uses the same count format as the Identity section.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture",
+      "purpose": "Posture indicator and interpretation per security domain",
+      "rows": 9,
+      "rows_edited": 3
+    },
+    {
+      "location": "Security Signal Review › Identity and Access",
+      "purpose": "Identity control evidence with CIS and NIST mapping",
+      "rows": 6,
+      "rows_edited": 3
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities (exposure counts)",
+      "purpose": "Exposure level counts for Q1 to Q3",
+      "rows": 4,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities (control evidence)",
+      "purpose": "Endpoint control evidence with CIS and NIST mapping",
+      "rows": 2,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration",
+      "purpose": "Data and collaboration control evidence with CIS and NIST mapping",
+      "rows": 6,
+      "rows_edited": 1
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure",
+      "purpose": "Cloud workload control evidence with CIS and NIST mapping",
+      "rows": 2,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage",
+      "purpose": "AI control evidence with CIS and NIST mapping",
+      "rows": 2,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Security Awareness",
+      "purpose": "Security Awareness call-out (exempt from rewrite; preserved verbatim)",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations",
+      "purpose": "Prioritized active recommendations with status",
+      "rows": 7,
+      "rows_edited": 2
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark",
+      "purpose": "CIS-aligned recommendations with status",
+      "rows": 5,
+      "rows_edited": 4
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › CIS Recommendations",
+      "purpose": "Historical CIS recommendations",
+      "rows": 2,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › Advisory Recommendations",
+      "purpose": "Historical advisory recommendations",
+      "rows": 3,
+      "rows_edited": 1
+    }
+  ],
+  "observations": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › introduction",
+      "type": "template_deviation",
+      "detail": "The template states that indicators are carried forward from the previous assessment. The draft states that the previous quarterly assessment did not assign domain indicators. The draft wording was retained.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › exposure table",
+      "type": "terminology",
+      "detail": "The exposure table uses 'Unassessed' while the rest of the report uses 'Not assessed' for the same condition. The draft does not establish that the terms differ, so both were retained.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › Status column",
+      "type": "template_deviation",
+      "detail": "The template requires 'MM.DD.YYYY - <STATUS DESCRIPTION>' in the Status column. The draft supplies no per-item dates, so the draft status wording was retained.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › Identified column",
+      "type": "template_deviation",
+      "detail": "The template format is 'YYYY.QQ'. The draft uses '2026 Q1; expanded Q2' and '2023 Q3' style values. The draft values were retained.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Executive Summary › paragraph 4 and Security Signal Review › Identity and Access",
+      "type": "cross_reference",
+      "detail": "The Executive Summary attributes additional administrator-MFA progress to October. The Identity section reports three of seven administrators unprotected for Q3 and an administrator MFA score of 5.71/10, which both correspond to four of seven protected. The draft does not state a separate October administrator value.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › paragraph 2 and Identity table",
+      "type": "table_prose_mismatch",
+      "detail": "The prose reports user-MFA credit rising from 4.73/9 in July to 5.04/9 in September as modest Q3 progress. The Identity table reports the current user-MFA score as 5/9, which is below the September value. The draft does not explain the difference.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Recommended Security Actions › Security Awareness",
+      "type": "cross_reference",
+      "detail": "The Security Awareness content addresses cloud misconfigurations and shadow APIs, while the Cloud Workload section reports no workload evidence. The content was preserved verbatim under the Security Awareness exemption.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › paragraph 1 and Data table",
+      "type": "total_reconciliation",
+      "detail": "The nine Data points reconcile to the table components: Default DLP 0/5, sensitivity labels 0/2, Purview data mapping 0/1, and automatic labeling 0/1. No mismatch was found.",
+      "action_required": "confirm"
+    }
+  ]
+}

@@ -12,7 +12,7 @@ runs/2026-Q3-IRONTRAX/
 ├── toned.md              # step 05 output
 ├── tone-changes.json     # step 05 output → ../schemas/tone-changes.schema.json
 ├── audit-report.md       # step 06 output (run summary)
-├── run-state.json        # copied from templates/, updated each step
+├── run-state.json        # seeded from templates/, updated by the harness
 └── final-report.<ext>    # step 06 output (client deliverable, template format)
 ```
 

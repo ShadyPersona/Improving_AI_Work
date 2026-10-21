@@ -1,0 +1,123 @@
+{
+  "certifiable": false,
+  "changes": [
+    {
+      "location": "Executive Summary › paragraph 5, sentence 1",
+      "before": "Bethany College should continue to use this report to guide risk-based remediation rather than pursue score improvement as an end goal.",
+      "after": "We recommend that Bethany College continue to use this report to guide risk-based remediation rather than pursue score improvement as an end goal.",
+      "style_marker": "voice",
+      "reason": "DELIBERATE TEST EDIT: converts the sentence to first person (\"We recommend\") so that the deterministic G5 banned-pattern scan fails and exercises the loop-back and punch-out E gates; this is a banned first-person pattern and not a recommended editorial change.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Posture Summary",
+      "before": "A completed Secure Score recommendation does not always mean the organization is fully protected.",
+      "after": "A completed Secure Score recommendation does not by itself mean the organization is fully protected.",
+      "style_marker": "banned_patterns",
+      "reason": "Removed the absolute quantifier \"always\" while keeping the calibration that a completed recommendation does not prove full protection.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access",
+      "before": "Microsoft currently credits password hash synchronization,",
+      "after": "Microsoft credits password hash synchronization,",
+      "style_marker": "temporal_precision",
+      "reason": "Removed the vague temporal term \"currently\"; the credited controls are unchanged.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row: 1",
+      "before": "| 1 | 2026 Q1; expanded Q2 | Establish a security baseline and mature identity protection. Complete administrator MFA and broaden user protection. Validate legacy-authentication blocking, consent approval, and SharePoint modern authentication. Confirm entitlements and operational exceptions before selecting the policy approach.  Document the chosen policy approach and revisit the historical student-MFA exception. | Open. MFA completion is partial. Improving recommends either implementing Microsoft Security Defaults, or a phased approach based on Bethany College's security requirements, risk tolerance, and budget. Option 1: Enable Microsoft Entra Security Defaults  Option 2: Upgrade to Microsoft 365 A3  Option 3: Upgrade to Microsoft 365 A5  See 2026 Q2 report for further details. |",
+      "after": "| 1 | 2026 Q1; expanded Q2 | Establish a security baseline and mature identity protection. Complete administrator MFA and broaden user protection. Validate legacy-authentication blocking, consent approval, and SharePoint modern authentication. Confirm entitlements and operational exceptions before selecting the policy approach.  Document the chosen policy approach and revisit the historical student-MFA exception. | Open. MFA completion is partial. Improving recommends either implementing Microsoft Security Defaults, or a phased approach based on the security requirements, risk tolerance, and budget of Bethany College. Option 1: Enable Microsoft Entra Security Defaults  Option 2: Upgrade to Microsoft 365 A3  Option 3: Upgrade to Microsoft 365 A5  See 2026 Q2 report for further details. |",
+      "style_marker": "banned_patterns",
+      "reason": "Replaced the apostrophe-s possessive that the contraction scan matches with an equivalent \"of Bethany College\" construction.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture (draft lines 53-64)",
+      "purpose": "Posture indicator and interpretation for each security domain",
+      "rows": 8,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Identity and Access (draft lines 92-100)",
+      "purpose": "Identity control evidence with CIS and NIST mappings and interpretation",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › Exposure (draft lines 110-116)",
+      "purpose": "Exposure level counts by quarter",
+      "rows": 3,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › Evidence (draft lines 118-120)",
+      "purpose": "Endpoint control evidence with CIS and NIST mappings",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration (draft lines 132-140)",
+      "purpose": "Data protection and collaboration control evidence with mappings",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure (draft lines 150-154)",
+      "purpose": "Cloud workload control evidence with mappings",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage (draft lines 162-164)",
+      "purpose": "AI usage control evidence with mappings",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Security Awareness (draft lines 178-180)",
+      "purpose": "Security Awareness call-out (exempt from rewrite)",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations (draft lines 184-195)",
+      "purpose": "Active recommendations with priority, identification quarter and status",
+      "rows": 6,
+      "rows_edited": 1
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark (draft lines 201-206)",
+      "purpose": "CIS benchmark recommendations and status",
+      "rows": 4,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › CIS (draft lines 220-222)",
+      "purpose": "History of CIS recommendations",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › Advisory (draft lines 226-229)",
+      "purpose": "History of advisory recommendations",
+      "rows": 2,
+      "rows_edited": 0
+    }
+  ],
+  "observations": [
+    {
+      "location": "Recommended Security Actions › Active Recommendations and CIS Microsoft 365 Foundation Benchmark › Status column",
+      "type": "template_deviation",
+      "detail": "The template Status format is MM.DD.YYYY - <STATUS DESCRIPTION>. The draft supplies no per-item dates, so the draft values were retained (0 of 6 checked Active Recommendations rows carry the template date format).",
+      "action_required": "accept deviation"
+    }
+  ]
+}

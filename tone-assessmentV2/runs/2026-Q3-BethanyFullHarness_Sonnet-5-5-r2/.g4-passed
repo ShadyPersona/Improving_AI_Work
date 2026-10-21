@@ -1,0 +1,8 @@
+{
+  "gate": "G4",
+  "run_id": "2026-Q3-BethanyFullHarness_Sonnet-5-5-r2",
+  "hashes": {
+    "draft": "77937726dd2ad7787b3c3c62481bfdc0b451c867aee6891008aa26ddc4cb89e2",
+    "template": "bc452ab9ca8ad88fdcb78e03bd20848435a3dccb08351b65f92ae4c1e35bdd67"
+  }
+}

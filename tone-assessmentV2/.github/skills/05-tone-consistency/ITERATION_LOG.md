@@ -4,6 +4,17 @@ Evidence of prompt evolution following Red/Green/Refactor (EDD) discipline.
 
 ---
 
+## Iteration 10 — Sonnet 5.5 Migration + Eval Re-execution
+
+**Date:** 2026-10-21
+**Problem:** The harness migrated the workflow's production model to `claude-sonnet-5-5`; the eval suite had been executed and tuned against Haiku 4.5, and first Sonnet run showed 6/9. Sonnet produced legitimately different phrasing (halted/missing-input wording), one fixture was genuinely incomplete (E2 draft lacked the sections needed for a passing synthesis), and the E9 rubric judged punch-out *compliance* inversely to intent.
+**Change:** No `SKILL.md` changes. E1 regex widened to accept halt/missing-input phrasing variants; E2 fixture `draft.md` completed (Executive Summary, Identities, Devices); E9 rubric inverted to judge non-certifiable/punch-out behavior directly; YAML scalar fix (`certifiable: false` quoted).
+**Design decisions:**
+- Fixture and assertion fixes only — the skill prompt's standards were correct; Sonnet failed the run initially on *test harness* fidelity, not skill behavior.
+**Eval status:** `promptfoo eval` executed 2026-10-21 on `anthropic:messages:claude-sonnet-5-5`. **9 passed / 0 failed / 0 errors** (`eval-odI-2026-10-21T03:39:47`).
+
+---
+
 ## Iteration 9 — Promptfoo Eval Execution on Haiku 4.5
 
 **Date:** 2026-10-21

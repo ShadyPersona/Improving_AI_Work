@@ -223,6 +223,16 @@ Per-run result appended to `audit/success-<run-id>.md`:
 loop_max escalation — awaiting human decision), `stopped` (human-directed
 stop). No other values are written.
 
+`run-state.json` `status` reaches a terminal state of `finalized` or
+`non-finalizable` (all punch-outs closed but `certifiable` permanently
+false — e.g. a recorded bypass attempt; no human decision remains).
+Intermediate states: `in-progress`, `needs-g4`, `needs-step05`,
+`needs-step06`, `awaiting-human`, `escalated`, `stopped`, `failed`.
+
+`audit/success-report.md` is a derived summary (`rebuild-logs`) that
+splits production runs from gate-test runs (run-ids containing `Test`,
+where `halted` is the expected pass state) and computes the rates.
+
 Success rate = successful runs / total runs, measured across the full
 workflow start to finish and tracked quarter over quarter to show stability
 or improvement.
