@@ -6,5 +6,20 @@
   "connector": "SharePoint",
   "scope": "single-workflow-step",
   "tools": [],
-  "actions": []
+  "actions": [],
+  "tool_manifest": {
+    "allowed_paths": [
+      "runs/<run-id>/inventory.json",
+      "runs/<run-id>/evidence-index.json",
+      "runs/<run-id>/style-profile.json",
+      "runs/<run-id>/inputs/",
+      "schemas/",
+      "runs/<run-id>/matrix.json",
+      "runs/<run-id>/dispatch-received-02.json"
+    ],
+    "disallowed_paths": [
+      "runs/<run-id>/draft*",
+      "audit/"
+    ]
+  }
 }

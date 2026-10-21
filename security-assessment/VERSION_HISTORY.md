@@ -42,8 +42,13 @@ impossible to reuse the tone-assessment logic independently.
   then hands off to the unchanged Stage 4 `tone-assessmentV2` agents
   (`05-tone-consistency` and `06-adversarial-review`).
 - Runtime is Copilot Studio with connected agents and the SharePoint connector.
-- Evaluations run inside Copilot Studio's Evaluate tab using CSV datasets;
-  Promptfoo is not used.
+- `s5-harness.py` is the executable orchestrator: a single stdlib-only file
+  carrying the FSM, deterministic G1–G5 gates, dispatch verification,
+  metering, the six-punch-out state machine, `bypass-test`,
+  `record-decision`, and all audit writes — same proven pattern as the
+  certified Stage 4 `harness.py` (`3d1afdf5`).
+- Evaluations run on two tracks: Copilot Studio Evaluate (CSV datasets) and
+  Promptfoo on `claude-sonnet-5-5` (same pattern as the Stage-4 evals).
 
 **Agents (9 total):**
 
@@ -60,11 +65,26 @@ impossible to reuse the tone-assessment logic independently.
 | 06 | adversarial-review | copied unchanged from `tone-assessmentV2` |
 
 **Key changes:**
-- Replaced the tool-holding orchestrator with a dispatch-only coordinator.
+- Replaced the tool-holding orchestrator with a thin relay agent (zero
+  tools) plus a dispatch-only `00-coordinator` that invokes the named
+  sub-agent via connected-agent calls.
+- `s5-harness.py` owns all sequencing truth; every emitted dispatch is
+  verified against the FSM (`dispatch_received-<step>.json` →
+  `dispatch_expected` vs `dispatch_emitted`), so mis-dispatch is a
+  deterministic gate failure.
+- All gates (G1–G5) run as executable code in the harness; agent judgment
+  is a layer on top, not the gate.
+- Punch-out taxonomy re-derived for the new system: A unable-to-validate,
+  B framework-mappings, C regressions, D structure-changes (all S5-native),
+  E loop-exhaustion (any loop_max'd gate), F missing-content (V2 mechanism,
+  renamed).
 - Added candidate generation and adversarial selection to demonstrate
   adversarial review in its own context and "best version" assembly.
+- Per-agent least-privilege `tool_manifest`s (`allowed_paths`/
+  `disallowed_paths`) make context isolation structural.
 - Merged `security-assessment` and `tone-assessmentV2` run-state semantics
-  (`certifiable`, `non_certifiable_reasons`, punch-out closure evidence).
+  (`certifiable`, `non_certifiable_reasons`, punch-out closure evidence,
+  `non-finalizable` terminal state).
 - Moved the old `06-finalize` skill to `.github/skills/.archive/06-finalize-legacy/`.
 - Copied `schemas/tone-changes.schema.json` from `tone-assessmentV2`.
 

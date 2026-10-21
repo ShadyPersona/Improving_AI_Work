@@ -1,11 +1,34 @@
 # Workflow Definition — Quarterly Security Assessment Update (Stage 5)
 
 Converts the monolithic "update quarterly security assessment" skill into a
-sequential multi-agent pipeline with one fail-closed deterministic guardrail on
-every handoff, human punch-out gates, a dedicated adversarial candidate-selection
-step, and a structured audit trail. The final tone-assessment synthesis is
-performed by the unchanged Stage 4 `tone-assessmentV2` agents (`05-tone-consistency`
-and `06-adversarial-review`).
+sequential multi-agent pipeline driven by `s5-harness.py` — a single-file,
+stdlib-only executable orchestrator that owns sequencing, deterministic
+G1–G5 gates, the punch-out state machine, metering, and every audit write.
+The final tone-assessment synthesis reuses the Stage 4 `tone-assessmentV2`
+step agents (`05-tone-consistency`, `06-adversarial-review`) — Stage 4
+continuity preserved verbatim.
+
+## Execution model
+
+```
+[user] → orchestrator agent (thin entry; zero tools — relays actions only)
+            │
+   00-coordinator (dispatch verbs ONLY — invokes the named sub-agent)
+            │
+   s5-harness.py drive — deterministic FSM: names the next step, writes the
+            │  prompt file, runs the inbound gate, records metering/audit
+            ▼
+   sub-agents 01–06 — each a separate Copilot Studio agent in its own
+   context; mirrors runs/ + audit/ + schemas/, executes only the named
+   step, writes outputs + dispatch-received-<step>.json + done-marker
+```
+
+The **harness owns all sequencing truth**. The coordinator receives the
+harness's dispatch action (`execute_step` + `dispatch.agent`) and invokes
+exactly that agent — the invoked agent records the dispatch it received
+verbatim, and the harness validates it against the FSM. A wrong dispatch is
+a logged gate failure and the wrongly-named agent's outputs are rejected.
+This makes "dispatch-only coordinator" demonstrable, not asserted.
 
 ## Pipeline
 
@@ -13,170 +36,175 @@ and `06-adversarial-review`).
 [inputs]
    │
    ▼
-[00-coordinator] ──► 01-ingest ──G1──▶ 02-findings-matrix ──G2──▶ 03-draft-update (candidate A, minimal)
-   │                                                                                │
-   │                                                                                ▼
-   │                                                                    03-draft-update (candidate B, rewrite)
-   │                                                                                │
-   │                                                                                ▼
-   │                                                                    04-adversarial-review-candidate-a
-   │                                                                                │
-   │                                                                                ▼
-   │                                                                    04-adversarial-review-candidate-b
-   │                                                                                │
-   │                                                                                ▼
-   │                                                                    04b-draft-selector ──G4──▶ 05-tone-consistency ──G5──▶ 06-adversarial-review → [deliverable]
+01-ingest ──G1──▶ 02-findings-matrix ──G2──▶ 03-draft-update (candidate A, minimal)
+                                                 │
+                                                 ▼
+                                   03-draft-update (candidate B, rewrite)
+                                                 │
+                                                 ▼
+                                   04-adversarial-review-candidate-a ──G3a──▶
+                                                 │
+                                                 ▼
+                                   04-adversarial-review-candidate-b ──G3b──▶ 04b-draft-selector
+                                                                                 │
+                                                                                 ▼
+                                                                   G4 ──▶ 05-tone-consistency ──G5──▶ 06-adversarial-review → [deliverable]
    │
    ▼
-[human punch-out resolution when needed]
+[human punch-out resolution when needed — record-decision + drive --resume]
 ```
-
-The coordinator dispatches one agent at a time based on `run-state.json`. It does
-not read file contents or perform work.
 
 ## Inputs
 
-| # | Source | Placeholder |
+| # | Source | Path under `runs/<run-id>/inputs/` |
 |---|---|---|
-| 1 | Previous quarter's report (baseline) | `<PRIOR_REPORT>` |
-| 2 | Report from two quarters ago (history) | `<HISTORY_REPORT>` |
-| 3 | Current-quarter Defender export folder | `<DEFENDER_EXPORT_FOLDER>` |
-| 4 | CIS Microsoft 365 Foundations Benchmark PDF | `<CIS_PDF>` |
-| 5 | NIST CSF 2.0 reference PDF (NIST.CSWP.29) | `<NIST_PDF>` |
+| 1 | Previous quarter's report (baseline) | `prior-report.*` |
+| 2 | Report from two quarters ago (history) | `history-report.*` |
+| 3 | Current-quarter Defender export folder | `defender-export-folder/` |
+| 4 | CIS Microsoft 365 Foundations Benchmark | `cis.*` |
+| 5 | NIST CSF 2.0 reference | `nist.*` |
+
+The agent reduces .docx/.pdf inputs to markdown text before the first
+`drive` call (conversion is an agent step, not harness code).
 
 ## Step Contract
 
-Each sub-agent MUST run its inbound guardrail check and append the result to
-`audit/guardrails.jsonl` before doing any work. A failed gate halts the
-workflow.
-
-## Run Layout
-
-- Working artifacts live in `runs/<YYYY-QN>/` (see `runs/README.md`).
-- Each run begins by copying `templates/run-state.json` into the run dir; it
-tracks `loop_counters` (G4/G5, max 2), `certifiable` status, and all punch-out
-`approved` states.
-- Every JSON artifact MUST validate against `schemas/<name>.schema.json` —
-schema validation is what makes the guardrails deterministic.
-- Cross-run evidence lives in `audit/` (punch-outs, guardrails.jsonl,
-success-log.md, run-*.jsonl).
+Each sub-agent: (1) writes `dispatch-received-<step>.json` — a verbatim copy
+of the dispatch instruction it received, containing
+`"agent": "<its own name>"`; (2) executes only the step named by the
+harness's prompt file; (3) writes only its declared outputs plus a
+`.harness-step<NN>-done` marker, written last. The harness runs the inbound
+gate, writes the step record, and dispatches the next step. Agents never
+touch `run-state.json` or any audit file.
 
 | Step | Agent | Consumes | Produces |
 |---|---|---|---|
-| 00 | coordinator | `run-state.json` summary | next agent name + inputs |
+| 00 | coordinator | harness dispatch action | connected-agent invocation (no files) |
 | 01 | ingest | All 5 input sources | `inventory.json`, `evidence-index.json`, `style-profile.json` |
 | 02 | findings-matrix | ingest outputs + reports + exports | `matrix.json` |
-| 03 | draft-update | matrix + prior report + approved punch-outs A/C | `draft-candidate-a.md` + `draft-map-candidate-a.json` (strategy=minimal) |
-| 03 | draft-update | same | `draft-candidate-b.md` + `draft-map-candidate-b.json` (strategy=rewrite) |
+| 03a | draft-update | matrix + prior report + closed A/C | `draft-candidate-a.md`, `draft-map-candidate-a.json` (strategy=minimal) |
+| 03b | draft-update | same | `draft-candidate-b.md`, `draft-map-candidate-b.json` (strategy=rewrite) |
 | 04a | adversarial-review-candidate-a | candidate A + evidence | `review-candidate-a.json`, `review-candidate-a.md` |
 | 04b | adversarial-review-candidate-b | candidate B + evidence | `review-candidate-b.json`, `review-candidate-b.md` |
-| 04b-selector | draft-selector | both reviews + both drafts/maps | `draft.md`, `draft-map.json`, `review.json`, `reviewed.md`, `selection-report.json` |
-| 05 | tone-consistency | `draft.md`, prior report as template, `run-state.json` | `toned.md`, `tone-changes.json` |
-| 06 | adversarial-review | `toned.md`, all audit artifacts | Final report, `audit-report.md`, updated `audit/success-log.md` |
+| 04sel | draft-selector | both reviews + both drafts/maps | `draft.md`, `draft-map.json`, `review.json`, `reviewed.md`, `selection-report.json` |
+| 05 | tone-consistency | `draft.md` + template | `toned.md`, `tone-changes.json` |
+| 06 | adversarial-review | `toned.md` + run state | Final report, `audit-report.md` |
 
-## Guardrails
+Every step record in `audit/run-<run-id>.jsonl` carries
+`dispatch_expected` vs `dispatch_emitted`, model, input/output SHA-256
+hashes, `tokens_in`/`tokens_out`/`cost_usd`, and `metering_method` —
+never null.
 
-### G1 — ingest → matrix (Input Completeness Gate, hard fail)
-- All 5 input sources resolved, SHA-256 hash recorded in `inventory.json`;
-Defender export folder contains ≥1 file.
-- `evidence-index.json` maps every Defender export file to a security domain —
-an unmapped export fails the gate.
-- Prior report's section map and `style-profile.json` were extracted.
-- Not waivable: missing input halts the workflow.
+## Guardrails (deterministic — executable code in s5-harness.py)
 
-### G2 — matrix → draft (Evidence Citation Gate + Punch-outs A & C)
-- Schema validation of `matrix.json`: every row has an evidence file path OR
-classification `unable-to-validate`; required fields present (section,
-finding, prior state, evidence, classification, CIS ref, NIST ref).
-- **Punch-out A:** any `unable-to-validate` rows → write
-`audit/punchout-unable-to-validate.md` → halt for human sign-off.
-- **Punch-out C:** any `regressed` rows → write
-`audit/punchout-regressions.md` → halt for human confirmation.
-- Drafting is blocked until every generated punch-out file is signed off.
+| Gate | Position | Deterministic checks |
+|---|---|---|
+| G1 | after 01 | dispatch-verified; all 5 inputs present; `inventory`/`evidence-index`/`style-profile` schema-valid; 5 source roles catalogued; sha256 recorded; ≥1 export file; every export domain-mapped; section map present |
+| G2 | after 02 | dispatch-verified; `matrix` schema; every row has `evidence_path` or `unable-to-validate`; **triggers A** (unable-to-validate rows) and **C** (regressed rows) — gate fails until two-key closed |
+| G3a/G3b | after each 04 review | dispatch-verified; `draft-map` + `review` schemas; ≥1 matrix row per mapped section; CIS/NIST ref diff vs prior report → **triggers B**; section-heading (H2+) diff vs prior report → **triggers D** |
+| G4 | after 04sel | dispatch-verified; `selection-report`, `review`, `draft-map` schemas; zero `unresolved`/`rejected` claims; every `fixed` verdict has `fix_diff`; `draft.md`/`reviewed.md` present; `.g4-passed` sentinel written |
+| G5 | after 05 | dispatch-verified; D1 `.g4-passed` sentinel; D2 `tone-changes` schema; D3 banned-pattern regex; D4 substance-freeze factual-token diff; D5 change accountability; D6 two-key punch-out closure across all six punch-outs |
 
-### G3 — candidate drafts → candidate reviews (Structural & Framework Reference Gate + Punch-outs B & D)
-- CIS/NIST references extracted from each candidate draft vs prior report and
-diffed; changed/added mappings → **Punch-out B** (`audit/punchout-framework-mappings.md`).
-- Structural diff of each candidate draft headings vs prior report; added/removed
-sections → **Punch-out D** (`audit/punchout-structure-changes.md`).
-- Each `draft-map-candidate-*.json` must reference ≥1 matrix row per section —
-orphan prose is a hard fail.
+All gates run as code inside `s5-harness.py` before the next step is
+dispatched — agent judgment is a layer on top, not the gate itself.
 
-### G4 — draft-selector → tone (Zero Unresolved Claims Gate)
-- The selected `review.json` must have every claim as `confirmed` or `fixed`.
-- Every `fixed` claim carries a `fix_diff`.
-- Coverage check: claims reviewed ≥ matrix row IDs cited in `draft-map.json`.
-- Unresolved claims increment the G4 loop counter. At `loop_max` (2), escalate to
-human via `audit/punchout-log.md`.
+## Punch-Out Points (six — new system's taxonomy)
 
-### G4b — tone-consistency inbound (Input Completeness Gate)
-- `draft.md` and template (prior report) exist and are readable.
-- The template yields an extractable section/heading structure.
-- Failure = hard stop before any editing.
+| ID | Key | Trigger | Raised by | File | Human decision |
+|---|---|---|---|---|---|
+| A | `A_unable_to_validate` | findings can't be validated by current data | G2 | `audit/punchout-unable-to-validate.md` | still-present / removed / defer |
+| B | `B_framework_mappings` | CIS/NIST reference mappings changed | G3 | `audit/punchout-framework-mappings.md` | approve each change |
+| C | `C_regressions` | findings classified `regressed` | G2 | `audit/punchout-regressions.md` | confirm evidence supports it |
+| D | `D_structure_changes` | report sections added/removed | G3 | `audit/punchout-structure-changes.md` | approve/reject each change |
+| E | `E_loop_exhaustion` | any gate hits loop_max (2) | any gate | `audit/punchout-log.md` | resolve directly |
+| F | `F_missing_content` | template section has no draft content | G4→05 | `audit/punchout-missing-content.md` | provide content / drop / defer |
 
-### G5 — tone-consistency → adversarial-review-final (Tone & Assessment-Quality Gate)
-- Assessment-quality check: `toned.md` meets conclusion-first, substance-freeze,
-change-accountability, and certifiability criteria (defined in
-`05-tone-consistency/SKILL.md`).
-- Fact-preservation diff: every number, date, percentage, CIS/NIST reference,
-and finding title in `toned.md` must exist in `draft.md`.
-- Punch-out closure: every triggered punch-out is approved with matching
-`closure_evidence`.
-- Failure → loop back to step 05 (max 2 iterations → human escalation).
-
-## Punch-Out Points
-
-| ID | Trigger | Raised by | File | Human decision |
-|---|---|---|---|---|
-| A | findings can't be validated by current data | G2 | `audit/punchout-unable-to-validate.md` | still-present / removed / defer |
-| B | CIS/NIST reference mappings changed | G3 | `audit/punchout-framework-mappings.md` | approve each change |
-| C | findings classified `regressed` | G2 | `audit/punchout-regressions.md` | confirm evidence supports it |
-| D | report sections added/removed | G3 | `audit/punchout-structure-changes.md` | approve/reject each change |
-| E | G4/G5 loop exhausted (2 iterations) | G4/G5 | `audit/punchout-log.md` | resolve directly |
+Taxonomy rationale (Phase-0 review): A–D are Stage-5-native (the V2 system
+had none of them). F keeps the V2 missing-content mechanism, renamed from
+"A" to avoid collision. E is universal loop-exhaustion at any loop_max'd
+gate. Coordinator mis-dispatch is deliberately NOT a punch-out — it is a
+deterministic gate failure logged to `guardrails.jsonl`; the coordinator
+cannot reach the punch-out machinery.
 
 Every halt, bypass test, and human decision is recorded in
-`audit/punchout-log.md`.
+`audit/punchout-<run-id>.md` (per-run) and `audit/punchout-log.md`
+(aggregate). Human closures go through
+`python s5-harness.py record-decision --run-id <id> --punchout <letter>
+--decision "<verbatim>" --resolved-by "<name>"` — agents never set
+`approved: true`. `bypass-test` performs the two-path systematic bypass
+(no-approval continuation + forged approval flag) while a punch-out is
+open; a recorded bypass permanently marks the run `certifiable: false`.
+
+## Run states
+
+`in-progress → needs-stepNN ⇄ needs-GN → finalized | non-finalizable |
+awaiting-human | escalated`
+
+- `finalized` — run completed and is certifiable.
+- `non-finalizable` — terminal: all punch-outs closed but `certifiable` is
+  permanently false (e.g., a recorded bypass attempt). Valid terminal
+  state; nothing left for a human to decide.
+- `awaiting-human` — an open punch-out awaits a recorded decision.
+- `--resume` re-runs the gate where the run halted (`halted_at_gate`),
+  re-checking whatever changed during the halt.
+
+## Audit Trail
+
+Per-run files (all harness-written, agent never authors them):
+
+- `audit/run-<run-id>.jsonl` — one record per agent invocation: step,
+  model, `dispatch_expected`/`dispatch_emitted`, input/output hashes,
+  `tokens_in`, `tokens_out`, `cost_usd`, `metering_method`,
+  `guardrail_inbound`, plus `human-decision` events
+- `audit/guardrails-<run-id>.jsonl` — per-gate records (G1–G5) with
+  per-check results and iteration numbers
+- `audit/success-<run-id>.md`, `audit/punchout-<run-id>.md`
+
+Aggregates (`rebuild-logs` regenerates after every drive call):
+`guardrails.jsonl`, `success-log.md`, `punchout-log.md`,
+`success-report.md` (production vs gate-test split).
+
+Metering disclosure: the runtime is inspected for a real usage source
+first (`metering.session_log_path` in `s5-harness.config.json`); absent
+one, figures are a calibrated deterministic estimate (chars/1.75, measured
+against Sonnet output ratios of 1.57–1.82 chars/token; error band ≈ ±20%)
+labeled `estimated-chars1.75` per record.
 
 ## Stage 5 Guarantees
 
-1. **Dispatch-only coordinator:** `00-coordinator` has no file, search, terminal,
-or browser tools. It only emits the next agent name and inputs.
-2. **Scoped sub-agents:** Each agent has a narrow system prompt and only the
-inputs/outputs defined above.
-3. **Adversarial review in its own context:** `04-adversarial-review-candidate-a`,
-`04-adversarial-review-candidate-b`, and `06-adversarial-review` each run in
-isolation. They receive only the candidate draft and evidence, not the
-producing agent's reasoning.
-4. **Version control:** All agent prompts (`SKILL.md`), schemas, the orchestrator
-manifest, and exported agent definitions are committed.
-5. **Stage 4 continuity:** The unchanged `05-tone-consistency` and
-`06-adversarial-review` agents from `tone-assessmentV2` preserve their G4/G5
-audit behavior.
+1. **Dispatch-only coordinator:** `00-coordinator` has no file, search,
+   terminal, or browser tools — only connected-agent dispatch verbs. Its
+   emitted dispatch is verified deterministically against the FSM on every
+   step.
+2. **Scoped sub-agents:** each agent's `agent.json` declares a
+   least-privilege `tool_manifest` (`allowed_paths`/`disallowed_paths`);
+   e.g., candidate-A's reviewer cannot reach candidate-B's artifacts.
+3. **Adversarial review in its own context:** `04-...-a`, `04-...-b`, and
+   `06` are separate Copilot Studio agents — every invocation is a fresh
+   context window with no producer-agent history.
+4. **Version control:** all prompts, schemas, manifests, the harness, and
+   audit artifacts are committed to `Improving_AI_Work`.
+5. **Stage 4 continuity:** `05`/`06` are the unchanged Stage-4 skill
+   texts; the V2 gates (G4b/G5) are embedded in `s5-harness.py`; the
+   standalone V2 harness (`3d1afdf5`) remains the certified Stage-4
+   artifact.
 
 ## Evidence Rules (carried from the source skill)
 
 1. Current-quarter Defender exports are authoritative for CURRENT STATE.
-2. Previous quarter's report is authoritative for what was previously reported.
-3. Two-quarters-ago report is for historical context and update methodology only.
-4. CIS/NIST PDFs are authoritative for framework references and terminology.
-5. Never assume a previously documented condition still exists; never assume a
-recommendation was implemented without current-quarter evidence.
-6. Distinguish: `confirmed by current data` / `not observed in current data` /
-`unable to validate from the provided data`.
+2. Previous quarter's report is authoritative for what was previously
+   reported.
+3. Two-quarters-ago report is for historical context and update
+   methodology only.
+4. CIS/NIST references are authoritative for framework mappings and
+   terminology.
+5. Never assume a previously documented condition still exists; never
+   assume a recommendation was implemented without current-quarter
+   evidence.
+6. Distinguish: `confirmed by current data` / `not observed in current
+   data` / `unable to validate from the provided data`.
 7. No fabricated findings, metrics, configurations, dates, scores,
-percentages, framework mappings, or recommendations.
-
-## Audit Trail
-
-`audit/run-YYYYMMDD.jsonl` — one record per step:
-
-```json
-{"step": "03-draft-update", "model": "...", "input_hashes": {...}, "output_hashes": {...},
-"tokens_in": 0, "tokens_out": 0, "cost_usd": 0.0, "finding_ids": ["F-001"],
-"guardrail_inbound": {"id": "G2", "result": "pass"}}
-```
-
-Any failure must be traceable to its exact origin step.
+   percentages, framework mappings, or recommendations.
 
 ## End-to-End Success Metric
 
@@ -186,10 +214,7 @@ A run succeeds iff:
 3. `certifiable` remains `true`, and
 4. the final report is emitted.
 
-Per-run result appended to `audit/success-log.md`:
-
-```
-| date | run id | result | punch-outs | iterations | notes |
-```
-
-Success rate = successful runs / total runs, tracked quarter over quarter.
+Per-run result appended to `audit/success-log.md`
+(`pass` / `fail` / `halted` / `stopped`); `audit/success-report.md`
+computes the production vs gate-test split. Success rate = finalized
+production runs / total production runs, tracked quarter over quarter.

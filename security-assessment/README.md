@@ -27,7 +27,14 @@ Copilot Studio setup: [`COPILOT_STUDIO_SETUP.md`](./COPILOT_STUDIO_SETUP.md)
 
 ```
 security-assessment/
-├── WORKFLOW.md          # pipeline definition, step contract, guardrails G1–G5, punch-outs
+├── s5-harness.py        # executable orchestrator: FSM, deterministic G1–G5 gates,
+│                        # dispatch verification, metering, punch-out state machine,
+│                        # bypass-test, record-decision, audit writes
+├── s5-harness.config.json  # metering, model registry, per-step expected outputs
+├── s5-harness.sha256    # SHA-256 of s5-harness.py (regenerate: s5-harness.py hash)
+├── checksums.sha256     # hash-verified inputs (extend to S5 files)
+├── templates/           # run-state.json template + prompt template
+├── WORKFLOW.md          # pipeline definition, step contract, gates G1–G5, punch-outs
 ├── README.md            # this file
 ├── COPILOT_STUDIO_SETUP.md  # how to build and wire the agents in Copilot Studio
 ├── VERSION_HISTORY.md   # design lineage and Stage 5 migration
@@ -179,40 +186,55 @@ independently evaluable.
 
 ## Runtime architecture (Copilot Studio)
 
-The orchestrator agent (`.github/security-assessment-orchestrator.agent.md`) has
-**no direct tools**. It invokes `00-coordinator`, which returns the next agent to
-call. The orchestrator then dispatches that agent. All file access happens inside
-sub-agents via the **SharePoint connector**.
+The orchestrator agent (`.github/security-assessment-orchestrator.agent.md`) is a
+thin user-facing entry with **zero tools** — it relays the harness's dispatch
+actions to `00-coordinator`. The coordinator is **dispatch-only**: it invokes
+exactly the sub-agent the harness names. `s5-harness.py` (run inside each
+sub-agent's sandbox) owns sequencing truth: it decides transitions, runs the
+deterministic gates, meters every invocation, and writes every audit record.
 
 ```
 User asks: "Run 2026-Q4"
         │
         ▼
-Security Assessment Orchestrator
+Security Assessment Orchestrator  (no tools — relay only)
         │
         ▼
-00-coordinator  ──►  returns next agent name + inputs
+00-coordinator  ──►  invokes the agent named by s5-harness.py drive
         │
         ▼
-[sub-agent]  reads/writes SharePoint
+[sub-agent]  mirrors runs/+audit/+schemas/, runs drive, executes the
+             named step, writes outputs + dispatch-received + done-marker
         │
         ▼
-(repeat until DONE or HALT)
+(repeat until DONE, HALT, or done/non-finalizable)
 ```
+
+**Dispatch verification:** the invoked agent records the dispatch it received
+verbatim in `dispatch-received-<step>.json`; the next `drive` call compares it
+against the FSM's expected dispatch. A wrong dispatch is a logged gate failure
+and the wrongly-named agent's outputs are refused — so "dispatch-only
+coordinator" is enforced in code, not just prompt text.
 
 ## Running a quarter
 
-1. Create a SharePoint document library (or folder) for the run.
-2. Create `runs/<YYYY-QN>/` and copy `templates/run-state.json` into it.
-3. Place the 5 inputs in `runs/<YYYY-QN>/inputs/`.
-4. Open the Copilot Studio **Security Assessment Orchestrator** agent and provide
-the run ID.
-5. The orchestrator invokes `00-coordinator`, which reads the run-state summary
-and returns the next agent to invoke.
-6. Invoke that agent. It reads/writes files via the **SharePoint connector**.
-7. Repeat steps 5–6 until the coordinator returns `ACTION: DONE` or `ACTION: HALT`.
-8. If HALT, resolve the punch-out file in `audit/`, update `run-state.json`, and
-resume from step 5.
+1. Create `runs/<YYYY-QN>/` and copy `templates/run-state.json` into it.
+2. Place the 5 inputs in `runs/<YYYY-QN>/inputs/` (`prior-report`,
+   `history-report`, `defender-export-folder/`, `cis`, `nist` — `.docx`/`.pdf`
+   files are reduced to markdown text by the ingest agent).
+3. Open the Copilot Studio **Security Assessment Orchestrator** agent and give it
+   the run ID.
+4. The orchestrator invokes `00-coordinator`, which dispatches the agent named
+   by `python s5-harness.py drive --run-id <id>`.
+5. The named sub-agent mirrors `runs/` + `audit/` + `schemas/` into its sandbox,
+   runs `drive`, executes only its named step, writes outputs +
+   `dispatch-received-<step>.json` + `.harness-step<NN>-done`, and syncs back.
+6. Repeat until `ACTION: DONE` (`finalized` or `non-finalizable`) or
+   `ACTION: HALT` / `awaiting-human`.
+7. On HALT: a human reviews the punch-out file, then records the decision —
+   `python s5-harness.py record-decision --run-id <id> --punchout <letter>
+   --decision "<verbatim>" --resolved-by "<name>"` — and resumes with
+   `drive --resume`. Agents never approve punch-outs.
 
 See `COPILOT_STUDIO_SETUP.md` for the exact agent-creation and wiring steps.
 
@@ -243,25 +265,31 @@ matrix.json
 
 | ID | Triggered when | Human decides |
 |---|---|---|
-| A | findings can't be validated by current data | still-present / removed / defer |
-| B | CIS/NIST reference mappings changed | approve each change |
-| C | findings classified `regressed` | confirm evidence supports it |
-| D | report sections added/removed | approve/reject each change |
-| E | G4 or G5 loop exhausted (2 iterations) | resolve directly |
+| A | findings can't be validated by current data (G2) | still-present / removed / defer |
+| B | CIS/NIST reference mappings changed (G3) | approve each change |
+| C | findings classified `regressed` (G2) | confirm evidence supports it |
+| D | report sections added/removed (G3) | approve/reject each change |
+| E | any gate hits loop_max (2) | resolve directly |
+| F | template section has no draft content (G4→05) | provide content / drop / defer |
+
+Closures require `record-decision` (decision text + resolver name — the
+two-key rule). `bypass-test` proves neither attack path (continue without
+approval, forge `approved: true`) can advance the pipeline; a recorded
+bypass permanently marks the run `non-finalizable`.
 
 ## Evaluations (Copilot Studio Evaluate tab)
 
-Evaluations are run inside Copilot Studio using the **Evaluate** tab with CSV
-datasets. Promptfoo is not used.
+Evaluations run on two tracks:
 
-Each agent has its own CSV test set in `evals/`. Example columns:
-
-```csv
-run_id,agent_name,strategy,inputs,expected_outputs,expected_guardrail_result
-```
-
-Import the relevant CSV for the agent you are testing, map the columns, and run
-the evaluation.
+1. **Copilot Studio Evaluate tab** — each agent has a CSV test set in `evals/`
+   (columns: `run_id, agent_name, strategy, inputs, expected_outputs,
+   expected_guardrail_result`). Import the CSV for the agent under test, map the
+   columns, run.
+2. **Promptfoo** (same pattern as the certified Stage-4 evals) —
+   `evals/promptfooconfig.yaml` per agent on `claude-sonnet-5-5`. 05/06 reuse the
+   V2 eval corpus verbatim; 00–04b get equivalent graders plus the coordinator's
+   three must-pass requirements (halt on open punch-out, never self-dispatch,
+   no file access).
 
 ## Artifact ↔ schema map
 
@@ -285,9 +313,11 @@ the evaluation.
 
 | Stage 5 artifact | Where it lives |
 |---|---|
-| Dispatch-only coordinator | `.github/skills/00-coordinator/SKILL.md` + `.github/security-assessment-orchestrator.agent.md` |
-| Sub-agents scoped to one workflow | `.github/skills/*/SKILL.md` each define a narrow scope |
-| Adversarial review in own context | `04-adversarial-review-candidate-a`, `04-adversarial-review-candidate-b`, and `06-adversarial-review` are separate agents |
-| Version-controlled repository | All `SKILL.md` files + schemas + orchestrator manifest + exported agent definitions |
-| Stage 4 continuity | Unchanged `05-tone-consistency` and `06-adversarial-review` from `tone-assessmentV2`; existing G1–G5 guardrails and audit formats preserved |
-| No CLI shells for runtime inference | Runtime is Copilot Studio; coordinator has no shell/terminal tools |
+| Custom harness | `s5-harness.py` — FSM, deterministic gates, metering, punch-outs |
+| Dispatch-only coordinator | `.github/skills/00-coordinator/SKILL.md` (dispatch verbs only) + FSM-verified dispatches in `audit/run-<id>.jsonl` (`dispatch_expected` vs `dispatch_emitted`) |
+| Sub-agents scoped to one workflow | `.github/skills/*/SKILL.md` + per-agent `tool_manifest` in `.github/copilot-studio/agent-definitions/` |
+| Adversarial review in own context | `04-...-a`, `04-...-b`, `06` are separate Copilot Studio agents (fresh context per invocation); manifest-enforced path isolation (A's reviewer cannot read B's artifacts) |
+| Version-controlled repository | Repo `ShadyPersona/Improving_AI_Work` (private): skills, schemas, manifests, harness, audit trail |
+| Stage 4 continuity | `05`/`06` are the Stage-4 skill texts; V2 G4b/G5 gates embedded in s5-harness; certified V2 harness (`3d1afdf5`) untouched |
+| Audit trail | `audit/run-<id>.jsonl` (per-invocation model/tokens/cost + dispatch fields), `guardrails-<id>.jsonl`, `punchout-<id>.md`, `success-<id>.md` |
+| No CLI shells for runtime inference | Copilot Studio connected-agent calls between agents; the harness executes inside the same sandboxed runtime as the agent's own file ops — no external service |

@@ -6,5 +6,24 @@
   "connector": "SharePoint",
   "scope": "single-workflow-step",
   "tools": [],
-  "actions": []
+  "actions": [],
+  "tool_manifest": {
+    "allowed_paths": [
+      "runs/<run-id>/draft-candidate-a.md",
+      "runs/<run-id>/draft-map-candidate-a.json",
+      "runs/<run-id>/matrix.json",
+      "runs/<run-id>/inputs/defender-export-folder/",
+      "runs/<run-id>/inputs/prior-report.*",
+      "runs/<run-id>/review-candidate-a.*",
+      "runs/<run-id>/dispatch-received-04a.json",
+      "schemas/"
+    ],
+    "disallowed_paths": [
+      "runs/<run-id>/draft-candidate-b.md",
+      "runs/<run-id>/draft-map-candidate-b.json",
+      "runs/<run-id>/review-candidate-b.*",
+      "audit/"
+    ]
+  },
+  "manifest_note": "Isolated context: candidate-B artifacts are structurally out of scope, not merely prompt-excluded."
 }

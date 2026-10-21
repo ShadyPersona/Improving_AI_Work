@@ -75,8 +75,9 @@ content of the linked `SKILL.md` into its **system instructions / prompt**.
 - [ ] The agent can read files from the current run folder (`runs/<YYYY-QN>/`).
 - [ ] The agent can read files from `schemas/` and `audit/`.
 - [ ] The agent can write files to the current run folder and `audit/`.
-- [ ] The agent does **not** have web browsing, code execution, or other
-  unrelated tools unless the skill explicitly requires them.
+- [ ] The agent does **not** have web browsing or other unrelated tools unless
+  the skill explicitly requires them. (Each sub-agent DOES need the code
+  sandbox — it runs `python s5-harness.py` locally.)
 
 ## Step 3 — Add the SharePoint connector
 
@@ -98,16 +99,19 @@ For every agent except `00-coordinator`:
 ## Step 4 — Wire the orchestrator to the coordinator
 
 1. Open the **Security Assessment Orchestrator** agent.
-2. Under **Actions**, add the `00-coordinator` agent as a connected agent.
-3. In the orchestrator's system prompt, instruct it:
+2. Under **Actions**, add the `00-coordinator` agent as a connected agent —
+   this is the orchestrator's **only** connected agent.
+3. The orchestrator is a thin relay (system prompt:
+   `.github/security-assessment-orchestrator.agent.md`):
    - Receive the run ID from the user.
-- Read the current `run-state.json` summary (via SharePoint or pass it as
-  context).
-- Invoke `00-coordinator` with the run-state summary.
-- Parse the coordinator's output.
-- If `ACTION: DISPATCH`, invoke the named agent with the listed inputs.
-- If `ACTION: HALT`, stop and ask the human to resolve the punch-out.
-- If `ACTION: DONE`, summarize the result and stop.
+   - Feed each `python s5-harness.py drive --run-id <id>` action to
+     `00-coordinator` verbatim.
+   - Relay the coordinator's dispatch/halt result back to the user.
+   - On HALT/`awaiting-human`, present the punch-out file and wait — the
+     human records the decision via `record-decision` inside a sub-agent's
+     sandbox.
+4. The orchestrator has **no SharePoint connector and no tools** — it can
+   never do real work, which is what makes it counterfeit-proof.
 
 ## Step 5 — Wire the coordinator to every sub-agent
 
@@ -121,9 +125,12 @@ For every agent except `00-coordinator`:
    - `04b-draft-selector`
    - `05-tone-consistency`
    - `06-adversarial-review`
-3. Ensure the coordinator has **no SharePoint actions** and **no other tools**.
-4. The coordinator's only output should be a text block telling the orchestrator
-   which agent to call next.
+3. Ensure the coordinator has **no SharePoint actions and no other tools** —
+   connected-agent dispatch verbs only.
+4. The coordinator's job: receive the harness's `execute_step` action (which
+   carries `dispatch.agent` + `dispatch.inputs`), invoke exactly that agent,
+   and return its result. It never decides sequencing itself — the harness
+   FSM does, and every emitted dispatch is verified against it.
 
 ## Step 6 — Sub-agent wiring table
 
@@ -142,42 +149,46 @@ Use this table to configure each sub-agent's expected inputs and outputs.
 
 > Every agent also reads `schemas/*.schema.json` for validation.
 
-## Step 7 — Orchestrator runtime sequence
+## Step 7 — Runtime sequence (harness-driven)
 
 When a user says *"Run 2026-Q4"*:
 
-1. **Orchestrator** receives `run_id = 2026-Q4`.
-2. **Orchestrator** invokes `00-coordinator` with the current `run-state.json` summary.
-3. **Coordinator** returns:
+1. **Orchestrator** receives `run_id = 2026-Q4` and relays the first
+   `drive` to `00-coordinator`.
+2. The **dispatched sub-agent** (starting with `01-ingest`) runs, in its
+   sandbox:
    ```
-   ACTION: DISPATCH
-   AGENT: 01-ingest
-   INPUTS: runs/2026-Q4/inputs/prior-report.docx; ...
+   python s5-harness.py drive --run-id 2026-Q4
    ```
-4. **Orchestrator** invokes `01-ingest` with those inputs.
-5. `01-ingest` writes outputs and updates `run-state.json.current_step` to `02-findings-matrix`.
-6. **Orchestrator** re-invokes `00-coordinator`.
-7. Repeat until coordinator returns `ACTION: DONE` or `ACTION: HALT`.
+   The harness returns an `execute_step` action naming the step, writes the
+   prompt file, and blocks until the agent writes outputs +
+   `dispatch-received-<step>.json` + `.harness-step<NN>-done`.
+3. Each subsequent `drive` call runs the inbound gate, verifies the
+   recorded dispatch, meters the step, and emits the next dispatch.
+4. Repeat until the harness returns `ACTION: DONE` (`finalized` or
+   `non-finalizable`) or `awaiting-human`.
 
-### Handling HALT
+### Handling HALT / awaiting-human
 
-If the coordinator returns:
+On an open punch-out the harness returns `awaiting-human` and writes the
+punch-out file. The human reviews it, then records the decision inside a
+sub-agent's sandbox:
 
 ```
-ACTION: HALT
-REASON: Punch-out <ID> is triggered and awaiting human approval.
+python s5-harness.py record-decision --run-id <id> --punchout <A-F> `
+    --decision "<verbatim>" --resolved-by "<name>"
+python s5-harness.py drive --run-id <id> --resume
 ```
 
-The orchestrator stops, tells the user which punch-out file to review, and waits
-for the user to confirm the file is updated and `run-state.json` is approved.
-Then it re-invokes the coordinator.
+`--resume` re-runs the gate where the run halted (`halted_at_gate`), so the
+run picks up exactly where it stopped. Agents never set `approved: true` —
+the two-key rule is enforced by the harness.
 
 ### Handling loop-back
 
-If the draft-selector fails G4 and `loop_counters.G4 < loop_max`, it sets
-`current_step` back to `03-draft-update`. The coordinator will dispatch
-`03-draft-update` again. The agent should use the existing `selection-report.json`
-as feedback to improve the next candidate.
+When a gate fails under `loop_max` the harness re-dispatches the producing
+step automatically (loop counters live in `run-state.json`); at
+`loop_max` it triggers punch-out E instead of looping forever.
 
 ## Step 8 — Import the evaluation CSVs
 
@@ -216,21 +227,30 @@ input set:
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Coordinator returns wrong agent | `current_step` not passed correctly | Ensure orchestrator feeds the full run-state summary to the coordinator |
-| Sub-agent can't find file | SharePoint path mismatch | Use the exact paths from the wiring table |
-| Candidate reviews look identical | Same agent used for A and B | Verify they are separate agent definitions with separate prompts |
-| Draft-selector never loops back | `loop_counters.G4` not incremented | Check that the selector writes the updated run-state back to SharePoint |
-| 05/06 fail on punch-outs | `A_missing_content` or `E_loop_exhaustion` not in run-state | Use the merged `templates/run-state.json` |
+| `dispatch-verification` gate fails | Coordinator invoked the wrong agent, or the agent didn't record `dispatch-received-<step>.json` verbatim | Check `audit/run-<id>.jsonl` `dispatch_expected` vs `dispatch_emitted` |
+| Sub-agent can't find file | SharePoint path mismatch | Use the exact paths from the wiring table + `tool_manifest.allowed_paths` |
+| Candidate reviews look identical | Same agent used for A and B | Verify they are separate agent definitions with separate prompts and manifests |
+| Step not dispatched after outputs written | Missing `.harness-step<NN>-done` marker | Marker must be written last, after all outputs |
+| `awaiting-human` won't clear | Punch-out lacks a recorded decision | Use `record-decision` — agents cannot set `approved: true` |
+| 05/06 fail on punch-outs | `F_missing_content` or `E_loop_exhaustion` missing from run-state | Use the merged `templates/run-state.json` |
 
 ## Checklist before first real run
 
 - [ ] All 9 agents created in Copilot Studio.
 - [ ] Each agent's system prompt matches its `SKILL.md`.
-- [ ] Orchestrator has no direct tools; only connected-agent actions.
-- [ ] Coordinator has no tools or connectors; only connected-agent actions.
-- [ ] SharePoint connector added to all sub-agents.
-- [ ] SharePoint paths tested for read and write.
+- [ ] Orchestrator has no tools; its only connected agent is `00-coordinator`.
+- [ ] Coordinator has no tools or connectors; only connected-agent calls to
+  the eight sub-agents.
+- [ ] SharePoint connector added to all sub-agents, scoped per
+  `tool_manifest` (`allowed_paths`/`disallowed_paths`).
+- [ ] Each sub-agent can run `python s5-harness.py` in its sandbox.
+- [ ] `s5-harness.py`, `s5-harness.config.json`, `schemas/`, `templates/`,
+  and `s5-harness.sha256` are in the SharePoint library the agents mirror.
 - [ ] `run-state.json` merged template copied into the run folder.
-- [ ] Per-agent CSV evaluations imported and passing.
-- [ ] End-to-end dry run completes without unapproved punch-outs.
-- [ ] `audit/guardrails.jsonl` shows one G1–G5 record per executed step.
+- [ ] Per-agent evaluations (Studio Evaluate CSV + promptfoo) imported and
+  passing.
+- [ ] Mis-dispatch smoke test: a wrong-agent `dispatch-received` is
+  rejected by the next `drive` call.
+- [ ] End-to-end dry run completes; `audit/run-<id>.jsonl` has a metered
+  record per invocation and `guardrails-<id>.jsonl` one G1–G5 record per
+  gate.

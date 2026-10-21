@@ -6,5 +6,21 @@
   "connector": "SharePoint",
   "scope": "single-workflow-step",
   "tools": [],
-  "actions": []
+  "actions": [],
+  "tool_manifest": {
+    "allowed_paths": [
+      "runs/<run-id>/draft.md",
+      "runs/<run-id>/inputs/",
+      "schemas/",
+      "runs/<run-id>/toned.md",
+      "runs/<run-id>/tone-changes.json",
+      "runs/<run-id>/punchout-missing-content.md",
+      "runs/<run-id>/dispatch-received-05.json"
+    ],
+    "disallowed_paths": [
+      "runs/<run-id>/review*",
+      "runs/<run-id>/selection-report.json",
+      "audit/"
+    ]
+  }
 }

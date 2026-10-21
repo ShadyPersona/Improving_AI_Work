@@ -6,5 +6,32 @@
   "connector": "SharePoint",
   "scope": "single-workflow-step",
   "tools": [],
-  "actions": []
+  "actions": [],
+  "tool_manifest": {
+    "allowed_paths": [],
+    "disallowed_paths": [
+      "runs/*/inputs",
+      "runs/*/draft*",
+      "runs/*/matrix.json",
+      "runs/*/review*",
+      "runs/*/toned.md",
+      "audit/"
+    ]
+  },
+  "connected_agents": [
+    "01-ingest",
+    "02-findings-matrix",
+    "03-draft-update",
+    "04-adversarial-review-candidate-a",
+    "04-adversarial-review-candidate-b",
+    "04b-draft-selector",
+    "05-tone-consistency",
+    "06-adversarial-review"
+  ],
+  "verbs": [
+    "dispatch",
+    "launch",
+    "invoke"
+  ],
+  "manifest_note": "Dispatch-only: zero file access, zero tools, zero workflow steps. It calls sub-agents; it never performs work."
 }

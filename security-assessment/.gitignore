@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+.harness-step*
+
+# raw inputs/deliverables stay in SharePoint, not git
+*.docx
+*.pdf
+runs/*/inputs/
