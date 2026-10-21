@@ -3,3 +3,6 @@ __pycache__/
 .env
 .harness-step*
 runs/*/inputs/*.docx
+
+# deliverables/templates stay in SharePoint, not git
+*.docx

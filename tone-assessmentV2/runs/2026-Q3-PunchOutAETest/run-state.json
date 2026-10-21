@@ -27,10 +27,12 @@
     "E_loop_exhaustion": {
       "triggered": true,
       "file": "audit/punchout-<run-id>.md",
-      "approved": false,
-      "closure_evidence": null,
-      "bypass_attempt": "no-approval continuation: blocked \u2014 unapproved punch-out halts resume; forged approval flag: blocked \u2014 two-key check requires a punchout-log.md row"
+      "approved": true,
+      "closure_evidence": "punchout-2026-Q3-PunchOutAETest.md row 2026-10-21T20:51:17Z by Danny George: accept halt",
+      "bypass_attempt": "no-approval continuation: blocked \u2014 unapproved punch-out halts resume; forged approval flag: blocked \u2014 two-key check requires a punchout-log.md row",
+      "resolved_by": "Danny George",
+      "resolved_at": "2026-10-21T20:51:17Z"
     }
   },
-  "status": "awaiting-human"
+  "status": "non-finalizable"
 }
