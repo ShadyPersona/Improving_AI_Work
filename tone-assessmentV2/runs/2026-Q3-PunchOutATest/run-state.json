@@ -1,0 +1,57 @@
+{
+  "run_id": "2026-Q3-PunchOutATest",
+  "skill": "tone-assessmentv2-orchestrator",
+  "draft": {
+    "file": "HHA_-_Cloud_Security_Assessment_2026-Q3NOEXECUTIVESUMMARY-7af4bcee.docx",
+    "sha256": "38d52a5e54f15ad40e17b1c0f6bda2c668c28d5ecc16fe3cdd1af5f0713cfa68"
+  },
+  "template": {
+    "file": "CSA Template.docx",
+    "sha256": "14f24b8e955fcc351f9eac1610fe1053864f7b54673c76843fe7ce845104d679"
+  },
+  "steps": {
+    "G4": {
+      "result": "pass",
+      "iteration": 1
+    },
+    "05-tone-consistency": {
+      "result": "halted_punchout",
+      "iteration": 1
+    },
+    "G5": {
+      "result": "not_run"
+    },
+    "06-adversarial-review": {
+      "result": "not_run"
+    }
+  },
+  "punchouts": {
+    "A_missing_content": {
+      "triggered": true,
+      "file": "punchout-missing-content.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": "no-approval continuation: blocked \u2014 unapproved punch-out halts resume; forged approval flag: blocked \u2014 two-key check requires a punchout-log.md row",
+      "id": "PO-1",
+      "type": "A: missing-content",
+      "status": "open"
+    },
+    "E_loop_exhaustion": {
+      "triggered": false,
+      "file": "audit/punchout-log.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": null
+    }
+  },
+  "loop_counters": {
+    "G4": 0,
+    "G5": 0
+  },
+  "finalized": false,
+  "certifiable": false,
+  "non_certifiable_reasons": [
+    "bypass attempt recorded"
+  ],
+  "status": "awaiting-human"
+}

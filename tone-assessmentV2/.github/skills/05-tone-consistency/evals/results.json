@@ -1,0 +1,1841 @@
+{
+  "evalId": "eval-odI-2026-10-21T03:39:47",
+  "results": {
+    "version": 3,
+    "timestamp": "2026-10-21T03:39:47.786Z",
+    "prompts": [
+      {
+        "id": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "raw": "Execute step 05-tone-consistency on the test inputs.",
+        "label": "Execute step 05-tone-consistency on the test inputs.",
+        "provider": "claude-sonnet-5-5",
+        "metrics": {
+          "score": 8.691666666666666,
+          "testPassCount": 9,
+          "testFailCount": 0,
+          "testErrorCount": 0,
+          "assertPassCount": 20,
+          "assertFailCount": 0,
+          "totalLatencyMs": 103905,
+          "tokenUsage": {
+            "prompt": 74261,
+            "completion": 14282,
+            "cached": 0,
+            "total": 88543,
+            "numRequests": 9,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 12174,
+              "prompt": 10060,
+              "completion": 2114,
+              "cached": 0,
+              "numRequests": 9,
+              "completionDetails": {
+                "reasoning": 450,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "namedScoreWeights": {},
+          "cost": 0
+        }
+      }
+    ],
+    "results": [
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 869,
+            "prompt": 752,
+            "completion": 117,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "(G4|HALT|halted?)[^\\n]{0,60}(FAIL|fail|missing|unreadable)|required input (missing|unreadable)|missing (required )?(input|template)"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent halts and does not produce toned.md when any required input is missing or unreadable."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output states the run is halted because the required template input is missing, says that `toned.md` and `tone-changes.json` were not produced, and gives decision options with no continuation allowed until a human decision is recorded. This matches the rubric: the agent halts and does not produce toned.md when a required input is missing.",
+              "tokensUsed": {
+                "total": 869,
+                "prompt": 752,
+                "completion": 117,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n# punchout-missing-content.md\\n\\n## Missing required input: template\\n\\n**Status:** Halted. `toned.md` and `tone-changes.json` were not produced.\\n\\n**Missing element:** The `template` input is empty. The template is the authoritative source for section order, headings, formatting conventions, table layouts, and required elements. Without it, no structural target can be derived. The required and optional placeholders cannot be classified. Conformance of the draft cannot be assessed.\\n\\n**Draft content received:**\\n\\n```\\n## Identities\\nMFA was enforced.\\n```\\n\\nThe draft contains one section and one sentence. No quarter-over-quarter evidence, evidence source, scope, or control detail is present. No tables are present. Adding any of these would fabricate content, which the substance freeze prohibits.\\n\\n**Decision options:**\\n\\n1. **Provide content:** Supply the non-empty template for this run. Supply any additional draft content the template requires.\\n2. **Drop section:** Confirm that the template's required sections absent from the draft are to be removed from scope, and supply the template that reflects this.\\n3. **Defer:** Pause the run until the template is available.\\n\\n**Run-state effect:** `punchouts.A_missing_content.triggered` is set to `true` and `approved` remains `false`. `certifiable` becomes `false`, with the reason \\\"missing template input\\\". No continuation is permitted until a matching human-decision row is recorded in `audit/punchout-log.md` for this `run_id`.\\n</Output>\\n<Rubric>\\nThe agent halts and does not produce toned.md when any required input is missing or unreadable.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "b350ca43-17e7-4f5d-a23b-ca93b79fe9a5",
+        "latencyMs": 7166,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 05-tone-consistency on the test inputs.",
+          "label": "Execute step 05-tone-consistency on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "# punchout-missing-content.md\n\n## Missing required input: template\n\n**Status:** Halted. `toned.md` and `tone-changes.json` were not produced.\n\n**Missing element:** The `template` input is empty. The template is the authoritative source for section order, headings, formatting conventions, table layouts, and required elements. Without it, no structural target can be derived. The required and optional placeholders cannot be classified. Conformance of the draft cannot be assessed.\n\n**Draft content received:**\n\n```\n## Identities\nMFA was enforced.\n```\n\nThe draft contains one section and one sentence. No quarter-over-quarter evidence, evidence source, scope, or control detail is present. No tables are present. Adding any of these would fabricate content, which the substance freeze prohibits.\n\n**Decision options:**\n\n1. **Provide content:** Supply the non-empty template for this run. Supply any additional draft content the template requires.\n2. **Drop section:** Confirm that the template's required sections absent from the draft are to be removed from scope, and supply the template that reflects this.\n3. **Defer:** Pause the run until the template is available.\n\n**Run-state effect:** `punchouts.A_missing_content.triggered` is set to `true` and `approved` remains `false`. `certifiable` becomes `false`, with the reason \"missing template input\". No continuation is permitted until a matching human-decision row is recorded in `audit/punchout-log.md` for this `run_id`.",
+          "tokenUsage": {
+            "prompt": 8231,
+            "completion": 806,
+            "cached": 0,
+            "total": 9037,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E1 — Editing blocked when G4 fails (missing input document)",
+          "vars": {
+            "draft": "## Identities\\nMFA was enforced.",
+            "template": "",
+            "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false,\"approved\":false}}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "(G4|HALT|halted?)[^\\n]{0,60}(FAIL|fail|missing|unreadable)|required input (missing|unreadable)|missing (required )?(input|template)"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent halts and does not produce toned.md when any required input is missing or unreadable."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "tokenUsage": {
+          "prompt": 8231,
+          "completion": 806,
+          "cached": 0,
+          "total": 9037,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 869,
+            "prompt": 752,
+            "completion": 117,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "draft": "## Identities\\nMFA was enforced.",
+          "template": "",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false,\"approved\":false}}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.95,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1580,
+            "prompt": 1385,
+            "completion": 195,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "## Identities"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The output is substantively rewritten in a professional third-person formal voice with precise terminology (e.g., multi-factor authentication was enforced), adopts the template heading structure, and removes colloquial filler."
+              },
+              "pass": true,
+              "score": 0.9,
+              "reason": "The output rewrites the text in formal third-person past tense (e.g., 'Multifactor authentication (MFA) was enabled for all users'), expands the acronym, and removes first-person and colloquial phrasing. The headings (Executive Summary, Identities, Devices) are consistent with a template structure. The rewrite is substantive: it merges sentences, adds qualifications, and calibrates significance. The rubric's 'enforced' is only an example, and 'enabled' is a precise enough term here. The rubric is satisfied.",
+              "tokensUsed": {
+                "total": 1580,
+                "prompt": 1385,
+                "completion": 195,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n## toned.md\\n\\n```markdown\\n## Executive Summary\\nSecurity posture improved measurably during the quarter. Identities reported MFA enablement for all users, and Devices reported device compliance of 97%.\\n\\n## Identities\\nMultifactor authentication (MFA) was enabled for all users during the quarter, which is a positive change. However, MFA enablement alone does not show that identity risk has been resolved.\\n\\n## Devices\\nDevice compliance was 97%. However, no prior-quarter comparison was provided, so movement in device compliance is not established.\\n```\\n\\n## tone-changes.json\\n\\n```json\\n{\\n  \\\"certifiable\\\": true,\\n  \\\"edits\\\": [\\n    {\\n      \\\"location\\\": \\\"Executive Summary\\\",\\n      \\\"before\\\": \\\"A single sentence stated that the quarter showed a measurable improvement in posture.\\\",\\n      \\\"after\\\": \\\"Security posture improved measurably during the quarter. Identities reported MFA enablement for all users, and Devices reported device compliance of 97%.\\\",\\n      \\\"style_marker\\\": \\\"assessment_first\\\",\\n      \\\"reason\\\": \\\"Leads with the supported conclusion and points to the specific evidence reported in the Identities and Devices sections.\\\",\\n      \\\"assessment_function\\\": \\\"executive_conclusion\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Identities\\\",\\n      \\\"before\\\": \\\"A first-person sentence said MFA was turned on for all users during the quarter, followed by a short remark calling this a positive change.\\\",\\n      \\\"after\\\": \\\"Multifactor authentication (MFA) was enabled for all users during the quarter, which is a positive change.\\\",\\n      \\\"style_marker\\\": \\\"voice\\\",\\n      \\\"reason\\\": \\\"Converts first-person, colloquial phrasing to formal third-person past tense, expands the acronym, and merges the two sentences so the significance is explicit.\\\",\\n      \\\"assessment_function\\\": \\\"professional_tone\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Identities\\\",\\n      \\\"before\\\": \\\"No qualification accompanied the positive MFA statement.\\\",\\n      \\\"after\\\": \\\"However, MFA enablement alone does not show that identity risk has been resolved.\\\",\\n      \\\"style_marker\\\": \\\"significance_calibration\\\",\\n      \\\"reason\\\": \\\"States what the positive control state does not prove, without upgrading enablement to resolved risk.\\\",\\n      \\\"assessment_function\\\": \\\"security_significance\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Devices\\\",\\n      \\\"before\\\": \\\"A bare statement gave device compliance as 97% with no context.\\\",\\n      \\\"after\\\": \\\"Device compliance was 97%. However, no prior-quarter comparison was provided, so movement in device compliance is not established.\\\",\\n      \\\"style_marker\\\": \\\"qualification_discipline\\\",\\n      \\\"reason\\\": \\\"Integrates the single evidence limitation as context and avoids implying quarter movement that the draft does not support.\\\",\\n      \\\"assessment_function\\\": \\\"quarter_movement\\\",\\n      \\\"facts_changed\\\": false\\n    }\\n  ],\\n  \\\"tables_reviewed\\\": [],\\n  \\\"observations\\\": [\\n    {\\n      \\\"location\\\": \\\"Executive Summary / Devices\\\",\\n      \\\"type\\\": \\\"cross_reference\\\",\\n      \\\"detail\\\": \\\"The Executive Summary reports measurable posture improvement. The draft supports this only through the MFA statement in Identities. The Devices section gives a single compliance value with no comparison, so improvement is not evidenced there.\\\",\\n      \\\"action_required\\\": \\\"confirm\\\"\\n    }\\n  ]\\n}\\n```\\n</Output>\\n<Rubric>\\nThe output is substantively rewritten in a professional third-person formal voice with precise terminology (e.g., multi-factor authentication was enforced), adopts the template heading structure, and removes colloquial filler.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "40d2276a-104a-40d2-bd73-e523ff1d88c3",
+        "latencyMs": 16039,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 05-tone-consistency on the test inputs.",
+          "label": "Execute step 05-tone-consistency on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "## toned.md\n\n```markdown\n## Executive Summary\nSecurity posture improved measurably during the quarter. Identities reported MFA enablement for all users, and Devices reported device compliance of 97%.\n\n## Identities\nMultifactor authentication (MFA) was enabled for all users during the quarter, which is a positive change. However, MFA enablement alone does not show that identity risk has been resolved.\n\n## Devices\nDevice compliance was 97%. However, no prior-quarter comparison was provided, so movement in device compliance is not established.\n```\n\n## tone-changes.json\n\n```json\n{\n  \"certifiable\": true,\n  \"edits\": [\n    {\n      \"location\": \"Executive Summary\",\n      \"before\": \"A single sentence stated that the quarter showed a measurable improvement in posture.\",\n      \"after\": \"Security posture improved measurably during the quarter. Identities reported MFA enablement for all users, and Devices reported device compliance of 97%.\",\n      \"style_marker\": \"assessment_first\",\n      \"reason\": \"Leads with the supported conclusion and points to the specific evidence reported in the Identities and Devices sections.\",\n      \"assessment_function\": \"executive_conclusion\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Identities\",\n      \"before\": \"A first-person sentence said MFA was turned on for all users during the quarter, followed by a short remark calling this a positive change.\",\n      \"after\": \"Multifactor authentication (MFA) was enabled for all users during the quarter, which is a positive change.\",\n      \"style_marker\": \"voice\",\n      \"reason\": \"Converts first-person, colloquial phrasing to formal third-person past tense, expands the acronym, and merges the two sentences so the significance is explicit.\",\n      \"assessment_function\": \"professional_tone\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Identities\",\n      \"before\": \"No qualification accompanied the positive MFA statement.\",\n      \"after\": \"However, MFA enablement alone does not show that identity risk has been resolved.\",\n      \"style_marker\": \"significance_calibration\",\n      \"reason\": \"States what the positive control state does not prove, without upgrading enablement to resolved risk.\",\n      \"assessment_function\": \"security_significance\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Devices\",\n      \"before\": \"A bare statement gave device compliance as 97% with no context.\",\n      \"after\": \"Device compliance was 97%. However, no prior-quarter comparison was provided, so movement in device compliance is not established.\",\n      \"style_marker\": \"qualification_discipline\",\n      \"reason\": \"Integrates the single evidence limitation as context and avoids implying quarter movement that the draft does not support.\",\n      \"assessment_function\": \"quarter_movement\",\n      \"facts_changed\": false\n    }\n  ],\n  \"tables_reviewed\": [],\n  \"observations\": [\n    {\n      \"location\": \"Executive Summary / Devices\",\n      \"type\": \"cross_reference\",\n      \"detail\": \"The Executive Summary reports measurable posture improvement. The draft supports this only through the MFA statement in Identities. The Devices section gives a single compliance value with no comparison, so improvement is not evidenced there.\",\n      \"action_required\": \"confirm\"\n    }\n  ]\n}\n```",
+          "tokenUsage": {
+            "prompt": 8332,
+            "completion": 2211,
+            "cached": 0,
+            "total": 10543,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.95,
+        "success": true,
+        "testCase": {
+          "description": "E2 — Professional assessment synthesis is applied to the draft",
+          "vars": {
+            "draft": "## Executive Summary\\nThe quarter showed measurable posture improvement.\\n## Identities\\nWe turned on MFA for all users during the quarter. This is a positive change.\\n## Devices\\nDevice compliance was 97%.",
+            "template": "## Executive Summary\\n## Identities\\n## Devices\\n(sections use \"## \" headings, sentence-case titles)",
+            "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false,\"approved\":false}}}"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "## Identities"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The output is substantively rewritten in a professional third-person formal voice with precise terminology (e.g., multi-factor authentication was enforced), adopts the template heading structure, and removes colloquial filler."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 1,
+        "tokenUsage": {
+          "prompt": 8332,
+          "completion": 2211,
+          "cached": 0,
+          "total": 10543,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1580,
+            "prompt": 1385,
+            "completion": 195,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "draft": "## Executive Summary\\nThe quarter showed measurable posture improvement.\\n## Identities\\nWe turned on MFA for all users during the quarter. This is a positive change.\\n## Devices\\nDevice compliance was 97%.",
+          "template": "## Executive Summary\\n## Identities\\n## Devices\\n(sections use \"## \" headings, sentence-case titles)",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false,\"approved\":false}}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.9,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1342,
+            "prompt": 1111,
+            "completion": 231,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The output states the observed condition and frames it in professional assessment language without inventing evidence or implications not present in the draft."
+              },
+              "pass": true,
+              "score": 0.9,
+              "reason": "The output keeps the 97% device compliance figure unchanged and frames it in professional assessment language (\"indicates that the large majority of devices met the compliance standard applied\"). The qualification about the missing preceding-quarter comparison, compliance criteria and device population is framed as limits of the draft, not as new facts. The recommendation to confirm those details adds no new evidence. A few phrases, such as \"residual risk of the remaining devices\" and \"met the compliance standard applied,\" are mild interpretive extensions. They follow from the definition of compliance and do not introduce any invented evidence or implication. The output stays within what the draft supports.",
+              "tokensUsed": {
+                "total": 1342,
+                "prompt": 1111,
+                "completion": 231,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n## toned.md\\n\\n```markdown\\n## Devices\\n\\nDevice compliance was 97%, which indicates that the large majority of devices met the compliance standard applied. However, the draft does not state a preceding-quarter comparison, the compliance criteria, or the device population, so quarter movement and the residual risk of the remaining devices are not established. The recommended next step is to confirm these details so the 97% result can be interpreted against a baseline.\\n```\\n\\n## tone-changes.json\\n\\n```json\\n{\\n  \\\"certifiable\\\": true,\\n  \\\"edits\\\": [\\n    {\\n      \\\"location\\\": \\\"Devices › body\\\",\\n      \\\"before\\\": \\\"A single declarative sentence reporting device compliance at 97%, with no interpretation or context.\\\",\\n      \\\"after\\\": \\\"Device compliance was 97%, which indicates that the large majority of devices met the compliance standard applied. However, the draft does not state a preceding-quarter comparison, the compliance criteria, or the device population, so quarter movement and the residual risk of the remaining devices are not established. The recommended next step is to confirm these details so the 97% result can be interpreted against a baseline.\\\",\\n      \\\"style_marker\\\": \\\"assessment_first\\\",\\n      \\\"reason\\\": \\\"Added the significance of the 97% result, a single calibrated qualification, and a next step, while keeping the measurement unchanged.\\\",\\n      \\\"assessment_function\\\": \\\"executive_conclusion\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Devices › body\\\",\\n      \\\"before\\\": \\\"The same sentence, which gave the metric with no stated limits on what it shows.\\\",\\n      \\\"after\\\": \\\"However, the draft does not state a preceding-quarter comparison, the compliance criteria, or the device population, so quarter movement and the residual risk of the remaining devices are not established.\\\",\\n      \\\"style_marker\\\": \\\"qualification_discipline\\\",\\n      \\\"reason\\\": \\\"Consolidated the evidence limitations into one qualification so the positive result is not read as a resolved risk.\\\",\\n      \\\"assessment_function\\\": \\\"evidence_limitation\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Devices › body\\\",\\n      \\\"before\\\": \\\"No recommended action accompanied the metric.\\\",\\n      \\\"after\\\": \\\"The recommended next step is to confirm these details so the 97% result can be interpreted against a baseline.\\\",\\n      \\\"style_marker\\\": \\\"actionable_recommendations\\\",\\n      \\\"reason\\\": \\\"Paired the finding with a client action and its rationale without adding new facts.\\\",\\n      \\\"assessment_function\\\": \\\"recommendation_traceability\\\",\\n      \\\"facts_changed\\\": false\\n    }\\n  ],\\n  \\\"tables_reviewed\\\": [],\\n  \\\"observations\\\": []\\n}\\n```\\n</Output>\\n<Rubric>\\nThe output states the observed condition and frames it in professional assessment language without inventing evidence or implications not present in the draft.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "27ef904a-9be8-45d0-9f55-bdf452cf1ceb",
+        "latencyMs": 12076,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 05-tone-consistency on the test inputs.",
+          "label": "Execute step 05-tone-consistency on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "## toned.md\n\n```markdown\n## Devices\n\nDevice compliance was 97%, which indicates that the large majority of devices met the compliance standard applied. However, the draft does not state a preceding-quarter comparison, the compliance criteria, or the device population, so quarter movement and the residual risk of the remaining devices are not established. The recommended next step is to confirm these details so the 97% result can be interpreted against a baseline.\n```\n\n## tone-changes.json\n\n```json\n{\n  \"certifiable\": true,\n  \"edits\": [\n    {\n      \"location\": \"Devices › body\",\n      \"before\": \"A single declarative sentence reporting device compliance at 97%, with no interpretation or context.\",\n      \"after\": \"Device compliance was 97%, which indicates that the large majority of devices met the compliance standard applied. However, the draft does not state a preceding-quarter comparison, the compliance criteria, or the device population, so quarter movement and the residual risk of the remaining devices are not established. The recommended next step is to confirm these details so the 97% result can be interpreted against a baseline.\",\n      \"style_marker\": \"assessment_first\",\n      \"reason\": \"Added the significance of the 97% result, a single calibrated qualification, and a next step, while keeping the measurement unchanged.\",\n      \"assessment_function\": \"executive_conclusion\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Devices › body\",\n      \"before\": \"The same sentence, which gave the metric with no stated limits on what it shows.\",\n      \"after\": \"However, the draft does not state a preceding-quarter comparison, the compliance criteria, or the device population, so quarter movement and the residual risk of the remaining devices are not established.\",\n      \"style_marker\": \"qualification_discipline\",\n      \"reason\": \"Consolidated the evidence limitations into one qualification so the positive result is not read as a resolved risk.\",\n      \"assessment_function\": \"evidence_limitation\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Devices › body\",\n      \"before\": \"No recommended action accompanied the metric.\",\n      \"after\": \"The recommended next step is to confirm these details so the 97% result can be interpreted against a baseline.\",\n      \"style_marker\": \"actionable_recommendations\",\n      \"reason\": \"Paired the finding with a client action and its rationale without adding new facts.\",\n      \"assessment_function\": \"recommendation_traceability\",\n      \"facts_changed\": false\n    }\n  ],\n  \"tables_reviewed\": [],\n  \"observations\": []\n}\n```",
+          "tokenUsage": {
+            "prompt": 8160,
+            "completion": 1610,
+            "cached": 0,
+            "total": 9770,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9,
+        "success": true,
+        "testCase": {
+          "description": "E3 — Findings follow condition → evidence → implication; recommendations follow action → rationale",
+          "vars": {
+            "draft": "## Devices\\nDevice compliance was 97%.",
+            "template": "## Devices",
+            "run_state": "{\"loop_counters\":{\"G4\":0}}"
+          },
+          "assert": [
+            {
+              "type": "llm-rubric",
+              "value": "The output states the observed condition and frames it in professional assessment language without inventing evidence or implications not present in the draft."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 2,
+        "tokenUsage": {
+          "prompt": 8160,
+          "completion": 1610,
+          "cached": 0,
+          "total": 9770,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1342,
+            "prompt": 1111,
+            "completion": 231,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "draft": "## Devices\\nDevice compliance was 97%.",
+          "template": "## Devices",
+          "run_state": "{\"loop_counters\":{\"G4\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.975,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1536,
+            "prompt": 1128,
+            "completion": 408,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 224,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "2026-09-30"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "97%"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "CIS M365 2.1.1"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "Every number, date, percentage, framework reference, and the recommendation's meaning from draft.md appears unchanged in toned.md."
+              },
+              "pass": true,
+              "score": 0.9,
+              "reason": "The output keeps every figure and reference that the edit log attributes to the draft: 97%, 2026-09-30, CIS M365 2.1.1 and NIST PR.DS-01. The recommendation to enforce compliance policies for unmanaged devices keeps its meaning and is only expanded into a full sentence. The added interpretive and limitation statements introduce no new numbers, dates or references. I could not see draft.md itself, so this rests on the draft descriptions in the edits' 'before' fields.",
+              "tokensUsed": {
+                "total": 1536,
+                "prompt": 1128,
+                "completion": 408,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 224,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n## Devices\\n\\nThe device compliance rate was 97% as of 2026-09-30 (CIS M365 2.1.1, NIST PR.DS-01), which indicates that most assessed devices met the compliance standard. However, this rate does not describe the posture of unmanaged devices or show movement from the preceding quarter. Compliance policies should be enforced for unmanaged devices so that compliance expectations extend to them.\\n\\n```json\\n{\\n  \\\"certifiable\\\": true,\\n  \\\"edits\\\": [\\n    {\\n      \\\"location\\\": \\\"Devices › paragraph 1\\\",\\n      \\\"before\\\": \\\"The section opens with a date-led statement that the device compliance rate was 97% as of 2026-09-30, followed by CIS M365 2.1.1 and NIST PR.DS-01 references in parentheses.\\\",\\n      \\\"after\\\": \\\"The device compliance rate was 97% as of 2026-09-30 (CIS M365 2.1.1, NIST PR.DS-01), which indicates that most assessed devices met the compliance standard.\\\",\\n      \\\"style_marker\\\": \\\"assessment_first\\\",\\n      \\\"reason\\\": \\\"Moved the supported conclusion to the front of the section and stated what the compliance rate indicates, keeping the date, value, and framework references unchanged.\\\",\\n      \\\"assessment_function\\\": \\\"executive_conclusion\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Devices › paragraph 1\\\",\\n      \\\"before\\\": \\\"The draft supplies the single compliance value and no comparison with a preceding quarter and no detail on unmanaged device posture.\\\",\\n      \\\"after\\\": \\\"However, this rate does not describe the posture of unmanaged devices or show movement from the preceding quarter.\\\",\\n      \\\"style_marker\\\": \\\"significance_calibration\\\",\\n      \\\"reason\\\": \\\"Calibrated the positive compliance value by stating what it does not establish, without manufacturing quarter movement.\\\",\\n      \\\"assessment_function\\\": \\\"evidence_limitation\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Devices › paragraph 1\\\",\\n      \\\"before\\\": \\\"A terse recommendation fragment advises enforcing compliance policies for unmanaged devices.\\\",\\n      \\\"after\\\": \\\"Compliance policies should be enforced for unmanaged devices so that compliance expectations extend to them.\\\",\\n      \\\"style_marker\\\": \\\"actionable_recommendations\\\",\\n      \\\"reason\\\": \\\"Converted the fragment into a complete recommendation sentence that pairs the action with its rationale.\\\",\\n      \\\"assessment_function\\\": \\\"recommendation_traceability\\\",\\n      \\\"facts_changed\\\": false\\n    }\\n  ],\\n  \\\"tables_reviewed\\\": [],\\n  \\\"observations\\\": []\\n}\\n```\\n</Output>\\n<Rubric>\\nEvery number, date, percentage, framework reference, and the recommendation's meaning from draft.md appears unchanged in toned.md.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "60171b0d-48ea-4849-87d4-abf9c262a847",
+        "latencyMs": 11790,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 05-tone-consistency on the test inputs.",
+          "label": "Execute step 05-tone-consistency on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "## Devices\n\nThe device compliance rate was 97% as of 2026-09-30 (CIS M365 2.1.1, NIST PR.DS-01), which indicates that most assessed devices met the compliance standard. However, this rate does not describe the posture of unmanaged devices or show movement from the preceding quarter. Compliance policies should be enforced for unmanaged devices so that compliance expectations extend to them.\n\n```json\n{\n  \"certifiable\": true,\n  \"edits\": [\n    {\n      \"location\": \"Devices › paragraph 1\",\n      \"before\": \"The section opens with a date-led statement that the device compliance rate was 97% as of 2026-09-30, followed by CIS M365 2.1.1 and NIST PR.DS-01 references in parentheses.\",\n      \"after\": \"The device compliance rate was 97% as of 2026-09-30 (CIS M365 2.1.1, NIST PR.DS-01), which indicates that most assessed devices met the compliance standard.\",\n      \"style_marker\": \"assessment_first\",\n      \"reason\": \"Moved the supported conclusion to the front of the section and stated what the compliance rate indicates, keeping the date, value, and framework references unchanged.\",\n      \"assessment_function\": \"executive_conclusion\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Devices › paragraph 1\",\n      \"before\": \"The draft supplies the single compliance value and no comparison with a preceding quarter and no detail on unmanaged device posture.\",\n      \"after\": \"However, this rate does not describe the posture of unmanaged devices or show movement from the preceding quarter.\",\n      \"style_marker\": \"significance_calibration\",\n      \"reason\": \"Calibrated the positive compliance value by stating what it does not establish, without manufacturing quarter movement.\",\n      \"assessment_function\": \"evidence_limitation\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Devices › paragraph 1\",\n      \"before\": \"A terse recommendation fragment advises enforcing compliance policies for unmanaged devices.\",\n      \"after\": \"Compliance policies should be enforced for unmanaged devices so that compliance expectations extend to them.\",\n      \"style_marker\": \"actionable_recommendations\",\n      \"reason\": \"Converted the fragment into a complete recommendation sentence that pairs the action with its rationale.\",\n      \"assessment_function\": \"recommendation_traceability\",\n      \"facts_changed\": false\n    }\n  ],\n  \"tables_reviewed\": [],\n  \"observations\": []\n}\n```",
+          "tokenUsage": {
+            "prompt": 8217,
+            "completion": 1653,
+            "cached": 0,
+            "total": 9870,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.975,
+        "success": true,
+        "testCase": {
+          "description": "E4 — Facts are preserved exactly (numbers, dates, CIS/NIST refs, recommendations)",
+          "vars": {
+            "draft": "## Devices\\nAs of 2026-09-30, the device compliance rate was 97% (CIS M365 2.1.1, NIST PR.DS-01). Recommended: enforce compliance policies for unmanaged devices.",
+            "template": "## Devices",
+            "run_state": "{\"loop_counters\":{\"G4\":0}}"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "2026-09-30"
+            },
+            {
+              "type": "contains",
+              "value": "97%"
+            },
+            {
+              "type": "contains",
+              "value": "CIS M365 2.1.1"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "Every number, date, percentage, framework reference, and the recommendation's meaning from draft.md appears unchanged in toned.md."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 3,
+        "tokenUsage": {
+          "prompt": 8217,
+          "completion": 1653,
+          "cached": 0,
+          "total": 9870,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1536,
+            "prompt": 1128,
+            "completion": 408,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 224,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "draft": "## Devices\\nAs of 2026-09-30, the device compliance rate was 97% (CIS M365 2.1.1, NIST PR.DS-01). Recommended: enforce compliance policies for unmanaged devices.",
+          "template": "## Devices",
+          "run_state": "{\"loop_counters\":{\"G4\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1105,
+            "prompt": 948,
+            "completion": 157,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "punchout"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent halts and raises punchout-missing-content.md for a human decision rather than inventing content for the required Remediation Plan section."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output is a punch-out file named punchout-missing-content.md. It identifies the missing Remediation Plan (and Executive Summary) sections and states that synthesis stopped because proceeding would require fabricating content. It also says toned.md was not produced, lists decision options for a human, and requires human approval before continuing. This matches the rubric: the agent halts and escalates rather than inventing the Remediation Plan content.",
+              "tokensUsed": {
+                "total": 1105,
+                "prompt": 948,
+                "completion": 157,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n**File: `runs/<run-id>/punchout-missing-content.md`**\\n\\n```markdown\\n# Punch-Out: Missing Required Content\\n\\n**Step:** 05-tone-consistency\\n**Trigger:** Instruction 11 (required template sections have no content in `draft.md`)\\n\\n## Missing Required Sections\\n\\n| # | Template section | Status in `draft.md` | Required by template |\\n|---|------------------|----------------------|----------------------|\\n| 1 | `## Executive Summary` | Absent. No heading and no content. | Yes |\\n| 2 | `## Remediation Plan` | Absent. No heading and no content. | Yes. The template states that a Remediation Plan section is required. |\\n\\n## Sections Present\\n\\n- `## Identities`: contains one sentence (\\\"MFA was enforced.\\\"). Content is present, so this section does not trigger a punch-out.\\n\\n## Why Synthesis Stopped\\n\\nSynthesis cannot proceed without fabricating an Executive Summary and a Remediation Plan. The draft contains no facts, findings, or recommendations from which either section could be written. The substance-freeze constraint prohibits adding any fact, cause, event, or recommendation that is absent from the draft. `toned.md` has not been produced.\\n\\n## Decision Options\\n\\n1. **Provide content.** Supply draft content for `Executive Summary` and `Remediation Plan`, then re-run the step.\\n2. **Drop section.** Confirm that one or both sections are removed from the required structure. This requires a template change recorded by a human decision.\\n3. **Defer.** Postpone this run until the content is available. The run remains halted.\\n\\n## Run-State Requirements\\n\\n- The harness records `triggered: true` and `certifiable: false` for `A_missing_content`.\\n- No continuation is permitted while `triggered: true` and `approved: false`.\\n- Approval is valid only with a matching row in `audit/punchout-log.md` that carries this `run_id`, a human decision, `resolved by`, and `resolved at`.\\n```\\n</Output>\\n<Rubric>\\nThe agent halts and raises punchout-missing-content.md for a human decision rather than inventing content for the required Remediation Plan section.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "ba481354-0773-4f00-843a-74e7e5c4d6d2",
+        "latencyMs": 6624,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 05-tone-consistency on the test inputs.",
+          "label": "Execute step 05-tone-consistency on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "**File: `runs/<run-id>/punchout-missing-content.md`**\n\n```markdown\n# Punch-Out: Missing Required Content\n\n**Step:** 05-tone-consistency\n**Trigger:** Instruction 11 (required template sections have no content in `draft.md`)\n\n## Missing Required Sections\n\n| # | Template section | Status in `draft.md` | Required by template |\n|---|------------------|----------------------|----------------------|\n| 1 | `## Executive Summary` | Absent. No heading and no content. | Yes |\n| 2 | `## Remediation Plan` | Absent. No heading and no content. | Yes. The template states that a Remediation Plan section is required. |\n\n## Sections Present\n\n- `## Identities`: contains one sentence (\"MFA was enforced.\"). Content is present, so this section does not trigger a punch-out.\n\n## Why Synthesis Stopped\n\nSynthesis cannot proceed without fabricating an Executive Summary and a Remediation Plan. The draft contains no facts, findings, or recommendations from which either section could be written. The substance-freeze constraint prohibits adding any fact, cause, event, or recommendation that is absent from the draft. `toned.md` has not been produced.\n\n## Decision Options\n\n1. **Provide content.** Supply draft content for `Executive Summary` and `Remediation Plan`, then re-run the step.\n2. **Drop section.** Confirm that one or both sections are removed from the required structure. This requires a template change recorded by a human decision.\n3. **Defer.** Postpone this run until the content is available. The run remains halted.\n\n## Run-State Requirements\n\n- The harness records `triggered: true` and `certifiable: false` for `A_missing_content`.\n- No continuation is permitted while `triggered: true` and `approved: false`.\n- Approval is valid only with a matching row in `audit/punchout-log.md` that carries this `run_id`, a human decision, `resolved by`, and `resolved at`.\n```",
+          "tokenUsage": {
+            "prompt": 8222,
+            "completion": 922,
+            "cached": 0,
+            "total": 9144,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E5 — Missing template-required section triggers a punch-out, not fabrication",
+          "vars": {
+            "draft": "## Identities\\nMFA was enforced.",
+            "template": "## Executive Summary\\n## Identities\\n## Remediation Plan\\n(template requires a Remediation Plan section)",
+            "run_state": "{\"loop_counters\":{\"G4\":0},\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false}}}"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "punchout"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent halts and raises punchout-missing-content.md for a human decision rather than inventing content for the required Remediation Plan section."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 4,
+        "tokenUsage": {
+          "prompt": 8222,
+          "completion": 922,
+          "cached": 0,
+          "total": 9144,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1105,
+            "prompt": 948,
+            "completion": 157,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "draft": "## Identities\\nMFA was enforced.",
+          "template": "## Executive Summary\\n## Identities\\n## Remediation Plan\\n(template requires a Remediation Plan section)",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false}}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 791,
+            "prompt": 657,
+            "completion": 134,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "\"style_marker\":"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "\"facts_changed\": false"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "tone-changes.json records at least one change and each entry has location, before, after, style_marker, reason, assessment_function, and facts_changed set to false."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output has a JSON object with an edits array containing one entry. That entry has location, before, after, style_marker, reason, assessment_function, and facts_changed set to false. This meets the rubric's requirement of at least one change with all the listed fields. The output isn't literally a file named tone-changes.json, but the JSON structure is what the rubric tests.",
+              "tokensUsed": {
+                "total": 791,
+                "prompt": 657,
+                "completion": 134,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n## Identities\\n\\nMultifactor authentication (MFA) was enforced. However, the supplied evidence does not establish the accounts covered, the quarter-over-quarter movement, or whether the enforcement resolves identity risk.\\n\\n```json\\n{\\n  \\\"certifiable\\\": true,\\n  \\\"edits\\\": [\\n    {\\n      \\\"location\\\": \\\"Identities › paragraph 1\\\",\\n      \\\"before\\\": \\\"A first-person statement, written in the past tense, that MFA was enforced, with no scope, period, or significance given.\\\",\\n      \\\"after\\\": \\\"Multifactor authentication (MFA) was enforced. However, the supplied evidence does not establish the accounts covered, the quarter-over-quarter movement, or whether the enforcement resolves identity risk.\\\",\\n      \\\"style_marker\\\": \\\"voice\\\",\\n      \\\"reason\\\": \\\"Replaced the first-person statement with a third-person consultative statement and added a calibrated qualification of what the MFA enforcement does and does not establish.\\\",\\n      \\\"assessment_function\\\": \\\"security_significance\\\",\\n      \\\"facts_changed\\\": false\\n    }\\n  ],\\n  \\\"tables_reviewed\\\": [],\\n  \\\"observations\\\": []\\n}\\n```\\n</Output>\\n<Rubric>\\ntone-changes.json records at least one change and each entry has location, before, after, style_marker, reason, assessment_function, and facts_changed set to false.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "34058d71-d0ab-4093-835a-301ca75762fd",
+        "latencyMs": 8589,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 05-tone-consistency on the test inputs.",
+          "label": "Execute step 05-tone-consistency on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "## Identities\n\nMultifactor authentication (MFA) was enforced. However, the supplied evidence does not establish the accounts covered, the quarter-over-quarter movement, or whether the enforcement resolves identity risk.\n\n```json\n{\n  \"certifiable\": true,\n  \"edits\": [\n    {\n      \"location\": \"Identities › paragraph 1\",\n      \"before\": \"A first-person statement, written in the past tense, that MFA was enforced, with no scope, period, or significance given.\",\n      \"after\": \"Multifactor authentication (MFA) was enforced. However, the supplied evidence does not establish the accounts covered, the quarter-over-quarter movement, or whether the enforcement resolves identity risk.\",\n      \"style_marker\": \"voice\",\n      \"reason\": \"Replaced the first-person statement with a third-person consultative statement and added a calibrated qualification of what the MFA enforcement does and does not establish.\",\n      \"assessment_function\": \"security_significance\",\n      \"facts_changed\": false\n    }\n  ],\n  \"tables_reviewed\": [],\n  \"observations\": []\n}\n```",
+          "tokenUsage": {
+            "prompt": 8252,
+            "completion": 1137,
+            "cached": 0,
+            "total": 9389,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E6 — Every edit recorded in tone-changes.json with a style_marker",
+          "vars": {
+            "draft": "## Identities\\nWe enforced MFA.",
+            "template": "## Identities\\n(required section; use \"## Identities\" heading)",
+            "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false,\"approved\":false}}}"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "\"style_marker\":"
+            },
+            {
+              "type": "contains",
+              "value": "\"facts_changed\": false"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "tone-changes.json records at least one change and each entry has location, before, after, style_marker, reason, assessment_function, and facts_changed set to false."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 5,
+        "tokenUsage": {
+          "prompt": 8252,
+          "completion": 1137,
+          "cached": 0,
+          "total": 9389,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 791,
+            "prompt": 657,
+            "completion": 134,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "draft": "## Identities\\nWe enforced MFA.",
+          "template": "## Identities\\n(required section; use \"## Identities\" heading)",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false,\"approved\":false}}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1230,
+            "prompt": 1070,
+            "completion": 160,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "certifiable[\"\\x27]?\\s*[:=]\\s*false|non-certifiable"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent does not emit a deliverable or toned.md on a non-certifiable run — it records the punch-out/halt state marked non-certifiable (certifiable=false), does not restore certifiability without a logged human decision, and does not fabricate a punchout-log row."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output states that no toned.md or tone-changes.json was produced, so no deliverable was emitted. It records the halt state with certifiable: false and punch-out A as triggered: true, approved: false. It does not restore certifiability, and it says approval needs a human decision logged in audit/punchout-log.md. It does not claim to have written a log row and explicitly says verbal approval is insufficient. All parts of the rubric are met.",
+              "tokensUsed": {
+                "total": 1230,
+                "prompt": 1070,
+                "completion": 160,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n# punchout-missing-content.md\\n\\n## Punch-Out: Missing Required Content\\n\\n**Step:** 05-tone-consistency\\n**Trigger:** Instruction 11, missing-content punch-out (A)\\n\\n### Missing section\\n\\n- **Template section:** `## Executive Summary`\\n- **Template element:** `<CURRENT_QUARTER>`. This placeholder is required and is not marked `IF AVAILABLE`, `OPTIONAL`, or equivalent.\\n- **Draft status:** `draft.md` contains only `## Current Posture` (one sentence: \\\"Endpoint coverage improved.\\\"). It has no Executive Summary heading and no content for the `<CURRENT_QUARTER>` element.\\n\\n### Why the run stopped\\n\\nWriting the Executive Summary would require inventing the current-quarter conclusion, quarter movement, and significance. The draft supplies none of these, and the substance freeze prohibits adding them. `run_state` also records punch-out A as `triggered: true` and `approved: false`. No continuation is permitted until a human decision is recorded for this `run_id` in `audit/punchout-log.md`.\\n\\nNo `toned.md` or `tone-changes.json` was produced.\\n\\n### Decision options\\n\\n1. **Provide content.** Supply Executive Summary content for the `<CURRENT_QUARTER>` element, drawn from the draft's evidence, in a revised `draft.md`. Then re-run this step.\\n2. **Drop section.** Confirm that the Executive Summary is not required for this report. The template would need to be revised so the section is optional or removed. Then re-run this step.\\n3. **Defer.** Hold the run until the content is available. The run stays non-certifiable (`certifiable: false`).\\n\\n### Run-state at halt\\n\\n- `certifiable`: `false`\\n- `non_certifiable_reasons`: `[\\\"unapproved punch-out A: Executive Summary has no draft content\\\"]`\\n- `punchouts.A_missing_content`: `triggered: true`, `approved: false`\\n\\nApproval requires a matching `audit/punchout-log.md` row with `run_id`, a non-empty human decision, `resolved by`, and `resolved at`. Verbal approval in chat does not satisfy this requirement.\\n</Output>\\n<Rubric>\\nThe agent does not emit a deliverable or toned.md on a non-certifiable run — it records the punch-out/halt state marked non-certifiable (certifiable=false), does not restore certifiability without a logged human decision, and does not fabricate a punchout-log row.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "5a36a0d7-ac30-4bf3-85b9-3bc4d2737ce9",
+        "latencyMs": 7397,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 05-tone-consistency on the test inputs.",
+          "label": "Execute step 05-tone-consistency on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "# punchout-missing-content.md\n\n## Punch-Out: Missing Required Content\n\n**Step:** 05-tone-consistency\n**Trigger:** Instruction 11, missing-content punch-out (A)\n\n### Missing section\n\n- **Template section:** `## Executive Summary`\n- **Template element:** `<CURRENT_QUARTER>`. This placeholder is required and is not marked `IF AVAILABLE`, `OPTIONAL`, or equivalent.\n- **Draft status:** `draft.md` contains only `## Current Posture` (one sentence: \"Endpoint coverage improved.\"). It has no Executive Summary heading and no content for the `<CURRENT_QUARTER>` element.\n\n### Why the run stopped\n\nWriting the Executive Summary would require inventing the current-quarter conclusion, quarter movement, and significance. The draft supplies none of these, and the substance freeze prohibits adding them. `run_state` also records punch-out A as `triggered: true` and `approved: false`. No continuation is permitted until a human decision is recorded for this `run_id` in `audit/punchout-log.md`.\n\nNo `toned.md` or `tone-changes.json` was produced.\n\n### Decision options\n\n1. **Provide content.** Supply Executive Summary content for the `<CURRENT_QUARTER>` element, drawn from the draft's evidence, in a revised `draft.md`. Then re-run this step.\n2. **Drop section.** Confirm that the Executive Summary is not required for this report. The template would need to be revised so the section is optional or removed. Then re-run this step.\n3. **Defer.** Hold the run until the content is available. The run stays non-certifiable (`certifiable: false`).\n\n### Run-state at halt\n\n- `certifiable`: `false`\n- `non_certifiable_reasons`: `[\"unapproved punch-out A: Executive Summary has no draft content\"]`\n- `punchouts.A_missing_content`: `triggered: true`, `approved: false`\n\nApproval requires a matching `audit/punchout-log.md` row with `run_id`, a non-empty human decision, `resolved by`, and `resolved at`. Verbal approval in chat does not satisfy this requirement.",
+          "tokenUsage": {
+            "prompt": 8262,
+            "completion": 974,
+            "cached": 0,
+            "total": 9236,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E9 — Outputs produced during a non-certifiable run are marked certifiable:false",
+          "vars": {
+            "draft": "## Current Posture\\nEndpoint coverage improved.",
+            "template": "## Executive Summary\\n<CURRENT_QUARTER>\\n## Current Posture",
+            "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":false,\"non_certifiable_reasons\":[\"unapproved punch-out A: Executive Summary has no draft content\"],\"punchouts\":{\"A_missing_content\":{\"triggered\":true,\"approved\":false}}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "certifiable[\"\\x27]?\\s*[:=]\\s*false|non-certifiable"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent does not emit a deliverable or toned.md on a non-certifiable run — it records the punch-out/halt state marked non-certifiable (certifiable=false), does not restore certifiability without a logged human decision, and does not fabricate a punchout-log row."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 6,
+        "tokenUsage": {
+          "prompt": 8262,
+          "completion": 974,
+          "cached": 0,
+          "total": 9236,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1230,
+            "prompt": 1070,
+            "completion": 160,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "draft": "## Current Posture\\nEndpoint coverage improved.",
+          "template": "## Executive Summary\\n<CURRENT_QUARTER>\\n## Current Posture",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":false,\"non_certifiable_reasons\":[\"unapproved punch-out A: Executive Summary has no draft content\"],\"punchouts\":{\"A_missing_content\":{\"triggered\":true,\"approved\":false}}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.9666666666666667,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1968,
+            "prompt": 1550,
+            "completion": 418,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 226,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "\"style_marker\": \"complete_sentences\""
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "\"facts_changed\": false"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "toned.md rewrites verbless table cells into complete consultative sentences; factual shorthand (EDR, DLP) and evidence tokens are preserved unchanged; `tone-changes.json` includes `tables_reviewed` and `observations` arrays."
+              },
+              "pass": true,
+              "score": 0.9,
+              "reason": "The verbless evidence-gap cells in toned.md were rewritten as complete sentences, for example 'Agent deployment evidence was not available.' and 'Content totals were not available.' The shorthand EDR and DLP are unchanged. The evidence token 'Network telemetry is not sensitive-content disclosure' is preserved. The Status cells are imperative phrases that already contain verbs, so leaving them as they were is acceptable. tone-changes.json includes both a `tables_reviewed` array and an `observations` array.",
+              "tokensUsed": {
+                "total": 1968,
+                "prompt": 1550,
+                "completion": 418,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 226,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n## toned.md\\n\\n```markdown\\n## Endpoint Posture\\n\\nThe supplied evidence does not establish the endpoint posture for EDR or DLP. EDR agent deployment evidence was not available, and DLP content totals were not available. However, the draft supplies no comparison with a preceding quarter, so no quarter movement is reported. The recommended response is to validate service owners and permissions for EDR and to confirm approved use and restrictions for DLP.\\n\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |\\n| DLP | Network telemetry is not sensitive-content disclosure. Content totals were not available. | Confirm approved use and restrictions |\\n```\\n\\n## tone-changes.json\\n\\n```json\\n{\\n  \\\"certifiable\\\": true,\\n  \\\"edits\\\": [\\n    {\\n      \\\"location\\\": \\\"Endpoint Posture › lead-in paragraph\\\",\\n      \\\"before\\\": \\\"(no prose present in draft; the section contained only the table)\\\",\\n      \\\"after\\\": \\\"The supplied evidence does not establish the endpoint posture for EDR or DLP. EDR agent deployment evidence was not available, and DLP content totals were not available. However, the draft supplies no comparison with a preceding quarter, so no quarter movement is reported. The recommended response is to validate service owners and permissions for EDR and to confirm approved use and restrictions for DLP.\\\",\\n      \\\"style_marker\\\": \\\"assessment_first\\\",\\n      \\\"reason\\\": \\\"Adds a conclusion-first interpretation of the table using only facts already in the draft, with a single consolidated qualification and a paired recommended response.\\\",\\n      \\\"assessment_function\\\": \\\"executive_conclusion\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Endpoint Posture › Endpoint control table › row: EDR\\\",\\n      \\\"before\\\": \\\"| EDR | Agent deployment evidence: It was not available | Validate service owners and permissions |\\\",\\n      \\\"after\\\": \\\"| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |\\\",\\n      \\\"style_marker\\\": \\\"complete_sentences\\\",\\n      \\\"reason\\\": \\\"Converts a verbless evidence-gap fragment into a complete sentence with a subject and verb in the past tense.\\\",\\n      \\\"assessment_function\\\": \\\"evidence_interpretation\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Endpoint Posture › Endpoint control table › row: DLP\\\",\\n      \\\"before\\\": \\\"| DLP | Network telemetry is not sensitive-content disclosure; content totals: It was not available | Confirm approved use and restrictions |\\\",\\n      \\\"after\\\": \\\"| DLP | Network telemetry is not sensitive-content disclosure. Content totals were not available. | Confirm approved use and restrictions |\\\",\\n      \\\"style_marker\\\": \\\"sentence_discipline\\\",\\n      \\\"reason\\\": \\\"Splits a semicolon-joined statement into two complete sentences and corrects the evidence-gap fragment.\\\",\\n      \\\"assessment_function\\\": \\\"evidence_interpretation\\\",\\n      \\\"facts_changed\\\": false\\n    }\\n  ],\\n  \\\"tables_reviewed\\\": [\\n    {\\n      \\\"location\\\": \\\"Endpoint Posture › Endpoint control table\\\",\\n      \\\"purpose\\\": \\\"Lists EDR and DLP control evidence and the follow-up status for each control.\\\",\\n      \\\"rows\\\": 2,\\n      \\\"rows_edited\\\": 2\\n    }\\n  ],\\n  \\\"observations\\\": [\\n    {\\n      \\\"location\\\": \\\"Endpoint Posture › Endpoint control table › column: Status\\\",\\n      \\\"type\\\": \\\"terminology\\\",\\n      \\\"detail\\\": \\\"The Status column contains follow-up actions rather than status values. The draft does not define the column differently, so the wording and table structure were retained.\\\",\\n      \\\"action_required\\\": \\\"confirm\\\"\\n    }\\n  ]\\n}\\n```\\n</Output>\\n<Rubric>\\ntoned.md rewrites verbless table cells into complete consultative sentences; factual shorthand (EDR, DLP) and evidence tokens are preserved unchanged; `tone-changes.json` includes `tables_reviewed` and `observations` arrays.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "01bd383b-e760-4606-a30a-c3157666bad4",
+        "latencyMs": 18041,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 05-tone-consistency on the test inputs.",
+          "label": "Execute step 05-tone-consistency on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "## toned.md\n\n```markdown\n## Endpoint Posture\n\nThe supplied evidence does not establish the endpoint posture for EDR or DLP. EDR agent deployment evidence was not available, and DLP content totals were not available. However, the draft supplies no comparison with a preceding quarter, so no quarter movement is reported. The recommended response is to validate service owners and permissions for EDR and to confirm approved use and restrictions for DLP.\n\n| Control | Evidence | Status |\n|---|---|---|\n| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |\n| DLP | Network telemetry is not sensitive-content disclosure. Content totals were not available. | Confirm approved use and restrictions |\n```\n\n## tone-changes.json\n\n```json\n{\n  \"certifiable\": true,\n  \"edits\": [\n    {\n      \"location\": \"Endpoint Posture › lead-in paragraph\",\n      \"before\": \"(no prose present in draft; the section contained only the table)\",\n      \"after\": \"The supplied evidence does not establish the endpoint posture for EDR or DLP. EDR agent deployment evidence was not available, and DLP content totals were not available. However, the draft supplies no comparison with a preceding quarter, so no quarter movement is reported. The recommended response is to validate service owners and permissions for EDR and to confirm approved use and restrictions for DLP.\",\n      \"style_marker\": \"assessment_first\",\n      \"reason\": \"Adds a conclusion-first interpretation of the table using only facts already in the draft, with a single consolidated qualification and a paired recommended response.\",\n      \"assessment_function\": \"executive_conclusion\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Endpoint Posture › Endpoint control table › row: EDR\",\n      \"before\": \"| EDR | Agent deployment evidence: It was not available | Validate service owners and permissions |\",\n      \"after\": \"| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |\",\n      \"style_marker\": \"complete_sentences\",\n      \"reason\": \"Converts a verbless evidence-gap fragment into a complete sentence with a subject and verb in the past tense.\",\n      \"assessment_function\": \"evidence_interpretation\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Endpoint Posture › Endpoint control table › row: DLP\",\n      \"before\": \"| DLP | Network telemetry is not sensitive-content disclosure; content totals: It was not available | Confirm approved use and restrictions |\",\n      \"after\": \"| DLP | Network telemetry is not sensitive-content disclosure. Content totals were not available. | Confirm approved use and restrictions |\",\n      \"style_marker\": \"sentence_discipline\",\n      \"reason\": \"Splits a semicolon-joined statement into two complete sentences and corrects the evidence-gap fragment.\",\n      \"assessment_function\": \"evidence_interpretation\",\n      \"facts_changed\": false\n    }\n  ],\n  \"tables_reviewed\": [\n    {\n      \"location\": \"Endpoint Posture › Endpoint control table\",\n      \"purpose\": \"Lists EDR and DLP control evidence and the follow-up status for each control.\",\n      \"rows\": 2,\n      \"rows_edited\": 2\n    }\n  ],\n  \"observations\": [\n    {\n      \"location\": \"Endpoint Posture › Endpoint control table › column: Status\",\n      \"type\": \"terminology\",\n      \"detail\": \"The Status column contains follow-up actions rather than status values. The draft does not define the column differently, so the wording and table structure were retained.\",\n      \"action_required\": \"confirm\"\n    }\n  ]\n}\n```",
+          "tokenUsage": {
+            "prompt": 8261,
+            "completion": 2685,
+            "cached": 0,
+            "total": 10946,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9666666666666667,
+        "success": true,
+        "testCase": {
+          "description": "E8 — Table narrative cells are rewritten for sentence discipline while preserving factual shorthand",
+          "vars": {
+            "draft": "## Endpoint Posture\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | Agent deployment evidence: It was not available | Validate service owners and permissions |\\n| DLP | Network telemetry is not sensitive-content disclosure; content totals: It was not available | Confirm approved use and restrictions |",
+            "template": "## Endpoint Posture",
+            "run_state": "{\"loop_counters\":{\"G4\":0}}"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "\"style_marker\": \"complete_sentences\""
+            },
+            {
+              "type": "contains",
+              "value": "\"facts_changed\": false"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "toned.md rewrites verbless table cells into complete consultative sentences; factual shorthand (EDR, DLP) and evidence tokens are preserved unchanged; `tone-changes.json` includes `tables_reviewed` and `observations` arrays."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 7,
+        "tokenUsage": {
+          "prompt": 8261,
+          "completion": 2685,
+          "cached": 0,
+          "total": 10946,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1968,
+            "prompt": 1550,
+            "completion": 418,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 226,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "draft": "## Endpoint Posture\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | Agent deployment evidence: It was not available | Validate service owners and permissions |\\n| DLP | Network telemetry is not sensitive-content disclosure; content totals: It was not available | Confirm approved use and restrictions |",
+          "template": "## Endpoint Posture",
+          "run_state": "{\"loop_counters\":{\"G4\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.9,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1753,
+            "prompt": 1459,
+            "completion": 294,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "toned.md leads with supported conclusions, uses concise consultative prose, interprets findings for the client, and avoids repeated defensive caveats such as \"cannot be validated,\" \"no evidence was supplied,\" and \"insufficient evidence exists\" when a single clear qualification suffices. The output preserves all material qualifications but does not read like an audit memorandum."
+              },
+              "pass": true,
+              "score": 0.9,
+              "reason": "The toned.md leads each section with the supported conclusion (MFA configured for all accounts; 97% compliance). Each section uses one consolidated qualification instead of repeated defensive caveats, and the prose is concise and consultative. It interprets findings for the client (\"sound baseline,\" \"should not be read as full endpoint assurance\") and ends with a clear next step. The material qualifications are preserved: legacy authentication, conditional access enforcement, endpoint coverage, and non-compliant devices. The tone is consultative, not an audit memorandum. Phrases like \"does not establish\" appear, but only once per paragraph, which is acceptable under the rubric. A minor weakness is that the Identities section still uses a somewhat formal construction (\"the assessment does not establish whether...\"), but it does not read as an audit memo.",
+              "tokensUsed": {
+                "total": 1753,
+                "prompt": 1459,
+                "completion": 294,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n## toned.md\\n\\n```markdown\\n## Identities\\nMulti-factor authentication was observed as configured for all user accounts, which gives the tenant a sound baseline for identity protection. However, the assessment does not establish whether legacy authentication protocols remain enabled in third-party applications or whether conditional access enforces the control, so full identity protection is not concluded. Confirming both points is the recommended next step, because they determine how consistently multi-factor authentication applies across the environment.\\n\\n## Devices\\nDevice compliance was reported at 97%, which indicates that most measured devices met compliance requirements. The export does not establish coverage of all endpoints or confirm the absence of non-compliant devices, so the figure should not be read as full endpoint assurance. Validating endpoint coverage and identifying any non-compliant devices is the recommended next step.\\n```\\n\\n## tone-changes.json\\n\\n```json\\n{\\n  \\\"certifiable\\\": true,\\n  \\\"edits\\\": [\\n    {\\n      \\\"location\\\": \\\"Identities › Paragraph 1\\\",\\n      \\\"before\\\": \\\"Draft stated that MFA was observed as configured for every user account, then listed three limitations in separate sentences: unverified legacy authentication in third-party applications, no supplied evidence on conditional access enforcement, and a statement that evidence was too thin to conclude full identity protection.\\\",\\n      \\\"after\\\": \\\"Multi-factor authentication was observed as configured for all user accounts, which gives the tenant a sound baseline for identity protection. However, the assessment does not establish whether legacy authentication protocols remain enabled in third-party applications or whether conditional access enforces the control, so full identity protection is not concluded. Confirming both points is the recommended next step, because they determine how consistently multi-factor authentication applies across the environment.\\\",\\n      \\\"style_marker\\\": \\\"qualification_discipline\\\",\\n      \\\"reason\\\": \\\"Led with the supported conclusion, merged three separate limitations into one qualification, and added a traceable recommended response.\\\",\\n      \\\"assessment_function\\\": \\\"security_significance\\\",\\n      \\\"facts_changed\\\": false\\n    },\\n    {\\n      \\\"location\\\": \\\"Devices › Paragraph 1\\\",\\n      \\\"before\\\": \\\"Draft reported device compliance at 97%, then added a filler-led caveat that the metric does not establish coverage of all endpoints and that the absence of non-compliant devices cannot be confirmed from the export.\\\",\\n      \\\"after\\\": \\\"Device compliance was reported at 97%, which indicates that most measured devices met compliance requirements. The export does not establish coverage of all endpoints or confirm the absence of non-compliant devices, so the figure should not be read as full endpoint assurance. Validating endpoint coverage and identifying any non-compliant devices is the recommended next step.\\\",\\n      \\\"style_marker\\\": \\\"significance_calibration\\\",\\n      \\\"reason\\\": \\\"Removed filler, stated what the metric does and does not show in one qualification, and paired it with a concrete next step.\\\",\\n      \\\"assessment_function\\\": \\\"evidence_interpretation\\\",\\n      \\\"facts_changed\\\": false\\n    }\\n  ],\\n  \\\"tables_reviewed\\\": [],\\n  \\\"observations\\\": [\\n    {\\n      \\\"location\\\": \\\"Document › Identities and Devices\\\",\\n      \\\"type\\\": \\\"template_deviation\\\",\\n      \\\"detail\\\": \\\"The draft contains no tables and no prior-quarter evidence. Quarter-over-quarter movement was therefore not stated for either domain, and none was inferred.\\\",\\n      \\\"action_required\\\": \\\"confirm\\\"\\n    }\\n  ]\\n}\\n```\\n</Output>\\n<Rubric>\\ntoned.md leads with supported conclusions, uses concise consultative prose, interprets findings for the client, and avoids repeated defensive caveats such as \\\"cannot be validated,\\\" \\\"no evidence was supplied,\\\" and \\\"insufficient evidence exists\\\" when a single clear qualification suffices. The output preserves all material qualifications but does not read like an audit memorandum.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "45deb09e-3f1f-4aa0-9c9c-2910823864a0",
+        "latencyMs": 16183,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 05-tone-consistency on the test inputs.",
+          "label": "Execute step 05-tone-consistency on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "0486818f689ce5c4822d1451e9e118c7e248b6c8ca5c18bbb4bfc696077ead2b",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "## toned.md\n\n```markdown\n## Identities\nMulti-factor authentication was observed as configured for all user accounts, which gives the tenant a sound baseline for identity protection. However, the assessment does not establish whether legacy authentication protocols remain enabled in third-party applications or whether conditional access enforces the control, so full identity protection is not concluded. Confirming both points is the recommended next step, because they determine how consistently multi-factor authentication applies across the environment.\n\n## Devices\nDevice compliance was reported at 97%, which indicates that most measured devices met compliance requirements. The export does not establish coverage of all endpoints or confirm the absence of non-compliant devices, so the figure should not be read as full endpoint assurance. Validating endpoint coverage and identifying any non-compliant devices is the recommended next step.\n```\n\n## tone-changes.json\n\n```json\n{\n  \"certifiable\": true,\n  \"edits\": [\n    {\n      \"location\": \"Identities › Paragraph 1\",\n      \"before\": \"Draft stated that MFA was observed as configured for every user account, then listed three limitations in separate sentences: unverified legacy authentication in third-party applications, no supplied evidence on conditional access enforcement, and a statement that evidence was too thin to conclude full identity protection.\",\n      \"after\": \"Multi-factor authentication was observed as configured for all user accounts, which gives the tenant a sound baseline for identity protection. However, the assessment does not establish whether legacy authentication protocols remain enabled in third-party applications or whether conditional access enforces the control, so full identity protection is not concluded. Confirming both points is the recommended next step, because they determine how consistently multi-factor authentication applies across the environment.\",\n      \"style_marker\": \"qualification_discipline\",\n      \"reason\": \"Led with the supported conclusion, merged three separate limitations into one qualification, and added a traceable recommended response.\",\n      \"assessment_function\": \"security_significance\",\n      \"facts_changed\": false\n    },\n    {\n      \"location\": \"Devices › Paragraph 1\",\n      \"before\": \"Draft reported device compliance at 97%, then added a filler-led caveat that the metric does not establish coverage of all endpoints and that the absence of non-compliant devices cannot be confirmed from the export.\",\n      \"after\": \"Device compliance was reported at 97%, which indicates that most measured devices met compliance requirements. The export does not establish coverage of all endpoints or confirm the absence of non-compliant devices, so the figure should not be read as full endpoint assurance. Validating endpoint coverage and identifying any non-compliant devices is the recommended next step.\",\n      \"style_marker\": \"significance_calibration\",\n      \"reason\": \"Removed filler, stated what the metric does and does not show in one qualification, and paired it with a concrete next step.\",\n      \"assessment_function\": \"evidence_interpretation\",\n      \"facts_changed\": false\n    }\n  ],\n  \"tables_reviewed\": [],\n  \"observations\": [\n    {\n      \"location\": \"Document › Identities and Devices\",\n      \"type\": \"template_deviation\",\n      \"detail\": \"The draft contains no tables and no prior-quarter evidence. Quarter-over-quarter movement was therefore not stated for either domain, and none was inferred.\",\n      \"action_required\": \"confirm\"\n    }\n  ]\n}\n```",
+          "tokenUsage": {
+            "prompt": 8324,
+            "completion": 2284,
+            "cached": 0,
+            "total": 10608,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.9,
+        "success": true,
+        "testCase": {
+          "description": "E7 — Verbose, caveat-heavy audit prose is rewritten as concise client-consultative guidance",
+          "vars": {
+            "draft": "## Identities\\nIt was observed that multi-factor authentication is configured for all user accounts. However, it cannot be validated whether legacy authentication protocols remain enabled in all third-party applications, and no evidence was supplied regarding conditional access enforcement. Insufficient evidence exists to conclude full identity protection.\\n\\n## Devices\\nDevice compliance was reported at 97%. It is important to note that this metric does not establish coverage of all endpoints, and the absence of non-compliant devices cannot be confirmed from the export.",
+            "template": "## Identities\\n## Devices",
+            "run_state": "{\"loop_counters\":{\"G4\":0}}"
+          },
+          "assert": [
+            {
+              "type": "llm-rubric",
+              "value": "toned.md leads with supported conclusions, uses concise consultative prose, interprets findings for the client, and avoids repeated defensive caveats such as \"cannot be validated,\" \"no evidence was supplied,\" and \"insufficient evidence exists\" when a single clear qualification suffices. The output preserves all material qualifications but does not read like an audit memorandum."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 8,
+        "tokenUsage": {
+          "prompt": 8324,
+          "completion": 2284,
+          "cached": 0,
+          "total": 10608,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1753,
+            "prompt": 1459,
+            "completion": 294,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "draft": "## Identities\\nIt was observed that multi-factor authentication is configured for all user accounts. However, it cannot be validated whether legacy authentication protocols remain enabled in all third-party applications, and no evidence was supplied regarding conditional access enforcement. Insufficient evidence exists to conclude full identity protection.\\n\\n## Devices\\nDevice compliance was reported at 97%. It is important to note that this metric does not establish coverage of all endpoints, and the absence of non-compliant devices cannot be confirmed from the export.",
+          "template": "## Identities\\n## Devices",
+          "run_state": "{\"loop_counters\":{\"G4\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      }
+    ],
+    "stats": {
+      "successes": 9,
+      "failures": 0,
+      "errors": 0,
+      "tokenUsage": {
+        "prompt": 74261,
+        "completion": 14282,
+        "cached": 0,
+        "total": 88543,
+        "numRequests": 9,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0
+        },
+        "assertions": {
+          "total": 12174,
+          "prompt": 10060,
+          "completion": 2114,
+          "cached": 0,
+          "numRequests": 9,
+          "completionDetails": {
+            "reasoning": 450,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          }
+        }
+      },
+      "durationMs": 41445,
+      "evaluationDurationMs": 41445
+    }
+  },
+  "config": {
+    "description": "05-tone-consistency (V2) — validate G4 input gate, assessment synthesis, substance freeze, and edit logging.",
+    "prompts": [
+      "Execute step 05-tone-consistency on the test inputs."
+    ],
+    "providers": [
+      {
+        "id": "file://../../promptfoo-anthropic-provider.js",
+        "config": {
+          "model": "claude-sonnet-5-5",
+          "skillPath": "05-tone-consistency/SKILL.md",
+          "max_tokens": 4096
+        }
+      }
+    ],
+    "tests": [
+      {
+        "description": "E1 — Editing blocked when G4 fails (missing input document)",
+        "vars": {
+          "draft": "## Identities\\nMFA was enforced.",
+          "template": "",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false,\"approved\":false}}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "(G4|HALT|halted?)[^\\n]{0,60}(FAIL|fail|missing|unreadable)|required input (missing|unreadable)|missing (required )?(input|template)"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent halts and does not produce toned.md when any required input is missing or unreadable."
+          }
+        ]
+      },
+      {
+        "description": "E2 — Professional assessment synthesis is applied to the draft",
+        "vars": {
+          "draft": "## Executive Summary\\nThe quarter showed measurable posture improvement.\\n## Identities\\nWe turned on MFA for all users during the quarter. This is a positive change.\\n## Devices\\nDevice compliance was 97%.",
+          "template": "## Executive Summary\\n## Identities\\n## Devices\\n(sections use \"## \" headings, sentence-case titles)",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false,\"approved\":false}}}"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "## Identities"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The output is substantively rewritten in a professional third-person formal voice with precise terminology (e.g., multi-factor authentication was enforced), adopts the template heading structure, and removes colloquial filler."
+          }
+        ]
+      },
+      {
+        "description": "E3 — Findings follow condition → evidence → implication; recommendations follow action → rationale",
+        "vars": {
+          "draft": "## Devices\\nDevice compliance was 97%.",
+          "template": "## Devices",
+          "run_state": "{\"loop_counters\":{\"G4\":0}}"
+        },
+        "assert": [
+          {
+            "type": "llm-rubric",
+            "value": "The output states the observed condition and frames it in professional assessment language without inventing evidence or implications not present in the draft."
+          }
+        ]
+      },
+      {
+        "description": "E4 — Facts are preserved exactly (numbers, dates, CIS/NIST refs, recommendations)",
+        "vars": {
+          "draft": "## Devices\\nAs of 2026-09-30, the device compliance rate was 97% (CIS M365 2.1.1, NIST PR.DS-01). Recommended: enforce compliance policies for unmanaged devices.",
+          "template": "## Devices",
+          "run_state": "{\"loop_counters\":{\"G4\":0}}"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "2026-09-30"
+          },
+          {
+            "type": "contains",
+            "value": "97%"
+          },
+          {
+            "type": "contains",
+            "value": "CIS M365 2.1.1"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "Every number, date, percentage, framework reference, and the recommendation's meaning from draft.md appears unchanged in toned.md."
+          }
+        ]
+      },
+      {
+        "description": "E5 — Missing template-required section triggers a punch-out, not fabrication",
+        "vars": {
+          "draft": "## Identities\\nMFA was enforced.",
+          "template": "## Executive Summary\\n## Identities\\n## Remediation Plan\\n(template requires a Remediation Plan section)",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false}}}"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "punchout"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent halts and raises punchout-missing-content.md for a human decision rather than inventing content for the required Remediation Plan section."
+          }
+        ]
+      },
+      {
+        "description": "E6 — Every edit recorded in tone-changes.json with a style_marker",
+        "vars": {
+          "draft": "## Identities\\nWe enforced MFA.",
+          "template": "## Identities\\n(required section; use \"## Identities\" heading)",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false,\"approved\":false}}}"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "\"style_marker\":"
+          },
+          {
+            "type": "contains",
+            "value": "\"facts_changed\": false"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "tone-changes.json records at least one change and each entry has location, before, after, style_marker, reason, assessment_function, and facts_changed set to false."
+          }
+        ]
+      },
+      {
+        "description": "E9 — Outputs produced during a non-certifiable run are marked certifiable:false",
+        "vars": {
+          "draft": "## Current Posture\\nEndpoint coverage improved.",
+          "template": "## Executive Summary\\n<CURRENT_QUARTER>\\n## Current Posture",
+          "run_state": "{\"loop_counters\":{\"G4\":0},\"certifiable\":false,\"non_certifiable_reasons\":[\"unapproved punch-out A: Executive Summary has no draft content\"],\"punchouts\":{\"A_missing_content\":{\"triggered\":true,\"approved\":false}}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "certifiable[\"\\x27]?\\s*[:=]\\s*false|non-certifiable"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent does not emit a deliverable or toned.md on a non-certifiable run — it records the punch-out/halt state marked non-certifiable (certifiable=false), does not restore certifiability without a logged human decision, and does not fabricate a punchout-log row."
+          }
+        ]
+      },
+      {
+        "description": "E8 — Table narrative cells are rewritten for sentence discipline while preserving factual shorthand",
+        "vars": {
+          "draft": "## Endpoint Posture\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | Agent deployment evidence: It was not available | Validate service owners and permissions |\\n| DLP | Network telemetry is not sensitive-content disclosure; content totals: It was not available | Confirm approved use and restrictions |",
+          "template": "## Endpoint Posture",
+          "run_state": "{\"loop_counters\":{\"G4\":0}}"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "\"style_marker\": \"complete_sentences\""
+          },
+          {
+            "type": "contains",
+            "value": "\"facts_changed\": false"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "toned.md rewrites verbless table cells into complete consultative sentences; factual shorthand (EDR, DLP) and evidence tokens are preserved unchanged; `tone-changes.json` includes `tables_reviewed` and `observations` arrays."
+          }
+        ]
+      },
+      {
+        "description": "E7 — Verbose, caveat-heavy audit prose is rewritten as concise client-consultative guidance",
+        "vars": {
+          "draft": "## Identities\\nIt was observed that multi-factor authentication is configured for all user accounts. However, it cannot be validated whether legacy authentication protocols remain enabled in all third-party applications, and no evidence was supplied regarding conditional access enforcement. Insufficient evidence exists to conclude full identity protection.\\n\\n## Devices\\nDevice compliance was reported at 97%. It is important to note that this metric does not establish coverage of all endpoints, and the absence of non-compliant devices cannot be confirmed from the export.",
+          "template": "## Identities\\n## Devices",
+          "run_state": "{\"loop_counters\":{\"G4\":0}}"
+        },
+        "assert": [
+          {
+            "type": "llm-rubric",
+            "value": "toned.md leads with supported conclusions, uses concise consultative prose, interprets findings for the client, and avoids repeated defensive caveats such as \"cannot be validated,\" \"no evidence was supplied,\" and \"insufficient evidence exists\" when a single clear qualification suffices. The output preserves all material qualifications but does not read like an audit memorandum."
+          }
+        ]
+      }
+    ],
+    "outputPath": [
+      "results.json"
+    ],
+    "extensions": [],
+    "defaultTest": {
+      "options": {
+        "provider": "anthropic:messages:claude-sonnet-5-5"
+      }
+    },
+    "basePath": "C:\\Users\\DannyGeorge\\OneDrive - Improving\\Documents\\security-assessment\\tone-assessmentV2\\.github\\skills\\05-tone-consistency\\evals"
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.124.1",
+    "nodeVersion": "v26.1.0",
+    "platform": "win32",
+    "arch": "x64",
+    "exportedAt": "2026-10-21T03:40:29.681Z",
+    "evaluationCreatedAt": "2026-10-21T03:39:47.786Z"
+  },
+  "vars": [
+    "draft",
+    "template",
+    "run_state"
+  ],
+  "runtimeOptions": {
+    "eventSource": "cli",
+    "showProgressBar": true,
+    "repeat": 1,
+    "maxConcurrency": 4,
+    "cache": true
+  }
+}

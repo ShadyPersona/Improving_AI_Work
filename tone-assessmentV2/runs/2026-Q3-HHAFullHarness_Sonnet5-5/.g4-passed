@@ -1,0 +1,8 @@
+{
+  "gate": "G4",
+  "run_id": "2026-Q3-HHAFullHarness_Sonnet5-5",
+  "hashes": {
+    "draft": "a7d278054788c17911db7b094048eae052377c57a8f3313f9fc1d30e5187dc6d",
+    "template": "bc452ab9ca8ad88fdcb78e03bd20848435a3dccb08351b65f92ae4c1e35bdd67"
+  }
+}

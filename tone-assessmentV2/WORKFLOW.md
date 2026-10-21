@@ -14,27 +14,38 @@ no paths, files, or skills outside `tone-assessmentV2/` are referenced.
 ```
 [inputs: draft.md + template]
         │
-        ▼  G4 (input-completeness gate)
+        ▼  G4 (input-completeness gate — deterministic, harness.py (g4_check))
 05-tone-consistency ──G5──▶ 06-adversarial-review → [deliverable]
-        │                            │
+        │        ▲           │
+        │        └─ deterministic pre-checks (harness.py (g5_check))
         └── missing-content ─────────┴── punch-out → human sign-off → resume
 ```
 
+**Execution:** the workflow is executed by the harness
+(`harness.py`, `python harness.py run --run-id <id>`) — executable code that
+drives the `run-state.json` state machine, invokes each step through the
+Copilot/agent runtime, runs the deterministic gate checks, and writes all
+audit records. The step-06 adversarial agent remains the judgment layer
+on top of the deterministic G5 edge.
+
 ## Inputs
 
-All inputs are placed in `runs/<run-id>/inputs/` before the run starts.
-Exactly ONE document is modified; the template is read-only.
+`draft.md` is placed in `runs/<run-id>/inputs/` before the run starts.
+The template defaults to the repo-root `CSA Template.docx`
+(`default_template` in `harness.config.json`); `inputs/template.*` may
+override it per run. Exactly ONE document is modified; the template is
+read-only.
 
 | # | Source | Role |
 |---|--------|------|
-| 1 | `draft.md` | The document being edited — the only file rewritten |
-| 2 | `template` | AUTHORITATIVE for section order, headings, formatting, required elements; wins every conflict |
+| 1 | `inputs/draft.md` | The document being edited — the only file rewritten |
+| 2 | `CSA Template.docx` (default) or `inputs/template.*` | AUTHORITATIVE for section order, headings, formatting, required elements; wins every conflict |
 | 3 | `run-state.json` | Copied from `templates/` at run start; loop counters + punch-out flags |
 
 ## Step Contract
 
 Each step MUST run its inbound guardrail check and append the result to
-`audit/guardrails.jsonl` before doing any work. A failed gate halts the
+`audit/guardrails-<run-id>.jsonl` before doing any work. A failed gate halts the
 workflow.
 
 ## Run Layout
@@ -44,8 +55,11 @@ workflow.
   punch-out `approved` status.
 - `tone-changes.json` MUST validate against `schemas/tone-changes.schema.json` —
   schema validation is what makes the guardrails deterministic.
-- Cross-run evidence lives in `audit/` (punch-outs, guardrails.jsonl,
-  success-log.md, run-*.jsonl).
+- Cross-run evidence lives in `audit/` — authoritative records are
+  per-run (`run-<run-id>.jsonl`, `guardrails-<run-id>.jsonl`,
+  `success-<run-id>.md`, `punchout-<run-id>.md`); the shared files
+  (`guardrails.jsonl`, `success-log.md`, `punchout-log.md`) are
+  aggregate views regenerated via `python harness.py rebuild-logs`.
 
 | Step | Skill | Consumes | Produces |
 |------|-------|----------|----------|
@@ -56,7 +70,23 @@ workflow.
 
 Guardrails sit **between** workflow steps (and inbound on step 05) — they are
 deterministic checks run before the next agent is allowed to proceed, not
-review performed inside a step. All are automated.
+review performed inside a step. All are automated and implemented as
+executable code:
+
+- **G4** is enforced by `harness.py (g4_check)`: file existence and
+  readability, SHA-256 per input, run-state presence, template heading
+  extraction. A pass writes `.g4-passed` (sentinel file with input hashes)
+  which the G5 gate requires before step 06 may run.
+- **G5** has two layers: `harness.py (g5_check)` runs
+  fail-closed pre-checks before the adversarial agent — JSON-schema
+  validation of `tone-changes.json`, banned-pattern/sentence regex over
+  `toned.md` including table cells (`banned_patterns.txt`), a
+  substance-freeze factual-token diff against `draft.md`,
+  change-accountability checks (`facts_changed`, `tables_reviewed`
+  coverage, analytical `assessment_function` coverage), and the two-key
+  punch-out closure check — then step 06 performs the judgment-based
+  adversarial review (assessment quality, substance freeze semantics,
+  accountability) on top.
 
 ### G4 — inputs → tone (Input-Completeness Gate, enforced by step 05)
 - Both input files exist and are readable; SHA-256 recorded per file.
@@ -64,7 +94,7 @@ review performed inside a step. All are automated.
   structure.
 - Missing/unreadable input = hard fail, no `toned.md` produced.
 - Failure → increment `loop_counters.G4`; at `loop_max` (2) escalate to
-  human via punch-out E in `audit/punchout-log.md`.
+  human via punch-out E in `audit/punchout-<run-id>.md`.
 
 ### G5 — tone → adversarial-review (Adversarial Review Gate: Assessment Quality, Substance Freeze & Accountability, enforced by step 06)
 - Assessment-quality check — did the rewrite produce real analysis:
@@ -111,7 +141,7 @@ review performed inside a step. All are automated.
   surfaced in `observations`. A change log with no analytical
   `assessment_function` coverage fails.
 - Certifiability & punch-out closure (two-key): every `triggered: true`
-  punch-out must have `approved: true` AND a `punchout-log.md` row for the
+  punch-out must have `approved: true` AND a `punchout-<run-id>.md` row for the
   same `run_id` (human decision, resolved by, resolved at). A flag without
   the log row is a self-granted approval. Any `certifiable: false` without
   closure evidence = hard fail — STOP for human sign-off.
@@ -125,7 +155,7 @@ Explicit human decision points where the workflow must stop for sign-off:
 | ID | Trigger | Raised by | File | Human decision |
 |----|---------|-----------|------|----------------|
 | A | template requires a section/element `draft.md` has no content for | step 05 | `audit/punchout-missing-content.md` | provide content / drop section / defer |
-| E | G4 or G5 loop exhaustion (max 2) | G4/G5 | `audit/punchout-log.md` | human resolves stalled input/tone directly |
+| E | G4 or G5 loop exhaustion (max 2) | G4/G5 | `audit/punchout-<run-id>.md` | human resolves stalled input/tone directly |
 
 A punch-out halt is a manual "punch to human" — distinct from an automated
 guardrail failure, which fails the workflow without human involvement.
@@ -135,7 +165,7 @@ guardrail failure, which fails the workflow without human involvement.
 triggers, when G4 or G5 reaches `loop_max`, or when any bypass attempt
 occurs. A recorded bypass attempt makes `certifiable: false` permanent.
 Other `false` states restore only through a recorded human decision in
-`audit/punchout-log.md` (matching `run_id`, decision, resolved by,
+`audit/punchout-<run-id>.md` (matching `run_id`, decision, resolved by,
 resolved at) cited as `closure_evidence` — never by the agent alone.
 Approvals never carry across `run_id`s. Outputs produced while
 non-certifiable are marked `"certifiable": false` in `tone-changes.json`
@@ -143,23 +173,32 @@ and no deliverable may be emitted.
 
 **Bypass testing (required evidence):** after each punch-out fires, someone
 must attempt to continue the workflow without approval and confirm the gate
-blocks them. Every halt, bypass attempt, and human decision is recorded in
-`audit/punchout-log.md` (see `bypass test performed` / `bypass result`
-columns). Punch-out points never tested do NOT qualify.
+blocks them. `harness.py (bypass_test)` performs this systematically
+(`python harness.py bypass-test --run-id <id> --punchout A|E`): it attempts
+(a) continuation with no approval and (b) a forged `approved: true` flag
+with no log row, confirms both are blocked by the two-key check, records
+the attempt and result in `audit/punchout-<run-id>.md` (see `bypass test
+performed` / `bypass result` columns), and marks the run permanently
+non-certifiable. Punch-out points never tested do NOT qualify.
 
 ## Audit Trail
 
-`audit/run-YYYYMMDD.jsonl` — one record per step:
+`audit/run-<run-id>.jsonl` — one record per step:
 
 ```json
 {"step": "05-tone-consistency", "model": "...", "input_hashes": {...}, "output_hashes": {...},
- "tokens_in": 0, "tokens_out": 0, "cost_usd": 0.0,
+ "tokens_in": 0, "tokens_out": 0, "cost_usd": 0.0, "metering_method": "session_log|estimated-*",
+ "environment": "...", "operator": "...", "initiated_by": "harness|manual",
  "guardrail_inbound": {"id": "G4", "result": "pass"}}
 ```
 
 Each record identifies the step, model, input/output content hashes, token
 counts, and cost — any failure traces to its exact origin step, with
-per-step model/token/cost coverage across the whole pipeline.
+per-step model/token/cost coverage across the whole pipeline. Metrics are
+written by `harness.py (meter_step)`: real usage parsed from a configured agent
+session log (`metering.session_log_path`), or a labeled local estimate —
+`metering_method` records which source produced the numbers; fields are
+never `null`.
 
 ## End-to-End Success Metric
 
@@ -170,14 +209,19 @@ A run succeeds iff:
 3. the final report is emitted,
 4. the run is certifiable (`certifiable: true`; all `non_certifiable_reasons`
    resolved by recorded human decisions), and
-5. the run result is appended to `audit/success-log.md` and step records to
-   `audit/run-YYYYMMDD.jsonl`.
+5. the run result is appended to `audit/success-<run-id>.md` and step records to
+   `audit/run-<run-id>.jsonl`.
 
-Per-run result appended to `audit/success-log.md`:
+Per-run result appended to `audit/success-<run-id>.md`:
 
 ```
 | date | run id | result | punch-outs | iterations | notes |
 ```
+
+`result` is one of: `pass` (all five success conditions met), `fail`
+(guardrail or step failure before loop exhaustion), `halted` (punch-out or
+loop_max escalation — awaiting human decision), `stopped` (human-directed
+stop). No other values are written.
 
 Success rate = successful runs / total runs, measured across the full
 workflow start to finish and tracked quarter over quarter to show stability

@@ -8,7 +8,7 @@ All working artifacts live inside the run directory — never in the repo root.
 runs/2026-Q3-IRONTRAX/
 ├── inputs/
 │   ├── draft.md              # the ONE document being edited (input to step 05)
-│   └── template.*            # AUTHORITATIVE structure/formatting reference
+│   └── template.*            # optional override — default is ../CSA Template.docx
 ├── toned.md              # step 05 output
 ├── tone-changes.json     # step 05 output → ../schemas/tone-changes.schema.json
 ├── audit-report.md       # step 06 output (run summary)

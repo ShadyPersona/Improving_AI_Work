@@ -1,0 +1,825 @@
+{
+  "changes": [
+    {
+      "location": "Executive Summary",
+      "before": "This assessment evaluates Hialeah Housing Authority’s (HHA) Microsoft cloud security posture for July 1 through September 30, 2026. The Q2 assessment provides the previous-quarter baseline, and Q1 supplies longer-term context. The assessment combines the supplied Q3 score trends and control history with supplied current-state Microsoft 365 evidence.",
+      "after": "Hialeah Housing Authority’s (HHA) Microsoft cloud security posture improved on a Microsoft-reported basis during Q3 2026. This assessment covers July 1 through September 30, 2026. The Q2 assessment serves as the previous-quarter baseline, and Q1 provides longer-term context. The conclusions combine the supplied Q3 score trends and control history with current-state Microsoft 365 evidence.",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Opens with the posture conclusion and the Microsoft-reported basis before scope; removes scope-first framing.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary",
+      "before": "Secure Score provides useful evidence of Microsoft-reported control status, but it is not a measure of overall risk or control effectiveness. The supplied assessment does not include",
+      "after": "Secure Score provides useful evidence of Microsoft-reported control status. It does not measure overall risk or control effectiveness. The supplied evidence does not include",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Splits a compound qualification into direct statements; removes the 'rather than being presumed' construction.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary",
+      "before": "These areas remain unassessed rather than being presumed secure or unchanged.",
+      "after": "These areas remain unassessed. They are not presumed secure or unchanged.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Replaces the 'rather than being presumed' clause with two sentences; keeps the unassessed-not-secure qualification.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary",
+      "before": "Q2 recorded completed endpoint and email-hygiene advisories through Datto RMM, Datto EDR and Proofpoint. Those completions remain part of HHA’s history, while present coverage and effectiveness require validation.",
+      "after": "Q2 recorded completed endpoint and email-hygiene advisories through Datto RMM, Datto EDR, and Proofpoint. Those completions remain part of HHA’s history, but present coverage and effectiveness require validation.",
+      "style_marker": "list_punctuation_clarity",
+      "reason": "Adds the serial comma in the tool list and replaces 'while present' with a direct contrast.",
+      "assessment_function": "cross_signal_synthesis",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary",
+      "before": "Overall Secure Score is 61.74% (163 of 264 points), compared with 60.00% (159 of 265) in Q2 and 58.49% (155 of 265) in Q1. Identity increased from 90.91% in Q1 to 96.97% in Q2 following the consent restriction, and is now 98.48%. Apps increased from 46.32% in both earlier reports to 48.15%; Data remains 77.78%. The current catalog contains 38 completed and 26 open recommendations. None of those recommendations regressed in Q3 which shows evidence of Hialeah staying on top of their security posture.",
+      "after": "Overall Secure Score is 61.74% (163 of 264 points), compared with 60.00% (159 of 265) in Q2 and 58.49% (155 of 265) in Q1. Score movement is concentrated in Identity and Apps. Identity increased from 90.91% in Q1 to 96.97% in Q2 following the consent restriction, and is now 98.48%. Apps increased from 46.32% in both earlier reports to 48.15%. Data remains 77.78%. The current catalog contains 38 completed and 26 open recommendations. No recommendation regressed in Q3. This indicates that HHA kept its previously credited controls in place, but it does not confirm that those controls operate effectively.",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Leads the score paragraph with the movement concentration; separates the Apps and Data sentences; replaces the run-on 'which shows evidence' construction with a bounded conclusion.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary",
+      "before": "Hialeah Housing Authority should prioritize validation of mailbox auditing, all forwarding paths, native phishing settings and their relationship to Proofpoint, and the SharePoint authentication requirement. The objective is demonstrable protection and usable monitoring, not points alone. Retain evidence of control scope, tested exceptions, and accountable ownership before closing these recommendations.",
+      "after": "HHA should prioritize validation of mailbox auditing, all forwarding paths, native phishing settings and their relationship to Proofpoint, and the SharePoint authentication requirement. The objective is demonstrable protection and usable monitoring rather than Secure Score points alone. Before closing these recommendations, HHA should retain evidence of control scope, tested exceptions, and accountable ownership.",
+      "style_marker": "terminology_hha",
+      "reason": "Replaces the full client name with the defined abbreviation HHA; reframes the closing as an action with a stated objective.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture",
+      "before": "This is a focused assessment of the available Microsoft 365 signals, not a comprehensive assurance opinion on all cloud and endpoint services.",
+      "after": "This assessment covers the available Microsoft 365 signals. It does not provide a comprehensive assurance opinion on all cloud and endpoint services.",
+      "style_marker": "scope_qualification",
+      "reason": "Replaces the 'focused assessment ... not a comprehensive opinion' phrasing with a direct scope statement.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Posture Summary",
+      "before": "The current 163 earned points comprise Identity 65/66, Apps 91/189, and Data 7/9. Administrator and user MFA, legacy authentication blocking, user-consent restriction, and external calendar-sharing restriction are marked complete. The open SharePoint modern-authentication action requires attention despite the high identity score.",
+      "after": "Identity controls carry the strongest score credit, and Apps carries the largest open exposure. Current Secure Score credit totals 163 earned points: Identity 65/66, Apps 91/189, and Data 7/9. Administrator and user MFA, legacy authentication blocking, user-consent restriction, and external calendar-sharing restriction are marked complete. The SharePoint modern-authentication action remains open and requires attention despite the high identity score, because legacy authentication could allow older applications or connection methods to bypass stronger sign-in protections.",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Adds the earned-point total as a subject-verb statement and states the SharePoint requirement with its rationale, linking the open action to the identity score.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Key Risk Themes",
+      "before": "The themes below connect the material Microsoft 365 recommendations to practical validation and remediation discussions. They distinguish a reported configuration opportunity from a confirmed exploitable condition and avoid treating third-party product adoption as proof of effective coverage.",
+      "after": "The themes below connect the material Microsoft 365 recommendations to validation and remediation discussions. Each theme distinguishes a reported configuration opportunity from a confirmed exploitable condition. Third-party product adoption is not treated as proof of effective coverage.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Removes the 'practical' and 'avoid treating' constructions; states the distinction directly.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Key Risk Themes › Native phishing theme",
+      "before": "Compare Proofpoint’s protected population, routing, policies and exceptions with the relevant Microsoft requirements before accepting equivalent coverage or enabling overlapping controls.",
+      "after": "Proofpoint’s protected population, routing, policies, and exceptions should be compared with the relevant Microsoft requirements before equivalent coverage is accepted or overlapping controls are enabled.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative to a subject-verb statement with the owner named in the sentence.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Key Risk Themes › Native phishing theme",
+      "before": "Unified audit log search is complete, but mailbox auditing is separately open. System-controlled automatic forwarding is also complete while broader forwarding restriction remains open. This split indicates that foundational logging is in place, but coverage is not yet complete.",
+      "after": "Unified audit log search is complete, but mailbox auditing remains open as a separate control. Automatic forwarding controlled by the system is complete, while broader forwarding restriction remains open. This split shows that foundational logging is in place, but coverage is incomplete.",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Turns the 'split' sentence into a conclusion with a clear subject; replaces 'indicates' and 'not yet complete' with direct wording.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Key Risk Themes › SharePoint theme",
+      "before": "This does not indicate that an existing control failed. It means Microsoft now considers the requirement applicable to the environment, and legacy authentication could allow older applications or connection methods to bypass stronger sign-in protections.",
+      "after": "This does not indicate that an existing control failed. Microsoft now considers the requirement applicable to the environment. Legacy authentication could allow older applications or connection methods to bypass stronger sign-in protections.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Replaces 'It means' with a direct statement about Microsoft's applicability determination; keeps the no-control-failure qualification.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Key Risk Themes › SharePoint theme",
+      "before": "HHA should identify any dependent applications or workflows",
+      "after": "HHA should identify dependent applications or workflows",
+      "style_marker": "imperative_to_subject",
+      "reason": "Removes the 'any' hedge and states the validation sequence with HHA as subject.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture",
+      "before": "The domain posture below summarizes only what the supplied evidence can support. Microsoft-reported completions are distinguished from operational assurance, and domains lacking current evidence are explicitly unassessed.",
+      "after": "The domain posture below summarizes only what the supplied evidence supports. Microsoft-reported completions are distinguished from operational assurance, and domains without current evidence are identified as unassessed.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Replaces 'only what ... can support' and 'explicitly unassessed' with direct statements.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain Posture table › row: Identity & Access",
+      "before": "HHA achieved a strong score of 98.48%, and the remaining gap is that SharePoint modern authentication remains open.",
+      "after": "HHA’s identity score of 98.48% is strong. The remaining gap is the open SharePoint modern authentication requirement.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Replaces the 'achieved' wording with a sentence stating the score and the gap as separate claims.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain Posture table › row: Endpoint Security",
+      "before": "Q2 records Datto adoption, so there is no endpoint security data in Defender",
+      "after": "Q2 records Datto adoption, but no endpoint security data was available in Defender. Current endpoint posture cannot be assessed.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts a fragment with 'so there is' into full sentences and states the endpoint consequence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain Posture table › row: Vulnerability Management",
+      "before": "There is no current device exposure, CVE, or remediation records.",
+      "after": "No current device exposure, CVE, or remediation records were provided.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Removes the mismatched 'There is ... records' construction and states the absence as a provided-evidence statement.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain Posture table › row: Data Protection",
+      "before": "HHA has completed the DLP recommendation, but Improving does not have access to the Purview Portal to verify DLP policies.",
+      "after": "HHA has completed the DLP recommendation, but Improving does not have access to the Purview Portal, so DLP policies cannot be verified.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts 'to verify' infinitive into a causal clause linking the access limitation to the unverifiable policies.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain Posture table › row: Email & Collaboration",
+      "before": "Apps 91/189; native phishing, auditing and forwarding gaps require coverage review.",
+      "after": "Apps score is 91/189. Native phishing, auditing, and forwarding gaps require coverage review.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the score fragment into a full sentence with the score as subject.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain Posture table › row: Detection & Operational Readiness",
+      "before": "Unified audit log complete; mailbox auditing open; operational readiness unverified.",
+      "after": "Unified audit log search is complete. Mailbox auditing is open. Operational readiness is unverified.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts semicolon-linked fragments into three full sentences.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain Posture table › row: Cloud Workload & Attack Paths",
+      "before": "There is no Azure workload or attack-path evidence.",
+      "after": "No Azure workload or attack-path evidence was provided.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Replaces the 'There is no' construction with a provided-evidence statement.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain Posture table › row: AI Agents & Generative AI",
+      "before": "There is no usage, permissions, or governance evidence.",
+      "after": "No usage, permissions, or governance evidence was provided.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Replaces the 'There is no' construction with a provided-evidence statement.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Control Movement and Baseline Changes",
+      "before": "Since Q2, overall score increased by 1.74 percentage points: earned points rose from 159 to 163 while available points declined from 265 to 264. Q3 history records unified audit log search completing on August 18 (+3), and SharePoint inactive-user sign-out becoming relevant with full credit on August 19 (+1). SharePoint modern authentication became relevant on August 19 at 0/1. These are scoring events, not established implementation dates. The identity trend’s small August step down reflects newly relevant scoring requirements, not a demonstrated loss of earned credit. Identity is 1.51 percentage points above Q2, Apps is 1.83 points higher, and Data’s score is flat. The quarter-over-quarter movement reflects steady improvement rather than a material change in risk, with the newly relevant SharePoint requirement accounting for the only notable scoring pressure. HHA should address that requirement through a planned compatibility review and continue focusing on the open controls that provide the greatest practical security benefit.",
+      "after": "Overall Secure Score rose 1.74 percentage points since Q2. Earned points increased from 159 to 163, while available points declined from 265 to 264. Two Q3 scoring events account for the four-point increase in earned points: unified audit log search completed on August 18 (+3), and SharePoint inactive-user sign-out became relevant with full credit on August 19 (+1). These are scoring events, not confirmed implementation dates. SharePoint modern authentication became relevant on August 19 at 0/1. The identity trend’s small August step down reflects that newly relevant requirement, not a loss of earned credit. Identity is 1.51 percentage points above Q2, Apps is 1.83 points higher, and Data’s score is flat. The quarter-over-quarter movement reflects steady improvement rather than a material change in risk. The newly relevant SharePoint requirement accounts for the only notable scoring pressure in Q3. HHA should address that requirement through a planned compatibility review and continue focusing on the open controls that provide the greatest practical security benefit.",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Leads with the Secure Score change; attributes the four-point earned gain to its two scoring events; separates the identity step-down explanation into its own sentence.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Control Movement and Baseline Changes",
+      "before": "Microsoft Secure Score overview and supplied trend. Peer comparisons provide context, not an overall maturity rating.",
+      "after": "The chart below shows the Microsoft Secure Score overview and supplied trend. Peer comparisons provide context, not an overall maturity rating.",
+      "style_marker": "caption_full_sentence",
+      "reason": "Converts the chart caption fragment into a full sentence with a subject.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review",
+      "before": "The Security Signal Review supports the domain posture using the available Microsoft 365 recommendations and score history. Framework references use CIS Microsoft 365 Foundations Benchmark v7.0.0 and NIST Cybersecurity Framework 2.0. They identify related configuration guidance or outcomes, not certification, a full benchmark audit, or proof that controls operate effectively.",
+      "after": "This review supports the domain posture with the available Microsoft 365 recommendations and score history. Framework references use CIS Microsoft 365 Foundations Benchmark v7.0.0 and NIST Cybersecurity Framework 2.0. These references identify related configuration guidance or outcomes. They do not represent certification, a full benchmark audit, or proof that controls operate effectively.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Removes 'supports ... using' phrasing and splits the framework-limitation sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review",
+      "before": "Microsoft-reported completions and open recommendations are interpreted alongside the client’s assessment history. Where third-party services, exceptions, licensing, or actual operating scope cannot be verified, the assessment retains that limitation rather than declaring either full mitigation or confirmed exploitation.",
+      "after": "Microsoft-reported completions and open recommendations are interpreted alongside HHA’s assessment history. Where third-party services, exceptions, licensing, or operating scope cannot be verified, this assessment retains that limitation. It neither declares full mitigation nor confirms exploitation.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Replaces 'the client’s' with the defined abbreviation and splits the retention-of-limitation sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access",
+      "before": "Identity Secure Score is 98.48% (65/66), with 13 completed recommendations and one open recommendation. MFA for administrators (10/10) and all users (9/9), legacy authentication blocking (8/8), and user-consent restriction (4/4) are marked complete. The consent restriction completed by Q2 remains complete, following an identity score increase from 90.91% in Q1 to 96.97% in Q2.",
+      "after": "The identity score is strong at 98.48% (65/66), and one identity recommendation remains open. Identity Secure Score reflects 13 completed recommendations and one open recommendation. MFA for administrators (10/10) and all users (9/9), legacy authentication blocking (8/8), and user-consent restriction (4/4) are marked complete. The identity score rose from 90.91% in Q1 to 96.97% in Q2 following the consent restriction, which remains complete.",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Adds the strength conclusion and attributes the 98.48% identity movement to the consent restriction with a 'following' causal sequence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access",
+      "before": "SharePoint modern authentication is the sole open identity action, at 0/1. Both risk-policy recommendations are credited at 7/7 but show no applicable license; this does not establish deployed Entra ID P2 sign-in or user-risk policies. HHA’s Q2 consent restriction remains complete, but does not itself revoke previously granted permissions. The strong identity score shows that HHA has addressed most core identity protections, but the remaining SharePoint requirement and the licensing limitation on risk policies leave specific areas that need attention. HHA should review application compatibility before requiring modern authentication and periodically examine existing consent grants to confirm they remain appropriate for current business needs.",
+      "after": "SharePoint modern authentication is the only open identity action, at 0/1, and it is the main identity gap. Both risk-policy recommendations are credited at 7/7, but they show no applicable license. That credit does not establish deployed Entra ID P2 sign-in or user-risk policies. The Q2 consent restriction remains complete, but it does not itself revoke previously granted permissions. The strong identity score shows that most core identity protections are in place. Two areas still need attention: the SharePoint requirement and the licensing limitation on risk policies. HHA should review application compatibility before requiring modern authentication. HHA should also periodically examine existing consent grants to confirm they remain appropriate for business needs.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Splits the licensing and consent-grant qualifications into direct sentences; replaces 'sole' with 'only' and states the remaining gaps as two named areas.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access",
+      "before": "Microsoft Identity Secure Score trend and contextual peer comparison.",
+      "after": "The chart below shows the Microsoft Identity Secure Score trend and a contextual peer comparison.",
+      "style_marker": "caption_full_sentence",
+      "reason": "Converts the chart caption fragment into a full sentence with a subject.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › Identity control table › row: Administrator and all-user MFA",
+      "before": "Score completion with implemented MFA policies for users and administrators.",
+      "after": "The score completion reflects implemented MFA policies for users and administrators.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the score-completion fragment into a sentence with 'the score completion' as subject.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › Identity control table › row: Legacy authentication block",
+      "before": "Score completion blocking legacy authentication.",
+      "after": "The score completion reflects blocking of legacy authentication.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the score-completion fragment into a sentence with 'the score completion' as subject.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › Identity control table › row: User consent restriction",
+      "before": "Score completion restricting user consent for applications.",
+      "after": "The score completion reflects a restriction on user consent for applications.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the score-completion fragment into a sentence with 'the score completion' as subject.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › Identity control table › row: SharePoint modern authentication",
+      "before": "This is not a regression, but a newly relevant during Q3. Review and enforce.",
+      "after": "This is not a regression, because the requirement became newly relevant during Q3. HHA should review application compatibility and enforce it.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Removes the broken 'a newly relevant during Q3' fragment and converts the imperative to a subject-verb statement.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › Identity control table › row: Risk policies",
+      "before": "Risk policies recommendation is complete due to Entra Security Defaults.",
+      "after": "The risk policies recommendation is credited as complete due to Entra Security Defaults. Deployed Entra ID P2 risk policies are not established by this credit.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into a full sentence and states that the credit does not establish deployed Entra ID P2 policies; the Entra Security Defaults attribution is kept and flagged as an observation.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access",
+      "before": "Prioritize SharePoint modern authentication and verify the relevant application dependencies before enforcement. Continue validating privileged access and existing application grants through administrative evidence; current score credit alone does not establish the detailed policy configuration or effectiveness of these controls.",
+      "after": "HHA should prioritize SharePoint modern authentication and verify the relevant application dependencies before enforcement. HHA should continue validating privileged access and existing application grants through administrative evidence. Current score credit alone does not establish the detailed policy configuration or operating effectiveness of these controls.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative sentence to a subject-verb statement with HHA as the actor and sequences validation before enforcement.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities",
+      "before": "Current endpoint coverage and vulnerability exposure cannot be assessed from the supplied Microsoft 365 score material. No device inventory, endpoint exposure distribution, CVE details, or affected-device records were provided. The exposure table therefore records unavailable evidence rather than zero affected devices.",
+      "after": "Endpoint coverage and vulnerability exposure cannot be assessed from the supplied Microsoft 365 score material. No device inventory, endpoint exposure distribution, CVE details, or affected-device records were provided, so this section cannot establish endpoint risk for any quarter. The exposure table records the evidence as unavailable rather than as zero affected devices.",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Leads with the endpoint assessment conclusion; separates the 'unavailable not zero' qualification into its own sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities",
+      "before": "EDR adoption originated in 2025 Q4 and remained open in Q1. Q2 recorded completion through Datto RMM and Datto EDR. That advisory remains historically completed. Current deployment completeness, sensor health, monitoring and vulnerability remediation are not accessible in Microsoft Defender, so this section of the assessment cannot be completed.",
+      "after": "EDR adoption originated in 2025 Q4 and remained open in Q1. Q2 recorded completion through Datto RMM and Datto EDR, and that advisory remains completed as history. Deployment completeness, sensor health, monitoring, and vulnerability remediation are not accessible in Microsoft Defender. As a result, the endpoint assessment cannot be completed from the available evidence. Current Datto coverage therefore remains unverified.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Replaces the 'so this section ... cannot be completed' clause with a direct evidence-to-conclusion sentence and names the required validation step.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Endpoint control table › row: Datto RMM / EDR",
+      "before": "Historical adoption only; current sensor and monitoring coverage unverified.",
+      "after": "This row records historical adoption only. Current sensor and monitoring coverage remains unverified.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the semicolon fragment into full sentences; states that the row records historical adoption only.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Endpoint control table › row: CVE records not provided",
+      "before": "No vulnerability count, exploitability, or severity conclusion.",
+      "after": "No vulnerability count, exploitability, or severity conclusion can be drawn.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into a full sentence with the conclusion as subject.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Endpoint control table › row: Exposure data not provided",
+      "before": "Unavailable values are not zero exposure.",
+      "after": "Unavailable values do not indicate zero exposure.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Clarifies the subject of the 'not zero exposure' qualification.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Endpoint control table › row: Remediation data not provided",
+      "before": "No supported remediation trend or closure conclusion.",
+      "after": "No remediation trend or closure conclusion is supported by the available data.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into a full sentence with the available data as subject.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration",
+      "before": "These signals do not settle the remaining phishing, impersonation, or forwarding settings.",
+      "after": "These completed signals do not resolve the remaining phishing, impersonation, or forwarding settings.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Replaces 'do not settle' with 'do not resolve' and names the completed signals as the subject.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration",
+      "before": "Material native gaps concern phishing thresholds, user and domain impersonation, associated intelligence-based actions, safety tips and custom anti-phishing policy. Mailbox intelligence is complete at 8/8, but its separate impersonation actions are not. Safe Links for email is 9/9 while Office applications is 0/3. Other open actions cover MailTips, Outlook add-ins, spam notifications, 30-day quarantine, bulk complaint threshold and blocking users at the message limit. Broader forwarding restriction is 0/5 despite system-controlled forwarding at 1/1. Customer Lockbox remains open even though the required license is available, while data-map labels and auto-labeling are not currently supported by the available licensing. Taken together with the completed DLP recommendation, this indicates that HHA has established part of its data protection foundation but does not yet have clear evidence that protection and labeling coverage extends across the intended business scope. HHA should prioritize enabling Customer Lockbox, and review where sensitive information is stored and shared, and determine whether broader labeling capabilities are needed based on business and regulatory requirements rather than Secure Score alone.",
+      "after": "HHA has established part of its data protection foundation, but current evidence does not show that protection and labeling coverage extends across the intended business scope. The most significant gaps are native phishing controls: thresholds, user and domain impersonation, associated intelligence-based actions, safety tips, and a custom anti-phishing policy. Mailbox intelligence is complete at 8/8, but its separate impersonation actions are open. Safe Links for email is 9/9, while Office applications is 0/3. Other open actions cover MailTips, Outlook add-ins, spam notifications, 30-day quarantine, bulk complaint threshold, and blocking users at the message limit. Broader forwarding restriction is 0/5, although system-controlled forwarding is 1/1. Customer Lockbox remains open even though the required license is available. Data-map labels and auto-labeling are not supported by the available licensing, so they require a scope and licensing decision, as noted in Deferred Recommendations. The phishing, impersonation, and forwarding gaps are among the priorities identified in the Executive Summary. HHA should prioritize enabling Customer Lockbox and review where sensitive information is stored and shared. HHA should determine whether broader labeling capabilities are needed based on business and regulatory requirements rather than Secure Score alone.",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Leads with the data-protection conclusion; removes the stacked 'taken together ... indicates' construction; removes 'currently'; states the significance of the phishing, impersonation, and forwarding gaps; converts closing imperatives to subject-verb.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › Data control table › row: Unified audit 3/3",
+      "before": "Separate log availability from mailbox actions and bypass validation.",
+      "after": "Log availability should be assessed separately from mailbox action coverage and bypass validation.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the imperative to a subject-verb statement and separates log availability from mailbox coverage.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › Data control table › row: Forwarding",
+      "before": "Validate transport, outbound policy, inbox and administrative forwarding paths and exceptions.",
+      "after": "Transport, outbound policy, inbox, and administrative forwarding paths and their exceptions should be validated.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative to a passive subject-verb statement with the forwarding paths as subject.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › Data control table › row: Anti-phishing",
+      "before": "Validate native gaps against documented Proofpoint coverage; no equivalence assumed.",
+      "after": "Native gaps should be validated against documented Proofpoint coverage. Equivalence is not assumed.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative fragment with a semicolon into two sentences with explicit subject.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › Data control table › row: Calendar sharing restricted",
+      "before": "Current score corroborates historical restriction; not a full collaboration-sharing audit.",
+      "after": "The current score corroborates the historical restriction. It does not constitute a full collaboration-sharing audit.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Splits the 'corroborates ... not a full audit' sentence into two full sentences with explicit subjects.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration",
+      "before": "Coordinate the higher-impact email actions with Proofpoint and document tested equivalent coverage where appropriate. Address the remaining collaboration and data-governance controls according to business scope and licensing.",
+      "after": "HHA should coordinate the higher-impact email actions with Proofpoint and document tested equivalent coverage where appropriate. The remaining collaboration and data-governance controls should be addressed according to business scope and licensing.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts both closing imperatives to subject-verb statements with HHA as the actor.",
+      "assessment_function": "cross_signal_synthesis",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure",
+      "before": "No Azure workload inventory, Defender for Cloud findings, exposure graph, or attack-path analysis were accessible.",
+      "after": "No Azure workload inventory, Defender for Cloud findings, exposure graph, or attack-path analysis was accessible to this assessment.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "States that the assessment has no accessible evidence in the subject position.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Cloud workload table › row: Public exposure unavailable",
+      "before": "No public exposure finding or absence claim.",
+      "after": "This assessment makes no public exposure finding and no claim of absence.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into two full sentences with the assessment as subject.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Cloud workload table › row: Attack-path data unavailable",
+      "before": "No exploitable path or closure conclusion.",
+      "after": "No exploitable path or closure conclusion can be drawn.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into a full sentence with the conclusion as subject.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Cloud workload table › row: Workload configuration unavailable",
+      "before": "No workload control-effectiveness rating.",
+      "after": "No workload control-effectiveness rating is assigned.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into a full sentence with a passive subject.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Cloud workload table › row: Workload remediation unavailable",
+      "before": "No supported trend comparison with prior assessments.",
+      "after": "No trend comparison with prior assessments is supported.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into a full sentence with a passive subject.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "AI Agents and Generative AI Usage",
+      "before": "This gap does not demonstrate unmanaged AI use or the absence of AI use. Microsoft 365 data-protection score credit also does not establish how information is shared with agents or external generative AI services.",
+      "after": "The gap does not demonstrate unmanaged AI use, and it does not demonstrate the absence of AI use. Microsoft 365 data-protection score credit does not establish how information is shared with agents or external generative AI services.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Splits the non-demonstration qualification into two direct sentences.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › AI control table › row: AI sharing evidence unavailable",
+      "before": "No client-specific data-leakage conclusion.",
+      "after": "No client-specific data-leakage conclusion can be drawn.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into a full sentence with the conclusion as subject.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › AI control table › row: AI governance unavailable",
+      "before": "No claim of approved or unmanaged use.",
+      "after": "No claim of approved or unmanaged use is made.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into a full sentence with a passive subject.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › AI control table › row: AI monitoring unavailable",
+      "before": "No operational effectiveness or trend rating.",
+      "after": "No operational effectiveness or trend rating is assigned.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into a full sentence with a passive subject.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Detection and Operational Readiness",
+      "before": "Unified audit log search is marked complete at 3/3, representing positive score movement since Q2. Mailbox auditing remains separately open at 0/3. These are distinct controls and availability of the unified audit capability does not demonstrate complete mailbox action coverage.",
+      "after": "The unified audit log search control is complete at 3/3, which is a positive score movement since Q2, but mailbox auditing remains open at 0/3. These are distinct controls, and the availability of the unified audit capability does not demonstrate complete mailbox action coverage.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Replaces 'marked complete ... representing' with a direct statement; separates distinct-control and coverage claims; removes the nominal construction.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Detection and Operational Readiness",
+      "before": "No incident records, response exercises, monitoring procedures, retention validation, or investigation samples were available. Q2’s Datto and Proofpoint completion history is not evidence of current alert handling or response readiness.",
+      "after": "No incident records, response exercises, monitoring procedures, retention validation, or investigation samples were available, so response readiness cannot be evaluated. The Q2 Datto and Proofpoint completion history does not evidence current alert handling or response readiness.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "States the absence of readiness evidence as the conclusion; removes the possessive construction for the Q2 history.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Detection and Operational Readiness",
+      "before": "The audit improvement supports a stronger Microsoft-reported baseline, but operating effectiveness remains unverified due to Datto and Proofpoint solutions being inaccessible during this assessment. Review representative audit events and accountable monitoring processes before treating these settings as proven detection capability.",
+      "after": "The audit improvement supports a stronger Microsoft-reported baseline. Operating effectiveness remains unverified because the Datto and Proofpoint solutions were not accessible during this assessment. HHA should review representative audit events and accountable monitoring processes before treating these settings as proven detection capability.",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Leads with the supported baseline improvement; attributes the operating-effectiveness gap to the inaccessible Datto and Proofpoint solutions as a causal clause; names HHA as the reviewing party.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row 1",
+      "before": "Validate third-party coverage. Document Datto and Proofpoint scope, mapped controls, exclusions, policy evidence and operating tests. Update Secure Score treatment only where equivalent protection is supported.",
+      "after": "HHA should validate third-party coverage. HHA should document Datto and Proofpoint scope, mapped controls, exclusions, policy evidence, and operating tests. Secure Score treatment should be updated only where equivalent protection is supported.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to HHA-subject statements.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row 2",
+      "before": "Require SharePoint modern authentication. Test application dependencies and enforce CIS 7.2.1.",
+      "after": "HHA should require SharePoint modern authentication. HHA should test application dependencies and enforce CIS 7.2.1.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to HHA-subject statements.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row 3",
+      "before": "Verify mailbox auditing. Check organizational enablement, required actions and bypass exceptions; test representative events separately from unified audit availability.",
+      "after": "HHA should verify mailbox auditing. HHA should check organizational enablement, required actions, and bypass exceptions. Representative events should be tested separately from unified audit availability.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to HHA-subject statements and separates the mailbox-audit test from the unified audit availability.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row 4",
+      "before": "Validate all forwarding paths. Cover transport, outbound policy, inbox/OOF/OWA, administrator and automation paths. Block unauthorized forwarding and document exceptions.",
+      "after": "HHA should validate all forwarding paths. The review should cover transport, outbound policy, inbox, OOF, OWA, administrator, and automation paths. HHA should block unauthorized forwarding and document exceptions.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to HHA-subject statements; spells out the forwarding path abbreviations.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row 5",
+      "before": "Close phishing and impersonation coverage gaps. Compare native requirements with Proofpoint, then configure required protections or document tested equivalence and residual gaps.",
+      "after": "HHA should close phishing and impersonation coverage gaps. HHA should compare native requirements with Proofpoint, then configure required protections or document tested equivalence and residual gaps.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to HHA-subject statements.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row 6",
+      "before": "Review remaining collaboration and data controls. Assess MailTips, add-ins, spam notifications, Office Safe Links, quarantine, bulk and sending limits, Lockbox and labeling scope.",
+      "after": "HHA should review remaining collaboration and data controls. The review should assess MailTips, add-ins, spam notifications, Office Safe Links, quarantine, bulk and sending limits, Lockbox, and labeling scope.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to HHA-subject statements; adds the serial comma.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark",
+      "before": "Level 2 recommendations, including custom anti-phishing policy, external calendar sharing and user-consent restriction, are identified separately in the signal review or history rather than represented as Level 1 requirements.",
+      "after": "Level 2 recommendations, including the custom anti-phishing policy, external calendar sharing, and user-consent restriction, appear in the Security Signal Review or the recommendation history. They are not represented here as Level 1 requirements.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Replaces the nested clause and 'identified separately' phrasing with a direct statement of where Level 2 items appear.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › CIS table › row: 7.2.1",
+      "before": "Review compatibility and enforce the requirement; Microsoft reports the action open at 0/1.",
+      "after": "Compatibility should be reviewed before the requirement is enforced. Microsoft reports the action open at 0/1.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to a subject-verb statement.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › CIS table › row: 6.1.1; 6.1.2",
+      "before": "Confirm AuditDisabled is false, auditing and required actions are enabled, and representative events are available.",
+      "after": "The review should confirm that AuditDisabled is false, that auditing and required actions are enabled, and that representative events are available.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to a subject-verb statement with a named reviewer.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › CIS table › row: 6.1.3",
+      "before": "Ensure bypass is not enabled without a documented written exception; current bypass settings were not supplied.",
+      "after": "Bypass should not be enabled without a documented written exception. Current bypass settings were not supplied.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to a passive subject-verb statement and separates the exception rule from the current-settings finding.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › CIS table › row: 6.2.1",
+      "before": "Validate transport and outbound policies, user/admin and automation paths, and documented exceptions.",
+      "after": "The review should validate transport and outbound policies, user, administrator, and automation paths, and documented exceptions.",
+      "style_marker": "imperative_to_subject",
+      "reason": "Converts the imperative description to a subject-verb statement; adds the serial comma.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Deferred Recommendations",
+      "before": "require a scope and licensing decision; this assessment does not presume an approved deferral or recommend purchasing licenses solely to increase score.",
+      "after": "require a scope and licensing decision. This assessment does not presume an approved deferral or recommend purchasing licenses solely to increase score.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Splits the trailing qualification clause into its own sentence.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommendation History",
+      "before": "Current score credit corroborates the calendar-sharing and Q2 consent restrictions. Datto and Proofpoint describe completions recorded in Q2, not independently verified current service effectiveness. Q3 unified audit log progress is addressed in the signal review.",
+      "after": "Current score credit corroborates the calendar-sharing restriction and the Q2 consent restriction. The Datto and Proofpoint entries describe completions recorded in Q2. They do not independently verify current service effectiveness. Q3 unified audit log progress is addressed in the Security Signal Review.",
+      "style_marker": "qualification_sentence_split",
+      "reason": "Splits the run-on history sentence; names the Security Signal Review section by its heading.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommendation History › CIS Recommendations › row: 2025 Q4",
+      "before": "Completed December 9, 2025 during the monthly touchpoint, as recorded in Q1 and Q2. Current Secure Score confirms the restriction at 5/5. CIS 1.3.3 is Level 2; this is not a broader external-sharing audit.",
+      "after": "The restriction was completed on December 9, 2025 during the monthly touchpoint, as recorded in Q1 and Q2. Current Secure Score confirms the restriction at 5/5. CIS 1.3.3 is Level 2. This entry is not a broader external-sharing audit.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the leading fragment into a full sentence with the restriction as subject; splits the Level 2 note into its own sentence.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommendation History › CIS Recommendations › row: 2026 Q2",
+      "before": "Implemented in Q2, contributing to the Identity increase from 90.91% in Q1 to 96.97% in Q2. Current credit remains 4/4. CIS 5.1.5.1 is Level 2. The restriction does not automatically revoke earlier consent grants.",
+      "after": "The restriction was implemented in Q2 and contributed to the Identity increase from 90.91% in Q1 to 96.97% in Q2. Current credit remains 4/4. CIS 5.1.5.1 is Level 2. The restriction does not automatically revoke earlier consent grants.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the leading participle fragment into a full sentence; splits the Level 2 note.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommendation History › Advisory Recommendations › row: 2026 Q1 (EDR)",
+      "before": "Originated in 2025 Q4; open in Q1 and recorded complete in Q2 through Datto RMM / Datto EDR. Present coverage and effectiveness unvalidated.",
+      "after": "The adoption originated in 2025 Q4 and remained open in Q1. It was recorded complete in Q2 through Datto RMM and Datto EDR. Present coverage and effectiveness remain unvalidated.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into full sentences with the adoption as subject; spells out the tool pair without the slash.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommendation History › Advisory Recommendations › row: 2026 Q1 (email hygiene)",
+      "before": "Deferred in Q1; recorded complete in Q2 using Proofpoint. Current policy scope and native-control equivalence unvalidated; adoption is not reopened.",
+      "after": "The item was deferred in Q1 and recorded complete in Q2 using Proofpoint. Current policy scope and native-control equivalence remain unvalidated. The adoption is not reopened.",
+      "style_marker": "table_cell_full_sentence",
+      "reason": "Converts the fragment into full sentences with the item as subject.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration",
+      "before": "Data Secure Score remains 77.78% (7/9), while Apps is 48.15% (91/189).",
+      "after": "Apps remains the lowest-scoring domain at 48.15% (91/189), and Data is 77.78% (7/9).",
+      "style_marker": "conclusion_first_narrative",
+      "reason": "Leads the Data Protection section with the comparative conclusion (Apps is the lowest-scoring domain) instead of a data string; figures unchanged from the draft.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Domain Posture",
+      "purpose": "control or data table in the source document",
+      "rows": 9,
+      "rows_edited": 9
+    },
+    {
+      "location": "Identity and Access",
+      "purpose": "control or data table in the source document",
+      "rows": 6,
+      "rows_edited": 0
+    },
+    {
+      "location": "Endpoint and Vulnerabilities",
+      "purpose": "control or data table in the source document",
+      "rows": 4,
+      "rows_edited": 6
+    },
+    {
+      "location": "Endpoint and Vulnerabilities",
+      "purpose": "control or data table in the source document",
+      "rows": 6,
+      "rows_edited": 6
+    },
+    {
+      "location": "Data Protection and Collaboration",
+      "purpose": "control or data table in the source document",
+      "rows": 6,
+      "rows_edited": 8
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure",
+      "purpose": "control or data table in the source document",
+      "rows": 6,
+      "rows_edited": 5
+    },
+    {
+      "location": "AI Agents and Generative AI Usage",
+      "purpose": "control or data table in the source document",
+      "rows": 6,
+      "rows_edited": 4
+    },
+    {
+      "location": "Recommended Security Actions",
+      "purpose": "control or data table in the source document",
+      "rows": 1,
+      "rows_edited": 6
+    },
+    {
+      "location": "Active Recommendations",
+      "purpose": "control or data table in the source document",
+      "rows": 6,
+      "rows_edited": 0
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark",
+      "purpose": "control or data table in the source document",
+      "rows": 4,
+      "rows_edited": 5
+    },
+    {
+      "location": "CIS Recommendations",
+      "purpose": "control or data table in the source document",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Advisory Recommendations",
+      "purpose": "control or data table in the source document",
+      "rows": 2,
+      "rows_edited": 0
+    }
+  ],
+  "observations": [
+    {
+      "location": "Security Awareness box",
+      "type": "terminology",
+      "detail": "The box says ASM’s current evidence; the client is HHA. Box is exempt from edits and left verbatim.",
+      "action_required": "correct in draft"
+    },
+    {
+      "location": "AI Agents and Generative AI Usage",
+      "type": "cross_reference",
+      "detail": "The Security Awareness box says discovery confirms access to multiple AI services, while the AI section says no usage inventory was available.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Identity risk policies row",
+      "type": "table_prose_mismatch",
+      "detail": "The table credits Entra Security Defaults; the prose says the license is absent and deployed policies are not established.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Posture Summary",
+      "type": "total_reconciliation",
+      "detail": "65+91+7=163 and 163/264=61.74%. The 38 completed and 26 open recommendation counts cannot be reconciled from the draft.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Exposure table",
+      "type": "terminology",
+      "detail": "The exposure table uses Not Available while the control tables use Not assessed.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Posture indicators",
+      "type": "terminology",
+      "detail": "Labels such as Scope unverified and Partial evidence are draft-specific.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Recommendation History CIS table",
+      "type": "template_deviation",
+      "detail": "The Page 2 marker splits the CIS history table.",
+      "action_required": "confirm"
+    }
+  ],
+  "certifiable": true
+}

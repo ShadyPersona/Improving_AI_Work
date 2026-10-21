@@ -1,0 +1,8 @@
+{
+  "gate": "G4",
+  "run_id": "2026-Q3-IRONTRAXFullHarness",
+  "hashes": {
+    "draft": "f1d3d0a6ae22bc1d21042797c8e78d9b3ecefa07f8ae877c4ec8fd40d258eedd",
+    "template": "49dbd928c511a05529441fde6dbe66fb1eea425214f4fb89b5ccc3c0e905c8d1"
+  }
+}

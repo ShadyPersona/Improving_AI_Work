@@ -1,0 +1,633 @@
+{
+  "certifiable": true,
+  "changes": [
+    {
+      "location": "Executive Summary",
+      "before": "Defender’s Exposure Score is 27/100, compared with 36/100 in Q2 and 55/100 in Q1; however, 65 devices remain in the High exposure category, and active attack paths",
+      "after": "Defender’s Exposure Score was 27/100 in Q3, compared with 36/100 in Q2 and 55/100 in Q1; however, 65 devices remained in the High exposure category in Q3, and active attack paths",
+      "style_marker": "temporal_precision",
+      "reason": "Anchors the exposure measurement and the High-exposure device count to Q3 and uses past tense for observed quarter values.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary",
+      "before": "Overall Secure Score is 63.45%, a decline of 0.67 percentage points from Q2 and 0.69 points above Q1.",
+      "after": "Overall Secure Score was 63.45% in Q3, a decline of 0.67 percentage points from Q2 and 0.69 points above Q1.",
+      "style_marker": "temporal_precision",
+      "reason": "Anchors the overall score to Q3 and states the comparison against Q2 and Q1 in past tense.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary",
+      "before": "Identity and endpoint evidence shows the same uneven pattern. Identity remains the strongest control area at 81.7%, while User MFA, Administrator MFA, and Self-Service Password Reset remain incomplete. Windows antivirus and EDR block-mode achievement are strong, but Linux real-time protection and antivirus-definition currency are incomplete.",
+      "after": "Identity and endpoint evidence showed the same uneven pattern in Q3. Identity was the strongest control area at 81.7%, while User MFA, Administrator MFA, and Self-Service Password Reset remained incomplete. Windows antivirus and EDR block-mode achievement were strong, but Linux real-time protection and antivirus-definition currency were incomplete.",
+      "style_marker": "tense",
+      "reason": "Converts observed control states to past tense and anchors the pattern to Q3 so the summary reads as a quarter finding rather than a standing description.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Posture Summary",
+      "before": "totals 867.3 of 1,367 available points (63.45%). This is a slight decrease from Q2’s achievement of 64.12%. Q3’s achievement split into categories are: Identity 81.7%",
+      "after": "totaled 867.3 of 1,367 available points (63.45%) in Q3. This was a slight decrease from Q2’s achievement of 64.12%. Q3 achievement by category was: Identity 81.7%",
+      "style_marker": "grammar",
+      "reason": "Corrects subject-verb disagreement (\"split into categories are\"), applies past tense to observed scores, and anchors the total to Q3.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Posture Summary",
+      "before": "Defender identifies 248 active security-recommendation rows and 112 active attack paths. These are",
+      "after": "Defender identified 248 active security-recommendation rows and 112 active attack paths in Q3. These are",
+      "style_marker": "temporal_precision",
+      "reason": "Anchors the Defender record counts to Q3 and uses past tense for the observation.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Key Risk Themes",
+      "before": "* MFA and SSPR achievement remain incomplete as service accounts should be reviewed and converted into a more secure form of authentication.",
+      "after": "* Identity coverage requires validation. MFA and SSPR achievement remained incomplete in Q3, and service accounts should be reviewed and converted to a more secure form of authentication.",
+      "style_marker": "template_structure",
+      "reason": "Adds the theme title the template format requires (\"<THEME>. <DESCRIPTION>\"), replaces the unsupported \"as\" causal link with two separate statements, and anchors the observation to Q3.",
+      "assessment_function": "cross_signal_synthesis",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Key Risk Themes",
+      "before": "Detection requires operational follow-through. Unassigned high-severity incidents and custom-indicator alerts need documented validation, while attack paths to a critical administrator require review of access and connectivity.",
+      "after": "* Detection requires operational follow-through. Unassigned high-severity incidents and custom-indicator alerts need documented validation, while attack paths to a critical administrator require review of access and connectivity.",
+      "style_marker": "template_formatting",
+      "reason": "Restores the list marker lost on this theme so all four key risk themes use the same format.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Domain Posture",
+      "before": "| Identity & Access | Coverage requires validation | 81.7% identity achievement; MFA and SSPR control signals remain incomplete and need evaluation. Service accounts should be reviewed and converted into a more secure form of authentication. |",
+      "after": "| Identity & Access | Coverage requires validation | Identity achievement was 81.7%, and MFA and SSPR control signals remained incomplete and need evaluation. Service accounts should be reviewed and converted into a more secure form of authentication. |",
+      "style_marker": "complete_sentences",
+      "reason": "Replaces a metric-first fragment joined by a semicolon with two complete sentences.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Domain Posture",
+      "before": "| Vulnerability Management | Lower aggregate exposure | 27/100 Low; 65 High-exposure devices and material software weaknesses remain. |",
+      "after": "| Vulnerability Management | Lower aggregate exposure | The Exposure Score was 27/100, which falls in the Low range, while 65 High-exposure devices and material software weaknesses remained. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Turns a verbless metric fragment into a sentence that states the Low classification and the remaining High-exposure population together.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Domain Posture",
+      "before": "| Data Protection | Publication requires review | DLP earns 5/5; sensitivity-label publication 0.01/2. Effective coverage requires validation. |",
+      "after": "| Data Protection | Publication requires review | DLP earned 5/5, and sensitivity-label publication earned 0.01/2. Effective coverage requires validation. |",
+      "style_marker": "complete_sentences",
+      "reason": "Gives the semicolon-joined metrics a subject and verb and uses past tense for observed scores.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Domain Posture",
+      "before": "| Email & Collaboration | Targeted validation needed | Forwarding 0/5 and mailbox auditing 0/3 |",
+      "after": "| Email & Collaboration | Targeted validation needed | Forwarding earned 0/5, and mailbox auditing earned 0/3. |",
+      "style_marker": "complete_sentences",
+      "reason": "Completes a noun-only narrative cell so it has a subject and verb.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Domain Posture",
+      "before": "| Detection & Operational Readiness | Triage priority | Two High active incidents are unassigned; outcomes: It was not available. |",
+      "after": "| Detection & Operational Readiness | Triage priority | Two High active incidents were unassigned, and investigation outcomes were not available. |",
+      "style_marker": "evidence_integration",
+      "reason": "Integrates the evidence gap as a sentence instead of the raw fragment \"outcomes: It was not available.\"",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Domain Posture",
+      "before": "| Cloud Workload & Attack Paths | Path review priority | One High cloud path and two Medium on-premises paths among 112 active records. |",
+      "after": "| Cloud Workload & Attack Paths | Path review priority | Defender identified one High cloud path and two Medium on-premises paths among 112 active records. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the subject and verb missing from a fragment, using the attribution given in the Cloud Workload section.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Domain Posture",
+      "before": "| AI Agents & Generative AI | Usage governance needed | Discovery confirms AI, API, and MCP traffic. Agent permissions and content: It was not available. |",
+      "after": "| AI Agents & Generative AI | Usage governance needed | Discovery confirmed AI, API, and MCP traffic. Agent permissions and content were not available. |",
+      "style_marker": "evidence_integration",
+      "reason": "Replaces the raw fragment \"Agent permissions and content: It was not available.\" with a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture > Control Movement and Baseline Changes",
+      "before": "The current Device category is 59.35%, compared with Q2’s reported 62%.",
+      "after": "The Q3 Device category was 59.35%, compared with Q2’s reported 62%.",
+      "style_marker": "temporal_precision",
+      "reason": "Replaces the vague temporal term \"current\" with the named quarter and uses past tense.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "Identity remains the highest-scoring category, but authentication coverage is incomplete and declined from Q2. Identity Secure Score is 81.7% in Q3,",
+      "after": "Identity was the highest-scoring category in Q3, but authentication coverage was incomplete and declined from Q2. Identity Secure Score was 81.7% in Q3,",
+      "style_marker": "temporal_precision",
+      "reason": "Anchors the lead conclusion to Q3 and uses past tense for the observed quarter state.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "All-user MFA earns 2.33/9 points and administrator MFA earns 5.56/10; these are",
+      "after": "All-user MFA earned 2.33/9 points and administrator MFA earned 5.56/10; these are",
+      "style_marker": "tense",
+      "reason": "Uses past tense for control achievement observed during the quarter.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "user-style accounts. ASM’s identity secure\n",
+      "after": "user-style accounts.\n",
+      "style_marker": "complete_sentences",
+      "reason": "Removes a trailing sentence fragment (\"ASM’s identity secure\") that asserts nothing and has no verb; the omission is flagged for confirmation.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "The CIS Microsoft 365 Benchmark is regarding Conditional Access relating to Identity Protection.",
+      "after": "The CIS Microsoft 365 Benchmark addresses Conditional Access as it relates to Identity Protection.",
+      "style_marker": "grammar",
+      "reason": "Replaces the ungrammatical \"is regarding ... relating to\" construction with a clear subject and verb.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "It highlights where Microsoft sees identity protection",
+      "after": "The table highlights where Microsoft sees identity protection",
+      "style_marker": "plain_language",
+      "reason": "Replaces an ambiguous pronoun with its antecedent.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "| All-user MFA: 2.33/9 | 5.2.2.2 | PR.AA-03 | Regressed since Q2. Q3 registration counts: 436 out of 588 users. Service accounts should be reviewed and converted into a more secure form of authentication. |",
+      "after": "| All-user MFA: 2.33/9 | 5.2.2.2 | PR.AA-03 | The control regressed since Q2. Q3 registration counts were 436 out of 588 users. Service accounts should be reviewed and converted into a more secure form of authentication. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Converts the internal classification label and a verbless count fragment into complete sentences.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "| Administrator MFA: 5.56/10 | 5.2.2.1 | PR.AA-03 | Regressed since Q2. Registration counts: 4 out of 9 users. Validate privileged-account coverage and documented exclusions. |",
+      "after": "| Administrator MFA: 5.56/10 | 5.2.2.1 | PR.AA-03 | The control regressed since Q2. Registration counts were 4 out of 9 users. Validate privileged-account coverage and documented exclusions. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Converts the internal classification label and a verbless count fragment into complete sentences.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "| SSPR: 0.14/1 | 5.2.4.1; 5.2.4.2 (Level 2) | PR.AA-03 | Regressed since Q2. Registration counts: 505 of 588 users. Validate coverage between user and service accounts. Service accounts should be reviewed and converted into a more secure form of authentication. |",
+      "after": "| SSPR: 0.14/1 | 5.2.4.1; 5.2.4.2 (Level 2) | PR.AA-03 | The control regressed since Q2. Registration counts were 505 of 588 users. Validate coverage between user and service accounts. Service accounts should be reviewed and converted into a more secure form of authentication. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Converts the internal classification label and a verbless count fragment into complete sentences.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "| User-risk policy: 6.99/7 | 5.2.2.6 | PR.AA-03 | Registration count: 1 users out of 588 users. It is recommended to exclude emergency access accounts, service principals, and service accounts from user-risk policies. Validate coverage between user and service accounts. |",
+      "after": "| User-risk policy: 6.99/7 | 5.2.2.6 | PR.AA-03 | The registration count was 1 user out of 588 users. It is recommended to exclude emergency access accounts, service principals, and service accounts from user-risk policies. Validate coverage between user and service accounts. |",
+      "style_marker": "grammar",
+      "reason": "Corrects number agreement (\"1 users\") and completes the fragment with a subject and verb.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "| Sign-in-risk policy: 7/7 | 5.2.2.7 | PR.AA-03 | Registration count: 0 of 470 users that don't have the sign-in risky policy turned on. This is noted as it is a divergence from the above controls. When the policy triggers, the user will need MFA to access the account. If a user hasn't registered for MFA, they’re blocked from accessing their account. Validate coverage between user and service accounts. |",
+      "after": "| Sign-in-risk policy: 7/7 | 5.2.2.7 | PR.AA-03 | The registration count was 0 of 470 users without the sign-in-risk policy turned on. This is noted as a divergence from the above controls. When the policy triggers, the user needs MFA to access the account. A user who has not registered for MFA is blocked from accessing the account. Validate coverage between user and service accounts. |",
+      "style_marker": "banned_patterns",
+      "reason": "Removes the contractions \"don't\", \"hasn't\" and \"they’re\", fixes the policy name wording, and tightens the sentences without changing the counts or policy behavior.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "before": "## Endpoint and Vulnerabilities\n",
+      "after": "In Q3, authentication coverage declined from Q2 even though Identity remained the highest-scoring category at 81.7%, so the category score should not be read as evidence of uniform protection. ASM should validate the account-type and enforcement context, confirm privileged-account coverage and documented exclusions, and review service accounts for a more secure form of authentication. These actions address the continuing MFA and SSPR gaps and support a proportionate response to the credential-based risk described above.\n\n## Endpoint and Vulnerabilities\n",
+      "style_marker": "assessment_first",
+      "reason": "Supplies the conclusion paragraph the template requires for this section, drawing only on conclusions already stated in the draft (Q2 decline, 81.7%, account-type validation, privileged coverage, service accounts, credential-based risk).",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities",
+      "before": "![Defender exposure distribution showing 65 High-exposure devices; current Medium and Low counts are not displayed.](media/image3.png)High-exposure devices decreased",
+      "after": "![Defender exposure distribution showing 65 High-exposure devices; current Medium and Low counts are not displayed.](media/image3.png)\n\nHigh-exposure devices decreased",
+      "style_marker": "template_formatting",
+      "reason": "Places the screenshot on its own line so the image and the interpreting paragraph are separate blocks.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities",
+      "before": "Linux real-time protection earns 0/10 and Linux definitions 0/9; general sensor collection, communications, and enablement each earn 8.96/10, with core components at 3/10. Real-time protection and firewall achievement are 9.79/10 and 9.9/10.",
+      "after": "Linux real-time protection earned 0/10 and Linux definitions earned 0/9; general sensor collection, communications, and enablement each earned 8.96/10, with core components at 3/10. Real-time protection and firewall achievement were 9.79/10 and 9.9/10.",
+      "style_marker": "tense",
+      "reason": "Uses past tense for control achievement observed in the quarter and completes the elliptical clause.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities",
+      "before": "| Exposure 27/100; High devices 65 | No direct Microsoft 365 control | ID.RA-05 | Improved since Q2. Lower aggregate exposure, but remaining High devices need prioritized remediation. |",
+      "after": "| Exposure 27/100; High devices 65 | No direct Microsoft 365 control | ID.RA-05 | The control improved since Q2. Aggregate exposure was lower, but the remaining High devices need prioritized remediation. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Converts the internal classification label and a verbless fragment into complete sentences.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities",
+      "before": "| Linux real-time 0/10; definitions 0/9 | No direct Microsoft 365 control | PR.PS-02; DE.CM-09 | Regressed since Q2. Investigate protection and update gaps. |",
+      "after": "| Linux real-time 0/10; definitions 0/9 | No direct Microsoft 365 control | PR.PS-02; DE.CM-09 | The control regressed since Q2. Investigate protection and update gaps. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Converts the internal classification label into a complete sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities",
+      "before": "| Windows AV 10/10; definitions 9/9; EDR block 8/8 | No direct Microsoft 365 control | DE.CM-09 | Improved since Q2. Positive achievement ensuring windows antivirus and EDR is in Block mode. This is not proof of complete estate coverage. |",
+      "after": "| Windows AV 10/10; definitions 9/9; EDR block 8/8 | No direct Microsoft 365 control | DE.CM-09 | The control improved since Q2. The positive achievement reflects Windows antivirus and EDR being in Block mode. This is not proof of complete estate coverage. |",
+      "style_marker": "complete_sentences",
+      "reason": "Repairs a verbless fragment with incorrect capitalization and subject-verb agreement, and converts the internal classification label.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities",
+      "before": "| Linux sensor collection and communications 10/10 each | No direct Microsoft 365 control | DE.CM-09 | Positive reporting signal; distinct from antivirus protection and definition health. |",
+      "after": "| Linux sensor collection and communications 10/10 each | No direct Microsoft 365 control | DE.CM-09 | This is a positive reporting signal that is distinct from antivirus protection and definition health. |",
+      "style_marker": "complete_sentences",
+      "reason": "Gives the narrative cell a subject and verb in place of a semicolon-joined fragment.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities",
+      "before": "Focus on the affected versions and verify any remaining exposure after remediation. While patching, do not aggregate vulnerability or device counts, as overlapping records may result in double counting.",
+      "after": "ASM should focus on the affected versions and verify any remaining exposure after remediation. During patching, ASM should not aggregate vulnerability or device counts, because overlapping records may result in double counting.",
+      "style_marker": "active_framing",
+      "reason": "Names the responsible party for each action and replaces the dangling modifier \"While patching\".",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities",
+      "before": "Windows 10 remains detected on nine total devices.",
+      "after": "In Q3, Windows 10 remained detected on nine total devices.",
+      "style_marker": "temporal_precision",
+      "reason": "Anchors the Windows 10 observation to Q3 and uses past tense.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities",
+      "before": "help establish a timeline for ASM to deploy replacement devices for these nine Windows 10 devices remaining.",
+      "after": "help ASM establish a timeline to deploy replacement devices for the nine remaining Windows 10 devices.",
+      "style_marker": "grammar",
+      "reason": "Corrects the misplaced participle (\"devices remaining\") and the awkward infinitive structure.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Data Protection and Collaboration",
+      "before": "Data achievement is 55.67% and Apps achievement is 79.8%. DLP earns 5/5 and unified auditing 3/3, while sensitivity-label publication earns 0.01/2, external automatic forwarding 0/5, and mailbox auditing 0/3.",
+      "after": "Data achievement was 55.67% and Apps achievement was 79.8% in Q3. DLP earned 5/5 and unified auditing earned 3/3, while sensitivity-label publication earned 0.01/2, external automatic forwarding earned 0/5, and mailbox auditing earned 0/3.",
+      "style_marker": "temporal_precision",
+      "reason": "Anchors the category scores to Q3, uses past tense, and completes the elliptical clauses.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Data Protection and Collaboration",
+      "before": "Policy definitions, affected mailbox inventory, retention settings, collaboration sharing controls and DLP test results: It was not available. The current evidence supports",
+      "after": "Policy definitions, affected mailbox inventory, retention settings, collaboration sharing controls and DLP test results were not available. The Q3 evidence supports",
+      "style_marker": "evidence_integration",
+      "reason": "Integrates the evidence gap as a complete sentence and replaces the vague temporal term \"current\" with Q3.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Data Protection and Collaboration",
+      "before": "| Sensitivity-label publication 0.01/2 | 3.3.1 | PR.DS-01 | Validate publication, user scope, and intended protection; policy detail: It was not available. |",
+      "after": "| Sensitivity-label publication 0.01/2 | 3.3.1 | PR.DS-01 | Validate publication, user scope, and intended protection, as policy detail was not available. |",
+      "style_marker": "evidence_integration",
+      "reason": "Integrates the evidence gap into the recommendation sentence instead of leaving the raw fragment.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Data Protection and Collaboration",
+      "before": "| DLP 5/5 | 3.2.1 | PR.DS-01; PR.DS-02 | Positive enablement signal; workloads, sensitive-data scope, and tests: It was not available. |",
+      "after": "| DLP 5/5 | 3.2.1 | PR.DS-01; PR.DS-02 | This is a positive enablement signal, but workloads, sensitive-data scope, and tests were not available. |",
+      "style_marker": "evidence_integration",
+      "reason": "Calibrates the positive signal with its limitation in one complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Data Protection and Collaboration",
+      "before": "| Unified auditing 3/3 | 3.1.1 | PR.PS-04 | Positive audit-search signal; does not establish retention or mailbox-action completeness. |",
+      "after": "| Unified auditing 3/3 | 3.1.1 | PR.PS-04 | This is a positive audit-search signal, but it does not establish retention or mailbox-action completeness. |",
+      "style_marker": "complete_sentences",
+      "reason": "Gives the narrative cell a subject and verb and states the calibration directly.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Cloud Workload and Attack Path Exposure",
+      "before": "Detailed chain steps, current access permissions, exposure mitigations, and asset-owner decisions: It was not available.",
+      "after": "Detailed chain steps, current access permissions, exposure mitigations, and asset-owner decisions were not available.",
+      "style_marker": "evidence_integration",
+      "reason": "Replaces the raw fragment \"...: It was not available.\" with a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Cloud Workload and Attack Path Exposure",
+      "before": "| 109 Low hybrid path records | No direct Microsoft 365 control | ID.RA-06 | Prioritize after High/Medium paths, then prioritize based on internal decisions like user, device age, application, etc. |",
+      "after": "| 109 Low hybrid path records | No direct Microsoft 365 control | ID.RA-06 | Prioritize these records after the High and Medium paths, then rank them by internal decisions such as user, device age, application, and similar factors. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Removes the repeated verb and the open-ended \"etc.\" and states the sequence of prioritization plainly.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > AI Agents and Generative AI Usage",
+      "before": "Microsoft 365 Copilot Chat is marked Protected with 34 users and 34 devices, ChatGPT (Consumer & Enterprise) is Sanctioned with 39 users and 42 devices, Google Gemini is Sanctioned with 13 users and 13 devices.",
+      "after": "Microsoft 365 Copilot Chat was marked Protected with 34 users and 34 devices; ChatGPT (Consumer & Enterprise) was Sanctioned with 39 users and 42 devices; and Google Gemini was Sanctioned with 13 users and 13 devices.",
+      "style_marker": "punctuation",
+      "reason": "Replaces a comma splice with a properly punctuated series and uses past tense for the discovery observation.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > AI Agents and Generative AI Usage",
+      "before": "GitHub Copilot is Discovered with three users and three devices, OpenAI API with two and two, Atlassian MCP with one and one.",
+      "after": "GitHub Copilot was Discovered with three users and three devices, OpenAI API with two and two, and Atlassian MCP with one and one.",
+      "style_marker": "punctuation",
+      "reason": "Adds the missing coordinating conjunction and uses past tense for the discovery observation.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > AI Agents and Generative AI Usage",
+      "before": "extend into early October and are current-state context rather than a quarter-end baseline. ChatGPT records 25,756 transactions",
+      "after": "extend into early October and are post-quarter context rather than a quarter-end baseline. ChatGPT recorded 25,756 transactions",
+      "style_marker": "temporal_precision",
+      "reason": "Replaces the vague term \"current-state\" with the precise relationship to the reporting quarter so post-quarter evidence is not read as Q3 progress.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > AI Agents and Generative AI Usage",
+      "before": "| Copilot Chat Protected 34 users/34 devices; ChatGPT Sanctioned 39/42; Gemini Sanctioned 13/13 | 3.2.3 (Copilot DLP objective only) | ID.AM-02; PR.DS-01 | Application Discovery includes subsequent-state signals, not Copilot DLP scope. Review acceptable use and ensure data protections are in place. |",
+      "after": "| Copilot Chat Protected 34 users/34 devices; ChatGPT Sanctioned 39/42; Gemini Sanctioned 13/13 | 3.2.3 (Copilot DLP objective only) | ID.AM-02; PR.DS-01 | Application Discovery includes subsequent-state signals and does not reflect Copilot DLP scope. Review acceptable use and ensure data protections are in place. |",
+      "style_marker": "complete_sentences",
+      "reason": "Gives the clause a verb in place of a bare \"not\" phrase.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review > Detection and Operational Readiness",
+      "before": "has last activity May 5; incident 14695, Unfamiliar sign-in properties involving one user, has last activity September 23.",
+      "after": "had its last activity on May 5; incident 14695, Unfamiliar sign-in properties involving one user, had its last activity on September 23.",
+      "style_marker": "grammar",
+      "reason": "Corrects the missing article and preposition and uses past tense for the recorded activity dates.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions",
+      "before": "Training attendance, exercise results, and completion status: It was not available.",
+      "after": "Training attendance, exercise results, and completion status were not available.",
+      "style_marker": "evidence_integration",
+      "reason": "Replaces the raw fragment \"...: It was not available.\" with a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions > Active Recommendations",
+      "before": "| 0 | 2026-Q3 | Assign and validate active incidents. Triage incidents 14442 and 14695, investigate custom-indicator connections and record disposition. NIST RS.MA-02; DE.AE-02. | Incidents are active and unassigned |",
+      "after": "| 0 | 2026-Q3 | Assign and validate active incidents. Triage incidents 14442 and 14695, investigate custom-indicator connections and record disposition. NIST RS.MA-02; DE.AE-02. | Incidents are active and unassigned. |",
+      "style_marker": "punctuation",
+      "reason": "Adds the missing terminal punctuation to the status sentence.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions > Active Recommendations",
+      "before": "| 2 | 2024-Q2 | Ensure MFA coverage for human and privileged users. Obtain registration and policy inventories, review exclusions, and identify service-account alternatives. CIS 5.2.2.1/5.2.2.2; NIST PR.AA-03. | Continuing review: all-user 2.33/9; administrator 5.56/10. |",
+      "after": "| 2 | 2024-Q2 | Ensure MFA coverage for human and privileged users. Obtain registration and policy inventories, review exclusions, and identify service-account alternatives. CIS 5.2.2.1/5.2.2.2; NIST PR.AA-03. | Review is continuing: all-user MFA scored 2.33/9, and administrator MFA scored 5.56/10. |",
+      "style_marker": "complete_sentences",
+      "reason": "Replaces a verbless fragment with a complete status sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions > Active Recommendations",
+      "before": "| 3 | 2023-Q3 SSPR; 2023-Q4 risk migration | Validate SSPR and risk-policy migration. Review scope, two reset methods (Level 2), authentication-method policy, and user/sign-in-risk Conditional Access before retiring legacy policies. CIS 5.2.4.1/5.2.4.2/5.2.2.6/5.2.2.7; NIST PR.AA-03. | SSPR and risk-policies need reviewed to ensure they are following Microsoft best practices. |",
+      "after": "| 3 | 2023-Q3 SSPR; 2023-Q4 risk migration | Validate SSPR and risk-policy migration. Review scope, two reset methods (Level 2), authentication-method policy, and user/sign-in-risk Conditional Access before retiring legacy policies. CIS 5.2.4.1/5.2.4.2/5.2.2.6/5.2.2.7; NIST PR.AA-03. | SSPR and risk policies need to be reviewed to ensure they follow Microsoft best practices. |",
+      "style_marker": "grammar",
+      "reason": "Corrects the missing \"to be\" and the progressive construction.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions > Active Recommendations",
+      "before": "| 4 | 2026-Q3 | Remediate affected software and stabilize endpoint protection. Prioritize High-exposure devices, browsers, OS/JDK/Netextender/Teams versions, Linux protection gaps, and Langchain dependencies. NIST PR.PS-02; DE.CM-09. | Remediate high-exposure devices and software as 65 High devices remain, and the list of vulnerable applications remains the same quarter over quarter. |",
+      "after": "| 4 | 2026-Q3 | Remediate affected software and stabilize endpoint protection. Prioritize High-exposure devices, browsers, OS/JDK/Netextender/Teams versions, Linux protection gaps, and Langchain dependencies. NIST PR.PS-02; DE.CM-09. | Remediate high-exposure devices and software because 65 High devices remain and the list of vulnerable applications is unchanged quarter over quarter. |",
+      "style_marker": "plain_language",
+      "reason": "Clarifies the rationale connector and removes the repetition of \"remain\".",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions > CIS Microsoft 365 Foundation Benchmark",
+      "before": "| 5.2.4.1; 5.2.2.6; 5.2.2.7 | Validate SSPR and risk policies | Review All-user SSPR objective and risk-based Conditional Access. Check licensed coverage and recovery before changing scope. | Review scope, two reset methods (Level 2), authentication-method policy |",
+      "after": "| 5.2.4.1; 5.2.2.6; 5.2.2.7 | Validate SSPR and risk policies | Review All-user SSPR objective and risk-based Conditional Access. Check licensed coverage and recovery before changing scope. | Review scope, two reset methods (Level 2), and authentication-method policy. |",
+      "style_marker": "complete_sentences",
+      "reason": "Completes the list and adds terminal punctuation to the status sentence.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions > Deferred Recommendations",
+      "before": "for the continuing recommendations: It was not available. Consequently,",
+      "after": "for the continuing recommendations was not available. Consequently,",
+      "style_marker": "evidence_integration",
+      "reason": "Replaces the raw fragment \"...: It was not available.\" with a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Current Microsoft Cloud Security Posture > Domain Posture",
+      "purpose": "Posture indicator and interpretation per security domain",
+      "rows": 8,
+      "rows_edited": 7
+    },
+    {
+      "location": "Security Signal Review > Identity and Access > control evidence",
+      "purpose": "Identity and access control evidence with CIS and NIST references",
+      "rows": 5,
+      "rows_edited": 5
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities > exposure level",
+      "purpose": "High, Medium and Low exposure counts for 2026-Q1, 2026-Q2 and 2026-Q3",
+      "rows": 3,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities > control evidence",
+      "purpose": "Endpoint and vulnerability control evidence with CIS and NIST references",
+      "rows": 4,
+      "rows_edited": 4
+    },
+    {
+      "location": "Security Signal Review > Endpoint and Vulnerabilities > application and OS weaknesses",
+      "purpose": "Q2 and current exposed and total counts per application or operating system",
+      "rows": 11,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review > Data Protection and Collaboration > control evidence",
+      "purpose": "Data protection and collaboration control evidence with CIS and NIST references",
+      "rows": 5,
+      "rows_edited": 3
+    },
+    {
+      "location": "Security Signal Review > Cloud Workload and Attack Path Exposure > control evidence",
+      "purpose": "Attack-path control evidence with CIS and NIST references",
+      "rows": 5,
+      "rows_edited": 1
+    },
+    {
+      "location": "Security Signal Review > AI Agents and Generative AI Usage > control evidence",
+      "purpose": "AI discovery control evidence with CIS and NIST references",
+      "rows": 5,
+      "rows_edited": 1
+    },
+    {
+      "location": "Recommended Security Actions > Security Awareness call-out",
+      "purpose": "Security Awareness call-out box (exempt from rewrite)",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions > Active Recommendations",
+      "purpose": "Priority, identification quarter, recommendation and status",
+      "rows": 6,
+      "rows_edited": 4
+    },
+    {
+      "location": "Recommended Security Actions > CIS Microsoft 365 Foundation Benchmark",
+      "purpose": "CIS reference, recommendation, description and status",
+      "rows": 4,
+      "rows_edited": 1
+    },
+    {
+      "location": "Recommended Security Actions > Recommendation History > CIS Recommendations",
+      "purpose": "Historical CIS recommendations (header only in draft)",
+      "rows": 0,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions > Recommendation History > CIS Recommendations > empty row",
+      "purpose": "Empty placeholder row following the CIS history header",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions > Recommendation History > Advisory Recommendations",
+      "purpose": "Historical advisory recommendations",
+      "rows": 2,
+      "rows_edited": 0
+    }
+  ],
+  "observations": [
+    {
+      "location": "Current Microsoft Cloud Security Posture > Posture Summary",
+      "type": "terminology",
+      "detail": "The draft refers to \"AMS’s overall Secure Score\" while the client is named ASM everywhere else. Left as drafted under the substance-freeze rule.",
+      "action_required": "correct in draft"
+    },
+    {
+      "location": "Security Signal Review > Identity and Access",
+      "type": "cross_reference",
+      "detail": "The first Identity paragraph ended with an unfinished fragment (\"ASM’s identity secure\"). The fragment asserted no fact and was removed; confirm nothing substantive was intended.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Security Signal Review > Data Protection and Collaboration > Mailbox auditing 0/3 row",
+      "type": "table_prose_mismatch",
+      "detail": "The Assessment interpretation for Mailbox auditing 0/3 repeats the sensitivity-label and forwarding recommendation instead of addressing mailbox auditing. Left unchanged.",
+      "action_required": "correct in draft"
+    },
+    {
+      "location": "Recommended Security Actions > CIS Microsoft 365 Foundation Benchmark",
+      "type": "table_prose_mismatch",
+      "detail": "The Status cells for the \"Review labels and forwarding\" and \"Validate mailbox audit completeness\" rows repeat theme and recommendation text that does not describe the status of those items. Left unchanged.",
+      "action_required": "correct in draft"
+    },
+    {
+      "location": "Security Signal Review > control evidence tables",
+      "type": "terminology",
+      "detail": "The draft used the internal classification labels \"Regressed since Q2\" and \"Improved since Q2\" as stand-alone table text. They were restated as complete sentences (\"The control regressed since Q2.\") with the same meaning because the template has no such label convention.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Recommended Security Actions > Active Recommendations and CIS tables",
+      "type": "template_deviation",
+      "detail": "The template requires status entries in the form MM.DD.YYYY - <STATUS DESCRIPTION>. The draft supplies no per-item dates, so the draft status wording was retained.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Recommended Security Actions > Active Recommendations and CIS tables",
+      "type": "template_deviation",
+      "detail": "The template shows bold recommendation titles. The draft recommendation titles are not bold, and no markdown formatting was added.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Security Signal Review > Identity, Data Protection, Cloud Workload and AI sections",
+      "type": "template_deviation",
+      "detail": "The template includes supporting screenshot placeholders for these sections and a trendline screenshot under Control Movement. The draft contains only the Secure Score screenshot and the Defender exposure distribution screenshot, so no other images were added.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Draft tables (multiple)",
+      "type": "template_deviation",
+      "detail": "Several draft tables carry an empty header row ahead of the real header row, and some table bodies are split from their header by a blank line. The structure was frozen as drafted.",
+      "action_required": "confirm"
+    }
+  ]
+}

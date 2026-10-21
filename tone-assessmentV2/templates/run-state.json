@@ -1,6 +1,8 @@
 {
   "run_id": "<run-id>",
   "current_step": "05-tone-consistency",
+  "initiated_by": "harness",
+  "operator": "",
   "loop_counters": { "G4": 0, "G5": 0 },
   "loop_max": 2,
   "certifiable": true,

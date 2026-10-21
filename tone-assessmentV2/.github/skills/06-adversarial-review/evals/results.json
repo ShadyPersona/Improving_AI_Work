@@ -1,0 +1,1868 @@
+{
+  "evalId": "eval-5cm-2026-10-21T03:52:22",
+  "results": {
+    "version": 3,
+    "timestamp": "2026-10-21T03:52:22.153Z",
+    "prompts": [
+      {
+        "id": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "raw": "Execute step 06-adversarial-review on the test inputs.",
+        "label": "Execute step 06-adversarial-review on the test inputs.",
+        "provider": "claude-sonnet-5-5",
+        "metrics": {
+          "score": 8.86,
+          "testPassCount": 9,
+          "testFailCount": 0,
+          "testErrorCount": 0,
+          "assertPassCount": 19,
+          "assertFailCount": 0,
+          "totalLatencyMs": 109011,
+          "tokenUsage": {
+            "prompt": 42838,
+            "completion": 14485,
+            "cached": 0,
+            "total": 57323,
+            "numRequests": 9,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 14175,
+              "prompt": 12713,
+              "completion": 1462,
+              "cached": 0,
+              "numRequests": 9,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          },
+          "namedScores": {},
+          "namedScoresCount": {},
+          "namedScoreWeights": {},
+          "cost": 0
+        }
+      }
+    ],
+    "results": [
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.95,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1446,
+            "prompt": 1269,
+            "completion": 177,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "G5.*(?i:fail)|(?i:fail).*G5"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent detects the first-person voice and colloquial filler, and records a G5 assessment-quality failure."
+              },
+              "pass": true,
+              "score": 0.9,
+              "reason": "The output detects the first-person voice ('We turned on MFA' is first person and breaks the required third-person formal consultative voice). It also flags the colloquial/unsupported filler ('It is good' is an unsupported judgment, and the text is 'terse and word-patched'). It records the G5 Assessment quality check as a failure. This matches the rubric, though the 'colloquial filler' is described as an unsupported evaluative claim rather than named colloquial language, which is close enough.",
+              "tokensUsed": {
+                "total": 1446,
+                "prompt": 1269,
+                "completion": 177,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n# G5 failure\\n\\n**Result:** G5 failed. No final deliverable was assembled, no `audit-report.md` was written, and `.harness-step06-done` was not written. The harness owns the loop counter and the loop-back or punch-out E decision.\\n\\n## g5-judgment.md\\n\\n### Failing checks\\n\\n**1. Assessment quality (fail)**\\n- Voice: \\\"We turned on MFA\\\" is first person and breaks the required third-person formal consultative voice.\\n- Conclusion-first: the section has no condition, quarter movement, evidence, significance, qualification, recommended response or calibration.\\n- Evaluative claim: \\\"It is good\\\" is an unsupported judgment with no reasoning or limits. It is not a supported conclusion.\\n- Business risk: the section does not tie MFA enablement to the client's business risk.\\n- Temporal anchoring: no quarter or observation period is stated, and there is no preceding-versus-current comparison. The text does not say that comparison is unsupported.\\n- Cross-signal synthesis: the section does not link MFA to related authentication or privileged-access controls.\\n- Concrete action: no client action is paired with the finding.\\n- Overall: the text is terse and word-patched rather than a consultative rewrite.\\n\\n**2. Substance freeze (fail)**\\n- Scope: the draft says \\\"for all users\\\". `toned.md` drops this scope, which changes the client-facing meaning of the finding.\\n- New claims: \\\"It is good\\\" adds an evaluation that is not in `draft.md`.\\n- Actor: \\\"We\\\" attributes the action to the author. The draft states it passively and names no actor.\\n\\n**3. Change accountability (fail)**\\n- No `tone-changes.json` was supplied, so the `tables_reviewed` and `observations` arrays are absent and the schema check cannot pass.\\n- The edits to the section are unrecorded. These are the voice change, the dropped \\\"for all users\\\" scope and the added evaluative sentence.\\n- The records lack `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed`.\\n- With no change log, there is no evidence of analytical synthesis.\\n\\n**4. Certifiability and punch-out closure (pass)**\\n- No punch-out has `triggered: true`.\\n- `certifiable` was absent and was initialized to `true` with `non_certifiable_reasons: []`.\\n- No `bypass_attempt` is recorded.\\n\\n### Required remediation for step 05\\n- Rewrite the Identities section in third-person consultative prose, leading with a conclusion.\\n- Retain \\\"for all users\\\" and introduce no facts, causes or outcomes beyond `draft.md`.\\n- State plainly where the draft supports no quarterly comparison, and pair the finding with a client action drawn from the draft.\\n- Produce a schema-valid `tone-changes.json` with `tables_reviewed`, `observations`, and a complete record for every edit. Each record needs `facts_changed: false` and an `assessment_function` showing analytical synthesis.\\n</Output>\\n<Rubric>\\nThe agent detects the first-person voice and colloquial filler, and records a G5 assessment-quality failure.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "91419a3d-2e5f-4241-ace2-4d50cb1f8b41",
+        "latencyMs": 12597,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 06-adversarial-review on the test inputs.",
+          "label": "Execute step 06-adversarial-review on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "# G5 failure\n\n**Result:** G5 failed. No final deliverable was assembled, no `audit-report.md` was written, and `.harness-step06-done` was not written. The harness owns the loop counter and the loop-back or punch-out E decision.\n\n## g5-judgment.md\n\n### Failing checks\n\n**1. Assessment quality (fail)**\n- Voice: \"We turned on MFA\" is first person and breaks the required third-person formal consultative voice.\n- Conclusion-first: the section has no condition, quarter movement, evidence, significance, qualification, recommended response or calibration.\n- Evaluative claim: \"It is good\" is an unsupported judgment with no reasoning or limits. It is not a supported conclusion.\n- Business risk: the section does not tie MFA enablement to the client's business risk.\n- Temporal anchoring: no quarter or observation period is stated, and there is no preceding-versus-current comparison. The text does not say that comparison is unsupported.\n- Cross-signal synthesis: the section does not link MFA to related authentication or privileged-access controls.\n- Concrete action: no client action is paired with the finding.\n- Overall: the text is terse and word-patched rather than a consultative rewrite.\n\n**2. Substance freeze (fail)**\n- Scope: the draft says \"for all users\". `toned.md` drops this scope, which changes the client-facing meaning of the finding.\n- New claims: \"It is good\" adds an evaluation that is not in `draft.md`.\n- Actor: \"We\" attributes the action to the author. The draft states it passively and names no actor.\n\n**3. Change accountability (fail)**\n- No `tone-changes.json` was supplied, so the `tables_reviewed` and `observations` arrays are absent and the schema check cannot pass.\n- The edits to the section are unrecorded. These are the voice change, the dropped \"for all users\" scope and the added evaluative sentence.\n- The records lack `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed`.\n- With no change log, there is no evidence of analytical synthesis.\n\n**4. Certifiability and punch-out closure (pass)**\n- No punch-out has `triggered: true`.\n- `certifiable` was absent and was initialized to `true` with `non_certifiable_reasons: []`.\n- No `bypass_attempt` is recorded.\n\n### Required remediation for step 05\n- Rewrite the Identities section in third-person consultative prose, leading with a conclusion.\n- Retain \"for all users\" and introduce no facts, causes or outcomes beyond `draft.md`.\n- State plainly where the draft supports no quarterly comparison, and pair the finding with a client action drawn from the draft.\n- Produce a schema-valid `tone-changes.json` with `tables_reviewed`, `observations`, and a complete record for every edit. Each record needs `facts_changed: false` and an `assessment_function` showing analytical synthesis.",
+          "tokenUsage": {
+            "prompt": 4621,
+            "completion": 1693,
+            "cached": 0,
+            "total": 6314,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.95,
+        "success": true,
+        "testCase": {
+          "description": "E1 — G5 fails when tone violates professional assessment standards",
+          "vars": {
+            "toned": "## Identities\\nWe turned on MFA. It is good.",
+            "draft": "## Identities\\nMFA was enabled for all users.",
+            "template": "## Identities",
+            "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "G5.*(?i:fail)|(?i:fail).*G5"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent detects the first-person voice and colloquial filler, and records a G5 assessment-quality failure."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "tokenUsage": {
+          "prompt": 4621,
+          "completion": 1693,
+          "cached": 0,
+          "total": 6314,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1446,
+            "prompt": 1269,
+            "completion": 177,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "toned": "## Identities\\nWe turned on MFA. It is good.",
+          "draft": "## Identities\\nMFA was enabled for all users.",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1401,
+            "prompt": 1288,
+            "completion": 113,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "G5.*(?i:fail)|(?i:fail).*G5"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent detects the altered percentage and records a G5 substance freeze failure."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output explicitly identifies the altered percentage (97% in the draft changed to 99% in the toned version) in the Devices section. It records this as 'Substance freeze: FAIL (hard)' under a G5 FAIL result, and it requires the figure to be restored to 97%.",
+              "tokensUsed": {
+                "total": 1401,
+                "prompt": 1288,
+                "completion": 113,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n# g5-judgment.md\\n\\n**G5 result: FAIL**\\n\\nNo final deliverable and no `.harness-step06-done` marker are written. The harness handles the loop-back decision and the `loop_counters.G5` increment.\\n\\n## Failing checks\\n\\n### 1. Substance freeze: FAIL (hard)\\n| Location | Draft | Toned | Finding |\\n|---|---|---|---|\\n| `## Devices`, compliance sentence | 97% | 99% | The percentage was altered. This is a new factual token that does not exist in `draft.md`, and it changes the client-facing meaning of the finding by overstating device compliance by two points. |\\n\\nRequired correction: restore the figure to 97% and rebuild the sentence around that value.\\n\\n### 2. Change accountability: FAIL\\n- The 97% to 99% edit has no matching record in `tone-changes.json`. The edit is unrecorded.\\n- The change log contains no `tables_reviewed` or `observations` arrays, so the schema requirement is not met.\\n- No `assessment_function` values demonstrate analytical synthesis, so the coverage requirement is not met.\\n- Any record that did describe this edit would have to carry `facts_changed: true`, which is a hard fail.\\n\\n### 3. Assessment quality: FAIL\\n- **Conclusion-first:** The `## Devices` section is a single data statement with no condition, quarter movement, evidence, significance, qualification, recommended response or calibration.\\n- **Quarterly thesis:** There is no preceding-versus-current-quarter comparison, and no explicit statement that a comparison is unsupported.\\n- **Business significance:** There is no tie to client business risk, so the \\\"so what\\\" is missing.\\n- **Recommended action:** No concrete client action is paired with the finding.\\n- **Cross-signal synthesis:** The endpoint exposure and vulnerability management theme is not analyzed.\\n- **Client-consultative quality:** The section is a bare metric and does not read as consultant guidance.\\n- **Template conformance:** The heading matches the template, but the section does not otherwise meet the analytical requirements.\\n\\n### 4. Certifiability and punch-out closure: PASS\\n- No punch-out is triggered (`A_missing_content: false`, `E_loop_exhaustion: false`).\\n- `certifiable` was absent from `run_state` and is initialized as `true`, with `non_certifiable_reasons: []`.\\n- No bypass attempt is recorded.\\n\\n## Required remediation for step 05\\n1. Restore \\\"97%\\\" in the `## Devices` section.\\n2. Rewrite the section conclusion-first. It should state the device compliance condition, the quarter movement or an explicit statement that no comparison is supported, the business significance, one concise qualification, and a concrete recommended action. Every figure must come from `draft.md`.\\n3. Produce a `tone-changes.json` that validates against the schema, with `tables_reviewed` and `observations` arrays. Every edit needs `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed: false`.\\n</Output>\\n<Rubric>\\nThe agent detects the altered percentage and records a G5 substance freeze failure.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "6fe4d098-65a4-4433-b4bf-a53086849a40",
+        "latencyMs": 9656,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 06-adversarial-review on the test inputs.",
+          "label": "Execute step 06-adversarial-review on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "# g5-judgment.md\n\n**G5 result: FAIL**\n\nNo final deliverable and no `.harness-step06-done` marker are written. The harness handles the loop-back decision and the `loop_counters.G5` increment.\n\n## Failing checks\n\n### 1. Substance freeze: FAIL (hard)\n| Location | Draft | Toned | Finding |\n|---|---|---|---|\n| `## Devices`, compliance sentence | 97% | 99% | The percentage was altered. This is a new factual token that does not exist in `draft.md`, and it changes the client-facing meaning of the finding by overstating device compliance by two points. |\n\nRequired correction: restore the figure to 97% and rebuild the sentence around that value.\n\n### 2. Change accountability: FAIL\n- The 97% to 99% edit has no matching record in `tone-changes.json`. The edit is unrecorded.\n- The change log contains no `tables_reviewed` or `observations` arrays, so the schema requirement is not met.\n- No `assessment_function` values demonstrate analytical synthesis, so the coverage requirement is not met.\n- Any record that did describe this edit would have to carry `facts_changed: true`, which is a hard fail.\n\n### 3. Assessment quality: FAIL\n- **Conclusion-first:** The `## Devices` section is a single data statement with no condition, quarter movement, evidence, significance, qualification, recommended response or calibration.\n- **Quarterly thesis:** There is no preceding-versus-current-quarter comparison, and no explicit statement that a comparison is unsupported.\n- **Business significance:** There is no tie to client business risk, so the \"so what\" is missing.\n- **Recommended action:** No concrete client action is paired with the finding.\n- **Cross-signal synthesis:** The endpoint exposure and vulnerability management theme is not analyzed.\n- **Client-consultative quality:** The section is a bare metric and does not read as consultant guidance.\n- **Template conformance:** The heading matches the template, but the section does not otherwise meet the analytical requirements.\n\n### 4. Certifiability and punch-out closure: PASS\n- No punch-out is triggered (`A_missing_content: false`, `E_loop_exhaustion: false`).\n- `certifiable` was absent from `run_state` and is initialized as `true`, with `non_certifiable_reasons: []`.\n- No bypass attempt is recorded.\n\n## Required remediation for step 05\n1. Restore \"97%\" in the `## Devices` section.\n2. Rewrite the section conclusion-first. It should state the device compliance condition, the quarter movement or an explicit statement that no comparison is supported, the business significance, one concise qualification, and a concrete recommended action. Every figure must come from `draft.md`.\n3. Produce a `tone-changes.json` that validates against the schema, with `tables_reviewed` and `observations` arrays. Every edit needs `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed: false`.",
+          "tokenUsage": {
+            "prompt": 4623,
+            "completion": 1330,
+            "cached": 0,
+            "total": 5953,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E2 — G5 fails when a factual token is altered",
+          "vars": {
+            "toned": "## Devices\\nThe device compliance rate was 99%.",
+            "draft": "## Devices\\nThe device compliance rate was 97%.",
+            "template": "## Devices",
+            "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "G5.*(?i:fail)|(?i:fail).*G5"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent detects the altered percentage and records a G5 substance freeze failure."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 1,
+        "tokenUsage": {
+          "prompt": 4623,
+          "completion": 1330,
+          "cached": 0,
+          "total": 5953,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1401,
+            "prompt": 1288,
+            "completion": 113,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "toned": "## Devices\\nThe device compliance rate was 99%.",
+          "draft": "## Devices\\nThe device compliance rate was 97%.",
+          "template": "## Devices",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1703,
+            "prompt": 1564,
+            "completion": 139,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "G5.*(?i:fail)|(?i:fail).*G5"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent detects that edits between draft.md and toned.md are missing from tone-changes.json and records a G5 change-accountability failure."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output explicitly identifies that an edit exists between draft.md and toned.md (`## Identities`, line 2) with no corresponding record in tone-changes.json (`{\"changes\":[]}`), calls it an \"unrecorded edit\", and marks Check 3 (Change accountability) as FAIL, resulting in a G5 failure disposition.",
+              "tokensUsed": {
+                "total": 1703,
+                "prompt": 1564,
+                "completion": 139,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n# G5 Result: G5 failure\\n\\n## g5-judgment.md\\n\\n**Run state:** `certifiable: true`, `non_certifiable_reasons: []`. No punch-outs are triggered (A_missing_content: false; E_loop_exhaustion: false). `loop_counters.G5` is 0.\\n\\n### Check 1: Assessment quality (FAIL)\\n- **Template conformance (a):** The `## Identities` heading is present and ordered correctly. This sub-check passes.\\n- **Analytical depth (b):** The section is a single sentence, \\\"Multi-factor authentication was enforced.\\\" It has no condition scope, quarter movement, evidence, business significance, qualification, recommended response or calibration. It is not conclusion-first and gives no \\\"so what\\\" for the client. No movement claim is anchored to a quarter or observation period.\\n- **Quarterly thesis (c):** There is no preceding-versus-current-quarter comparison. There is no attribution, no carried-in unresolved findings and no newly material findings. The report does not state that a comparison is unsupported.\\n- **Cross-signal synthesis (d):** There is no thematic analysis of authentication or privileged access, and no relationships between controls are explained.\\n- **Editorial quality (e):** The first-person plural voice was changed to passive voice. The sentence has no concrete client action paired with it.\\n- **Client-consultative quality (f):** The section does not answer what was assessed, what changed, why it matters or what comes next. It is a word-patched restatement of the draft, which is a G5 failure even though no banned pattern is present.\\n\\n### Check 2: Substance freeze (FAIL)\\n- The draft token \\\"MFA\\\" became \\\"Multi-factor authentication,\\\" and the voice changed from \\\"We enforced\\\" to a passive construction. The edit is unrecorded, so it cannot be verified as meaning-preserving.\\n- The statement \\\"was enforced\\\" gives no scope (users, roles, policies), so the substance-freeze comparison cannot confirm that the finding's client-facing meaning is unchanged.\\n\\n### Check 3: Change accountability (FAIL)\\n- `tone-changes.json` is `{\\\"changes\\\":[]}`. It does not contain the required `tables_reviewed` and `observations` arrays, so it fails schema validation against `tone-changes.schema.json`.\\n- An edit exists between `draft.md` and `toned.md` (`## Identities`, line 2) with no record carrying `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed`. This is an unrecorded edit.\\n- The empty change log has no `assessment_function` coverage, so it shows no assessment-quality synthesis.\\n\\n### Check 5: Certifiability and punch-out closure (PASS)\\n- No punch-out has `triggered: true`, so no closure evidence is required.\\n- There is no `bypass_attempt`, and no open non-certifiable reason.\\n\\n### Disposition\\n- G5 fails on checks 1, 2 and 3.\\n- The final deliverable is not emitted, `audit-report.md` is not written and `.harness-step06-done` is not written.\\n- The harness increments `loop_counters.G5` and decides between loop-back to step 05 and punch-out E at `loop_max`.\\n\\n### Required remediation for step 05\\n1. Rewrite `## Identities` as a conclusion-first assessment. It should state the condition, the quarter movement or an explicit statement that comparison is unsupported, evidence drawn only from the draft, business significance, a single qualification, a recommended action and calibration. It must introduce no facts absent from `draft.md`.\\n2. Record every edit in `tone-changes.json` with all seven required fields, and set `facts_changed: false` only where the meaning is preserved.\\n3. Add the `tables_reviewed` and `observations` arrays to `tone-changes.json`.\\n</Output>\\n<Rubric>\\nThe agent detects that edits between draft.md and toned.md are missing from tone-changes.json and records a G5 change-accountability failure.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "ae53236a-3c77-4c5c-9eb9-6a6320b487c3",
+        "latencyMs": 11761,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 06-adversarial-review on the test inputs.",
+          "label": "Execute step 06-adversarial-review on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "# G5 Result: G5 failure\n\n## g5-judgment.md\n\n**Run state:** `certifiable: true`, `non_certifiable_reasons: []`. No punch-outs are triggered (A_missing_content: false; E_loop_exhaustion: false). `loop_counters.G5` is 0.\n\n### Check 1: Assessment quality (FAIL)\n- **Template conformance (a):** The `## Identities` heading is present and ordered correctly. This sub-check passes.\n- **Analytical depth (b):** The section is a single sentence, \"Multi-factor authentication was enforced.\" It has no condition scope, quarter movement, evidence, business significance, qualification, recommended response or calibration. It is not conclusion-first and gives no \"so what\" for the client. No movement claim is anchored to a quarter or observation period.\n- **Quarterly thesis (c):** There is no preceding-versus-current-quarter comparison. There is no attribution, no carried-in unresolved findings and no newly material findings. The report does not state that a comparison is unsupported.\n- **Cross-signal synthesis (d):** There is no thematic analysis of authentication or privileged access, and no relationships between controls are explained.\n- **Editorial quality (e):** The first-person plural voice was changed to passive voice. The sentence has no concrete client action paired with it.\n- **Client-consultative quality (f):** The section does not answer what was assessed, what changed, why it matters or what comes next. It is a word-patched restatement of the draft, which is a G5 failure even though no banned pattern is present.\n\n### Check 2: Substance freeze (FAIL)\n- The draft token \"MFA\" became \"Multi-factor authentication,\" and the voice changed from \"We enforced\" to a passive construction. The edit is unrecorded, so it cannot be verified as meaning-preserving.\n- The statement \"was enforced\" gives no scope (users, roles, policies), so the substance-freeze comparison cannot confirm that the finding's client-facing meaning is unchanged.\n\n### Check 3: Change accountability (FAIL)\n- `tone-changes.json` is `{\"changes\":[]}`. It does not contain the required `tables_reviewed` and `observations` arrays, so it fails schema validation against `tone-changes.schema.json`.\n- An edit exists between `draft.md` and `toned.md` (`## Identities`, line 2) with no record carrying `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed`. This is an unrecorded edit.\n- The empty change log has no `assessment_function` coverage, so it shows no assessment-quality synthesis.\n\n### Check 5: Certifiability and punch-out closure (PASS)\n- No punch-out has `triggered: true`, so no closure evidence is required.\n- There is no `bypass_attempt`, and no open non-certifiable reason.\n\n### Disposition\n- G5 fails on checks 1, 2 and 3.\n- The final deliverable is not emitted, `audit-report.md` is not written and `.harness-step06-done` is not written.\n- The harness increments `loop_counters.G5` and decides between loop-back to step 05 and punch-out E at `loop_max`.\n\n### Required remediation for step 05\n1. Rewrite `## Identities` as a conclusion-first assessment. It should state the condition, the quarter movement or an explicit statement that comparison is unsupported, evidence drawn only from the draft, business significance, a single qualification, a recommended action and calibration. It must introduce no facts absent from `draft.md`.\n2. Record every edit in `tone-changes.json` with all seven required fields, and set `facts_changed: false` only where the meaning is preserved.\n3. Add the `tables_reviewed` and `observations` arrays to `tone-changes.json`.",
+          "tokenUsage": {
+            "prompt": 4635,
+            "completion": 1651,
+            "cached": 0,
+            "total": 6286,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E3 — G5 fails when an edit is not recorded in tone-changes.json",
+          "vars": {
+            "toned": "## Identities\\nMulti-factor authentication was enforced.",
+            "draft": "## Identities\\nWe enforced MFA.",
+            "tone_changes": "{\"changes\":[]}",
+            "template": "## Identities",
+            "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "G5.*(?i:fail)|(?i:fail).*G5"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent detects that edits between draft.md and toned.md are missing from tone-changes.json and records a G5 change-accountability failure."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 2,
+        "tokenUsage": {
+          "prompt": 4635,
+          "completion": 1651,
+          "cached": 0,
+          "total": 6286,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1703,
+            "prompt": 1564,
+            "completion": 139,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "toned": "## Identities\\nMulti-factor authentication was enforced.",
+          "draft": "## Identities\\nWe enforced MFA.",
+          "tone_changes": "{\"changes\":[]}",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1399,
+            "prompt": 1254,
+            "completion": 145,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "STOP|stop|HALT|halt|BLOCKED|blocked|NO DELIVERABLE|No deliverable|NON-FINALIZABLE|non-finalizable|NOT EXECUTED|Not executed|RUN NOT FINALIZED|Run not finalized|NO FINAL DELIVERABLE|No final deliverable|G5.*(FAIL|failure)|not (written|emitted|assembled|finalized)"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent stops and does not assemble the final deliverable while an unapproved triggered punch-out exists."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output states 'G5 result: FAIL (hard fail). No final deliverable written. `.harness-step06-done` not written.' It cites the triggered but unapproved punch-out A as a hard fail, says the run waits for human sign-off, and says the open punch-out still blocks emission. So the agent stopped and did not assemble the final deliverable while the punch-out was unapproved.",
+              "tokensUsed": {
+                "total": 1399,
+                "prompt": 1254,
+                "completion": 145,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n# g5-judgment.md\\n\\n**G5 result: FAIL (hard fail). No final deliverable written. `.harness-step06-done` not written.**\\n\\n## Failing checks\\n\\n### 1. Punch-out closure and certifiability (hard fail)\\n- `A_missing_content` has `triggered: true` and `approved: false`.\\n- It has no `closure_evidence` and no `audit/punchout-log.md` row for this `run_id` with a `human decision`, `resolved by` and `resolved at`.\\n- A triggered punch-out without two-key closure is a G5 hard fail. The skill has no waiver path, so the run waits for human sign-off.\\n- Certifiability fields were initialized as `certifiable: true` and `non_certifiable_reasons: []`. The open punch-out still blocks emission.\\n\\n### 2. Change accountability\\n- The `Identities` edit has no record in `tone-changes.json`. The edit changes \\\"We enforced MFA for all licensed users.\\\" to \\\"Multi-factor authentication was enforced for all licensed users.\\\"\\n- The record would need `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed`.\\n- The `tables_reviewed` and `observations` arrays are absent.\\n- No `assessment_function` coverage shows analytical synthesis.\\n\\n### 3. Assessment quality\\n- (a) Template conformance: the `## Identities` heading matches the template.\\n- (b) Analytical depth fails. The section is a single restated statement. It has no condition-with-significance framing, no quarter movement, no evidence, no business-risk significance, no qualification, no recommended response and no calibration.\\n- (c) Quarterly thesis fails. There is no preceding-versus-current-quarter comparison, no attribution and no carried-in or newly material findings, and the report does not say that comparison is unsupported.\\n- (d) Cross-signal synthesis fails. There is no thematic analysis of authentication and privileged access, legacy authentication or access policy.\\n- (e) and (f) Editorial and consultative quality fail. The rewrite is a word-level voice change from first person to passive. It is not consultant guidance and contains no client action.\\n\\n### 4. Substance freeze\\n- The expansion of \\\"MFA\\\" to \\\"Multi-factor authentication\\\" introduces no new number, date, finding title, evidence or recommendation.\\n- This check does not fail on its own. The rewrite remains non-compliant under checks 1 to 3.\\n\\n## Required action\\n- Obtain a logged, human two-key closure of punch-out A for this `run_id`.\\n- Rework step 05 to produce a conclusion-first `Identities` assessment.\\n- Produce a schema-valid `tone-changes.json` that records every edit and includes `tables_reviewed`, `observations` and the `assessment_function` values.\\n- Re-submit for G5.\\n\\nThe harness owns the `loop_counters.G5` increment and the loop-back or punch-out E decision.\\n</Output>\\n<Rubric>\\nThe agent stops and does not assemble the final deliverable while an unapproved triggered punch-out exists.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "0bc30b11-137f-4ad5-ad59-ed0a79939720",
+        "latencyMs": 10796,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 06-adversarial-review on the test inputs.",
+          "label": "Execute step 06-adversarial-review on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "# g5-judgment.md\n\n**G5 result: FAIL (hard fail). No final deliverable written. `.harness-step06-done` not written.**\n\n## Failing checks\n\n### 1. Punch-out closure and certifiability (hard fail)\n- `A_missing_content` has `triggered: true` and `approved: false`.\n- It has no `closure_evidence` and no `audit/punchout-log.md` row for this `run_id` with a `human decision`, `resolved by` and `resolved at`.\n- A triggered punch-out without two-key closure is a G5 hard fail. The skill has no waiver path, so the run waits for human sign-off.\n- Certifiability fields were initialized as `certifiable: true` and `non_certifiable_reasons: []`. The open punch-out still blocks emission.\n\n### 2. Change accountability\n- The `Identities` edit has no record in `tone-changes.json`. The edit changes \"We enforced MFA for all licensed users.\" to \"Multi-factor authentication was enforced for all licensed users.\"\n- The record would need `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed`.\n- The `tables_reviewed` and `observations` arrays are absent.\n- No `assessment_function` coverage shows analytical synthesis.\n\n### 3. Assessment quality\n- (a) Template conformance: the `## Identities` heading matches the template.\n- (b) Analytical depth fails. The section is a single restated statement. It has no condition-with-significance framing, no quarter movement, no evidence, no business-risk significance, no qualification, no recommended response and no calibration.\n- (c) Quarterly thesis fails. There is no preceding-versus-current-quarter comparison, no attribution and no carried-in or newly material findings, and the report does not say that comparison is unsupported.\n- (d) Cross-signal synthesis fails. There is no thematic analysis of authentication and privileged access, legacy authentication or access policy.\n- (e) and (f) Editorial and consultative quality fail. The rewrite is a word-level voice change from first person to passive. It is not consultant guidance and contains no client action.\n\n### 4. Substance freeze\n- The expansion of \"MFA\" to \"Multi-factor authentication\" introduces no new number, date, finding title, evidence or recommendation.\n- This check does not fail on its own. The rewrite remains non-compliant under checks 1 to 3.\n\n## Required action\n- Obtain a logged, human two-key closure of punch-out A for this `run_id`.\n- Rework step 05 to produce a conclusion-first `Identities` assessment.\n- Produce a schema-valid `tone-changes.json` that records every edit and includes `tables_reviewed`, `observations` and the `assessment_function` values.\n- Re-submit for G5.\n\nThe harness owns the `loop_counters.G5` increment and the loop-back or punch-out E decision.",
+          "tokenUsage": {
+            "prompt": 4638,
+            "completion": 1512,
+            "cached": 0,
+            "total": 6150,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E4 — Final assembly blocked until all triggered punch-outs are approved",
+          "vars": {
+            "toned": "## Identities\\nMulti-factor authentication was enforced for all licensed users.",
+            "draft": "## Identities\\nWe enforced MFA for all licensed users.",
+            "template": "## Identities",
+            "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":true,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "STOP|stop|HALT|halt|BLOCKED|blocked|NO DELIVERABLE|No deliverable|NON-FINALIZABLE|non-finalizable|NOT EXECUTED|Not executed|RUN NOT FINALIZED|Run not finalized|NO FINAL DELIVERABLE|No final deliverable|G5.*(FAIL|failure)|not (written|emitted|assembled|finalized)"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent stops and does not assemble the final deliverable while an unapproved triggered punch-out exists."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 3,
+        "tokenUsage": {
+          "prompt": 4638,
+          "completion": 1512,
+          "cached": 0,
+          "total": 6150,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1399,
+            "prompt": 1254,
+            "completion": 145,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "toned": "## Identities\\nMulti-factor authentication was enforced for all licensed users.",
+          "draft": "## Identities\\nWe enforced MFA for all licensed users.",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":true,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.95,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1835,
+            "prompt": 1658,
+            "completion": 177,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "G5.*(?i:fail)|(?i:fail).*G5"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent fails G5 because toned.md was not substantively edited to professional standards — colloquial phrasing and filler remain."
+              },
+              "pass": true,
+              "score": 0.9,
+              "reason": "The output is a G5 judgment report that states a G5 failure because toned.md is identical to draft.md and no analytical rewrite occurred. It cites the colloquial phrasing \"It is good\" and \"was turned on for users\", along with terse, list-like prose. It reports that the 'Identities' section was not substantively edited to professional standards. This matches the rubric statement that the agent fails G5 because toned.md was not substantively edited and colloquial phrasing and filler remain.",
+              "tokensUsed": {
+                "total": 1835,
+                "prompt": 1658,
+                "completion": 177,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n# g5-judgment.md\\n\\n**Result: G5 failure**\\n\\nRun state: `certifiable: true`, `non_certifiable_reasons: []`, `loop_counters.G5: 0`. The harness increments the counter and decides between loop-back to step 05 and punch-out E escalation.\\n\\n## Failing checks\\n\\n### 1. Assessment quality: FAIL\\n`toned.md` is identical to `draft.md`. No analytical rewrite occurred. The \\\"Identities\\\" section is not exempt, since only a \\\"Security Awareness\\\" section is.\\n\\n- **(a) Template conformance:** Passes. The required \\\"## Identities\\\" heading is present and in order.\\n- **(b) Analytical depth:** Fails.\\n  - The section does not lead with a conclusion.\\n  - It has no condition, quarter movement, evidence, significance, qualification, recommended response, or calibration.\\n  - It has no client business-risk \\\"so what\\\" and no temporal anchor to a quarter or observation period.\\n  - \\\"It is good\\\" is an uncalibrated positive claim with no stated limitations or scope.\\n  - The phrase \\\"was turned on for users\\\" gives no scope, coverage, or privileged-account context.\\n- **(c) Quarterly thesis:** Fails. The section gives no preceding-versus-current-quarter condition, movement attribution, carried-in findings, or newly material findings. It also does not state that comparison is unsupported.\\n- **(d) Cross-signal synthesis:** Fails. MFA is stated in isolation. The authentication and privileged-access theme and its relationship to legacy authentication and access policy are not analyzed.\\n- **(e) Editorial quality:** Fails.\\n  - The prose is terse and list-like.\\n  - \\\"It\\\" has no clear referent.\\n  - \\\"Good\\\" is imprecise terminology.\\n  - No concrete client action is paired with the finding.\\n- **(f) Client-consultative quality:** Fails. The text reads as a status note, not consultant guidance. It does not say what was assessed, what changed, why it matters, or what comes next.\\n\\n### 2. Substance freeze: PASS\\n`toned.md` contains no number, date, finding, evidence, reference, or recommendation that is absent from or altered against `draft.md`.\\n\\n### 3. Change accountability: FAIL\\n- `tone-changes.json` is `{\\\"changes\\\":[]}`. It lacks the required `tables_reviewed` and `observations` arrays, so it does not validate against `tone-changes.schema.json`.\\n- The log has no records, so no `assessment_function` values exist. The coverage check requires evidence of assessment-quality synthesis, which is absent.\\n- No unrecorded edits exist, because `toned.md` equals `draft.md`. The absence of any edit is the failure itself.\\n- No `facts_changed: true` records exist.\\n\\n### 4. Certifiability and punch-out closure: PASS\\n- Punch-outs A (`A_missing_content`) and E (`E_loop_exhaustion`) are both `triggered: false`.\\n- The run is certifiable, no `bypass_attempt` is recorded, and no self-granted approval is present.\\n\\n## Required remediation (step 05)\\n1. Rewrite the \\\"Identities\\\" section conclusion-first, using only facts present in `draft.md`. Cover:\\n   - condition and quarter movement, or an explicit statement that comparison is unsupported;\\n   - significance to client business risk;\\n   - a single calibrated qualification;\\n   - a concrete recommended client action.\\n2. Replace \\\"It is good\\\" with a precise, evidence-attributed statement. Specify scope only as far as the draft supports it.\\n3. Record every edit in `tone-changes.json` with `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function`, and `facts_changed: false`. Include `tables_reviewed` (empty if the draft has no tables) and `observations` arrays, with `assessment_function` values that show analytical synthesis beyond `template_structure` and `professional_tone`.\\n\\n## Disposition\\n- Final client deliverable: not emitted.\\n- `audit-report.md`: not written.\\n- `.harness-step06-done`: not written.\\n- Next action: call `drive` again.\\n</Output>\\n<Rubric>\\nThe agent fails G5 because toned.md was not substantively edited to professional standards — colloquial phrasing and filler remain.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "4bcd199d-bddd-4f0b-9ed1-434fcf1f303a",
+        "latencyMs": 14877,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 06-adversarial-review on the test inputs.",
+          "label": "Execute step 06-adversarial-review on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "# g5-judgment.md\n\n**Result: G5 failure**\n\nRun state: `certifiable: true`, `non_certifiable_reasons: []`, `loop_counters.G5: 0`. The harness increments the counter and decides between loop-back to step 05 and punch-out E escalation.\n\n## Failing checks\n\n### 1. Assessment quality: FAIL\n`toned.md` is identical to `draft.md`. No analytical rewrite occurred. The \"Identities\" section is not exempt, since only a \"Security Awareness\" section is.\n\n- **(a) Template conformance:** Passes. The required \"## Identities\" heading is present and in order.\n- **(b) Analytical depth:** Fails.\n  - The section does not lead with a conclusion.\n  - It has no condition, quarter movement, evidence, significance, qualification, recommended response, or calibration.\n  - It has no client business-risk \"so what\" and no temporal anchor to a quarter or observation period.\n  - \"It is good\" is an uncalibrated positive claim with no stated limitations or scope.\n  - The phrase \"was turned on for users\" gives no scope, coverage, or privileged-account context.\n- **(c) Quarterly thesis:** Fails. The section gives no preceding-versus-current-quarter condition, movement attribution, carried-in findings, or newly material findings. It also does not state that comparison is unsupported.\n- **(d) Cross-signal synthesis:** Fails. MFA is stated in isolation. The authentication and privileged-access theme and its relationship to legacy authentication and access policy are not analyzed.\n- **(e) Editorial quality:** Fails.\n  - The prose is terse and list-like.\n  - \"It\" has no clear referent.\n  - \"Good\" is imprecise terminology.\n  - No concrete client action is paired with the finding.\n- **(f) Client-consultative quality:** Fails. The text reads as a status note, not consultant guidance. It does not say what was assessed, what changed, why it matters, or what comes next.\n\n### 2. Substance freeze: PASS\n`toned.md` contains no number, date, finding, evidence, reference, or recommendation that is absent from or altered against `draft.md`.\n\n### 3. Change accountability: FAIL\n- `tone-changes.json` is `{\"changes\":[]}`. It lacks the required `tables_reviewed` and `observations` arrays, so it does not validate against `tone-changes.schema.json`.\n- The log has no records, so no `assessment_function` values exist. The coverage check requires evidence of assessment-quality synthesis, which is absent.\n- No unrecorded edits exist, because `toned.md` equals `draft.md`. The absence of any edit is the failure itself.\n- No `facts_changed: true` records exist.\n\n### 4. Certifiability and punch-out closure: PASS\n- Punch-outs A (`A_missing_content`) and E (`E_loop_exhaustion`) are both `triggered: false`.\n- The run is certifiable, no `bypass_attempt` is recorded, and no self-granted approval is present.\n\n## Required remediation (step 05)\n1. Rewrite the \"Identities\" section conclusion-first, using only facts present in `draft.md`. Cover:\n   - condition and quarter movement, or an explicit statement that comparison is unsupported;\n   - significance to client business risk;\n   - a single calibrated qualification;\n   - a concrete recommended client action.\n2. Replace \"It is good\" with a precise, evidence-attributed statement. Specify scope only as far as the draft supports it.\n3. Record every edit in `tone-changes.json` with `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function`, and `facts_changed: false`. Include `tables_reviewed` (empty if the draft has no tables) and `observations` arrays, with `assessment_function` values that show analytical synthesis beyond `template_structure` and `professional_tone`.\n\n## Disposition\n- Final client deliverable: not emitted.\n- `audit-report.md`: not written.\n- `.harness-step06-done`: not written.\n- Next action: call `drive` again.",
+          "tokenUsage": {
+            "prompt": 4640,
+            "completion": 2129,
+            "cached": 0,
+            "total": 6769,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.95,
+        "success": true,
+        "testCase": {
+          "description": "E5 — G5 fails when toned.md shows no assessment depth (unchanged draft)",
+          "vars": {
+            "toned": "## Identities\\nMFA was turned on for users. It is good.",
+            "draft": "## Identities\\nMFA was turned on for users. It is good.",
+            "tone_changes": "{\"changes\":[]}",
+            "template": "## Identities",
+            "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "G5.*(?i:fail)|(?i:fail).*G5"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent fails G5 because toned.md was not substantively edited to professional standards — colloquial phrasing and filler remain."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 4,
+        "tokenUsage": {
+          "prompt": 4640,
+          "completion": 2129,
+          "cached": 0,
+          "total": 6769,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1835,
+            "prompt": 1658,
+            "completion": 177,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "toned": "## Identities\\nMFA was turned on for users. It is good.",
+          "draft": "## Identities\\nMFA was turned on for users. It is good.",
+          "tone_changes": "{\"changes\":[]}",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1944,
+            "prompt": 1735,
+            "completion": 209,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "Audit Report"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "[Dd]eliverable"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "On a successful G5 pass with no unapproved punch-outs, the agent emits the final client deliverable and a complete audit report (audit-report.md) that identifies the run (by run id or run folder) and covers the G5 check results and tone-change statistics, and it does NOT fabricate or append to success-log.md — the harness writes the success log on the next drive call, not the step."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output emits the final client deliverable (the Identities markdown section) and a complete audit-report.md. The report identifies the run, \"Run eval-E6-happy-path\", and covers the G5 check results (a table of all four checks, with the loop counter) and tone-change statistics (total edits, style_marker, assessment_function, tables reviewed, observations, facts_changed). No punch-outs were triggered. The output never mentions, fabricates, or appends to success-log.md; it only writes `.harness-step06-done`, which is not a success log. All rubric conditions are met.",
+              "tokensUsed": {
+                "total": 1944,
+                "prompt": 1735,
+                "completion": 209,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n## G5 Result: PASS\\n\\n| Check | Result |\\n|---|---|\\n| Assessment quality | Pass. The section follows the template (`## Identities`). It leads with the conclusion, states the quarter movement (prior subset coverage to all licensed users), and gives the significance (reduced credential-compromise risk). It also gives the qualification (legacy authentication bypass), a recommended action, and the calibration of a partly offsetting gap. Voice is third-person and formal, with no noun stacks or first-person shorthand. |\\n| Substance freeze | Pass. Every factual token in `toned.md` appears in `draft.md` with the same meaning: MFA for all licensed users, prior-quarter subset coverage, legacy authentication not blocked on some applications, MFA bypass, partial offset, and the conditional access recommendation for the remaining applications. |\\n| Change accountability | Pass. `tone-changes.json` contains `changes`, `tables_reviewed` and `observations`. The one edit records all required fields. `facts_changed` is `false`. The draft has no tables, so `tables_reviewed` is correctly empty. The `assessment_function` coverage is `executive_conclusion`, which is an analytical rewrite. |\\n| Certifiability and punch-out closure | Pass. `certifiable: true` and `non_certifiable_reasons` is empty. Punch-outs A and E are not triggered. There is no `bypass_attempt`. `loop_counters.G5` is 0. |\\n\\n---\\n\\n## Final Client Deliverable (`runs/eval-E6-happy-path/`, Markdown per template)\\n\\n```markdown\\n## Identities\\nIdentity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users, expanding coverage relative to the prior quarter, when enforcement applied to a subset of the user base — a verified improvement that reduces credential-compromise risk. However, conditional access does not yet block legacy authentication on some applications, so those sign-ins can bypass MFA — a residual gap that partly offsets the coverage gain. The assessment recommends enforcing conditional access policies for the remaining applications to close it.\\n```\\n\\n---\\n\\n## `runs/eval-E6-happy-path/audit-report.md`\\n\\n```markdown\\n# Audit Report — Run eval-E6-happy-path\\n\\n## Outcome\\nEnd-to-end successful. G5 passed, the run is certifiable, no punch-outs were triggered, and the final report was emitted.\\n\\n## Steps Executed\\n- Step 05: tone rewrite of `draft.md` into `toned.md`, with `tone-changes.json` produced.\\n- Step 06: G5 adversarial review, followed by finalization.\\n\\n## Guardrail Results\\n| Guardrail | Result |\\n|---|---|\\n| G5 assessment quality | Pass |\\n| G5 substance freeze | Pass |\\n| G5 change accountability | Pass |\\n| G5 certifiability and punch-out closure | Pass |\\n\\nG5 loop counter: 0.\\n\\n## Punch-outs\\n- A (missing content): not triggered.\\n- E (loop exhaustion): not triggered.\\n- None raised, so none required resolution.\\n\\n## Tone-Change Statistics\\n- Total edits: 1\\n- By style_marker: voice (1)\\n- By assessment_function: executive_conclusion (1)\\n- Tables reviewed: 0 (the draft contains no tables)\\n- Observations: 0\\n- Records with `facts_changed: true`: 0\\n\\n## Narrative and Structural Changes Applied\\n- Rewrote first-person shorthand as formal third-person consultative prose.\\n- Led with the conclusion on identity posture.\\n- Anchored the movement claim to the assessment quarter and the prior quarter.\\n- Tied the significance to credential-compromise risk.\\n- Kept the legacy-authentication limitation as a calibrating qualification.\\n- Phrased the recommendation as an assessment action.\\n- Kept the template heading `## Identities`.\\n\\n## Certifiability\\n`certifiable: true`; `non_certifiable_reasons` is empty.\\n```\\n\\n`.harness-step06-done` written.\\n</Output>\\n<Rubric>\\nOn a successful G5 pass with no unapproved punch-outs, the agent emits the final client deliverable and a complete audit report (audit-report.md) that identifies the run (by run id or run folder) and covers the G5 check results and tone-change statistics, and it does NOT fabricate or append to success-log.md — the harness writes the success log on the next drive call, not the step.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "868aaa63-79f3-40de-895c-db663cea6ef7",
+        "latencyMs": 20193,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 06-adversarial-review on the test inputs.",
+          "label": "Execute step 06-adversarial-review on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "## G5 Result: PASS\n\n| Check | Result |\n|---|---|\n| Assessment quality | Pass. The section follows the template (`## Identities`). It leads with the conclusion, states the quarter movement (prior subset coverage to all licensed users), and gives the significance (reduced credential-compromise risk). It also gives the qualification (legacy authentication bypass), a recommended action, and the calibration of a partly offsetting gap. Voice is third-person and formal, with no noun stacks or first-person shorthand. |\n| Substance freeze | Pass. Every factual token in `toned.md` appears in `draft.md` with the same meaning: MFA for all licensed users, prior-quarter subset coverage, legacy authentication not blocked on some applications, MFA bypass, partial offset, and the conditional access recommendation for the remaining applications. |\n| Change accountability | Pass. `tone-changes.json` contains `changes`, `tables_reviewed` and `observations`. The one edit records all required fields. `facts_changed` is `false`. The draft has no tables, so `tables_reviewed` is correctly empty. The `assessment_function` coverage is `executive_conclusion`, which is an analytical rewrite. |\n| Certifiability and punch-out closure | Pass. `certifiable: true` and `non_certifiable_reasons` is empty. Punch-outs A and E are not triggered. There is no `bypass_attempt`. `loop_counters.G5` is 0. |\n\n---\n\n## Final Client Deliverable (`runs/eval-E6-happy-path/`, Markdown per template)\n\n```markdown\n## Identities\nIdentity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users, expanding coverage relative to the prior quarter, when enforcement applied to a subset of the user base — a verified improvement that reduces credential-compromise risk. However, conditional access does not yet block legacy authentication on some applications, so those sign-ins can bypass MFA — a residual gap that partly offsets the coverage gain. The assessment recommends enforcing conditional access policies for the remaining applications to close it.\n```\n\n---\n\n## `runs/eval-E6-happy-path/audit-report.md`\n\n```markdown\n# Audit Report — Run eval-E6-happy-path\n\n## Outcome\nEnd-to-end successful. G5 passed, the run is certifiable, no punch-outs were triggered, and the final report was emitted.\n\n## Steps Executed\n- Step 05: tone rewrite of `draft.md` into `toned.md`, with `tone-changes.json` produced.\n- Step 06: G5 adversarial review, followed by finalization.\n\n## Guardrail Results\n| Guardrail | Result |\n|---|---|\n| G5 assessment quality | Pass |\n| G5 substance freeze | Pass |\n| G5 change accountability | Pass |\n| G5 certifiability and punch-out closure | Pass |\n\nG5 loop counter: 0.\n\n## Punch-outs\n- A (missing content): not triggered.\n- E (loop exhaustion): not triggered.\n- None raised, so none required resolution.\n\n## Tone-Change Statistics\n- Total edits: 1\n- By style_marker: voice (1)\n- By assessment_function: executive_conclusion (1)\n- Tables reviewed: 0 (the draft contains no tables)\n- Observations: 0\n- Records with `facts_changed: true`: 0\n\n## Narrative and Structural Changes Applied\n- Rewrote first-person shorthand as formal third-person consultative prose.\n- Led with the conclusion on identity posture.\n- Anchored the movement claim to the assessment quarter and the prior quarter.\n- Tied the significance to credential-compromise risk.\n- Kept the legacy-authentication limitation as a calibrating qualification.\n- Phrased the recommendation as an assessment action.\n- Kept the template heading `## Identities`.\n\n## Certifiability\n`certifiable: true`; `non_certifiable_reasons` is empty.\n```\n\n`.harness-step06-done` written.",
+          "tokenUsage": {
+            "prompt": 5367,
+            "completion": 2034,
+            "cached": 0,
+            "total": 7401,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E6 — audit-report.md, success-log.md, and deliverable emitted on success",
+          "vars": {
+            "toned": "## Identities\\nIdentity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users, expanding coverage relative to the prior quarter, when enforcement applied to a subset of the user base — a verified improvement that reduces credential-compromise risk. However, conditional access does not yet block legacy authentication on some applications, so those sign-ins can bypass MFA — a residual gap that partly offsets the coverage gain. The assessment recommends enforcing conditional access policies for the remaining applications to close it.",
+            "draft": "## Identities\\nWe enforced MFA for all licensed users this quarter; last quarter it covered only some users. This is a verified improvement that reduces credential-compromise risk. Conditional access still does not block legacy auth on some apps, so those sign-ins can bypass MFA and partly offset the gain. Recommended: enforce conditional access for remaining apps to close the gap.",
+            "tone_changes": "{\"changes\":[{\"location\":\"Identities\",\"before\":\"We enforced MFA for all licensed users this quarter; last quarter it covered only some users. This is a verified improvement that reduces credential-compromise risk. Conditional access still does not block legacy auth on some apps, so those sign-ins can bypass MFA and partly offset the gain. Recommended: enforce conditional access for remaining apps to close the gap.\",\"after\":\"Identity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users, expanding coverage relative to the prior quarter, when enforcement applied to a subset of the user base — a verified improvement that reduces credential-compromise risk. However, conditional access does not yet block legacy authentication on some applications, so those sign-ins can bypass MFA — a residual gap that partly offsets the coverage gain. The assessment recommends enforcing conditional access policies for the remaining applications to close it.\",\"style_marker\":\"voice\",\"reason\":\"Converted first-person shorthand into formal third-person assessment prose with quarter-over-quarter framing and preserved limitation and recommendation; no facts added or removed.\",\"assessment_function\":\"executive_conclusion\",\"facts_changed\":false}],\"tables_reviewed\":[],\"observations\":[]}",
+            "template": "## Identities",
+            "run_state": "{\"run_id\":\"eval-E6-happy-path\",\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+          },
+          "assert": [
+            {
+              "type": "contains",
+              "value": "Audit Report"
+            },
+            {
+              "type": "regex",
+              "value": "[Dd]eliverable"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "On a successful G5 pass with no unapproved punch-outs, the agent emits the final client deliverable and a complete audit report (audit-report.md) that identifies the run (by run id or run folder) and covers the G5 check results and tone-change statistics, and it does NOT fabricate or append to success-log.md — the harness writes the success log on the next drive call, not the step."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 5,
+        "tokenUsage": {
+          "prompt": 5367,
+          "completion": 2034,
+          "cached": 0,
+          "total": 7401,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1944,
+            "prompt": 1735,
+            "completion": 209,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "toned": "## Identities\\nIdentity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users, expanding coverage relative to the prior quarter, when enforcement applied to a subset of the user base — a verified improvement that reduces credential-compromise risk. However, conditional access does not yet block legacy authentication on some applications, so those sign-ins can bypass MFA — a residual gap that partly offsets the coverage gain. The assessment recommends enforcing conditional access policies for the remaining applications to close it.",
+          "draft": "## Identities\\nWe enforced MFA for all licensed users this quarter; last quarter it covered only some users. This is a verified improvement that reduces credential-compromise risk. Conditional access still does not block legacy auth on some apps, so those sign-ins can bypass MFA and partly offset the gain. Recommended: enforce conditional access for remaining apps to close the gap.",
+          "tone_changes": "{\"changes\":[{\"location\":\"Identities\",\"before\":\"We enforced MFA for all licensed users this quarter; last quarter it covered only some users. This is a verified improvement that reduces credential-compromise risk. Conditional access still does not block legacy auth on some apps, so those sign-ins can bypass MFA and partly offset the gain. Recommended: enforce conditional access for remaining apps to close the gap.\",\"after\":\"Identity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users, expanding coverage relative to the prior quarter, when enforcement applied to a subset of the user base — a verified improvement that reduces credential-compromise risk. However, conditional access does not yet block legacy authentication on some applications, so those sign-ins can bypass MFA — a residual gap that partly offsets the coverage gain. The assessment recommends enforcing conditional access policies for the remaining applications to close it.\",\"style_marker\":\"voice\",\"reason\":\"Converted first-person shorthand into formal third-person assessment prose with quarter-over-quarter framing and preserved limitation and recommendation; no facts added or removed.\",\"assessment_function\":\"executive_conclusion\",\"facts_changed\":false}],\"tables_reviewed\":[],\"observations\":[]}",
+          "template": "## Identities",
+          "run_state": "{\"run_id\":\"eval-E6-happy-path\",\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1505,
+            "prompt": 1352,
+            "completion": 153,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "G5.*(?i:fail)|(?i:fail).*G5"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent detects that approved:true lacks a matching punchout-log.md row (self-granted approval) and records a G5 hard fail on the certifiability/punch-out-closure check."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output identifies that `A_missing_content` has `approved: true` and `triggered: true` but `closure_evidence` is null. It also finds no `audit/punchout-log.md` row for the run_id with a human decision, resolver, or timestamp. It calls this a self-granted approval and records it as a hard fail on punch-out closure and certifiability, which is a G5 failure. This matches the rubric.",
+              "tokensUsed": {
+                "total": 1505,
+                "prompt": 1352,
+                "completion": 153,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n# G5 Result: G5 failure\\n\\nNo final deliverable, `audit-report.md`, or `.harness-step06-done` marker is written. The harness handles the loop counter and escalation.\\n\\n## g5-judgment.md\\n\\n**Failing checks**\\n\\n1. **Punch-out closure and certifiability (hard fail).**\\n   - `A_missing_content` has `triggered: true` and `approved: true`, but `closure_evidence` is `null`.\\n   - No `audit/punchout-log.md` row for this `run_id` supplies a non-empty `human decision`, `resolved by`, or `resolved at`.\\n   - This is a self-granted approval. The skill provides no human-waiver path, so the run waits for human sign-off.\\n\\n2. **Assessment quality.**\\n   - Template conformance: the required heading is present and ordered.\\n   - Analytical depth fails. The section is one unqualified sentence (\\\"Endpoint coverage improved this quarter.\\\") that does not state:\\n     - the condition;\\n     - the preceding-versus-current-quarter comparison;\\n     - the evidence;\\n     - the significance to the client's business risk;\\n     - a qualification or calibration of the positive finding;\\n     - a recommended client action.\\n   - Quarterly thesis: movement is asserted without attribution (verified improvement, measurement movement, or unattributable) and without carried-in or newly material findings.\\n   - Cross-signal synthesis: the endpoint exposure and vulnerability-management theme is not analysed or related to other controls.\\n   - Client-consultative quality: the section does not answer what was assessed, why it matters, or what is next.\\n   - The edit is a superficial word patch, which is a G5 failure even though no banned pattern is present.\\n\\n3. **Substance freeze.**\\n   - `draft.md` states only \\\"Endpoint coverage improved.\\\" with no observation period.\\n   - `toned.md` adds \\\"this quarter,\\\" which introduces a temporal scope absent from the draft and re-scopes the finding.\\n   - The change record asserts `facts_changed: false` for this edit. That assertion is inconsistent with the added scope.\\n\\n4. **Change accountability.**\\n   - The only record uses `assessment_function: quarter_movement`.\\n   - The log shows no synthesis coverage (significance, recommended response, calibration, cross-signal), so it does not demonstrate an assessment-quality rewrite.\\n   - The `tables_reviewed` and `observations` arrays are present but empty, which is consistent with a draft that has no tables.\\n\\n**Required remediation (via harness loop-back or punch-out E at `loop_max`)**\\n- Obtain a logged human decision for `A_missing_content` under this `run_id`, with `closure_evidence` citing the matching `audit/punchout-log.md` row.\\n- Rewrite the section conclusion-first, using only facts present in `draft.md`. Where the draft lacks quarter comparison, evidence, or significance, the rewrite must say the comparison is unsupported rather than adding facts.\\n- Do not add the \\\"this quarter\\\" scope unless the draft supports it.\\n- Record every edit in `tone-changes.json` with accurate `facts_changed` values and a range of `assessment_function` values.\\n</Output>\\n<Rubric>\\nThe agent detects that approved:true lacks a matching punchout-log.md row (self-granted approval) and records a G5 hard fail on the certifiability/punch-out-closure check.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "28eeab30-aee2-4b75-9deb-166c14ddc040",
+        "latencyMs": 12180,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 06-adversarial-review on the test inputs.",
+          "label": "Execute step 06-adversarial-review on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "# G5 Result: G5 failure\n\nNo final deliverable, `audit-report.md`, or `.harness-step06-done` marker is written. The harness handles the loop counter and escalation.\n\n## g5-judgment.md\n\n**Failing checks**\n\n1. **Punch-out closure and certifiability (hard fail).**\n   - `A_missing_content` has `triggered: true` and `approved: true`, but `closure_evidence` is `null`.\n   - No `audit/punchout-log.md` row for this `run_id` supplies a non-empty `human decision`, `resolved by`, or `resolved at`.\n   - This is a self-granted approval. The skill provides no human-waiver path, so the run waits for human sign-off.\n\n2. **Assessment quality.**\n   - Template conformance: the required heading is present and ordered.\n   - Analytical depth fails. The section is one unqualified sentence (\"Endpoint coverage improved this quarter.\") that does not state:\n     - the condition;\n     - the preceding-versus-current-quarter comparison;\n     - the evidence;\n     - the significance to the client's business risk;\n     - a qualification or calibration of the positive finding;\n     - a recommended client action.\n   - Quarterly thesis: movement is asserted without attribution (verified improvement, measurement movement, or unattributable) and without carried-in or newly material findings.\n   - Cross-signal synthesis: the endpoint exposure and vulnerability-management theme is not analysed or related to other controls.\n   - Client-consultative quality: the section does not answer what was assessed, why it matters, or what is next.\n   - The edit is a superficial word patch, which is a G5 failure even though no banned pattern is present.\n\n3. **Substance freeze.**\n   - `draft.md` states only \"Endpoint coverage improved.\" with no observation period.\n   - `toned.md` adds \"this quarter,\" which introduces a temporal scope absent from the draft and re-scopes the finding.\n   - The change record asserts `facts_changed: false` for this edit. That assertion is inconsistent with the added scope.\n\n4. **Change accountability.**\n   - The only record uses `assessment_function: quarter_movement`.\n   - The log shows no synthesis coverage (significance, recommended response, calibration, cross-signal), so it does not demonstrate an assessment-quality rewrite.\n   - The `tables_reviewed` and `observations` arrays are present but empty, which is consistent with a draft that has no tables.\n\n**Required remediation (via harness loop-back or punch-out E at `loop_max`)**\n- Obtain a logged human decision for `A_missing_content` under this `run_id`, with `closure_evidence` citing the matching `audit/punchout-log.md` row.\n- Rewrite the section conclusion-first, using only facts present in `draft.md`. Where the draft lacks quarter comparison, evidence, or significance, the rewrite must say the comparison is unsupported rather than adding facts.\n- Do not add the \"this quarter\" scope unless the draft supports it.\n- Record every edit in `tone-changes.json` with accurate `facts_changed` values and a range of `assessment_function` values.",
+          "tokenUsage": {
+            "prompt": 4770,
+            "completion": 1688,
+            "cached": 0,
+            "total": 6458,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E9 — G5 rejects a self-granted punch-out approval (no log row)",
+          "vars": {
+            "toned": "## Current Posture\\nEndpoint coverage improved this quarter.",
+            "draft": "## Current Posture\\nEndpoint coverage improved.",
+            "tone_changes": "{\"changes\":[{\"location\":\"Current Posture\",\"before\":\"Endpoint coverage improved.\",\"after\":\"Endpoint coverage improved this quarter.\",\"style_marker\":\"temporal_precision\",\"reason\":\"Anchored claim\",\"assessment_function\":\"quarter_movement\",\"facts_changed\":false}],\"tables_reviewed\":[],\"observations\":[]}",
+            "template": "## Current Posture",
+            "run_state": "{\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":true,\"approved\":true,\"closure_evidence\":null}},\"loop_counters\":{\"G5\":0}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "G5.*(?i:fail)|(?i:fail).*G5"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent detects that approved:true lacks a matching punchout-log.md row (self-granted approval) and records a G5 hard fail on the certifiability/punch-out-closure check."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 6,
+        "tokenUsage": {
+          "prompt": 4770,
+          "completion": 1688,
+          "cached": 0,
+          "total": 6458,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1505,
+            "prompt": 1352,
+            "completion": 153,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "toned": "## Current Posture\\nEndpoint coverage improved this quarter.",
+          "draft": "## Current Posture\\nEndpoint coverage improved.",
+          "tone_changes": "{\"changes\":[{\"location\":\"Current Posture\",\"before\":\"Endpoint coverage improved.\",\"after\":\"Endpoint coverage improved this quarter.\",\"style_marker\":\"temporal_precision\",\"reason\":\"Anchored claim\",\"assessment_function\":\"quarter_movement\",\"facts_changed\":false}],\"tables_reviewed\":[],\"observations\":[]}",
+          "template": "## Current Posture",
+          "run_state": "{\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":true,\"approved\":true,\"closure_evidence\":null}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1079,
+            "prompt": 946,
+            "completion": 133,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "G5.*(?i:fail)|(?i:fail).*G5"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent detects that the table cell changed the client-facing meaning of the evidence (from unavailable to fully protected) and records a G5 substance-freeze failure."
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The output explicitly identifies that the toned.md EDR cell changed from 'Agent deployment evidence was not available' to 'All 12 endpoints are fully protected.' It records this as a G5 substance freeze check failure, explaining that the edit replaces missing evidence with an unsupported positive finding and changes the client-facing meaning.",
+              "tokensUsed": {
+                "total": 1079,
+                "prompt": 946,
+                "completion": 133,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\nG5 failure\\n\\nFailing checks:\\n\\n1. **G5 substance freeze check (fail).** The `toned.md` EDR evidence cell reads \\\"All 12 endpoints are fully protected.\\\" The `draft.md` cell reads \\\"Agent deployment evidence was not available.\\\" The number \\\"12\\\", the protection claim, and the coverage outcome do not appear in the draft. The edit replaces a statement of missing evidence with an unsupported positive finding, which changes the client-facing meaning of the row.\\n\\n2. **G5 change-accountability check (fail).** The change record states `facts_changed: false`, but the edit introduces new factual content, so the flag is inaccurate. The reason, \\\"Improved wording\\\", does not describe the change. The record's `assessment_function` of `evidence_interpretation` is not supported, because the edit invents a conclusion instead of interpreting the evidence. Correcting the flag to `facts_changed: true` would itself be a hard fail.\\n\\n3. **G5 assessment-quality check (fail).**\\n   - The report is a single table with no conclusion-first narrative. It has no condition, quarter movement, significance, qualification, recommended response, or calibration.\\n   - The \\\"Status\\\" cell contains an action fragment that is not tied to a finding.\\n   - The positive finding is stated without any limitation, and the draft provides none to support it.\\n   - The document has no quarterly thesis or cross-signal synthesis, and the table is carried forward without analytical rewriting.\\n\\nPassing checks:\\n\\n- **Template conformance:** the required \\\"Endpoint Posture\\\" heading is present.\\n- **Punch-out closure and certifiability:** `A_missing_content` and `E_loop_exhaustion` are not triggered, and `certifiable` defaults to `true` with `non_certifiable_reasons: []`.\\n- **Table coverage:** the single draft table appears in `tables_reviewed`.\\n\\nNo final deliverable and no `audit-report.md` are written, and the done marker is withheld.\\n</Output>\\n<Rubric>\\nThe agent detects that the table cell changed the client-facing meaning of the evidence (from unavailable to fully protected) and records a G5 substance-freeze failure.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "12c120e9-41a1-42ea-b672-9c0e55fc5799",
+        "latencyMs": 4979,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 06-adversarial-review on the test inputs.",
+          "label": "Execute step 06-adversarial-review on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "G5 failure\n\nFailing checks:\n\n1. **G5 substance freeze check (fail).** The `toned.md` EDR evidence cell reads \"All 12 endpoints are fully protected.\" The `draft.md` cell reads \"Agent deployment evidence was not available.\" The number \"12\", the protection claim, and the coverage outcome do not appear in the draft. The edit replaces a statement of missing evidence with an unsupported positive finding, which changes the client-facing meaning of the row.\n\n2. **G5 change-accountability check (fail).** The change record states `facts_changed: false`, but the edit introduces new factual content, so the flag is inaccurate. The reason, \"Improved wording\", does not describe the change. The record's `assessment_function` of `evidence_interpretation` is not supported, because the edit invents a conclusion instead of interpreting the evidence. Correcting the flag to `facts_changed: true` would itself be a hard fail.\n\n3. **G5 assessment-quality check (fail).**\n   - The report is a single table with no conclusion-first narrative. It has no condition, quarter movement, significance, qualification, recommended response, or calibration.\n   - The \"Status\" cell contains an action fragment that is not tied to a finding.\n   - The positive finding is stated without any limitation, and the draft provides none to support it.\n   - The document has no quarterly thesis or cross-signal synthesis, and the table is carried forward without analytical rewriting.\n\nPassing checks:\n\n- **Template conformance:** the required \"Endpoint Posture\" heading is present.\n- **Punch-out closure and certifiability:** `A_missing_content` and `E_loop_exhaustion` are not triggered, and `certifiable` defaults to `true` with `non_certifiable_reasons: []`.\n- **Table coverage:** the single draft table appears in `tables_reviewed`.\n\nNo final deliverable and no `audit-report.md` are written, and the done marker is withheld.",
+          "tokenUsage": {
+            "prompt": 4923,
+            "completion": 639,
+            "cached": 0,
+            "total": 5562,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "E8 — G5 catches a shifted table-cell meaning",
+          "vars": {
+            "toned": "## Endpoint Posture\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | All 12 endpoints are fully protected. | Validate service owners and permissions |",
+            "draft": "## Endpoint Posture\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |",
+            "tone_changes": "{\"changes\":[{\"location\":\"Endpoint Posture › EDR row\",\"before\":\"| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |\",\"after\":\"| EDR | All 12 endpoints are fully protected. | Validate service owners and permissions |\",\"style_marker\":\"table_interpretation\",\"reason\":\"Improved wording\",\"assessment_function\":\"evidence_interpretation\",\"facts_changed\":false}],\"tables_reviewed\":[{\"location\":\"Endpoint Posture\",\"purpose\":\"posture table\",\"rows\":1,\"rows_edited\":1}],\"observations\":[]}",
+            "template": "## Endpoint Posture",
+            "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "G5.*(?i:fail)|(?i:fail).*G5"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent detects that the table cell changed the client-facing meaning of the evidence (from unavailable to fully protected) and records a G5 substance-freeze failure."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 7,
+        "tokenUsage": {
+          "prompt": 4923,
+          "completion": 639,
+          "cached": 0,
+          "total": 5562,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1079,
+            "prompt": 946,
+            "completion": 133,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "toned": "## Endpoint Posture\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | All 12 endpoints are fully protected. | Validate service owners and permissions |",
+          "draft": "## Endpoint Posture\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |",
+          "tone_changes": "{\"changes\":[{\"location\":\"Endpoint Posture › EDR row\",\"before\":\"| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |\",\"after\":\"| EDR | All 12 endpoints are fully protected. | Validate service owners and permissions |\",\"style_marker\":\"table_interpretation\",\"reason\":\"Improved wording\",\"assessment_function\":\"evidence_interpretation\",\"facts_changed\":false}],\"tables_reviewed\":[{\"location\":\"Endpoint Posture\",\"purpose\":\"posture table\",\"rows\":1,\"rows_edited\":1}],\"observations\":[]}",
+          "template": "## Endpoint Posture",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 0.96,
+          "reason": "All assertions passed",
+          "namedScores": {},
+          "tokensUsed": {
+            "total": 1863,
+            "prompt": 1647,
+            "completion": 216,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "G5.*(?i:fail)|(?i:fail).*G5"
+              }
+            },
+            {
+              "assertion": {
+                "type": "llm-rubric",
+                "value": "The agent records a G5 failure and initiates the loop-back to step 05 without assembling a final deliverable or writing audit-report.md as if the run had succeeded."
+              },
+              "pass": true,
+              "score": 0.92,
+              "reason": "The output records 'Result: G5 failure'. It states the final client deliverable was not assembled, audit-report.md was not written, and .harness-step06-done was not written. It also says the harness will increment loop_counters.G5 and decide between loop-back to step 05 and escalation, and it lists required corrections for step 05. This matches the rubric: a recorded failure, a loop-back to step 05, and no deliverable or audit report written as if the run had succeeded. The loop-back is stated as the harness's pending decision rather than a completed action, but the output still initiates it by supplying step 05 corrections.",
+              "tokensUsed": {
+                "total": 1863,
+                "prompt": 1647,
+                "completion": 216,
+                "cached": 0,
+                "numRequests": 0,
+                "completionDetails": {
+                  "reasoning": 0,
+                  "cacheReadInputTokens": 0,
+                  "cacheCreationInputTokens": 0
+                }
+              },
+              "metadata": {
+                "renderedGradingPrompt": "[{\"role\":\"system\",\"content\":\"You are grading output according to a user-specified rubric. If the statement in the rubric is true, then the output passes the test. You respond with a JSON object with this structure: {reason: string, pass: boolean, score: number}\\n\\nExamples:\\n\\n<Output>Hello world</Output>\\n<Rubric>Content contains a greeting</Rubric>\\n{\\\"reason\\\": \\\"the content contains the word 'Hello'\\\", \\\"pass\\\": true, \\\"score\\\": 1.0}\\n\\n<Output>Avast ye swabs, repel the invaders!</Output>\\n<Rubric>Does not speak like a pirate</Rubric>\\n{\\\"reason\\\": \\\"'avast ye' is a common pirate term\\\", \\\"pass\\\": false, \\\"score\\\": 0.0}\"},{\"role\":\"user\",\"content\":\"<Output>\\n# g5-judgment.md\\n\\n**Result: G5 failure**\\n\\nRun-state initialization: `certifiable: true`, `non_certifiable_reasons: []`. No punch-out is triggered, and `loop_counters.G5` is 0. The punch-out and certifiability check passes. Checks 1, 2 and 3 fail.\\n\\n## Failing checks\\n\\n### 1. Assessment quality (G5 check 1): FAIL\\n\\n- **(a) Template conformance:** The `## Identities` heading matches the template. The structure is otherwise a bare heading and one line of prose.\\n- **(b) Analytical depth:** The section is not conclusion-first. It has no condition, quarter movement, evidence, significance, qualification, recommended response or calibration. \\\"It is good\\\" is a bare value judgment with no business-risk significance. No observation period is named.\\n- **(c) Quarterly thesis:** There is no preceding-versus-current-quarter comparison, no attribution, and no statement that comparison is unsupported.\\n- **(d) Cross-signal synthesis:** The section does not connect MFA to privileged access, legacy authentication or access policy.\\n- **(e) Editorial quality:** \\\"We turned on MFA\\\" is first-person voice and breaks the third-person formal consultative register. \\\"It is good\\\" is colloquial, imprecise and unhedged. The section has no concrete client action.\\n- **(f) Client-consultative quality:** The section reads as terse commentary. It does not state what was assessed, what changed, why it matters or what comes next.\\n\\n### 2. Substance freeze (G5 check 2): FAIL\\n\\n- The draft token \\\"for all users\\\" (the scope of MFA enablement) is absent from `toned.md`. Dropping it shifts the client-facing meaning of the finding.\\n- \\\"We turned on\\\" attributes the action to the assessor or the client. The draft states no actor, so this introduces an unsupported fact.\\n- \\\"It is good\\\" adds an outcome judgment that does not appear in `draft.md`.\\n\\n### 3. Change accountability (G5 check 3): FAIL\\n\\n- No `tone-changes.json` accompanies `toned.md`, so it cannot be validated against the schema. It has no `tables_reviewed` or `observations` arrays.\\n- The edits between `draft.md` and `toned.md` are unrecorded. They are:\\n  - the passive sentence rewritten in first person;\\n  - the scope phrase removed;\\n  - the added evaluative sentence.\\n- Without records, `assessment_function` coverage cannot show analytical synthesis. Unrecorded edits are a G5 failure.\\n\\n### 4. Certifiability and punch-out closure (G5 check 5): PASS\\n\\n- Punch-outs A and E are not triggered.\\n- `certifiable` is true and `non_certifiable_reasons` is empty.\\n- No `bypass_attempt` is recorded.\\n\\n## Disposition\\n\\n- The final client deliverable was not assembled.\\n- `audit-report.md` was not written.\\n- `.harness-step06-done` was not written.\\n- The harness will increment `loop_counters.G5` and decide between loop-back to step 05 and escalation to punch-out E at `loop_max`.\\n\\n## Required corrections for step 05\\n\\n1. Rewrite `## Identities` as a third-person, conclusion-first assessment section. It must state:\\n   - the condition: MFA was enabled for all users;\\n   - the quarter-anchored movement, only if the draft supports it, and otherwise an explicit statement that comparison is unsupported;\\n   - the significance for the client's business risk;\\n   - one calibrated qualification, with no new facts;\\n   - a concrete client action that traces to the draft.\\n2. Preserve \\\"for all users\\\" and introduce no new actors, causes or outcomes.\\n3. Produce a schema-valid `tone-changes.json` that includes `tables_reviewed` and `observations`. Each record must carry `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed: false`. The `assessment_function` values must include analytical synthesis, not only `template_structure` or `professional_tone`.\\n</Output>\\n<Rubric>\\nThe agent records a G5 failure and initiates the loop-back to step 05 without assembling a final deliverable or writing audit-report.md as if the run had succeeded.\\n</Rubric>\"}]"
+              }
+            }
+          ]
+        },
+        "id": "d9c4051a-2903-4b6e-90db-4d614e98c500",
+        "latencyMs": 11972,
+        "namedScores": {},
+        "prompt": {
+          "raw": "Execute step 06-adversarial-review on the test inputs.",
+          "label": "Execute step 06-adversarial-review on the test inputs.",
+          "config": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          }
+        },
+        "promptId": "af22fcf4b8f1d39c69e4293db86387490059202c3d71db208fe14ebab04bcde5",
+        "promptIdx": 0,
+        "provider": {
+          "id": "claude-sonnet-5-5",
+          "label": ""
+        },
+        "response": {
+          "output": "# g5-judgment.md\n\n**Result: G5 failure**\n\nRun-state initialization: `certifiable: true`, `non_certifiable_reasons: []`. No punch-out is triggered, and `loop_counters.G5` is 0. The punch-out and certifiability check passes. Checks 1, 2 and 3 fail.\n\n## Failing checks\n\n### 1. Assessment quality (G5 check 1): FAIL\n\n- **(a) Template conformance:** The `## Identities` heading matches the template. The structure is otherwise a bare heading and one line of prose.\n- **(b) Analytical depth:** The section is not conclusion-first. It has no condition, quarter movement, evidence, significance, qualification, recommended response or calibration. \"It is good\" is a bare value judgment with no business-risk significance. No observation period is named.\n- **(c) Quarterly thesis:** There is no preceding-versus-current-quarter comparison, no attribution, and no statement that comparison is unsupported.\n- **(d) Cross-signal synthesis:** The section does not connect MFA to privileged access, legacy authentication or access policy.\n- **(e) Editorial quality:** \"We turned on MFA\" is first-person voice and breaks the third-person formal consultative register. \"It is good\" is colloquial, imprecise and unhedged. The section has no concrete client action.\n- **(f) Client-consultative quality:** The section reads as terse commentary. It does not state what was assessed, what changed, why it matters or what comes next.\n\n### 2. Substance freeze (G5 check 2): FAIL\n\n- The draft token \"for all users\" (the scope of MFA enablement) is absent from `toned.md`. Dropping it shifts the client-facing meaning of the finding.\n- \"We turned on\" attributes the action to the assessor or the client. The draft states no actor, so this introduces an unsupported fact.\n- \"It is good\" adds an outcome judgment that does not appear in `draft.md`.\n\n### 3. Change accountability (G5 check 3): FAIL\n\n- No `tone-changes.json` accompanies `toned.md`, so it cannot be validated against the schema. It has no `tables_reviewed` or `observations` arrays.\n- The edits between `draft.md` and `toned.md` are unrecorded. They are:\n  - the passive sentence rewritten in first person;\n  - the scope phrase removed;\n  - the added evaluative sentence.\n- Without records, `assessment_function` coverage cannot show analytical synthesis. Unrecorded edits are a G5 failure.\n\n### 4. Certifiability and punch-out closure (G5 check 5): PASS\n\n- Punch-outs A and E are not triggered.\n- `certifiable` is true and `non_certifiable_reasons` is empty.\n- No `bypass_attempt` is recorded.\n\n## Disposition\n\n- The final client deliverable was not assembled.\n- `audit-report.md` was not written.\n- `.harness-step06-done` was not written.\n- The harness will increment `loop_counters.G5` and decide between loop-back to step 05 and escalation to punch-out E at `loop_max`.\n\n## Required corrections for step 05\n\n1. Rewrite `## Identities` as a third-person, conclusion-first assessment section. It must state:\n   - the condition: MFA was enabled for all users;\n   - the quarter-anchored movement, only if the draft supports it, and otherwise an explicit statement that comparison is unsupported;\n   - the significance for the client's business risk;\n   - one calibrated qualification, with no new facts;\n   - a concrete client action that traces to the draft.\n2. Preserve \"for all users\" and introduce no new actors, causes or outcomes.\n3. Produce a schema-valid `tone-changes.json` that includes `tables_reviewed` and `observations`. Each record must carry `location`, `before`, `after`, `style_marker`, `reason`, `assessment_function` and `facts_changed: false`. The `assessment_function` values must include analytical synthesis, not only `template_structure` or `professional_tone`.",
+          "tokenUsage": {
+            "prompt": 4621,
+            "completion": 1809,
+            "cached": 0,
+            "total": 6430,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0,
+                "cacheReadInputTokens": 0,
+                "cacheCreationInputTokens": 0
+              }
+            }
+          }
+        },
+        "score": 0.96,
+        "success": true,
+        "testCase": {
+          "description": "E7 — G5 failure prevents final deliverable assembly",
+          "vars": {
+            "toned": "## Identities\\nWe turned on MFA. It is good.",
+            "draft": "## Identities\\nMFA was enabled for all users.",
+            "template": "## Identities",
+            "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+          },
+          "assert": [
+            {
+              "type": "regex",
+              "value": "G5.*(?i:fail)|(?i:fail).*G5"
+            },
+            {
+              "type": "llm-rubric",
+              "value": "The agent records a G5 failure and initiates the loop-back to step 05 without assembling a final deliverable or writing audit-report.md as if the run had succeeded."
+            }
+          ],
+          "options": {
+            "provider": "anthropic:messages:claude-sonnet-5-5"
+          },
+          "metadata": {}
+        },
+        "testIdx": 8,
+        "tokenUsage": {
+          "prompt": 4621,
+          "completion": 1809,
+          "cached": 0,
+          "total": 6430,
+          "numRequests": 1,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          },
+          "assertions": {
+            "total": 1863,
+            "prompt": 1647,
+            "completion": 216,
+            "cached": 0,
+            "numRequests": 1,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0
+            }
+          }
+        },
+        "vars": {
+          "toned": "## Identities\\nWe turned on MFA. It is good.",
+          "draft": "## Identities\\nMFA was enabled for all users.",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "metadata": {
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      }
+    ],
+    "stats": {
+      "successes": 9,
+      "failures": 0,
+      "errors": 0,
+      "tokenUsage": {
+        "prompt": 42838,
+        "completion": 14485,
+        "cached": 0,
+        "total": 57323,
+        "numRequests": 9,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0
+        },
+        "assertions": {
+          "total": 14175,
+          "prompt": 12713,
+          "completion": 1462,
+          "cached": 0,
+          "numRequests": 9,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0
+          }
+        }
+      },
+      "durationMs": 35234,
+      "evaluationDurationMs": 35234
+    }
+  },
+  "config": {
+    "description": "06-adversarial-review (V2) — validate G5 adversarial review enforcement (assessment quality, substance freeze, change accountability), punch-out closure, deliverable assembly, audit report, and success logging.",
+    "prompts": [
+      "Execute step 06-adversarial-review on the test inputs."
+    ],
+    "providers": [
+      {
+        "id": "file://../../promptfoo-anthropic-provider.js",
+        "config": {
+          "model": "claude-sonnet-5-5",
+          "skillPath": "06-adversarial-review/SKILL.md",
+          "max_tokens": 4096
+        }
+      }
+    ],
+    "tests": [
+      {
+        "description": "E1 — G5 fails when tone violates professional assessment standards",
+        "vars": {
+          "toned": "## Identities\\nWe turned on MFA. It is good.",
+          "draft": "## Identities\\nMFA was enabled for all users.",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "G5.*(?i:fail)|(?i:fail).*G5"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent detects the first-person voice and colloquial filler, and records a G5 assessment-quality failure."
+          }
+        ]
+      },
+      {
+        "description": "E2 — G5 fails when a factual token is altered",
+        "vars": {
+          "toned": "## Devices\\nThe device compliance rate was 99%.",
+          "draft": "## Devices\\nThe device compliance rate was 97%.",
+          "template": "## Devices",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "G5.*(?i:fail)|(?i:fail).*G5"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent detects the altered percentage and records a G5 substance freeze failure."
+          }
+        ]
+      },
+      {
+        "description": "E3 — G5 fails when an edit is not recorded in tone-changes.json",
+        "vars": {
+          "toned": "## Identities\\nMulti-factor authentication was enforced.",
+          "draft": "## Identities\\nWe enforced MFA.",
+          "tone_changes": "{\"changes\":[]}",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "G5.*(?i:fail)|(?i:fail).*G5"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent detects that edits between draft.md and toned.md are missing from tone-changes.json and records a G5 change-accountability failure."
+          }
+        ]
+      },
+      {
+        "description": "E4 — Final assembly blocked until all triggered punch-outs are approved",
+        "vars": {
+          "toned": "## Identities\\nMulti-factor authentication was enforced for all licensed users.",
+          "draft": "## Identities\\nWe enforced MFA for all licensed users.",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":true,\"approved\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "STOP|stop|HALT|halt|BLOCKED|blocked|NO DELIVERABLE|No deliverable|NON-FINALIZABLE|non-finalizable|NOT EXECUTED|Not executed|RUN NOT FINALIZED|Run not finalized|NO FINAL DELIVERABLE|No final deliverable|G5.*(FAIL|failure)|not (written|emitted|assembled|finalized)"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent stops and does not assemble the final deliverable while an unapproved triggered punch-out exists."
+          }
+        ]
+      },
+      {
+        "description": "E5 — G5 fails when toned.md shows no assessment depth (unchanged draft)",
+        "vars": {
+          "toned": "## Identities\\nMFA was turned on for users. It is good.",
+          "draft": "## Identities\\nMFA was turned on for users. It is good.",
+          "tone_changes": "{\"changes\":[]}",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "G5.*(?i:fail)|(?i:fail).*G5"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent fails G5 because toned.md was not substantively edited to professional standards — colloquial phrasing and filler remain."
+          }
+        ]
+      },
+      {
+        "description": "E6 — audit-report.md, success-log.md, and deliverable emitted on success",
+        "vars": {
+          "toned": "## Identities\\nIdentity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users, expanding coverage relative to the prior quarter, when enforcement applied to a subset of the user base — a verified improvement that reduces credential-compromise risk. However, conditional access does not yet block legacy authentication on some applications, so those sign-ins can bypass MFA — a residual gap that partly offsets the coverage gain. The assessment recommends enforcing conditional access policies for the remaining applications to close it.",
+          "draft": "## Identities\\nWe enforced MFA for all licensed users this quarter; last quarter it covered only some users. This is a verified improvement that reduces credential-compromise risk. Conditional access still does not block legacy auth on some apps, so those sign-ins can bypass MFA and partly offset the gain. Recommended: enforce conditional access for remaining apps to close the gap.",
+          "tone_changes": "{\"changes\":[{\"location\":\"Identities\",\"before\":\"We enforced MFA for all licensed users this quarter; last quarter it covered only some users. This is a verified improvement that reduces credential-compromise risk. Conditional access still does not block legacy auth on some apps, so those sign-ins can bypass MFA and partly offset the gain. Recommended: enforce conditional access for remaining apps to close the gap.\",\"after\":\"Identity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users, expanding coverage relative to the prior quarter, when enforcement applied to a subset of the user base — a verified improvement that reduces credential-compromise risk. However, conditional access does not yet block legacy authentication on some applications, so those sign-ins can bypass MFA — a residual gap that partly offsets the coverage gain. The assessment recommends enforcing conditional access policies for the remaining applications to close it.\",\"style_marker\":\"voice\",\"reason\":\"Converted first-person shorthand into formal third-person assessment prose with quarter-over-quarter framing and preserved limitation and recommendation; no facts added or removed.\",\"assessment_function\":\"executive_conclusion\",\"facts_changed\":false}],\"tables_reviewed\":[],\"observations\":[]}",
+          "template": "## Identities",
+          "run_state": "{\"run_id\":\"eval-E6-happy-path\",\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "assert": [
+          {
+            "type": "contains",
+            "value": "Audit Report"
+          },
+          {
+            "type": "regex",
+            "value": "[Dd]eliverable"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "On a successful G5 pass with no unapproved punch-outs, the agent emits the final client deliverable and a complete audit report (audit-report.md) that identifies the run (by run id or run folder) and covers the G5 check results and tone-change statistics, and it does NOT fabricate or append to success-log.md — the harness writes the success log on the next drive call, not the step."
+          }
+        ]
+      },
+      {
+        "description": "E9 — G5 rejects a self-granted punch-out approval (no log row)",
+        "vars": {
+          "toned": "## Current Posture\\nEndpoint coverage improved this quarter.",
+          "draft": "## Current Posture\\nEndpoint coverage improved.",
+          "tone_changes": "{\"changes\":[{\"location\":\"Current Posture\",\"before\":\"Endpoint coverage improved.\",\"after\":\"Endpoint coverage improved this quarter.\",\"style_marker\":\"temporal_precision\",\"reason\":\"Anchored claim\",\"assessment_function\":\"quarter_movement\",\"facts_changed\":false}],\"tables_reviewed\":[],\"observations\":[]}",
+          "template": "## Current Posture",
+          "run_state": "{\"certifiable\":true,\"non_certifiable_reasons\":[],\"punchouts\":{\"A_missing_content\":{\"triggered\":true,\"approved\":true,\"closure_evidence\":null}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "G5.*(?i:fail)|(?i:fail).*G5"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent detects that approved:true lacks a matching punchout-log.md row (self-granted approval) and records a G5 hard fail on the certifiability/punch-out-closure check."
+          }
+        ]
+      },
+      {
+        "description": "E8 — G5 catches a shifted table-cell meaning",
+        "vars": {
+          "toned": "## Endpoint Posture\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | All 12 endpoints are fully protected. | Validate service owners and permissions |",
+          "draft": "## Endpoint Posture\\n| Control | Evidence | Status |\\n|---|---|---|\\n| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |",
+          "tone_changes": "{\"changes\":[{\"location\":\"Endpoint Posture › EDR row\",\"before\":\"| EDR | Agent deployment evidence was not available. | Validate service owners and permissions |\",\"after\":\"| EDR | All 12 endpoints are fully protected. | Validate service owners and permissions |\",\"style_marker\":\"table_interpretation\",\"reason\":\"Improved wording\",\"assessment_function\":\"evidence_interpretation\",\"facts_changed\":false}],\"tables_reviewed\":[{\"location\":\"Endpoint Posture\",\"purpose\":\"posture table\",\"rows\":1,\"rows_edited\":1}],\"observations\":[]}",
+          "template": "## Endpoint Posture",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "G5.*(?i:fail)|(?i:fail).*G5"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent detects that the table cell changed the client-facing meaning of the evidence (from unavailable to fully protected) and records a G5 substance-freeze failure."
+          }
+        ]
+      },
+      {
+        "description": "E7 — G5 failure prevents final deliverable assembly",
+        "vars": {
+          "toned": "## Identities\\nWe turned on MFA. It is good.",
+          "draft": "## Identities\\nMFA was enabled for all users.",
+          "template": "## Identities",
+          "run_state": "{\"punchouts\":{\"A_missing_content\":{\"triggered\":false},\"E_loop_exhaustion\":{\"triggered\":false}},\"loop_counters\":{\"G5\":0}}"
+        },
+        "assert": [
+          {
+            "type": "regex",
+            "value": "G5.*(?i:fail)|(?i:fail).*G5"
+          },
+          {
+            "type": "llm-rubric",
+            "value": "The agent records a G5 failure and initiates the loop-back to step 05 without assembling a final deliverable or writing audit-report.md as if the run had succeeded."
+          }
+        ]
+      }
+    ],
+    "outputPath": [
+      "results.json"
+    ],
+    "extensions": [],
+    "defaultTest": {
+      "options": {
+        "provider": "anthropic:messages:claude-sonnet-5-5"
+      }
+    },
+    "basePath": "C:\\Users\\DannyGeorge\\OneDrive - Improving\\Documents\\security-assessment\\tone-assessmentV2\\.github\\skills\\06-adversarial-review\\evals"
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.124.1",
+    "nodeVersion": "v26.1.0",
+    "platform": "win32",
+    "arch": "x64",
+    "exportedAt": "2026-10-21T03:52:57.818Z",
+    "evaluationCreatedAt": "2026-10-21T03:52:22.153Z"
+  },
+  "vars": [
+    "toned",
+    "draft",
+    "template",
+    "run_state",
+    "tone_changes"
+  ],
+  "runtimeOptions": {
+    "eventSource": "cli",
+    "showProgressBar": true,
+    "repeat": 1,
+    "maxConcurrency": 4,
+    "cache": true
+  }
+}

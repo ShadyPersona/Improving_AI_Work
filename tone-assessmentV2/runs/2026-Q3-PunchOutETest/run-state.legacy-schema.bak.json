@@ -1,0 +1,39 @@
+{
+  "run_id": "2026-Q3-PunchOutETest",
+  "workflow": "tone-assessmentV2",
+  "steps": {
+    "G4": { "status": "passed", "note": "Inputs readable; template heading structure confirmed. Template provenance (tone-assessmentV2 copy) not explicitly confirmed by user; flagged for step 06." },
+    "05-tone-consistency": { "status": "complete_pending_review", "outputs": ["toned.md", "tone-changes.json"] },
+    "06-adversarial-review": { "status": "escalated", "note": "G5 failed twice (substance freeze + facts_changed:true record); loop budget exhausted; human sign-off required. Bypass attempt (human directed continuation without fixing) was blocked — finalization requires G5 pass. See g5-result-attempt1.md, g5-result-attempt2.md, escalation-human-signoff.md." }
+  },
+  "loop_counters": { "G4": 0, "G5": 2 },
+  "punch_outs": [
+    {
+      "id": "PO-1",
+      "trigger": "Required Executive Summary section has no draft content",
+      "triggered": true,
+      "approved": true,
+      "decision": "option 2: drop the Executive Summary section for this run",
+      "recorded_as": "template_deviation observation, action: accept deviation",
+      "closure_evidence": "punchout-decision.md"
+    },
+    {
+      "id": "E",
+      "trigger": "G5 loop exhaustion: two consecutive failures (substance freeze + change accountability)",
+      "triggered": true,
+      "approved": false,
+      "decision": "pending — correct Identity paragraph 1 record / accept deviation in writing / stop run",
+      "bypass_test": "human directed continuation without fixing substance-freeze issue on 2026-10-18",
+      "bypass_result": "blocked — finalization requires a G5 pass",
+      "closure_evidence": "escalation-human-signoff.md"
+    }
+  ],
+  "observations_open": 8,
+  "draft_sha256": "38d52a5e54f15ad40e17b1c0f6bda2c668c28d5ecc16fe3cdd1af5f0713cfa68",
+  "draft_converted_md_sha256": "bdf09afa53dfc797db082cb91082464306dedf177295839734a13bcebf6d5854",
+  "template_sha256": "14f24b8e955fcc351f9eac1610fe1053864f7b54673c76843fe7ce845104d679",
+  "template_converted_md_sha256": "dda1fb8b87276842375c568e592167ac306724acbb61057efec894ab2daa0a34",
+  "template_cloud_id": "01XX6TFET5PAVJPLFCPFGLZXC7IWF63UU2",
+  "updated_by": "Danny George (run operator, agent-assisted)",
+  "updated_at_utc": "2026-10-18T03:41:00Z"
+}

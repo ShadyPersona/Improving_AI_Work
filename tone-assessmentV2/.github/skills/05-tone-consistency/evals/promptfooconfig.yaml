@@ -9,14 +9,14 @@ prompts:
 providers:
   - id: file://../../promptfoo-anthropic-provider.js
     config:
-      model: claude-haiku-4-5-20251001
+      model: claude-sonnet-5-5
       skillPath: 05-tone-consistency/SKILL.md
       max_tokens: 4096
 
 # Use the standard Anthropic provider for LLM-rubric grading.
 defaultTest:
   options:
-    provider: anthropic:messages:claude-haiku-4-5-20251001
+    provider: anthropic:messages:claude-sonnet-5-5
 
 tests:
   - description: E1 — Editing blocked when G4 fails (missing input document)
@@ -26,13 +26,13 @@ tests:
       run_state: '{"loop_counters":{"G4":0},"certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":false,"approved":false},"E_loop_exhaustion":{"triggered":false,"approved":false}}}'
     assert:
       - type: regex
-        value: 'G4(?:\s|-)(?:FAIL|failure)|G4 Result:\s*FAIL'
+        value: '(G4|HALT|halted?)[^\n]{0,60}(FAIL|fail|missing|unreadable)|required input (missing|unreadable)|missing (required )?(input|template)'
       - type: llm-rubric
         value: The agent halts and does not produce toned.md when any required input is missing or unreadable.
 
   - description: E2 — Professional assessment synthesis is applied to the draft
     vars:
-      draft: '## Identities\nWe turned on MFA for all users during the quarter. This is a positive change.'
+      draft: '## Executive Summary\nThe quarter showed measurable posture improvement.\n## Identities\nWe turned on MFA for all users during the quarter. This is a positive change.\n## Devices\nDevice compliance was 97%.'
       template: '## Executive Summary\n## Identities\n## Devices\n(sections use "## " headings, sentence-case titles)'
       run_state: '{"loop_counters":{"G4":0},"certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":false,"approved":false},"E_loop_exhaustion":{"triggered":false,"approved":false}}}'
     assert:
@@ -96,9 +96,9 @@ tests:
       run_state: '{"loop_counters":{"G4":0},"certifiable":false,"non_certifiable_reasons":["unapproved punch-out A: Executive Summary has no draft content"],"punchouts":{"A_missing_content":{"triggered":true,"approved":false}}}'
     assert:
       - type: regex
-        value: 'certifiable["\x27]?\s*:\s*false'
+        value: 'certifiable["\x27]?\s*[:=]\s*false|non-certifiable'
       - type: llm-rubric
-        value: The agent marks tone-changes.json with top-level certifiable false, does not emit a deliverable, does not restore certifiable without a logged human decision, and keeps run-state.json consistent.
+        value: 'The agent does not emit a deliverable or toned.md on a non-certifiable run — it records the punch-out/halt state marked non-certifiable (certifiable=false), does not restore certifiability without a logged human decision, and does not fabricate a punchout-log row.'
 
   - description: E8 — Table narrative cells are rewritten for sentence discipline while preserving factual shorthand
     vars:

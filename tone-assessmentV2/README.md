@@ -31,40 +31,75 @@ tone-assessmentV2/
 │       └── SKILL.md           ← single-file orchestrator for agent use (combines 05 + 06 + workflow)
 ├── schemas/
 │   └── tone-changes.schema.json   (step 05 output contract, checked at G5)
+├── harness.py                 ← executable workflow harness — ONE self-contained
+│                                stdlib-only file: pipeline state machine, deterministic
+│                                G4/G5 validators (schema+banned patterns embedded),
+│                                per-step metering, bypass-test mode. No pip needed.
+├── harness.sha256             ← copy-integrity checksum (`python harness.py hash`)
+├── harness.config.json        ← optional overrides (model, price table, loop_max)
 ├── templates/run-state.json   ← loop counters + punch-out flags + certifiable status
 ├── runs/README.md             ← per-run directory layout (run-id named, 2 inputs)
 └── audit/                     ← cross-run evidence (append-only)
-    ├── guardrails.jsonl           (one record per guardrail check)
-    ├── punchout-log.md            (halts, bypass tests, human decisions)
+    ├── run-<run-id>.jsonl         (per-run step records: model, hashes, tokens, cost)
+    ├── guardrails-<run-id>.jsonl  (per-run gate records)
+    ├── success-<run-id>.md        (per-run result row)
+    ├── punchout-<run-id>.md       (per-run halts, bypass tests, human decisions)
+    ├── guardrails.jsonl           (aggregate view — regenerate: python harness.py rebuild-logs)
+    ├── punchout-log.md            (aggregate view)
     ├── punchout-missing-content.md
-    └── success-log.md             (end-to-end run results + success rate)
+    └── success-log.md             (aggregate view: end-to-end results + success rate)
 ```
 
-## Inputs per run (place in `runs/<YYYY-QN>/inputs/`)
+## Inputs per run
 
-1. `draft.md` — the document being edited (the only file modified)
-2. `template` — authoritative for structure/formatting; wins conflicts
+1. `runs/<run-id>/inputs/draft.md` — the document being edited (the only file modified; required per run)
+2. `template` — authoritative for structure/formatting; wins conflicts. Defaults to the repo-root **`CSA Template.md`** (text extract of `CSA Template.docx`; `default_template` in `harness.config.json`); place `inputs/template.*` in a run only to override it for that run.
 
 ## Stage 4 artifact map
 
 | Required artifact | Where it lives |
 |-------------------|----------------|
-| Workflow definition | `WORKFLOW.md` — both agents wired end-to-end, handoffs + loop-back branching documented |
-| Guardrails | `WORKFLOW.md` §Guardrails; G4 inbound on step 05, G5 between 05→06; schema-validated, deterministic, automated |
-| Punch-out evidence | `audit/punchout-*.md` + `audit/punchout-log.md` — human decision points with bypass-test columns; `run-state.json` blocks unapproved punch-outs at G5 |
-| End-to-end success rate | `audit/success-log.md` — full-workflow result per run + cumulative rate |
-| Audit trail | `audit/guardrails.jsonl` + `audit/run-YYYYMMDD.jsonl` — per-step model, hashes, tokens, cost; failure traceable to origin step. **Metering note:** token/cost metering is not exposed to the Copilot agent runtime, so those fields are recorded as `null`/`"not_reported"` rather than fabricated — expected, not missing data. |
+| Workflow definition | `WORKFLOW.md` + `harness.py` — the harness is executable orchestration code that runs the pipeline end-to-end: `python harness.py run --run-id <id>` |
+| Guardrails | `WORKFLOW.md` §Guardrails; deterministic code in `harness.py` (G4 file/hash/template checks + `.g4-passed` sentinel; G5 schema, banned-pattern, substance-freeze, accountability, and two-key punch-out checks) runs at the gate edges before the step-06 adversarial agent |
+| Punch-out evidence | `audit/punchout-<run-id>.md` + `audit/punchout-missing-content.md` — human decision points with bypass-test columns; `run-state.json` blocks unapproved punch-outs; `python harness.py bypass-test` performs and logs systematic bypass attempts |
+| End-to-end success rate | `audit/success-<run-id>.md` rows aggregated into `audit/success-log.md` — full-workflow result per run + cumulative rate; standardized result values: `pass` / `fail` / `halted` / `stopped` |
+| Audit trail | `audit/guardrails-<run-id>.jsonl` + `audit/run-<run-id>.jsonl` — per-step model, hashes, tokens, cost; failure traceable to origin step. Metering comes from the harness (`harness.py (meter_step)`): a configured agent session log when available, otherwise a local estimate labeled via `metering_method` — never null. |
 
 ## Running the workflow
 
-1. Create `runs/<run-id>/`, copy `templates/run-state.json` into it, and
-   place the two inputs in `runs/<run-id>/inputs/`.
-2. Invoke skill `05-tone-consistency` → produces `toned.md`,
-   `tone-changes.json`, and the G4 record.
-3. Invoke skill `06-adversarial-review` → runs the G5 adversarial review of
-   step 05's output, assembles the deliverable on pass, and closes the audit
-   trail.
-4. Record the run outcome in `audit/success-log.md`.
+The harness executes the pipeline end-to-end. It is a single
+stdlib-only file — copy `harness.py` anywhere the folder structure
+(`runs/`, `audit/`, `templates/`, `.github/skills/`) exists, verify with
+`python harness.py hash` against `harness.sha256`, and run:
+
+```powershell
+# no dependencies — runs on a bare Python 3.10+ install
+
+# 1. place draft.* in runs/<run-id>/inputs/  (template defaults to ./CSA Template.md)
+# 2. agent-runtime mode: the executing agent calls drive repeatedly;
+#    each call returns the next action — no manual step invocation:
+python harness.py drive --run-id <run-id>
+#    (or, foreground mode: python harness.py run --run-id <run-id>)
+# 3. if a punch-out halts the run, record the human decision in
+#    audit/punchout-<run-id>.md + run-state.json, then:
+python harness.py drive --run-id <run-id> --resume
+```
+
+The harness owns orchestration, gate sequencing, and logging; the agent
+executes each step against the run directory. Configure the agent runner
+(`manual` or `command` mode) in `harness.config.json`.
+
+### Regenerating embedded artifacts
+
+The SKILL.md files and `CSA Template.md` are *sources of truth* — the
+copies inside `harness.py` are generated. After editing:
+
+```powershell
+python harness.py embed          # after editing a .github/skills/*/SKILL.md
+python harness.py template-md    # after editing CSA Template.docx
+python harness.py hash > harness.sha256          # refresh copy-integrity hash
+# refresh checksums.sha256 for any changed verified file (currently CSA Template.md)
+```
 
 ## Stage 4 certification guide
 
@@ -74,10 +109,10 @@ For an examiner reviewing this workflow, the evidence lives in:
 |---|---|
 | Workflow definition | `WORKFLOW.md` |
 | Adversarial review agent | `.github/skills/06-adversarial-review/SKILL.md` Phase 1 |
-| Guardrail logs | `audit/guardrails.jsonl` |
-| Punch-out evidence | `audit/punchout-log.md` + `audit/punchout-missing-content.md` |
-| End-to-end success rate | `audit/success-log.md` |
-| Per-step audit trail | `audit/run-YYYYMMDD.jsonl` |
+| Guardrail logs | `audit/guardrails-*.jsonl` (per-run; aggregate: `audit/guardrails.jsonl`) |
+| Punch-out evidence | `audit/punchout-*.md` + `audit/punchout-log.md` (aggregate) |
+| End-to-end success rate | `audit/success-*.md` + `audit/success-log.md` (aggregate) |
+| Per-step audit trail | `audit/run-*.jsonl` |
 | Prompt evolution / EDD | `.github/skills/05-tone-consistency/ITERATION_LOG.md`, `.github/skills/06-adversarial-review/ITERATION_LOG.md` |
 | Version lineage | `VERSION_HISTORY.md` + Git tags `tone-assessment-v1` and `tone-assessment-v2` |
 

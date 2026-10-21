@@ -1,0 +1,597 @@
+{
+  "certifiable": true,
+  "changes": [
+    {
+      "location": "Document › page-boundary markers",
+      "before": "<!-- Page N --> comment lines (17 occurrences)",
+      "after": "(removed)",
+      "style_marker": "template_formatting",
+      "reason": "Removed word-processor page-boundary markers that are conversion artifacts, not report content, so tables and paragraphs read as single units.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Document › figure placement",
+      "before": "![Irontrax overall score of 39.33% compared with Microsoft peer averag…ishes that no security changes occurred.",
+      "after": "Each figure on its own line, followed by a blank line before the paragraph text.",
+      "style_marker": "template_formatting",
+      "reason": "Separated embedded figures from the paragraph text they were glued to so figures and prose are distinct template elements.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Document › figure placement",
+      "before": "![Irontrax identity score of 96.72% compared with Microsoft peer avera…vement rather than verified improvement.",
+      "after": "Each figure on its own line, followed by a blank line before the paragraph text.",
+      "style_marker": "template_formatting",
+      "reason": "Separated embedded figures from the paragraph text they were glued to so figures and prose are distinct template elements.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 1 › header structure",
+      "before": "|  |  |  |\n| --- | --- | --- |\n| Domain | Posture Indicator | Interpretation |",
+      "after": "| Domain | Posture Indicator | Interpretation |\n| --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 2 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 3 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Exposure Level | 2026 Q1 | 2026 Q2 | 2026 Q3 |",
+      "after": "| Exposure Level | 2026 Q1 | 2026 Q2 | 2026 Q3 |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 4 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 5 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 6 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 7 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 9 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Priority | Identified | Recommendation | Status |",
+      "after": "| Priority | Identified | Recommendation | Status |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 10 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| CIS Ref. | Recommendation | Description | Status |",
+      "after": "| CIS Ref. | Recommendation | Description | Status |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 11 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Quarter | Recommendation | Action | Details |",
+      "after": "| Quarter | Recommendation | Action | Details |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Table 12 › header structure",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Quarter | Recommendation | Action | Details |",
+      "after": "| Quarter | Recommendation | Action | Details |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Restored the real header row and a single separator by removing the empty converter header shell; no cell content changed.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary › paragraph 2",
+      "before": "Microsoft Secure Score is 39.33%, with 105 of 267 available points",
+      "after": "The Q3 Microsoft Secure Score was 39.33%, with 105 of 267 available points",
+      "style_marker": "temporal_precision",
+      "reason": "Anchors the measurement to Q3 and uses past tense for an observed quarterly value.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary › paragraph 3",
+      "before": "The current action statuses support retaining these recommendations",
+      "after": "The Q3 action statuses support retaining these recommendations",
+      "style_marker": "temporal_precision",
+      "reason": "Replaces an undated 'current' reference with the named assessment quarter.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary › paragraph 5",
+      "before": "using the current Microsoft Secure Score indicators",
+      "after": "using the Q3 Microsoft Secure Score indicators",
+      "style_marker": "temporal_precision",
+      "reason": "Names the observation period instead of relying on an undated 'current' reference.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Key Risk Themes › theme 1 (Long-standing Outlook and SharePoint hardening)",
+      "before": "Complete the long-standing Outlook and SharePoint hardening recommendations while preserving approved business integrations and confirming effective tenant settings.",
+      "after": "This theme covers the three recommendations first identified in 2024-Q2 that remain open: restricting additional storage providers in Outlook on the web, preventing user installation of Outlook add-ins, and requiring modern authentication for SharePoint applications. Irontrax should complete them while preserving approved business integrations and confirming effective tenant settings.",
+      "style_marker": "client_significance",
+      "reason": "Converts an action-only bullet into a theme description that states what the theme covers before the recommended response.",
+      "assessment_function": "cross_signal_synthesis",
+      "facts_changed": false
+    },
+    {
+      "location": "Key Risk Themes › theme 2 (Email and collaboration exposure)",
+      "before": "Close the email and collaboration gaps through attachment filtering, forwarding review, and proportionate external-sharing and meeting restrictions.",
+      "after": "This theme covers the routes through which information can leave Irontrax: forwarding, external storage, add-ins, and external sharing. Irontrax should close these gaps through attachment filtering, forwarding review, and proportionate external-sharing and meeting restrictions.",
+      "style_marker": "client_significance",
+      "reason": "Explains the data-egress exposure the theme addresses before stating the response, linking the signals into one theme.",
+      "assessment_function": "cross_signal_synthesis",
+      "facts_changed": false
+    },
+    {
+      "location": "Key Risk Themes › theme 3 (Data protection and mailbox logging)",
+      "before": "Establish effective data-protection coverage and verify mailbox logging. Score completion in a related control does not establish equivalent protection.",
+      "after": "This theme covers whether sensitive information is protected and whether mailbox activity can be reconstructed afterward. Irontrax should establish effective data-protection coverage and verify mailbox logging, because score completion in a related control does not establish equivalent protection.",
+      "style_marker": "explanatory_style",
+      "reason": "States the scope of the theme and ties the recommendation to its rationale in one sentence.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Key Risk Themes › theme 4 (Validation before assurance or procurement)",
+      "before": "Validate policy scope, licensing, and unassessed domains before drawing assurance conclusions or committing to additional products.",
+      "after": "This theme covers the licensing, policy-scope, and unassessed-domain questions that limit what the evidence supports. Irontrax should validate policy scope, licensing, and unassessed domains before drawing assurance conclusions or committing to additional products.",
+      "style_marker": "qualification_discipline",
+      "reason": "Names the evidence limits behind the theme before stating the response.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Control Movement and Baseline Changes › paragraph 1",
+      "before": "Identity is 7.33 percentage points higher and earns 59/61 points in Q3.",
+      "after": "Identity was 7.33 percentage points higher in Q3 and earned 59/61 points.",
+      "style_marker": "tense",
+      "reason": "Uses past tense for an observed quarterly measurement and anchors it to Q3.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Control Movement and Baseline Changes › paragraph 2",
+      "before": "The Q3 license score shows 55.43%, a 1.02 point increase. Again, this can be attributed to the overall increase from a smaller denominator.",
+      "after": "The Q3 license score was 55.43%, a 1.02 point increase. As with the overall score, this increase can be attributed to the smaller denominator.",
+      "style_marker": "tense",
+      "reason": "States the license-score movement in past tense and makes the attribution to measurement movement explicit rather than implied by 'Again'.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Identity and Access › paragraph 1",
+      "before": "Identity Secure Score is 96.72%, with 59 of 61 points earned. Microsoft reports completion for",
+      "after": "The Q3 Identity Secure Score was 96.72%, with 59 of 61 points earned. Microsoft reported completion for",
+      "style_marker": "temporal_precision",
+      "reason": "Anchors the identity measurement to Q3 and uses past tense for observed values.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Identity and Access › paragraph 2",
+      "before": "One caveat the assurance these statuses provide.",
+      "after": "One caveat limits the assurance these statuses provide.",
+      "style_marker": "grammar",
+      "reason": "Repairs a sentence without a verb so the caveat on identity assurance reads as a complete claim.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Identity and Access › paragraph 2",
+      "before": "If Irontrax ever wanted to move away from Security Defaults, these policies would need manually implemented.",
+      "after": "If Irontrax chose to move away from Security Defaults, these policies would need to be implemented manually.",
+      "style_marker": "grammar",
+      "reason": "Corrects the verb construction and states the dependency on Security Defaults in plain language.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Identity and Access › closing paragraph",
+      "before": "This ensures Irontrax’s environment is as secure as Microsoft controls suggest it is.",
+      "after": "This validation tests whether the environment is as secure as the Microsoft-reported statuses suggest.",
+      "style_marker": "significance_calibration",
+      "reason": "Removes an overclaim that validation 'ensures' security and states what the validation can establish.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › paragraph 1",
+      "before": "The sensitivity-label action carries a No licensing flag, which requires Microsoft Business Premium or above Enterprise level licensing for entitlement. Irontrax currently has Microsoft Business Standard, so the sensitivity-label action is currently unavailable, limiting Irontrax’s data protection capabilities.",
+      "after": "The sensitivity-label action carries a No licensing flag. Entitlement requires Microsoft Business Premium or above Enterprise level licensing. Irontrax held Microsoft Business Standard at the Q3 assessment, so the sensitivity-label action was unavailable, which limits Irontrax’s data protection capabilities.",
+      "style_marker": "temporal_precision",
+      "reason": "Splits a run-on sentence into one idea per sentence and replaces two undated 'currently' references with the Q3 assessment.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › paragraph 4",
+      "before": "Two related actions are Completed:",
+      "after": "Two related actions were Completed:",
+      "style_marker": "tense",
+      "reason": "Uses past tense for an observed quarterly status.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › paragraph 5",
+      "before": "each earn 1/1.",
+      "after": "each earned 1/1.",
+      "style_marker": "tense",
+      "reason": "Uses past tense for an observed quarterly score.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › closing paragraph",
+      "before": "Irontrax’s next step in this domain is to close the three continuing recommendations, enable common attachment filtering, review forwarding routes, implement active DLP for approved information types and locations, and review external calendar sharing and Teams restrictions. Each change should be tested and its exceptions documented.",
+      "after": "Irontrax should close the three continuing recommendations, enable common attachment filtering, review forwarding routes, implement active DLP for approved information types and locations, and review external calendar sharing and Teams restrictions. Together, these actions address the connected exposure described above, which is how information leaves Irontrax. Each change should be tested and its exceptions documented.",
+      "style_marker": "actionable_recommendations",
+      "reason": "Leads with the action and adds the rationale that links the actions to the connected data-egress exposure.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › paragraph 1",
+      "before": "There is no workload inventory, resource exposure, permissions relationships, or attack-path analysis.",
+      "after": "No workload inventory, resource exposure evidence, permissions relationships, or attack-path analysis was available.",
+      "style_marker": "complete_sentences",
+      "reason": "States the evidence gap in past tense as supporting context for the not-assessed conclusion.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain posture table › row: Identity & Access",
+      "before": "| Identity & Access | Strong Microsoft-reported baseline | Identity 96.72% (59/61); key MFA and legacy-authentication actions Completed. |",
+      "after": "| Identity & Access | Strong Microsoft-reported baseline | Identity scored 96.72% (59/61), and the key MFA and legacy-authentication actions were Completed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Turns a verbless metric fragment into a complete sentence while keeping the cited score and statuses.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain posture table › row: Data Protection",
+      "before": "| Data Protection | Requires control review | Data 0%; DLP To address at 0/5. Information-protection scope and label entitlement require review and implementation. |",
+      "after": "| Data Protection | Requires control review | Data scored 0%, and DLP was To address at 0/5. Information-protection scope and label entitlement require review and implementation. |",
+      "style_marker": "complete_sentences",
+      "reason": "Gives the metric shorthand a subject and verb so the narrative cell reads as a sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain posture table › row: Email & Collaboration",
+      "before": "| Email & Collaboration | Mixed control baseline | Apps 23.35%; completed email protections coexist with open Outlook, SharePoint, attachment, forwarding, calendar, and Teams actions. |",
+      "after": "| Email & Collaboration | Mixed control baseline | Apps scored 23.35%, and completed email protections coexist with open Outlook, SharePoint, attachment, forwarding, calendar, and Teams actions. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Replaces a semicolon-joined metric fragment with a complete sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain posture table › row: Detection & Operational Readiness",
+      "before": "| Detection & Operational Readiness | Limited assurance | Audit search is Completed, but mailbox auditing remains open. Operational monitoring and response effectiveness were not assessed. |",
+      "after": "| Detection & Operational Readiness | Limited assurance | Audit search was Completed, but mailbox auditing remained open. Operational monitoring and response effectiveness were not assessed. |",
+      "style_marker": "tense",
+      "reason": "Uses past tense for statuses observed during Q3.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain posture table › row: Cloud Workload & Attack Paths",
+      "before": "| Cloud Workload & Attack Paths | Not assessed | Workload inventory, resource exposure, and attack-path evidence was not available. |",
+      "after": "| Cloud Workload & Attack Paths | Not assessed | Workload inventory, resource exposure, and attack-path evidence were not available. |",
+      "style_marker": "grammar",
+      "reason": "Corrects subject-verb agreement for the three-item evidence-gap subject.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Domain Posture › Domain posture table › row: AI Agents & Generative AI",
+      "before": "| AI Agents & Generative AI | Not assessed | Evidence on AI agent inventory, usage, permissions, and AI-specific protections were not available. |",
+      "after": "| AI Agents & Generative AI | Not assessed | Evidence on AI agent inventory, usage, permissions, and AI-specific protections was not available. |",
+      "style_marker": "grammar",
+      "reason": "Corrects subject-verb agreement: the subject is the singular noun 'Evidence'.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Identity and Access › Identity control evidence table › row: Administrator MFA 10/10; all-user MFA 9/9, Completed",
+      "before": "| Administrator MFA 10/10; all-user MFA 9/9, Completed | 5.2.2.1; 5.2.2.2 | PR.AA-03 | User and Administrator authentication protection enabled and enforced |",
+      "after": "| Administrator MFA 10/10; all-user MFA 9/9, Completed | 5.2.2.1; 5.2.2.2 | PR.AA-03 | User and administrator authentication protection was enabled and enforced. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the missing verb and terminal punctuation to a verbless interpretation cell.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Identity and Access › Identity control evidence table › row: User-risk and sign-in-risk policies 7/7 each; SSPR All 1/1, Completed",
+      "before": "| User-risk and sign-in-risk policies 7/7 each; SSPR All 1/1, Completed | CIS not tested | PR.AA-03 | “Have license = No” accompanies these Completed statuses. Enabled due to Entra Security Defaults |",
+      "after": "| User-risk and sign-in-risk policies 7/7 each; SSPR All 1/1, Completed | CIS not tested | PR.AA-03 | The “Have license = No” flag accompanies these Completed statuses. Entra Security Defaults enabled and enforced these policies. |",
+      "style_marker": "complete_sentences",
+      "reason": "Replaces a verbless fragment with a sentence that names the cause of the enabled status.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › Data and collaboration control evidence table › row: SharePoint modern authentication 0/1, To address",
+      "before": "| SharePoint modern authentication 0/1, To address | 7.2.1 (Level 1) | PR.AA-03 | SharePoint-specific legacy-authentication setting does not close this action. Modern authentication to SharePoint must be enforced to complete this control. |",
+      "after": "| SharePoint modern authentication 0/1, To address | 7.2.1 (Level 1) | PR.AA-03 | The SharePoint-specific legacy-authentication setting does not close this action. Modern authentication to SharePoint must be enforced to complete this control. |",
+      "style_marker": "grammar",
+      "reason": "Adds the missing article so the sentence has a clear subject.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Active Recommendations › Active recommendations table › row: 1",
+      "before": "| 1 | 2024 Q2 | **Continuing Outlook and SharePoint hardening.** Complete the three continuing Outlook and SharePoint recommendations below. Managed IT should verify effective settings and retain test results. | 2026 Q3: All three remain To address; no supported resolution. |",
+      "after": "| 1 | 2024 Q2 | **Continuing Outlook and SharePoint hardening.** Complete the three continuing Outlook and SharePoint recommendations below. Managed IT should verify effective settings and retain test results. | In 2026 Q3, all three remained To address, and the evidence supported no resolution. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converts a semicolon-joined status fragment into a past-tense sentence anchored to 2026 Q3.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Active Recommendations › Active recommendations table › row: 2",
+      "before": "| 2 | 2026 Q3 | **Attachment filtering and forwarding control.** Enable and test common attachment filtering. Review external forwarding routes and document narrowly scoped business exceptions. | Open: filter 0/5 and forwarding block 0/5 |",
+      "after": "| 2 | 2026 Q3 | **Attachment filtering and forwarding control.** Enable and test common attachment filtering. Review external forwarding routes and document narrowly scoped business exceptions. | The filter and forwarding block actions remained open at 0/5 each. |",
+      "style_marker": "complete_sentences",
+      "reason": "Replaces a label-and-score fragment with a complete status sentence carrying the same scores.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Active Recommendations › Active recommendations table › row: 3",
+      "before": "| 3 | 2026 Q3 | **External calendar and Teams meeting restrictions.** Review external calendar sharing and Teams admission, presenter, and anonymous-join restrictions. Test legitimate guest workflows before enforcement. | Open: calendar 0/5; Teams actions 0/2, 0/2, and 0/1 |",
+      "after": "| 3 | 2026 Q3 | **External calendar and Teams meeting restrictions.** Review external calendar sharing and Teams admission, presenter, and anonymous-join restrictions. Test legitimate guest workflows before enforcement. | The calendar sharing action remained open at 0/5, and the Teams actions remained open at 0/2, 0/2, and 0/1. |",
+      "style_marker": "complete_sentences",
+      "reason": "Replaces a semicolon-joined fragment with a complete status sentence carrying the same scores.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Active Recommendations › Active recommendations table › row: 4",
+      "before": "| 4 | 2026 Q3 | **Mailbox audit validation.** Validate mailbox audit activities, populations, and bypass settings. Demonstrate retrieval of representative events. | Open: mailbox auditing 0/3; flagged licensed. Audit search separately Completed. |",
+      "after": "| 4 | 2026 Q3 | **Mailbox audit validation.** Validate mailbox audit activities, populations, and bypass settings. Demonstrate retrieval of representative events. | The mailbox auditing action remained open at 0/3 and was flagged licensed. Audit search was separately Completed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Gives each status clause a subject and verb and keeps the distinction between mailbox auditing and audit search.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › CIS recommendations table › row: 6.5.3",
+      "before": "| 6.5.3 | **Restrict Additional Storage Providers in OWA** | Level 2. Set AdditionalStorageProvidersAvailable to False in the default OWA mailbox policy. Verify effective assignments to restrict unapproved external storage. | Identified 2024 Q2. Q3: To address, 0/5. Prior investigation and Q2 stabilization do not confirm implementation. |",
+      "after": "| 6.5.3 | **Restrict Additional Storage Providers in OWA** | Level 2. Set AdditionalStorageProvidersAvailable to False in the default OWA mailbox policy. Verify effective assignments to restrict unapproved external storage. | Identified 2024 Q2. In Q3, the action was To address at 0/5. Prior investigation and Q2 stabilization do not confirm implementation. |",
+      "style_marker": "complete_sentences",
+      "reason": "Replaces a verbless quarter-status fragment with a sentence anchored to Q3.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › CIS recommendations table › row: 6.3.1",
+      "before": "| 6.3.1 | **Ensure Installing Outlook Add-Ins Is Not Allowed** | Level 2. Centrally deploy approved add-ins, then remove My Custom Apps, My Marketplace Apps, and My ReadWriteMailbox Apps from the default role assignment policy. Reconfirm any required Salesforce integration. | Identified 2024 Q2. Q3: To address, 0/3. Preserve approved integrations through administrator deployment. |",
+      "after": "| 6.3.1 | **Ensure Installing Outlook Add-Ins Is Not Allowed** | Level 2. Centrally deploy approved add-ins, then remove the custom apps, marketplace apps, and ReadWriteMailbox apps entries from the default role assignment policy. Reconfirm any required Salesforce integration. | Identified 2024 Q2. In Q3, the action was To address at 0/3. Approved integrations should be preserved through administrator deployment. |",
+      "style_marker": "banned_patterns",
+      "reason": "Restates three Microsoft role-assignment names without the 'My' prefix, which the first-person pattern scan flags, and converts the status fragment into sentences.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › CIS recommendations table › row: 7.2.1",
+      "before": "| 7.2.1 | **Ensure Modern Authentication for SharePoint Applications Is Required** | Level 1. Set LegacyAuthProtocolsEnabled to False, or Block access for apps without modern authentication. Test legitimate SharePoint application access independently of identity and Exchange protections. | Identified 2024 Q2. Q3: To address, 0/1. No confirmed closure. |",
+      "after": "| 7.2.1 | **Ensure Modern Authentication for SharePoint Applications Is Required** | Level 1. Set LegacyAuthProtocolsEnabled to False, or Block access for apps without modern authentication. Test legitimate SharePoint application access independently of identity and Exchange protections. | Identified 2024 Q2. In Q3, the action was To address at 0/1, and no closure was confirmed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Replaces verbless status fragments with a sentence anchored to Q3.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › CIS recommendations table › row: 2.1.2; 3.2.1",
+      "before": "| 2.1.2; 3.2.1 | **Enable Common Attachment Filtering and Active DLP Coverage** | Level 1. Enable common attachment filtering in the default anti-malware policy, retaining required extensions and scoped exceptions. Implement active DLP with appropriate information types, locations, and tested enforcement. | Emphasized in Q3. Each action To address, 0/5; flagged licensed. Prior configuration and onset were not established. |",
+      "after": "| 2.1.2; 3.2.1 | **Enable Common Attachment Filtering and Active DLP Coverage** | Level 1. Enable common attachment filtering in the default anti-malware policy, retaining required extensions and scoped exceptions. Implement active DLP with appropriate information types, locations, and tested enforcement. | Emphasized in Q3. Each action was To address at 0/5 and flagged licensed. Prior configuration and onset were not established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Gives the status clause a subject and verb and removes the semicolon-joined fragment.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › conclusion paragraph (assembled from existing section statements)",
+      "before": "",
+      "after": "Endpoint and vulnerability exposure therefore remains unassessed for Q3, and the cloud control baseline cannot stand in for device-level evidence. Until device inventory, endpoint coverage, and vulnerability evidence are provided, no assurance conclusion about device exposure is supported.",
+      "style_marker": "template_structure",
+      "reason": "Supplies the template's closing paragraph for the section by restating conclusions already drawn in the section, without adding a new fact.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Domain Posture › Domain posture table",
+      "purpose": "Posture indicator and interpretation for each of the eight assessment domains.",
+      "rows": 8,
+      "rows_edited": 6
+    },
+    {
+      "location": "Identity and Access › Identity control evidence table",
+      "purpose": "Identity control evidence mapped to CIS Microsoft 365 Benchmark and NIST CSF 2.0 references.",
+      "rows": 5,
+      "rows_edited": 2
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Exposure level table",
+      "purpose": "High, Medium, and Low exposure counts for 2026 Q1 through Q3 (all recorded as not available).",
+      "rows": 3,
+      "rows_edited": 0
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Endpoint control evidence table",
+      "purpose": "Endpoint and vulnerability evidence gaps with interpretation.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Data Protection and Collaboration › Data and collaboration control evidence table",
+      "purpose": "Data, email, and collaboration control evidence mapped to CIS and NIST references.",
+      "rows": 5,
+      "rows_edited": 1
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Workload evidence table",
+      "purpose": "Cloud workload evidence gaps with interpretation.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › AI evidence table",
+      "purpose": "AI agent and generative AI evidence gaps with interpretation.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Security Awareness call-out",
+      "purpose": "Security Awareness call-out box (exempt from rewriting; carried forward verbatim).",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Active Recommendations › Active recommendations table",
+      "purpose": "Prioritized active recommendations with identification quarter and status.",
+      "rows": 4,
+      "rows_edited": 4
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › CIS recommendations table",
+      "purpose": "CIS-referenced configuration recommendations with description and status.",
+      "rows": 4,
+      "rows_edited": 4
+    },
+    {
+      "location": "Recommendation History › CIS Recommendations › CIS history table",
+      "purpose": "History of CIS recommendations addressed in prior assessments.",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommendation History › Advisory Recommendations › Advisory history table",
+      "purpose": "History of advisory recommendations addressed in prior assessments.",
+      "rows": 2,
+      "rows_edited": 0
+    }
+  ],
+  "observations": [
+    {
+      "location": "Identity and Access › Identity control evidence table",
+      "type": "total_reconciliation",
+      "detail": "The itemized control points sum to 58 earned (10 + 9 + 8 + 4 + 1 + 7 + 7 + 1 + 3 + 8) and 58 available, while the reported Identity score is 59/61. One earned point and two unearned points are not itemized in the table. The draft was not corrected.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Data Protection and Collaboration › closing paragraph",
+      "type": "cross_reference",
+      "detail": "The paragraph says the listed actions correspond to Active Recommendations 1 through 4, but the implement-active-DLP action does not appear in any of Active Recommendations 1 through 4. DLP appears only in the CIS recommendations table (2.1.2; 3.2.1). The Executive Summary also counts DLP among six newly emphasized controls.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › closing paragraph",
+      "type": "cross_reference",
+      "detail": "The paragraph says the awareness guidance in this report addresses verification of impersonation attempts. The Security Awareness call-out addresses cloud misconfigurations and shadow APIs. Impersonation verification is recorded as Q1 advisory guidance in Recommendation History. The paragraph was left unchanged.",
+      "action_required": "correct in draft"
+    },
+    {
+      "location": "Data Protection and Collaboration › paragraph 1 vs Posture Summary",
+      "type": "cross_reference",
+      "detail": "Paragraph 1 states that Irontrax holds Microsoft Business Standard and that the sensitivity-label action is unavailable. Posture Summary states that license flags are not independently verified entitlements, and no licensing evidence for Business Standard is cited. The phrase 'Business Premium or above Enterprise level licensing' is also ambiguous. Wording was preserved.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Identity, Data Protection, Endpoint, Workload, and AI evidence tables",
+      "type": "terminology",
+      "detail": "Evidence-status wording varies across tables: 'CIS not tested' (Identity), 'Exact CIS configuration not assessed' (Data Protection), and 'Not assessed' (Endpoint, Workload, AI). The draft does not establish whether these mean different things, so the wording was kept.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Active Recommendations; CIS Microsoft 365 Foundation Benchmark; Recommendation History",
+      "type": "terminology",
+      "detail": "Open items are described as 'To address' (Microsoft status), 'Open' (Action and Status columns), and 'open' (prose). Licensing is described as 'flagged licensed' in some places and 'Have license' Yes/No in others. Terms were kept as drafted.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Active Recommendations and CIS Microsoft 365 Foundation Benchmark › Identified and Status columns",
+      "type": "template_deviation",
+      "detail": "The template requires 'YYYY.QQ' in the Identified column and 'MM.DD.YYYY - <STATUS DESCRIPTION>' in the Status column. The draft supplies quarter labels such as '2024 Q2' and no per-item status dates, so the draft values were retained.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Executive Summary and section introductions",
+      "type": "template_deviation",
+      "detail": "The draft Executive Summary omits the template's two standard introductory paragraphs, and the introductions to Key Risk Themes, Domain Posture, Security Signal Review, and Recommended Security Actions replace the template's standard wording with report-specific text. Key Risk Themes is a bulleted list where the template shows plain '<THEME>.  <DESCRIPTION>' paragraphs.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › conclusion",
+      "type": "template_deviation",
+      "detail": "The template calls for a conclusion paragraph in this section and the draft had none. A closing paragraph was assembled only from conclusions already stated in the section (unassessed exposure; the cloud control baseline cannot be used to infer device status). No new fact was added.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "CIS Microsoft 365 Foundation Benchmark › row: 6.3.1",
+      "type": "terminology",
+      "detail": "The draft cites the Microsoft role names 'My Custom Apps', 'My Marketplace Apps', and 'My ReadWriteMailbox Apps'. The deterministic first-person scan flags the word 'My', so the role names were restated as 'custom apps, marketplace apps, and ReadWriteMailbox apps entries'. The original names and the same CIS reference (6.3.1) are in the draft.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Document › conversion structure",
+      "type": "template_deviation",
+      "detail": "The converted draft carried page-boundary markers, empty table header rows, and tables split across page breaks. These were normalized into single tables with a header row and separator. No cell content was changed by the normalization.",
+      "action_required": "accept deviation"
+    }
+  ]
+}

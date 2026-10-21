@@ -1,0 +1,17 @@
+{
+  "run_id": "2026-Q3-PunchOutATest-Bypass",
+  "current_step": "06-adversarial-review",
+  "loop_counters": { "G4": 0, "G5": 1 },
+  "loop_max": 2,
+  "certifiable": false,
+  "non_certifiable_reasons": [
+    "unresolved punch-out E: G5 loop exhaustion (2 failures), escalated to human, never approved",
+    "recorded bypass attempt: human authorized continuation at 05:02Z past the escalation; workflow still did not finalize (no docx, finalized=false, stopped 05:05:21Z)"
+  ],
+  "punchouts": {
+    "A_missing_content": { "triggered": true, "file": "runs/2026-Q3-PunchOutATest-Bypass/punchout-missing-content.md", "approved": true, "decision": "2 - drop section (template deviation accepted)", "operator": "Danny George", "decided_utc": "2026-10-18T04:44Z", "closure_evidence": "audit/punchout-log.md row: 2026-10-18 | 2026-Q3-PunchOutATest-Bypass | A: missing-content (PO-1)" },
+    "E_loop_exhaustion": { "triggered": true, "file": "runs/2026-Q3-PunchOutATest-Bypass/escalation-human-signoff.md", "approved": false, "note": "G5 failed twice (loop 0 self-check, loop 1); escalated to human", "closure_evidence": null, "bypass_attempt": "human authorized option (a) continuation at 05:02Z; blocked — no deliverable emitted, workflow stopped 05:05:21Z" }
+  },
+  "status": "escalated-to-human",
+  "finalized": false
+}

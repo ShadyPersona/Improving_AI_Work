@@ -5,6 +5,8 @@ description: Authoritative instructions for running the tone-assessmentV2 workfl
 
 # tone-assessmentV2 — Orchestrator Instructions
 
+> **Execution note:** the workflow is executed by `harness.py` (`python harness.py run --run-id <id>`), which drives the state machine, runs the deterministic G4/G5 gates, writes all audit records, and invokes each step through the agent. This file remains the authoritative behavioral spec for what each step does.
+
 You are running a two-step security-assessment synthesis workflow. This file
 is the authoritative definition. If companion files exist
 (`WORKFLOW.md`, `.github/skills/05-tone-consistency/SKILL.md`,
@@ -113,7 +115,7 @@ and template before proceeding.
    `certifiable: false` with the reason in `non_certifiable_reasons`, halt,
    and ask the human to decide: provide content / drop section / defer.
    No continuation while unapproved — the only unblock is a
-   `punchout-log.md` row for this `run_id` (decision, resolved by, resolved
+   `punchout-<run-id>.md` row for this `run_id` (decision, resolved by, resolved
    at); `certifiable` may be restored only by citing that row. Any bypass
    attempt makes the run permanently non-certifiable. `certifiable` also
    flips `false` when G4 or G5 reaches `loop_max`.
@@ -179,14 +181,14 @@ and template before proceeding.
    analytical synthesis (a log of only `template_structure`/
    `professional_tone` fails — it means no real rewrite happened).
 4. **Certifiability & punch-out closure (two-key):** every `triggered:
-   true` punch-out has `approved: true` AND a `punchout-log.md` row for
+   true` punch-out has `approved: true` AND a `punchout-<run-id>.md` row for
    the same `run_id` (human decision, resolved by, resolved at). A flag
    without the log row is a self-granted approval = G5 hard fail. A
    recorded bypass attempt is permanently non-certifiable. Any
    `certifiable: false` without closure evidence = G5 hard fail, no
    finalization.
 
-**On any G5 failure:** state `G5 failure` and the specific check. Before looping back or escalating, append a failure record to `audit/success-log.md` and a final step record to `audit/run-YYYYMMDD.jsonl` with `guardrail_inbound: {"id": "G5", "result": "fail"}` and `finalized: false`. Then loop back to Step 05 once. If G5 fails twice, escalate to the human.
+**On any G5 failure:** state `G5 failure` and the specific check. Before looping back or escalating, append a failure record to `audit/success-<run-id>.md` and a final step record to `audit/run-<run-id>.jsonl` with `guardrail_inbound: {"id": "G5", "result": "fail"}` and `finalized: false`. Then loop back to Step 05 once. If G5 fails twice, escalate to the human.
 
 **On G5 pass:**
 - Assemble `toned.md` into the final deliverable using the template's
@@ -194,11 +196,11 @@ and template before proceeding.
 - Write `audit-report.md`: steps executed, G4/G5 results, punch-outs
   raised/resolved, tone-change statistics by `style_marker` and
   `assessment_function`, and end-to-end outcome.
-- Append to `success-log.md`: `| date | run id | result | punch-outs | iterations | notes |`.
-- Append step records to `run-YYYYMMDD.jsonl` with model, input/output
+- Append to `success-<run-id>.md`: `| date | run id | result | punch-outs | iterations | notes |`.
+- Append step records to `run-<run-id>.jsonl` with model, input/output
   hashes, tokens, cost, and `guardrail_inbound` result.
 
-**Logging is mandatory.** A run is not complete until both `audit/success-log.md` and `audit/run-YYYYMMDD.jsonl` have been updated. If the logging step is missed, fail the run and report which log is missing.
+**Logging is mandatory.** A run is not complete until both `audit/success-<run-id>.md` and `audit/run-<run-id>.jsonl` have been updated. If the logging step is missed, fail the run and report which log is missing.
 
 ## Reporting contract
 

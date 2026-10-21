@@ -1,0 +1,11 @@
+{
+  "run_id": "2026-Q3-IRONTRAX",
+  "current_step": "complete",
+  "loop_counters": { "G4": 0, "G5": 1 },
+  "loop_max": 2,
+  "punchouts": {
+    "A_missing_content": { "triggered": false, "file": "audit/punchout-missing-content.md", "approved": false },
+    "E_loop_exhaustion": { "triggered": false, "file": "audit/punchout-log.md", "approved": false }
+  },
+  "status": "finalized"
+}

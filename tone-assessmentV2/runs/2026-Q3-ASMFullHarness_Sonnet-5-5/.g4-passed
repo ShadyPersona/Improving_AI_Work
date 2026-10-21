@@ -1,0 +1,8 @@
+{
+  "gate": "G4",
+  "run_id": "2026-Q3-ASMFullHarness_Sonnet-5-5",
+  "hashes": {
+    "draft": "21ff166722ac2bb6f45107dd4c123a21a62c97b8be0d55db6e645bc47e32e24a",
+    "template": "bc452ab9ca8ad88fdcb78e03bd20848435a3dccb08351b65f92ae4c1e35bdd67"
+  }
+}

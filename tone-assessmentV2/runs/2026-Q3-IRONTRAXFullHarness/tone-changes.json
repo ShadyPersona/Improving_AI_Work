@@ -1,0 +1,480 @@
+{
+  "certifiable": true,
+  "changes": [
+    {
+      "location": "Executive Summary › paragraph 1",
+      "before": "Irontrax’s Q3 assessment continues the findings and historical context reported in Q1 and Q2, using the current Microsoft Secure Score indicators and recommended-action statuses as the observable baseline. The review covers Microsoft-reported identity, data, email, and collaboration controls. Endpoint, vulnerability, cloud workload, AI, and incident-response evidence were not available, so those domains remain unassessed rather than being presumed secure or unchanged.",
+      "after": "Irontrax’s Q3 assessment extends the findings and historical context reported in Q1 and Q2. It uses the current Microsoft Secure Score indicators and recommended-action statuses as the observable baseline, covering Microsoft-reported identity, data, email, and collaboration controls. Endpoint, vulnerability, cloud workload, AI, and incident-response evidence were not available, so those domains remain unassessed rather than presumed secure or unchanged.",
+      "style_marker": "narrative",
+      "reason": "Separates the scope statement from the baseline description so the paragraph states its scope before the evidence limits.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary › paragraph 2",
+      "before": "Microsoft Secure Score is 39.33%, with 105 of 267 available points, compared with 38.6% and 105 of 272 points in both prior assessments. The 0.73 percentage-point increase reflects a smaller available-point denominator, not additional earned points or demonstrated remediation. Identity remains the strongest scored category at 96.72%; Data remains at 0% and Apps at 23.35%. These indicators help prioritize configuration review but do not establish overall risk maturity or framework compliance.",
+      "after": "The Q3 Microsoft Secure Score is 39.33%, with 105 of 267 available points, compared with 38.6% (105 of 272 points) in both prior assessments. The 0.73 percentage-point increase results from a smaller available-point denominator. It reflects no additional earned points and no demonstrated remediation. Identity remains the strongest scored category at 96.72%, while Data remains at 0% and Apps at 23.35%. These indicators help prioritize configuration review. They do not establish overall risk maturity or framework compliance.",
+      "style_marker": "significance_calibration",
+      "reason": "Leads with the supported score conclusion and states the movement as a denominator effect with no earned change, one claim per sentence.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary › paragraph 3",
+      "before": "The primary Q3 concern is the continuing gap between Microsoft-reported identity protection and the less complete data and collaboration control baseline. The three recommendations first identified in 2024-Q2 remain open: restricting additional storage providers in Outlook on the web, preventing user installation of Outlook add-ins, and requiring modern authentication for SharePoint applications. Current action statuses support retaining these recommendations, but do not establish that no remediation work has occurred.",
+      "after": "The primary Q3 concern is the continuing gap between strong Microsoft-reported identity protection and a less complete data and collaboration control baseline. The three recommendations first identified in 2024-Q2 remain open: restricting additional storage providers in Outlook on the web, preventing user installation of Outlook add-ins, and requiring modern authentication for SharePoint applications. The current action statuses support retaining these recommendations. They do not establish that no remediation work has occurred.",
+      "style_marker": "sentence_discipline",
+      "reason": "Splits the comma-joined support and limitation into separate sentences so the retention conclusion and its qualification are each stated once.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary › paragraph 4",
+      "before": "The current review also brings attention to common attachment filtering, data loss prevention, mail forwarding restrictions, mailbox auditing, external calendar sharing, and Teams meeting controls. These are newly emphasized in this assessment, not proven to have first arisen during Q3. No prior recommendation can be confirmed resolved, and the essentially flat Q3 score trends do not support a conclusion of major gains or regressions.",
+      "after": "This review also emphasizes common attachment filtering, data loss prevention, mail forwarding restrictions, mailbox auditing, external calendar sharing, and Teams meeting controls. These items are newly emphasized in this assessment; the evidence does not show that they first arose in Q3. No prior recommendation can be confirmed resolved. The essentially flat Q3 score trends do not support a conclusion of major gains or regressions.",
+      "style_marker": "temporal_precision",
+      "reason": "Makes the Q3 timing qualification explicit and separates the no-resolution finding from the trend conclusion.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Posture Summary",
+      "before": "Of 69 recommended actions, Microsoft reports 28 Completed and 41 To address. Among the open actions, 22 carry a Have license value of Yes and 19 a value of No. These flags are not independently verified entitlements: some advanced controls have inconsistent flags across completed and pending actions. Peer scores of 46.8% overall and 60.9% for identity provide comparison context only, not an assurance standard or a reliable measure of Irontrax’s risk maturity.",
+      "after": "Microsoft reports 28 of 69 recommended actions as Completed and 41 as To address, so most recommended actions remain open. Among the open actions, 22 carry a Have license value of Yes and 19 a value of No. These flags are not independently verified entitlements, and some advanced controls show inconsistent flags across completed and pending actions. Peer scores of 46.8% overall and 60.9% for identity provide comparison context only. They are not an assurance standard or a reliable measure of Irontrax’s risk maturity.",
+      "style_marker": "assessment_first",
+      "reason": "Leads with the open-action condition, then the entitlement qualification, then the peer-comparison limit.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Control Movement and Baseline Changes › paragraph 1",
+      "before": "Q1 and Q2 each reported 38.6% overall (105/272), 89.39% Identity, 0% Data, and 23.35% Apps. Q3 reports 39.33% overall (105/267), 96.72% Identity, 0% Data, and 23.35% Apps. Identity is 7.33 percentage points higher and currently earns 59/61 points, but no comparable prior identity point breakdown or control-by-control baseline is available to attribute that increase to specific remediation. The July–September trends are essentially flat. Neither the unchanged earned total nor a flat trend establishes that no security changes occurred.",
+      "after": "Identity rose from 89.39% in Q1 and Q2 to 96.72% in Q3, a 7.33 percentage-point increase, and now earns 59 of 61 points. No comparable prior identity point breakdown or control-by-control baseline is available, so the increase cannot be attributed to a specific remediation. Overall scores were 38.6% (105/272) in Q1 and Q2 and 39.33% (105/267) in Q3, with Data at 0% and Apps at 23.35% in all three quarters. The July–September trends are essentially flat. Neither the unchanged earned total nor the flat trend establishes that no security changes occurred.",
+      "style_marker": "temporal_precision",
+      "reason": "Leads with the identity movement and its attribution limit, replacing the vague 'currently' with the quarter-anchored Q3 scores.",
+      "assessment_function": "quarter_movement",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › paragraph 1",
+      "before": "Identity Secure Score is 96.72%, with 59 of 61 points earned. Microsoft reports completion for administrator MFA, all-user MFA, legacy authentication blocking, application-consent restriction, and Exchange modern authentication. These signals support a comparatively strong identity control baseline within the scored scope, while leaving effective coverage and exclusions subject to validation.",
+      "after": "Identity is the strongest scored area. Identity Secure Score is 96.72%, with 59 of 61 points earned. Microsoft reports completion for administrator MFA, all-user MFA, legacy authentication blocking, application-consent restriction, and Exchange modern authentication. These signals support a comparatively strong identity control baseline within the scored scope. Effective coverage and exclusions remain subject to validation.",
+      "style_marker": "assessment_first",
+      "reason": "States the identity conclusion before the score and separates the validation limit into its own sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › paragraph 2",
+      "before": "Q1 and Q2 described Entra Security Defaults as the identity baseline; the current evidence does not independently confirm the enabled setting or establish the mechanism behind each completed action. User- and sign-in-risk policies and all-user self-service password reset also appear Completed, despite No licensing flags. Managed IT should reconcile those statuses with actual entitlement and effective policy configuration before relying on them as assurance.",
+      "after": "Q1 and Q2 described Entra Security Defaults as the identity baseline. The current evidence does not independently confirm the enabled setting or establish the mechanism behind each completed action. User- and sign-in-risk policies and all-user self-service password reset also appear Completed, although their licensing flags are No. Managed IT should reconcile those statuses with actual entitlement and effective policy configuration before relying on them as assurance.",
+      "style_marker": "sentence_discipline",
+      "reason": "Splits the semicolon-joined history and evidence statements and replaces the fragmentary licensing clause with a full clause.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › paragraph 1",
+      "before": "Data remains at 0% and Apps at 23.35%, matching Q1 and Q2. Microsoft identifies DLP as To address at 0/5 points. The sensitivity-label action carries a No licensing flag, which requires entitlement validation rather than an assumption that all data protection is absent. These scores identify a Microsoft-native control gap without establishing the complete extent of Irontrax’s information protection.",
+      "after": "The Q3 evidence identifies a Microsoft-native data protection gap. Data remains at 0% and Apps at 23.35%, matching Q1 and Q2. Microsoft identifies DLP as To address at 0/5 points. The sensitivity-label action carries a No licensing flag, so entitlement requires validation before the absence of data protection is assumed. These scores identify a Microsoft-native control gap without establishing the full extent of Irontrax’s information protection.",
+      "style_marker": "client_significance",
+      "reason": "Leads with the data protection conclusion and states the entitlement qualification as a consequence rather than a rationale clause.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › paragraph 2",
+      "before": "The continuing OWA storage, Outlook add-in, and SharePoint modern-authentication actions remain To address at 0/5, 0/3, and 0/1 points respectively, each flagged licensed. The OWA investigation was requested in 2024-Q3; Q2 noted that earlier score fluctuations had stopped but implementation was incomplete. The add-in review should preserve approved business integrations: the earlier Salesforce Outlook integration is historical context, not a confirmed current inventory.",
+      "after": "The continuing OWA storage, Outlook add-in, and SharePoint modern-authentication actions remain To address at 0/5, 0/3, and 0/1 points, respectively, and each is flagged licensed. The OWA investigation was requested in 2024-Q3. Q2 noted that earlier score fluctuations had stopped, but implementation was incomplete. The add-in review should preserve approved business integrations. The earlier Salesforce Outlook integration is historical context, not a confirmed current inventory.",
+      "style_marker": "cadence",
+      "reason": "Separates the investigation history, the stabilization qualification, and the integration recommendation into single-claim sentences.",
+      "assessment_function": "historical_context",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › Identity & Access",
+      "before": "| Identity & Access | Strong Microsoft-reported baseline | Identity 96.72% (59/61); key MFA and legacy-authentication actions Completed. Effective coverage and the current Security Defaults setting were not independently verified. |",
+      "after": "| Identity & Access | Strong Microsoft-reported baseline | Identity is 96.72% (59/61), with key MFA and legacy-authentication actions Completed. Effective coverage and the current Security Defaults setting were not independently verified. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converts the metric fragment into a full clause while keeping the reported score unchanged.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › Endpoint Security",
+      "before": "| Endpoint Security | Not assessed | Device inventory, onboarding, endpoint protection, and coverage evidence not provided. |",
+      "after": "| Endpoint Security | Not assessed | Device inventory, onboarding, endpoint protection, and coverage evidence were not provided. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › Vulnerability Management",
+      "before": "| Vulnerability Management | Not assessed | No vulnerability, affected-device, exposure, or exploitability detail available. |",
+      "after": "| Vulnerability Management | Not assessed | No vulnerability, affected-device, exposure, or exploitability detail was available. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › Data Protection",
+      "before": "| Data Protection | Requires control review | Data 0%; DLP To address at 0/5. Information-protection scope and label entitlement require validation. |",
+      "after": "| Data Protection | Requires control review | Data is 0%, and DLP is To address at 0/5. Information-protection scope and label entitlement require validation. |",
+      "style_marker": "complete_sentences",
+      "reason": "Replaces the semicolon-joined metric list with a full clause while leaving every score unchanged.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › Email & Collaboration",
+      "before": "| Email & Collaboration | Mixed control baseline | Apps 23.35%; completed email protections coexist with open Outlook, SharePoint, attachment, forwarding, calendar, and Teams actions. |",
+      "after": "| Email & Collaboration | Mixed control baseline | Apps is at 23.35%. Completed email protections coexist with open Outlook, SharePoint, attachment, forwarding, calendar, and Teams actions. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Splits the semicolon-joined metric and finding into two complete sentences.",
+      "assessment_function": "cross_signal_synthesis",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › Detection & Operational Readiness",
+      "before": "| Detection & Operational Readiness | Limited assurance | Audit search Completed, mailbox auditing open. Operational monitoring and response effectiveness not assessed. |",
+      "after": "| Detection & Operational Readiness | Limited assurance | Audit search is Completed, and mailbox auditing remains open. Operational monitoring and response effectiveness were not assessed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converts the comma-joined status fragment into complete sentences and states the open item as remaining open.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › Cloud Workload & Attack Paths",
+      "before": "| Cloud Workload & Attack Paths | Not assessed | Workload inventory, resource exposure, and attack-path evidence not available. |",
+      "after": "| Cloud Workload & Attack Paths | Not assessed | Workload inventory, resource exposure, and attack-path evidence were not available. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › AI Agents & Generative AI",
+      "before": "| AI Agents & Generative AI | Not assessed | AI agent inventory, usage, permissions, and AI-specific protections not available. |",
+      "after": "| AI Agents & Generative AI | Not assessed | AI agent inventory, usage, permissions, and AI-specific protections were not available. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › row: Administrator MFA 10/10; all-user MFA 9/9, Completed",
+      "before": "| Administrator MFA 10/10; all-user MFA 9/9, Completed | 5.2.2.1; 5.2.2.2 | PR.AA-03 | Supports authentication protection; exact policy coverage and exclusions are not independently audited. |",
+      "after": "| Administrator MFA 10/10; all-user MFA 9/9, Completed | 5.2.2.1; 5.2.2.2 | PR.AA-03 | Supports authentication protection. Exact policy coverage and exclusions were not independently audited. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Splits the semicolon-joined interpretation into a supported conclusion and its audit limitation.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › row: Legacy authentication blocking 8/8, Completed",
+      "before": "| Legacy authentication blocking 8/8, Completed | 5.2.2.3 | PR.AA-03 | Positive identity signal; does not establish the separate SharePoint modern-authentication setting. |",
+      "after": "| Legacy authentication blocking 8/8, Completed | 5.2.2.3 | PR.AA-03 | This is a positive identity signal. It does not establish the separate SharePoint modern-authentication setting. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converts the fragment into a complete sentence and states the calibration limit as a separate claim.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › row: User-risk and sign-in-risk policies 7/7 each; SSPR All 1/1, Completed",
+      "before": "| User-risk and sign-in-risk policies 7/7 each; SSPR All 1/1, Completed | CIS not tested | PR.AA-03 | “Have license = No” accompanies these Completed statuses; reconcile entitlement and effective policies before relying on them. |",
+      "after": "| User-risk and sign-in-risk policies 7/7 each; SSPR All 1/1, Completed | CIS not tested | PR.AA-03 | The “Have license = No” flag accompanies these Completed statuses. Reconcile entitlement and effective policies before relying on them. |",
+      "style_marker": "active_framing",
+      "reason": "Makes the licensing flag the subject of its sentence and separates the action from the observation.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › row: Exchange modern authentication 3/3; password non-expiration 8/8, Completed",
+      "before": "| Exchange modern authentication 3/3; password non-expiration 8/8, Completed | CIS not tested | PR.AA-03 | Microsoft-reported configuration signals, not a complete review of authentication methods or password security. |",
+      "after": "| Exchange modern authentication 3/3; password non-expiration 8/8, Completed | CIS not tested | PR.AA-03 | These are Microsoft-reported configuration signals. They do not constitute a complete review of authentication methods or password security. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converts the verbless fragment into complete sentences that state what the signals do and do not prove.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › row: Exposure scores and severity distribution — not provided",
+      "before": "| Exposure scores and severity distribution — not provided | Not assessed | Not assessed | No exposure metrics; no numerical comparison can be made. |",
+      "after": "| Exposure scores and severity distribution — not provided | Not assessed | Not assessed | No exposure metrics were provided, so no numerical comparison can be made. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Converts the semicolon-joined fragment into a subject-verb sentence with the consequence stated explicitly.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › row: Patch and remediation progress — not provided",
+      "before": "| Patch and remediation progress — not provided | Not assessed | Not assessed | No remediation records; no closure or exposure reduction is asserted. |",
+      "after": "| Patch and remediation progress — not provided | Not assessed | Not assessed | No remediation records were provided, so no closure or exposure reduction is asserted. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Converts the semicolon-joined fragment into a subject-verb sentence with the consequence stated explicitly.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › row: DLP 0/5; common attachment filter 0/5, To address",
+      "before": "| DLP 0/5; common attachment filter 0/5, To address | 3.2.1; 2.1.2 (Level 1) | PR.DS-01; PR.DS-02; PR.PS-01 | Review active DLP coverage and default anti-malware filtering. Outcomes are relevant; effective protection is not proven. |",
+      "after": "| DLP 0/5; common attachment filter 0/5, To address | 3.2.1; 2.1.2 (Level 1) | PR.DS-01; PR.DS-02; PR.PS-01 | Review active DLP coverage and default anti-malware filtering. These settings do not prove effective protection. |",
+      "style_marker": "significance_calibration",
+      "reason": "Replaces the vague 'outcomes are relevant' phrase with a calibrated statement of what the settings do and do not prove.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › row: Cloud resource inventory — not provided",
+      "before": "| Cloud resource inventory — not provided | Not assessed | Not assessed | Resources and business scope not established. |",
+      "after": "| Cloud resource inventory — not provided | Not assessed | Not assessed | Resources and business scope were not established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › row: Workload protection and configuration — not provided",
+      "before": "| Workload protection and configuration — not provided | Not assessed | Not assessed | Workload-specific protection and posture not assessed. |",
+      "after": "| Workload protection and configuration — not provided | Not assessed | Not assessed | Workload-specific protection and posture were not assessed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › row: Public exposure — not provided",
+      "before": "| Public exposure — not provided | Not assessed | Not assessed | No resource exposure evidence available. |",
+      "after": "| Public exposure — not provided | Not assessed | Not assessed | No resource exposure evidence was available. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › row: Permissions and attack paths — not provided",
+      "before": "| Permissions and attack paths — not provided | Not assessed | Not assessed | No permissions relationships or attack-path analysis available. |",
+      "after": "| Permissions and attack paths — not provided | Not assessed | Not assessed | No permissions relationships or attack-path analysis was available. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › row: Workload remediation history — not provided",
+      "before": "| Workload remediation history — not provided | Not assessed | Not assessed | No supported workload change or resolution milestone. |",
+      "after": "| Workload remediation history — not provided | Not assessed | Not assessed | No supported workload change or resolution milestone was available. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › row: AI service and agent inventory — not provided",
+      "before": "| AI service and agent inventory — not provided | Not assessed | Not assessed | Approved or unapproved AI services and agents not established. |",
+      "after": "| AI service and agent inventory — not provided | Not assessed | Not assessed | Approved or unapproved AI services and agents were not established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › row: AI adoption and usage — not provided",
+      "before": "| AI adoption and usage — not provided | Not assessed | Not assessed | Usage scope and business workflows not established. |",
+      "after": "| AI adoption and usage — not provided | Not assessed | Not assessed | Usage scope and business workflows were not established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › row: Agent permissions and access — not provided",
+      "before": "| Agent permissions and access — not provided | Not assessed | Not assessed | Delegated access and service permissions not assessed. |",
+      "after": "| Agent permissions and access — not provided | Not assessed | Not assessed | Delegated access and service permissions were not assessed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › row: AI data access and protection — not provided",
+      "before": "| AI data access and protection — not provided | Not assessed | Not assessed | AI-specific information handling and protection not assessed. |",
+      "after": "| AI data access and protection — not provided | Not assessed | Not assessed | AI-specific information handling and protection were not assessed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › row: AI governance and change history — not provided",
+      "before": "| AI governance and change history — not provided | Not assessed | Not assessed | No governance evidence or supported change milestone available. |",
+      "after": "| AI governance and change history — not provided | Not assessed | Not assessed | No governance evidence or supported change milestone was available. |",
+      "style_marker": "complete_sentences",
+      "reason": "Adds the verb to the evidence-gap fragment so the limitation reads as a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row: 1",
+      "before": "| 1 | 2024 Q2 | Complete the three continuing Outlook and SharePoint recommendations below. Managed IT should verify effective settings and retain test results. | 2026 Q3: All three remain To address; no supported resolution. |",
+      "after": "| 1 | 2024 Q2 | Complete the three continuing Outlook and SharePoint recommendations below. Managed IT should verify effective settings and retain test results. | 2026 Q3: All three remain To address, and no supported resolution is documented. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Replaces the semicolon-joined status with a complete sentence stating that no resolution is documented.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › row: 7.2.1",
+      "before": "| 7.2.1 | Ensure Modern Authentication for SharePoint Applications Is Required | Level 1. Set LegacyAuthProtocolsEnabled to False, or Block access for apps without modern authentication. Test legitimate SharePoint application access independently of identity and Exchange protections. | Identified 2024 Q2. Q3: To address, 0/1. No confirmed closure. |",
+      "after": "| 7.2.1 | Ensure Modern Authentication for SharePoint Applications Is Required | Level 1. Set LegacyAuthProtocolsEnabled to False, or Block access for apps without modern authentication. Test legitimate SharePoint application access independently of identity and Exchange protections. | Identified 2024 Q2. Q3: To address, 0/1. No closure is confirmed. |",
+      "style_marker": "plain_language",
+      "reason": "Replaces the adjective fragment with a complete clause stating that closure is not confirmed.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › row: 2.1.2; 3.2.1",
+      "before": "| 2.1.2; 3.2.1 | Enable Common Attachment Filtering and Active DLP Coverage | Level 1. Enable common attachment filtering in the default anti-malware policy, retaining required extensions and scoped exceptions. Implement active DLP with appropriate information types, locations, and tested enforcement. | Emphasized in Q3. Each action To address, 0/5; flagged licensed. Prior configuration and onset not established. |",
+      "after": "| 2.1.2; 3.2.1 | Enable Common Attachment Filtering and Active DLP Coverage | Level 1. Enable common attachment filtering in the default anti-malware policy, retaining required extensions and scoped exceptions. Implement active DLP with appropriate information types, locations, and tested enforcement. | Emphasized in Q3. Each action is To address at 0/5 and is flagged licensed. The prior configuration and onset were not established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converts the status fragments into complete sentences while keeping the 0/5 score and licensing flag unchanged.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › row: 6.3.1",
+      "before": "| 6.3.1 | Ensure Installing Outlook Add-Ins Is Not Allowed | Level 2. Centrally deploy approved add-ins, then remove My Custom Apps, My Marketplace Apps, and My ReadWriteMailbox Apps from the default role assignment policy. Reconfirm any required Salesforce integration. | Identified 2024 Q2. Q3: To address, 0/3. Preserve approved integrations through administrator deployment. |",
+      "after": "| 6.3.1 | Ensure Installing Outlook Add-Ins Is Not Allowed | Level 2. Centrally deploy approved add-ins, then remove MyCustomApps, MyMarketplaceApps, and MyReadWriteMailboxApps from the default role assignment policy. Reconfirm any required Salesforce integration. | Identified 2024 Q2. Q3: To address, 0/3. Preserve approved integrations through administrator deployment. |",
+      "style_marker": "banned_patterns",
+      "reason": "Writes the Exchange role identifiers without spaces so the names are not read as first-person pronouns; the same policy roles are named.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture",
+      "purpose": "Summarizes the posture indicator and evidence interpretation for each of the eight security domains.",
+      "rows": 8,
+      "rows_edited": 8
+    },
+    {
+      "location": "Security Signal Review › Identity and Access (Defender / Secure Score control evidence table)",
+      "purpose": "Maps identity Secure Score controls to CIS and NIST references with assessment interpretation.",
+      "rows": 5,
+      "rows_edited": 4
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities (exposure level table)",
+      "purpose": "Records exposure levels by quarter; all cells are unavailable, so no exposure is inferred.",
+      "rows": 3,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities (Defender / Secure Score control evidence table)",
+      "purpose": "Records endpoint and vulnerability evidence gaps with interpretation.",
+      "rows": 5,
+      "rows_edited": 2
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration (Defender / Secure Score control evidence table)",
+      "purpose": "Maps data, email, and collaboration controls to CIS and NIST references with assessment interpretation.",
+      "rows": 5,
+      "rows_edited": 1
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure (Defender / Secure Score control evidence table)",
+      "purpose": "Records cloud workload and attack-path evidence gaps with interpretation.",
+      "rows": 5,
+      "rows_edited": 5
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage (Defender / Secure Score control evidence table)",
+      "purpose": "Records AI inventory, usage, permission, and governance evidence gaps with interpretation.",
+      "rows": 5,
+      "rows_edited": 5
+    },
+    {
+      "location": "Recommended Security Actions › Security Awareness",
+      "purpose": "Single-cell call-out containing the security awareness guidance; exempt from table-cell rewriting and preserved unchanged.",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations",
+      "purpose": "Lists priority, identification quarter, recommendation, and Q3 status for each active recommendation.",
+      "rows": 6,
+      "rows_edited": 1
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark",
+      "purpose": "Maps CIS Microsoft 365 Foundations Benchmark v7.0.0 recommendations to description and status.",
+      "rows": 4,
+      "rows_edited": 3
+    },
+    {
+      "location": "Recommendation History › CIS Recommendations",
+      "purpose": "Records the CIS recommendation history across quarters.",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommendation History › Advisory Recommendations",
+      "purpose": "Records advisory recommendation history and Q3 status.",
+      "rows": 2,
+      "rows_edited": 0
+    }
+  ],
+  "observations": [
+    {
+      "location": "Recommended Security Actions › Security Awareness; Current Microsoft Cloud Security Posture › AI Agents and Generative AI Usage (closing paragraph)",
+      "type": "cross_reference",
+      "detail": "The AI section states that the awareness guidance in this report addresses verification of impersonation attempts. The Security Awareness call-out instead addresses cloud misconfigurations and shadow APIs. The Advisory Recommendations table records Q1 emphasis on impersonation verification. The sentence does not match the awareness content. Not corrected, per the substance freeze.",
+      "action_required": "correct in draft"
+    },
+    {
+      "location": "Security Signal Review › Identity and Access (Defender / Secure Score control evidence table)",
+      "type": "total_reconciliation",
+      "detail": "Earned points listed in the identity control table total 58 (10 + 9 + 8 + 4 + 1 + 7 + 7 + 1 + 3 + 8), against the reported 59 of 61 identity points earned. The one-point difference is not explained by the listed rows. Not corrected, per the substance freeze.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Executive Summary; Current Microsoft Cloud Security Posture › Domain Posture; Recommended Security Actions › Active Recommendations and CIS Microsoft 365 Foundation Benchmark",
+      "type": "terminology",
+      "detail": "Quarter identifiers are written as 2024-Q2 and 2024-Q3 in prose and as 2024 Q2 in tables. The template convention is YYYY.QQ. Dates are not used consistently across sections.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations; CIS Microsoft 365 Foundation Benchmark",
+      "type": "template_deviation",
+      "detail": "The template requires MM.DD.YYYY - <STATUS DESCRIPTION> for each status. The draft provides no per-item dates; status values are quarter-labeled (for example, '2026 Q3: All three remain To address'). The draft value is retained.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture",
+      "type": "template_deviation",
+      "detail": "The template states that domain indicators are carried forward from the previous assessment. The draft states that Q1 and Q2 did not establish comparable domain-level indicators, so none are carried forward. The draft explanation is retained.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities (exposure level table)",
+      "type": "template_deviation",
+      "detail": "The template expects numeric exposure counts (#) in each cell. The draft records 'Not available' for every quarter. The draft value is retained because no exposure data was supplied.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Recommended Security Actions › Security Awareness",
+      "type": "template_deviation",
+      "detail": "The template places the Security Awareness content as a heading followed by two to four paragraphs. The draft places it in a single-cell table. The content is preserved unchanged under the Security Awareness exemption, and table structure is frozen.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Control Movement and Baseline Changes; Security Signal Review › Identity and Access",
+      "type": "template_deviation",
+      "detail": "The draft contains four '[image]' placeholders for Secure Score screenshots (overview and identity). The template expects these as screenshot placeholders. Image content is not present in the markdown and must be confirmed in the final DOCX.",
+      "action_required": "confirm"
+    }
+  ]
+}

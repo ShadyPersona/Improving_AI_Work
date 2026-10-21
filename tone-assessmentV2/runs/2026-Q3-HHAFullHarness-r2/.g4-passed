@@ -1,0 +1,8 @@
+{
+  "gate": "G4",
+  "run_id": "2026-Q3-HHAFullHarness-r2",
+  "hashes": {
+    "draft": "d785e0cb520b82d654cf746dfb02d56cec74e7f7dc641199fa0ce47a67e14bff",
+    "template": "49dbd928c511a05529441fde6dbe66fb1eea425214f4fb89b5ccc3c0e905c8d1"
+  }
+}
