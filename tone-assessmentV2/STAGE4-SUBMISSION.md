@@ -87,9 +87,9 @@ omitted `2026-Q3-IRONTRAX`, `2026-Q3-TeamDaks`,
 `2026-Q3-TEAMDAKSFullHarness` (stalled at needs-step06, counted as halted),
 and the 2026-10-18 gate-test runs:
 
-- **Production: 11/12 finalized** (1 halted — `TEAMDAKSFullHarness` never
-  completed step 06); the newest finalized production run is
-  `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` (see below)
+- **Production: 12/13 finalized** (1 halted — `TEAMDAKSFullHarness` never
+  completed step 06); the newest finalized production runs are
+  `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` and `-02` (see below)
 - **Gate-test: 0/7 finalized — 7 halted at their intended gates**
 - **Trend (≥2 reporting periods):** 2026-10-17/18 pre-harness runs 2/2
   finalized (IRONTRAX, TeamDaks); 2026-10-20/21 harness runs 8/9
@@ -137,16 +137,17 @@ and the 2026-10-18 gate-test runs:
   (`eval-m5K-2026-11-03T01:36:31`), all executed 2026-11-03 on
   `claude-sonnet-5-5` against the post-change skills; before/after
   deltas recorded in each `ITERATION_LOG.md`.
-- Unattended end-to-end harness run:
-  **`2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01`** — `python
-  harness.py run` executed steps 05 → 06 → 07 unattended via
-  `runner.command`; deterministic G5 passed; the step-06 judgment layer
-  returned `result: pass` on all seven checks
-  (`runs/2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01/g5-verdict.json`);
-  `run-state.json` shows `certifiable: true`, zero punch-outs,
-  `status: finalized`; deliverable
-  `Team-Daks-Cloud-Security-Assessment-2026-Q3.md` and `audit-report.md`
-  emitted. Provider: Fireworks AI `deepseek-v4p1-flash`.
+- Unattended end-to-end harness runs:
+  **`2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01`** and **`-02`** —
+  `python harness.py run` executed steps 05 → 06 → 07 unattended via
+  `runner.command` on each; deterministic G5 passed; the step-06
+  judgment layer returned `result: pass` on all seven checks in both
+  runs (`runs/<run-id>/g5-verdict.json`); `run-state.json` shows
+  `certifiable: true`, zero punch-outs, `status: finalized`;
+  deliverable `Team-Daks-Cloud-Security-Assessment-2026-Q3.md` and
+  `audit-report.md` emitted in each. Two identical-input passes
+  demonstrate the run was reproducible, not a one-off. Provider:
+  Fireworks AI `deepseek-v4p1-flash`.
   Prior attempts (`E2ERun`–`E2ERun-4`) are preserved as failure
   evidence — each failure mode maps to a shipped fix in
   `audit/AUDIT-INTEGRITY-NOTE.md` §5.

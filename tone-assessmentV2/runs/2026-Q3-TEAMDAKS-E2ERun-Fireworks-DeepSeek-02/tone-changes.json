@@ -1,0 +1,126 @@
+{
+  "certifiable": true,
+  "changes": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Posture Summary › paragraph 1",
+      "before": "Team Daks’ posture sits below the peer reference point, and Data is the weakest category.",
+      "after": "Team Daks’ posture sits below the peer reference point, and the Data category is the weakest.",
+      "style_marker": "plain_language",
+      "reason": "Rewrote the appositive clause so the sentence reads naturally while preserving the same finding about the Data category.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row: 0",
+      "before": "0\n\n2023.Q3\n\nConfirm the identity security model. Revalidate licensing and choose Security Defaults or appropriately licensed Conditional Access. Use the latter for custom policy scope and exceptions. The supplied CIS baseline uses Conditional Access. Document the chosen approach and implementation plan.\n\n2026 Q3 - The decision remains active. Policies and licenses in place require validation.",
+      "after": "0\n\n2023.Q3\n\nConfirm the identity security model. Revalidate licensing and choose Security Defaults or appropriately licensed Conditional Access. Use Conditional Access for custom policy scope and exceptions. The supplied CIS baseline uses Conditional Access. Document the chosen approach and implementation plan.\n\n2026 Q3 - The decision remains active. Policies and licenses in place require validation.",
+      "style_marker": "terminology",
+      "reason": "Replaced the anaphoric reference 'the latter' with the named control so the recommendation reads unambiguously.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row: 4",
+      "before": "4\n\n2026.Q3\n\nValidate audit coverage and investigative readiness. Confirm audit log search, mailbox audit actions and mailbox types, retrieval of representative events, retention, and access. Assign ownership for alert review and incident escalation, then validate these arrangements through an exercise.\n\nQ2026 3 - Audit controls are uncredited. Monitoring and response effectiveness were not assessed.",
+      "after": "4\n\n2026.Q3\n\nValidate audit coverage and investigative readiness. Confirm audit log search, mailbox audit actions and mailbox types, retrieval of representative events, retention, and access. Assign ownership for alert review and incident escalation, then validate these arrangements through an exercise.\n\n2026 Q3 - Audit controls are uncredited. Monitoring and response effectiveness were not assessed.",
+      "style_marker": "spelling",
+      "reason": "Corrected a transposed quarter label so the status cell reads consistently with the other recommendation rows.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture",
+      "purpose": "Summarizes the qualitative posture indicator and short interpretation for each of the eight security domains.",
+      "rows": 8,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › Defender / Secure Score control evidence",
+      "purpose": "Maps identity control credit to CIS and NIST references with an assessment interpretation for each control area.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › Exposure Level",
+      "purpose": "Records endpoint exposure counts for Q1, Q2, and Q3 by severity level.",
+      "rows": 3,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › Defender / Secure Score control evidence",
+      "purpose": "Documents the endpoint and vulnerability evidence gaps with framework status and assessment interpretation.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › Defender / Secure Score control evidence",
+      "purpose": "Maps data protection, impersonation, forwarding, and meeting control credit to CIS and NIST references with assessment interpretation.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › Defender / Secure Score control evidence",
+      "purpose": "Documents the cloud workload and attack-path evidence gaps with framework status and assessment interpretation.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › Defender / Secure Score control evidence",
+      "purpose": "Documents the AI inventory, permissions, and usage evidence gaps with framework status and assessment interpretation.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations",
+      "purpose": "Lists the six active priorities with identification quarter, recommendation text, and current status.",
+      "rows": 6,
+      "rows_edited": 2
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark",
+      "purpose": "Maps the consolidated recommendations to CIS references with description and status.",
+      "rows": 4,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › CIS Recommendations",
+      "purpose": "Records whether any CIS recommendation has been addressed in previous assessments.",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › Advisory Recommendations",
+      "purpose": "Records the status of advisory recommendations raised in prior quarters.",
+      "rows": 2,
+      "rows_edited": 0
+    }
+  ],
+  "observations": [
+    {
+      "location": "Recommended Security Actions › Active Recommendations › Status column",
+      "type": "template_deviation",
+      "detail": "The template specifies the status cell format 'MM.DD.YYYY - <STATUS>', but the draft supplies quarter labels ('2026 Q3 - ...') because no per-item status dates were provided. The draft values were retained.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Recommended Security Actions › intro paragraph vs. Active Recommendations › Status column",
+      "type": "table_prose_mismatch",
+      "detail": "The intro states that 'Status dates indicate this assessment’s review date', but the Status cells in the Active Recommendations table show quarter labels rather than dates.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Recommended Security Actions › intro paragraph ('2026.Q3') vs. Active Recommendations › Status column ('2026 Q3')",
+      "type": "terminology",
+      "detail": "The prose uses '2026.Q3' while the table Status cells and other prose use '2026 Q3', producing inconsistent quarter-label formatting across the document.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › Identified column vs. Status column",
+      "type": "terminology",
+      "detail": "The Identified column uses 'YYYY.QQ' (e.g., '2026.Q3') while the Status column uses 'YYYY QQ' (e.g., '2026 Q3'), so the two columns format the quarter differently within the same table.",
+      "action_required": "confirm"
+    }
+  ]
+}
