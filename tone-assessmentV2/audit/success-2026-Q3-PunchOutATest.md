@@ -1,0 +1,1 @@
+| 2026-10-18 | 2026-Q3-PunchOutATest | halted | A_missing_content(open) | 0 | punch-out A raised (Executive Summary missing); awaiting human decision; later permanently non-certifiable via bypass-test |

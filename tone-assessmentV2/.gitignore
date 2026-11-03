@@ -6,3 +6,6 @@ runs/*/inputs/*.docx
 
 # deliverables/templates stay in SharePoint, not git
 *.docx
+agent-raw*.txt
+evals/.env
+test-fireworks-contract.py

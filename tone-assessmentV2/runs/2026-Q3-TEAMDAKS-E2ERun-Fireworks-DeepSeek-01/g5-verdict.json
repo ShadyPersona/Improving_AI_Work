@@ -1,0 +1,53 @@
+{
+  "result": "pass",
+  "checks": [
+    {
+      "check": "g5-assessment-quality",
+      "result": "pass",
+      "detail": "toned.md conforms to the CSA template: every required section is present and ordered (Executive Summary; Current Microsoft Cloud Security Posture with Posture Summary, Key Risk Themes, Domain Posture, Control Movement and Baseline Changes; Security Signal Review with Identity and Access, Endpoint and Vulnerabilities, Data Protection and Collaboration, Cloud Workload and Attack Path Exposure, AI Agents and Generative AI Usage, Detection and Operational Readiness; Recommended Security Actions with Active Recommendations, CIS Microsoft 365 Foundation Benchmark, Deferred Recommendations, Recommendation History). Each substantive section is conclusion-first with condition, quarter movement (Q1/Q2/Q3 anchored), evidence, security significance tied to client risk, qualification of unknown/limited scope, and recommended response. Framework mappings (CIS/NIST) are supporting rather than narrative voice. Related controls are synthesized into themes (authentication/MFA, legacy auth, impersonation, information protection, external collaboration/data egress, evidence coverage, detection readiness) rather than listed in isolation. Security Awareness section is exempt from the conclusion-first requirement per the skill and remains substantively intact."
+    },
+    {
+      "check": "g5-substance-freeze-token",
+      "result": "pass",
+      "detail": "All factual tokens in toned.md exist unchanged in draft.md: scores and percentages (37.49%, 36.72%, 36.61%, 48.33%, 44.42%, 43.85%, 100.48/268, 46.08%, 55.54%, 35.86%, 0%), deltas (0.77, 0.88, 3.91, 4.48, 0.15, 0.07), control fractions (2.14/9, 1.99/9, 9.41/10, 7.93/8, 8/8, 1.85/9, 2.06/9, 0/8, 0/5, 0/2, 0/1, 0/3, 0/7, 0/4, 3/3, 0/1, 5/5, 8/8, 9/9, 6/6, 3/3, 1/1, 1/1, 4/4, 1/1, 0/5, 0/5, 0/5), counts (101/131, 103/130), dates (2023.Q3, 2026.Q1, 2026.Q3, October 8, 2026, September 30), CIS refs (5.2.2.1/2/3, 5.1.5.1, 1.3.1, 6.5.1, 7.2.1, 3.2.1, 3.3.1, 2.1.1/4/5/7, 6.2.1, 3.1.1, 6.1.2), NIST refs (PR.AA-03, PR.AA-05, PR.PS-01, PR.PS-04, PR.DS-01/02/10, DE.CM-09, PR.AT-01/02), finding titles, and recommendation texts. No new or altered factual token introduced."
+    },
+    {
+      "check": "g5-substance-freeze-semantic",
+      "result": "pass",
+      "detail": "Independent meaning-level inventory of draft.md entities, measurements, findings, and recommendations confirms every one is present in toned.md with identical client-facing meaning, and vice versa. The seven recorded edits are voice, cadence, tense, plain-language, terminology, and punctuation rewordings that do not change scope, strength, attribution, or measurement basis. No dropped or merged findings; no recommendation strength upgraded or downgraded; no metric restated on a different basis; no cause/effect re-attributed."
+    },
+    {
+      "check": "g5-change-accountability",
+      "result": "pass",
+      "detail": "tone-changes.json validates against tone-changes.schema.json with required arrays changes, tables_reviewed, and observations present, and certifiable:true. Every edit between draft.md and toned.md is recorded with location, before, after, style_marker, reason, assessment_function, and facts_changed:false. All eleven tables in draft.md appear in tables_reviewed with correct row counts (Domain Posture 8; Exposure Level 3; five Defender/SS control-evidence tables at 5 rows each; Active Recommendations 6; CIS Benchmark 4; CIS History 1; Advisory History 2) and rows_edited:0, consistent with the absence of table edits. assessment_function coverage includes executive_conclusion, security_significance, evidence_interpretation, recommendation_traceability, and evidence_limitation — demonstrating analytical rewrite rather than template_structure/professional_tone-only logging. All observations cite concrete locations."
+    },
+    {
+      "check": "g5-failure-reporting",
+      "result": "pass",
+      "detail": "Not applicable — review passed; no g5-judgment.md required."
+    },
+    {
+      "check": "g5-punchout-closure",
+      "result": "pass",
+      "detail": "run-state.json shows certifiable:true with non_certifiable_reasons:[] and both punchout entries (A_missing_content, E_loop_exhaustion) with triggered:false, so no two-key closure is required. tone-changes.json declares certifiable:true. No bypass_attempt is recorded for either punch-out. No self-granted approval detected."
+    },
+    {
+      "check": "g5-phi-confidentiality",
+      "result": "pass",
+      "detail": "toned.md contains no PHI/PII tied to findings, no employee identifiers linked to security findings, no credentials/tokens/keys/connection strings, no harness internals or audit-log paths, no agent prompts or debugging notes, and no tenant data belonging to any client other than Team Daks. Named individuals (Danish Dhedi as Prepared For, Danny George as Prepared By) are the standard report-cover roles, not finding-linked PII."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "observation",
+      "location": "Recommended Security Actions › Active Recommendations › Priority 4 Status cell",
+      "detail": "Value reads 'Q2026 3' instead of '2026 Q3' — a terminology/formatting deviation inherited from draft.md and flagged in tone-changes.json observations with action_required 'correct in draft'. Not a G5 failure because it is documented, does not alter factual substance, and was carried forward rather than introduced."
+    },
+    {
+      "severity": "observation",
+      "location": "Executive Summary › Control Movement and Baseline Changes / Identity and Access / Endpoint and Vulnerabilities / Data Protection and Collaboration / Cloud Workload / AI Agents",
+      "detail": "Template calls for overall Secure Score trendline, Identity SS screenshot, and optional Endpoint/Data/Cloud/AI screenshots; none are present in draft.md or toned.md. Documented in tone-changes.json observations with action_required 'confirm'/'accept deviation'. Not a G5 failure — screenshots are visual evidence, not synthesized content."
+    }
+  ],
+  "reviewed_at": "2026-10-08T14:32:11Z"
+}

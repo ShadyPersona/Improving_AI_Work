@@ -1,10 +1,10 @@
 # Workflow Definition — Assessment Synthesis & Finalize Pipeline (V2)
 
-A two-step sequential workflow that takes ONE report draft through
+A three-step sequential workflow that takes ONE report draft through
 security-assessment synthesis — converting telemetry and control data into
 conclusion-led quarter-over-quarter analysis under a strict substance
-freeze (professional writing standards + an authoritative template) — and
-final delivery, with
+freeze (professional writing standards + an authoritative template) — an
+independent adversarial review, and final delivery, with
 one fail-closed deterministic guardrail on every handoff, human punch-out
 gates, and a structured audit trail. Fully self-contained in this folder —
 no paths, files, or skills outside `tone-assessmentV2/` are referenced.
@@ -15,18 +15,20 @@ no paths, files, or skills outside `tone-assessmentV2/` are referenced.
 [inputs: draft.md + template]
         │
         ▼  G4 (input-completeness gate — deterministic, harness.py (g4_check))
-05-tone-consistency ──G5──▶ 06-adversarial-review → [deliverable]
-        │        ▲           │
+05-tone-consistency ──G5──▶ 06-adversarial-review ──▶ 07-finalize → [deliverable]
+        │        ▲           │                            │
         │        └─ deterministic pre-checks (harness.py (g5_check))
         └── missing-content ─────────┴── punch-out → human sign-off → resume
 ```
 
 **Execution:** the workflow is executed by the harness
 (`harness.py`, `python harness.py run --run-id <id>`) — executable code that
-drives the `run-state.json` state machine, invokes each step through the
-Copilot/agent runtime, runs the deterministic gate checks, and writes all
-audit records. The step-06 adversarial agent remains the judgment layer
-on top of the deterministic G5 edge.
+drives the `run-state.json` state machine, invokes each step through
+`runner.command` (`python agent-runner.py` in `runner.mode: "auto"` — the
+agent CLI that calls the configured model/agent endpoint), runs the
+deterministic gate checks, and writes all audit records. The step-06
+adversarial agent is the judgment layer on top of the deterministic G5
+edge; step 07 performs packaging only, after the verdict passes.
 
 ## Inputs
 
@@ -64,7 +66,8 @@ workflow.
 | Step | Skill | Consumes | Produces |
 |------|-------|----------|----------|
 | 05 | tone-consistency | `draft.md`, `template` | `toned.md`, `tone-changes.json` |
-| 06 | adversarial-review | `toned.md`, `draft.md`, `template`, `tone-changes.json`, `run-state.json`, audit artifacts | Final report, `audit-report.md` |
+| 06 | adversarial-review | `toned.md`, `draft.md`, `template`, `tone-changes.json`, `run-state.json`, audit artifacts | `g5-verdict.json` (pass) or `g5-judgment.md` (fail) |
+| 07 | finalize | `toned.md`, `g5-verdict.json`, `tone-changes.json`, `run-state.json`, audit artifacts | Final report, `audit-report.md` |
 
 ## Guardrails
 
@@ -128,12 +131,21 @@ executable code:
   `tone-changes.json#tables_reviewed`. A data-first, unchanged, merely
   word-patched, or table-unreviewed draft fails even with zero banned
   patterns present.
-- Substance freeze check: every number, date, percentage, measurement,
-  finding title, CIS/NIST reference, classification outcome, piece of
-  evidence, and recommendation in `toned.md` — including those inside
-  tables — must exist in `draft.md` unchanged; re-written/re-scoped
-  evidence, invented facts in narrative framing, shifted table-cell
-  meaning, or meaning-shifting paraphrase fails.
+- Substance freeze check (two layers): every number, date, percentage,
+  measurement, finding title, CIS/NIST reference, classification outcome,
+  piece of evidence, and recommendation in `toned.md` — including those
+  inside tables — must exist in `draft.md` unchanged (token diff); and a
+  semantic check verifies every entity/measurement/finding/recommendation
+  in `draft.md` is present in `toned.md` with the same client-facing
+  meaning (and vice versa) — a dropped finding, merged finding with
+  shifted scope, re-based metric, or re-attributed cause fails even when
+  every token matches. Re-written/re-scoped evidence, invented facts in
+  narrative framing, shifted table-cell meaning, or meaning-shifting
+  paraphrase fails.
+- PHI/confidentiality-exposure check: `toned.md` must not carry PHI/PII,
+  credentials or secrets, internal-only artifacts (harness internals,
+  audit paths, agent prompts), or another client's tenant data — any
+  exposure is a hard fail regardless of other results.
 - Change accountability: every draft→toned edit recorded in
   `tone-changes.json` (schema-validated) with `reason`,
   `assessment_function`, and `facts_changed: false`; table edits verified
@@ -145,7 +157,9 @@ executable code:
   same `run_id` (human decision, resolved by, resolved at). A flag without
   the log row is a self-granted approval. Any `certifiable: false` without
   closure evidence = hard fail — STOP for human sign-off.
-- Step 06 acts as the adversarial reviewer of step 05 and only assembles the final deliverable after G5 passes.
+- Step 06 acts as the adversarial reviewer of step 05 only — on pass it
+  emits `g5-verdict.json`; the deliverable is assembled by step 07 after
+  the verdict and closure checks pass.
 - Failure → loop back to step 05 (max 2 iterations → human escalation).
 
 ## Punch-Out Points
@@ -227,7 +241,8 @@ stop). No other values are written.
 `non-finalizable` (all punch-outs closed but `certifiable` permanently
 false — e.g. a recorded bypass attempt; no human decision remains).
 Intermediate states: `in-progress`, `needs-g4`, `needs-step05`,
-`needs-step06`, `awaiting-human`, `escalated`, `stopped`, `failed`.
+`needs-step06`, `needs-step07`, `awaiting-human`, `escalated`, `stopped`,
+`failed`.
 
 `audit/success-report.md` is a derived summary (`rebuild-logs`) that
 splits production runs from gate-test runs (run-ids containing `Test`,

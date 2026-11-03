@@ -1,4 +1,9 @@
 {
+  "runner": {
+    "mode": "auto",
+    "command": "python agent-runner.py",
+    "timeout_seconds": 14400
+  },
   "model": "claude-sonnet-5-5",
   "price_usd_per_1k_tokens": { "input": 0.003, "output": 0.015 },
   "metering": { "session_log_path": null, "estimation_chars_per_token": 1.75 },

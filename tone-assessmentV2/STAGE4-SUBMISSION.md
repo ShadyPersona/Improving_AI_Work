@@ -1,76 +1,154 @@
 # Stage 4 Resubmission — Changes Since the Previous FAIL Determination
 
-**Date:** 2026-10-21
-**Harness hash:** `3d1afdf5503b68ec784d09ac2d97a81b3808e7b80f2c34bf78f5576d3d4d0f7a` (`python harness.py hash`)
-**Model:** `claude-sonnet-5-5`
+**Date:** 2026-11-03
+**Harness hash:** `ca71cd71997ac763b165154037c1651cd87613bd6e655492ecf06a403101d380` (`python harness.py hash`; refreshed automatically after every state transition)
+**Model:** configured via `HARNESS_MODEL` / `harness.config.json` `model`.
+The agent CLI is provider-agnostic — `AGENT_PROVIDER` accepts
+`copilot-studio` | `openai` (and OpenAI-compatible endpoints such as
+Fireworks AI) | `azure` | `ollama` | `anthropic`. The certified E2E
+run below executed on Fireworks `deepseek-v4p1-flash`; step-level
+resilience (`AGENT_RETRIES`, `AGENT_TIMEOUT`, `AGENT_MAX_TOKENS`,
+`AGENT_REASONING_EFFORT`, Ollama `AGENT_NUM_CTX`/`AGENT_NUM_THREAD`/
+`AGENT_THINK`) is configurable via environment variables.
 
-## Automated harness (Artifact 1 — was FAIL: no harness)
+## Automated harness (Artifact 1)
 
-The workflow is now driven by `harness.py` — a single stdlib-only Python
-orchestrator that sequences steps 05/06 end-to-end (`drive`/`run`), maintains
-`run-state.json`, runs the gates, and writes every audit record. No manual
-step invocation remains; the executing agent performs only the step the
-harness names. Subcommands: `drive`, `run`, `verify`, `manifest`,
-`rebuild-logs`, `embed`, `template-md`, `hash`, `check-g4`, `check-g5`,
-`bypass-test`, `record-decision`.
+`harness.py` is now a real executor, not a state machine that waits for
+hand-made done markers. On `action == "execute_step"` it spawns the
+configured agent CLI — `runner.command` (`python agent-runner.py`,
+`runner.mode: "auto"`) — via `subprocess`, passing
+`HARNESS_RUN_ID`/`HARNESS_STEP`/`HARNESS_PROMPT_FILE`/`HARNESS_RUN_DIR`/
+`HARNESS_DONE_MARKER`/`HARNESS_EXPECTED_OUTPUTS`, and captures
+stdout/stderr into `audit/run-<run-id>.jsonl`. `agent-runner.py` is a
+stdlib-only, provider-agnostic agent CLI
+(`AGENT_PROVIDER` = `copilot-studio` | `openai` | `azure` | `ollama` |
+`anthropic`; `AGENT_API_KEY`; `AGENT_BASE_URL`; `HARNESS_MODEL`) that sends
+the assembled step prompt, parses a JSON file-map response, writes the
+declared outputs into the run directory, and creates the done marker only
+when every expected output exists — never when `g5-judgment.md` or
+`punchout-missing-content.md` is produced. The Copilot Studio agent may be
+the entry point that calls `python harness.py run`, but the harness is
+always the orchestrator and the agent CLI is always invoked via
+`runner.command`. Step prompts now inline every artifact the model
+needs — the `tone-changes.schema.json` output contract and, for
+steps 06/07, the prior-step outputs (`toned.md`, `tone-changes.json`,
+`run-state.json`, `g5-verdict.json`) — because the agent has no
+filesystem access and earlier runs proved that file paths alone are
+not readable context.
 
-## Deterministic guardrails (Artifact 2 — was FAIL: guardrails not deterministic)
+Subcommands: `drive`, `run`, `verify`, `manifest`, `rebuild-logs`, `embed`,
+`template-md`, `hash`, `check-g4`, `check-g5`, `bypass-test`,
+`record-decision`.
 
-G4 (input/hash/template validation + `.g4-passed` sentinel) and G5 (D1
-sentinel, D2 schema validation, D3 banned-pattern regex, D4 substance-freeze
-token diff, D5 change accountability, D6 two-key punch-out closure) run as
-executable code inside `harness.py` at the gate edges, before the step-06
-adversarial agent's judgment layer. Evidence: `audit/guardrails-*.jsonl`;
-the deterministic D3 gate caught a deliberately planted banned pattern in
-`2026-Q3-PunchOutETest-r2`.
+## Three-step pipeline (structural strengthening)
 
-## Punch-out evidence (Artifact 3 — was FAIL: bypass testing incomplete)
+Step count and agent count are now 3:
 
-Both punch-outs were triggered, bypass-tested while open, and blocked via
-two attack paths — no-approval continuation and a forged approval flag —
-recorded in `audit/punchout-<run-id>.md`:
+| Step | Agent | Role | Tracked outputs |
+|---|---|---|---|
+| 05 | `05-tone-consistency` | Synthesis `draft.md` → `toned.md` + `tone-changes.json` | `toned.md`, `tone-changes.json` |
+| 06 | `06-adversarial-review` | G5 judgment layer only — no deliverable work | `g5-verdict.json` (pass) / `g5-judgment.md` (fail) |
+| 07 | `07-finalize` | Deliverable + `audit-report.md`, only after 06's verdict and two-key punch-out closure | `audit-report.md` + final deliverable |
 
-- `2026-Q3-PunchOutAETest`: punch-out A (missing content) triggered, bypass
-  blocked, verbatim human closure recorded; punch-out E bypass also blocked.
-- `2026-Q3-PunchOutETest-r2`: punch-out E (loop exhaustion) trigger row
-  written by the harness at escalation, two bypass paths blocked, verbatim
-  closure recorded, `--resume` re-ran G4 on the modified draft, post-closure
-  re-test correctly returned `skipped`.
+The split answers the "step 06 is both reviewer and finalizer" finding and
+gives the adversarial reviewer its own role. `run-state.json` handles the
+new `needs-step07` state; `EMBEDDED_SKILLS` covers 05/06/07.
 
-Human closures are recorded via `python harness.py record-decision`
-(verbatim words, resolver, timestamp) — the agent never sets `approved:true`
-itself. A recorded bypass attempt marks the run permanently `certifiable:
-false` and it terminates `done/non-finalizable`.
+## Deterministic guardrails (Artifact 2)
 
-## End-to-end success rate (Artifact 4 — PASS, strengthened)
+G4 and the deterministic G5 layer (D1 sentinel, D2 schema, D3
+banned-pattern regex, D4 substance-freeze token diff, D5 change
+accountability, D6 two-key punch-out closure) still run as executable code
+inside `harness.py` at the gate edges, before step 06's judgment layer.
+Step 06 additionally runs two new adversarial lenses: a **PHI /
+confidentiality exposure** check and a **semantic substance-freeze**
+check (re-based/renormalized metrics, re-scoped findings, re-interpreted
+severities that survive token diffs — motivated by the
+`2026-Q3-PunchOutETest` slip where 100%-of-evaluated vs 98.48%-of-total
+passed token checks).
 
-`audit/success-log.md` is the append-only aggregate; `audit/success-report.md`
-(regenerated by `rebuild-logs`) splits the rate: **8/8 production runs
-finalized; 4/4 gate-test runs halted at their intended gates** (A
-missing-content, E loop-exhaustion). Result values standardized: `pass`,
-`fail`, `halted`, `stopped`.
+## Punch-out evidence (Artifact 3)
 
-## Audit trail (Artifact 5 — was FAIL: null metering)
+- The four 2026-10-20 `GATE FAILURE` bypass rows are explained in
+  `audit/AUDIT-INTEGRITY-NOTE.md` §2: genuine bypasses against an
+  intermediate harness version; fixed by wiring `punchout_log_has_closure`
+  into every gate path in commit `2499cdf`.
+- Re-tested on the current hash 2026-10-27: `bypass-test` against both
+  `2026-Q3-PunchOutATest` (A) and `2026-Q3-PunchOutETest` (E) — both
+  attack paths recorded `blocked` (newest rows in `punchout-log.md`).
+- Production-run bypass applicability is disclosed in §2 of the integrity
+  note: no production run has a triggered punch-out; the same two-key code
+  path gates production finalization.
 
-All step records carry `model`, input/output hashes, `tokens_in`,
-`tokens_out`, `cost_usd`, and `metering_method` — none null.
+## End-to-end success rate (Artifact 4)
 
-**Metering disclosure:** the Copilot agent runtime was inspected and exposes
-no per-call usage API, session log, metering environment variable, or usage
-command — real metering is unreachable from inside the sandbox. Figures are
-therefore a disclosed deterministic estimate: `chars/1.75`, calibrated
-against measured Sonnet output ratios of 1.57–1.82 chars/token on the
-step-05/06 workloads (error band ≈ ±20%). The harness accepts a real usage
-source via `metering.session_log_path` (JSONL `usage`/`tokenUsage`
-records); if the runtime ever surfaces one, records switch to
-`metering_method=session_log` without format changes.
+`audit/success-report.md` now counts every run, including the previously
+omitted `2026-Q3-IRONTRAX`, `2026-Q3-TeamDaks`,
+`2026-Q3-TEAMDAKSFullHarness` (stalled at needs-step06, counted as halted),
+and the 2026-10-18 gate-test runs:
+
+- **Production: 11/12 finalized** (1 halted — `TEAMDAKSFullHarness` never
+  completed step 06); the newest finalized production run is
+  `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` (see below)
+- **Gate-test: 0/7 finalized — 7 halted at their intended gates**
+- **Trend (≥2 reporting periods):** 2026-10-17/18 pre-harness runs 2/2
+  finalized (IRONTRAX, TeamDaks); 2026-10-20/21 harness runs 8/9
+  finalized (TEAMDAKSFullHarness stalled); 2026-11-03 unattended
+  provider-driven E2E run finalized end-to-end.
+- **Aggregate freshness:** `rebuild-logs` runs automatically after
+  every state transition (no manual step to keep
+  `success-log.md`/`success-report.md`/`guardrails.jsonl` in lockstep),
+  and `harness.sha256` is refreshed in the same hook.
+
+## Audit trail (Artifact 5)
+
+- `audit/AUDIT-INTEGRITY-NOTE.md` discloses every reconstruction and
+  correction: the `run-20261018.jsonl` rebuild (recycle-bin item
+  identified), the `log_corrected` paraphrase disclosure in
+  `runs/2026-Q3-PunchOutETest/run-audit-entries.jsonl`, the
+  chars4/chars1.75 metering-label reconciliation, the null-metering
+  backfill record, and the step-05 model-attribution correction for
+  `2026-Q3-HHAFullHarness_Sonnet5-5` — all via appended correction
+  records; logs are append-only.
+- **Metering disclosure:** unchanged — deterministic `chars/1.75`
+  estimate disclosed per record (`metering_method`), switching to
+  `session_log` automatically when `metering.session_log_path` is
+  configured.
+
+## Prompt artifacts and measured iterations
+
+- `05-tone-consistency/SKILL.md`: every instruction unit carries a
+  `[criterion: <name>]` tag with a full criterion-mapping table (100% of
+  units mapped — above the 90% load-bearing threshold); instructions for
+  `observations` locations, `facts_changed` evidence, `tables_reviewed`
+  completeness, quarterly review, and cross-signal synthesis hardened.
+- `06-adversarial-review/SKILL.md`: rewritten review-only with the same
+  per-instruction criterion tagging.
+- `ITERATION_LOG.md` for 05 and 06: measured before/after iterations with
+  eval IDs, stale "blocked until API key" statuses corrected, and all
+  regressions recorded (including the `2026-Q3-PunchOutETest` G5 failures
+  and the IRONTRAX table-fragment regression). `07-finalize` has its own
+  iteration log documenting the split.
 
 ## Supporting evidence
 
-- Promptfoo evals: **9/9 pass on both skills on 2026-10-21 under
-  `claude-sonnet-5-5`** (`eval-odI-2026-10-21T03:39:47`,
-  `eval-5cm-2026-10-21T03:52:22`); prior 9/9 runs on Haiku 4.5 same date.
-- Prompt evolution: `ITERATION_LOG.md` for both skills (10 and 7
-  iterations respectively, EDD discipline).
+- Promptfoo evals: **13/13** on 05 (`eval-bFm-2026-11-03T01:33:26`),
+  **11/11** on 06 (`eval-ods-2026-11-03T01:35:22`), **5/5** on 07
+  (`eval-m5K-2026-11-03T01:36:31`), all executed 2026-11-03 on
+  `claude-sonnet-5-5` against the post-change skills; before/after
+  deltas recorded in each `ITERATION_LOG.md`.
+- Unattended end-to-end harness run:
+  **`2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01`** — `python
+  harness.py run` executed steps 05 → 06 → 07 unattended via
+  `runner.command`; deterministic G5 passed; the step-06 judgment layer
+  returned `result: pass` on all seven checks
+  (`runs/2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01/g5-verdict.json`);
+  `run-state.json` shows `certifiable: true`, zero punch-outs,
+  `status: finalized`; deliverable
+  `Team-Daks-Cloud-Security-Assessment-2026-Q3.md` and `audit-report.md`
+  emitted. Provider: Fireworks AI `deepseek-v4p1-flash`.
+  Prior attempts (`E2ERun`–`E2ERun-4`) are preserved as failure
+  evidence — each failure mode maps to a shipped fix in
+  `audit/AUDIT-INTEGRITY-NOTE.md` §5.
 - Version lineage: `VERSION_HISTORY.md`, commits `2499cdf` → `d448d90` →
-  `b8f39d8`.
+  `b8f39d8` → this resubmission commit (see `git log`).

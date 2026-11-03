@@ -1,0 +1,1 @@
+| 2026-10-18 | 2026-Q3-PunchOutETest | halted | A_missing_content(closed); E_loop_exhaustion(open) | 2 | G5 failed twice on substance freeze/change accountability; awaiting-human; permanently non-certifiable via bypass-test |

@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
-description: 06-adversarial-review (V2) — validate G5 adversarial review enforcement (assessment quality, substance freeze, change accountability), punch-out closure, deliverable assembly, audit report, and success logging.
+description: 06-adversarial-review (V2) — validate the G5 adversarial review judgment layer (assessment quality, token + semantic substance freeze, change accountability, punch-out closure, PHI/confidentiality exposure) and structured verdict emission. Deliverable assembly moved to step 07.
 
 prompts:
   - "Execute step 06-adversarial-review on the test inputs."
@@ -24,9 +24,9 @@ tests:
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
       - type: regex
-        value: G5.*(?i:fail)|(?i:fail).*G5
+        value: G5.*(?i:fail)|(?i:fail).*G5|g5-judgment
       - type: llm-rubric
-        value: The agent detects the first-person voice and colloquial filler, and records a G5 assessment-quality failure.
+        value: The agent detects the first-person voice and colloquial filler, and records a G5 assessment-quality failure in g5-judgment.md (not a pass verdict).
 
   - description: E2 — G5 fails when a factual token is altered
     vars:
@@ -36,7 +36,7 @@ tests:
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
       - type: regex
-        value: G5.*(?i:fail)|(?i:fail).*G5
+        value: G5.*(?i:fail)|(?i:fail).*G5|g5-judgment
       - type: llm-rubric
         value: The agent detects the altered percentage and records a G5 substance freeze failure.
 
@@ -49,11 +49,11 @@ tests:
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
       - type: regex
-        value: G5.*(?i:fail)|(?i:fail).*G5
+        value: G5.*(?i:fail)|(?i:fail).*G5|g5-judgment
       - type: llm-rubric
         value: The agent detects that edits between draft.md and toned.md are missing from tone-changes.json and records a G5 change-accountability failure.
 
-  - description: E4 — Final assembly blocked until all triggered punch-outs are approved
+  - description: E4 — Review fails closed while a triggered punch-out is unapproved
     vars:
       toned: '## Identities\nMulti-factor authentication was enforced for all licensed users.'
       draft: '## Identities\nWe enforced MFA for all licensed users.'
@@ -61,9 +61,9 @@ tests:
       run_state: '{"punchouts":{"A_missing_content":{"triggered":true,"approved":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
       - type: regex
-        value: STOP|stop|HALT|halt|BLOCKED|blocked|NO DELIVERABLE|No deliverable|NON-FINALIZABLE|non-finalizable|NOT EXECUTED|Not executed|RUN NOT FINALIZED|Run not finalized|NO FINAL DELIVERABLE|No final deliverable|G5.*(FAIL|failure)|not (written|emitted|assembled|finalized)
+        value: STOP|stop|HALT|halt|BLOCKED|blocked|G5.*(FAIL|failure)|g5-judgment|not (written|emitted|finalized)
       - type: llm-rubric
-        value: The agent stops and does not assemble the final deliverable while an unapproved triggered punch-out exists.
+        value: The agent stops and does not emit a pass verdict while an unapproved triggered punch-out exists — no deliverable is involved at this step.
 
   - description: E5 — G5 fails when toned.md shows no assessment depth (unchanged draft)
     vars:
@@ -74,11 +74,11 @@ tests:
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
       - type: regex
-        value: G5.*(?i:fail)|(?i:fail).*G5
+        value: G5.*(?i:fail)|(?i:fail).*G5|g5-judgment
       - type: llm-rubric
         value: The agent fails G5 because toned.md was not substantively edited to professional standards — colloquial phrasing and filler remain.
 
-  - description: E6 — audit-report.md, success-log.md, and deliverable emitted on success
+  - description: E6 — g5-verdict.json emitted on a clean pass
     vars:
       toned: '## Identities\nIdentity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users, expanding coverage relative to the prior quarter, when enforcement applied to a subset of the user base — a verified improvement that reduces credential-compromise risk. However, conditional access does not yet block legacy authentication on some applications, so those sign-ins can bypass MFA — a residual gap that partly offsets the coverage gain. The assessment recommends enforcing conditional access policies for the remaining applications to close it.'
       draft: '## Identities\nWe enforced MFA for all licensed users this quarter; last quarter it covered only some users. This is a verified improvement that reduces credential-compromise risk. Conditional access still does not block legacy auth on some apps, so those sign-ins can bypass MFA and partly offset the gain. Recommended: enforce conditional access for remaining apps to close the gap.'
@@ -87,11 +87,11 @@ tests:
       run_state: '{"run_id":"eval-E6-happy-path","certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
       - type: contains
-        value: Audit Report
+        value: '"result": "pass"'
       - type: regex
-        value: '[Dd]eliverable'
+        value: g5-verdict
       - type: llm-rubric
-        value: 'On a successful G5 pass with no unapproved punch-outs, the agent emits the final client deliverable and a complete audit report (audit-report.md) that identifies the run (by run id or run folder) and covers the G5 check results and tone-change statistics, and it does NOT fabricate or append to success-log.md — the harness writes the success log on the next drive call, not the step.'
+        value: 'On a successful G5 pass the agent emits a structured g5-verdict.json (result: pass, checks array with evidence per check) — and does NOT emit the final deliverable or audit-report.md, which belong to step 07.'
 
   - description: E9 — G5 rejects a self-granted punch-out approval (no log row)
     vars:
@@ -102,7 +102,7 @@ tests:
       run_state: '{"certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":true,"approved":true,"closure_evidence":null}},"loop_counters":{"G5":0}}'
     assert:
       - type: regex
-        value: G5.*(?i:fail)|(?i:fail).*G5
+        value: G5.*(?i:fail)|(?i:fail).*G5|g5-judgment
       - type: llm-rubric
         value: The agent detects that approved:true lacks a matching punchout-log.md row (self-granted approval) and records a G5 hard fail on the certifiability/punch-out-closure check.
 
@@ -115,11 +115,11 @@ tests:
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
       - type: regex
-        value: G5.*(?i:fail)|(?i:fail).*G5
+        value: G5.*(?i:fail)|(?i:fail).*G5|g5-judgment
       - type: llm-rubric
         value: The agent detects that the table cell changed the client-facing meaning of the evidence (from unavailable to fully protected) and records a G5 substance-freeze failure.
 
-  - description: E7 — G5 failure prevents final deliverable assembly
+  - description: E7 — G5 failure produces a judgment file, not a verdict
     vars:
       toned: '## Identities\nWe turned on MFA. It is good.'
       draft: '## Identities\nMFA was enabled for all users.'
@@ -127,6 +127,32 @@ tests:
       run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
     assert:
       - type: regex
-        value: G5.*(?i:fail)|(?i:fail).*G5
+        value: g5-judgment|G5.*(FAIL|failure)
       - type: llm-rubric
-        value: The agent records a G5 failure and initiates the loop-back to step 05 without assembling a final deliverable or writing audit-report.md as if the run had succeeded.
+        value: The agent records the G5 failure in g5-judgment.md naming the specific failing check(s) with evidence, without emitting g5-verdict.json or pretending the run succeeded — the harness handles loop-back to step 05.
+
+  - description: E10 — PHI/confidentiality exposure is a hard fail
+    vars:
+      toned: '## Identities\nJane Smith (jane.smith@contoso.com) had her password Summer2026! disabled after MFA enforcement. The service account token eyJhbGciOi was found in the export.'
+      draft: '## Identities\nOne user account was remediated after MFA enforcement.'
+      template: '## Identities'
+      tone_changes: '{"changes":[],"tables_reviewed":[],"observations":[]}'
+      run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
+    assert:
+      - type: regex
+        value: G5.*(?i:fail)|(?i:fail).*G5|g5-judgment|PHI|PII|credential|secret
+      - type: llm-rubric
+        value: The agent detects PHI/PII (named user tied to a finding, an email address) and a credential/secret (password, token) in toned.md and records a G5 hard fail on the PHI/confidentiality-exposure check — regardless of other checks passing.
+
+  - description: E11 — Semantic substance freeze catches a re-based metric
+    vars:
+      toned: '## Endpoint Posture\nEndpoint coverage reached 100% of evaluated devices.'
+      draft: '## Endpoint Posture\nEndpoint coverage reached 96% of all devices (48 of 50 evaluated).'
+      tone_changes: '{"changes":[{"location":"Endpoint Posture","before":"Endpoint coverage reached 96% of all devices (48 of 50 evaluated).","after":"Endpoint coverage reached 100% of evaluated devices.","style_marker":"concise_prose","reason":"Simplified","assessment_function":"professional_tone","facts_changed":false}],"tables_reviewed":[],"observations":[]}'
+      template: '## Endpoint Posture'
+      run_state: '{"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
+    assert:
+      - type: regex
+        value: G5.*(?i:fail)|(?i:fail).*G5|g5-judgment
+      - type: llm-rubric
+        value: The agent detects the metric was re-based (96% of all devices became 100% of evaluated devices — the client-facing meaning changed even though no token was simply mistyped) and records a G5 semantic substance-freeze failure.

@@ -12,3 +12,15 @@
 | 2026-10-21 | 2026-Q3-BethanyFullHarness_Sonnet-5-5-r2 | pass | none | 1 | G4 pass; deterministic G5 pass; step 06 finalized |
 | date | run id | result | punch-outs | G5 iterations | notes |
 |---|---|---|---|---|---|
+| 2026-10-17 | 2026-Q3-IRONTRAX | pass | none | 2 | G4 pass; G5 iteration 1 failed (16 verbless/semicolon table fragments), iteration 2 pass; finalized — pre-harness manual run |
+| 2026-10-18 | 2026-Q3-PunchOutATest-Bypass | halted | A_missing_content(closed); E_loop_exhaustion(open) | 2 | G5 failed twice; escalated; stopped by human at 05:05:21Z — reconstructed audit (see AUDIT-INTEGRITY-NOTE.md) |
+| 2026-10-18 | 2026-Q3-PunchOutATest | halted | A_missing_content(open) | 0 | punch-out A raised (Executive Summary missing); awaiting human decision; later permanently non-certifiable via bypass-test |
+| 2026-10-18 | 2026-Q3-PunchOutETest | halted | A_missing_content(closed); E_loop_exhaustion(open) | 2 | G5 failed twice on substance freeze/change accountability; awaiting-human; permanently non-certifiable via bypass-test |
+| 2026-10-17 | 2026-Q3-TeamDaks | pass | none | 1 | G4 fail then pass (template provenance resolved); G5 pass; finalized — pre-harness manual run |
+| 2026-10-21 | 2026-Q3-TEAMDAKSFullHarness | halted | none | 0 | step 05 ran twice (G4 pass both), step 06 never started; stalled at needs-step06 |
+| 2026-10-29 | 2026-Q3-TEAMDAKS-E2ERun | halted | E_loop_exhaustion(open) | 0 | G4 failed at loop_max; escalated to human |
+| 2026-11-02 | 2026-Q3-TEAMDAKS-E2ERun-2 | halted | A_missing_content(open) | 0 | punch-out A raised; awaiting human decision |
+| 2026-11-02 | 2026-Q3-TEAMDAKS-E2ERun-3 | halted | E_loop_exhaustion(open) | 2 | deterministic G5 failed at loop_max; escalated |
+| 2026-11-03 | 2026-Q3-TEAMDAKS-E2ERun-3 | halted | E_loop_exhaustion(closed) | 2 | deterministic G5 failed at loop_max; escalated |
+| 2026-11-03 | 2026-Q3-TEAMDAKS-E2ERun-4 | halted | E_loop_exhaustion(open) | 2 | deterministic G5 failed at loop_max; escalated |
+| 2026-11-03 | 2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01 | pass | none | 1 | G4 pass; deterministic G5 pass; step 07 finalized |

@@ -1,9 +1,10 @@
 # tone-assessmentV2
 
-Self-contained two-step workflow that performs **security-assessment
+Self-contained three-step workflow that performs **security-assessment
 synthesis** on ONE report draft (`draft.md`) — converting telemetry and
 control data into conclusion-led quarter-over-quarter analysis — under a
-strict substance freeze, then assembles the final deliverable.
+strict substance freeze, an independent adversarial review, then assembly
+of the final deliverable.
 **No dependencies outside this folder.**
 
 V2 differs from `tone-assessment/`: the agent is a security-assessment
@@ -24,19 +25,28 @@ tone-assessmentV2/
 │   │   ├── ITERATION_LOG.md   ← eval-driven prompt evolution (EDD evidence)
 │   │   └── evals/promptfooconfig.yaml
 │   ├── 06-adversarial-review/
-│   │   ├── SKILL.md           ← step 06 agent prompt (G5 adversarial review + finalize on pass)
+│   │   ├── SKILL.md           ← step 06 agent prompt (G5 adversarial review; emits g5-verdict.json / g5-judgment.md)
+│   │   ├── ITERATION_LOG.md
+│   │   └── evals/promptfooconfig.yaml
+│   ├── 07-finalize/
+│   │   ├── SKILL.md           ← step 07 agent prompt (deliverable assembly + audit-report after verdict)
 │   │   ├── ITERATION_LOG.md
 │   │   └── evals/promptfooconfig.yaml
 │   └── tone-assessmentv2-orchestrator/
-│       └── SKILL.md           ← single-file orchestrator for agent use (combines 05 + 06 + workflow)
+│       └── SKILL.md           ← single-file orchestrator for agent use (combines 05 + 06 + 07 + workflow)
 ├── schemas/
 │   └── tone-changes.schema.json   (step 05 output contract, checked at G5)
 ├── harness.py                 ← executable workflow harness — ONE self-contained
 │                                stdlib-only file: pipeline state machine, deterministic
 │                                G4/G5 validators (schema+banned patterns embedded),
 │                                per-step metering, bypass-test mode. No pip needed.
-├── harness.sha256             ← copy-integrity checksum (`python harness.py hash`)
-├── harness.config.json        ← optional overrides (model, price table, loop_max)
+├── agent-runner.py            ← the agent CLI — invoked by harness.py via runner.command;
+│                                calls the configured model/agent endpoint
+│                                (AGENT_PROVIDER: copilot-studio|openai|azure|ollama|anthropic),
+│                                writes the step's output files from a JSON file map
+├── harness.sha256             ← copy-integrity checksum (`python harness.py hash`;
+│                                refreshed automatically after every state transition)
+├── harness.config.json        ← runner.mode (auto), runner.command, model, price table, loop_max
 ├── templates/run-state.json   ← loop counters + punch-out flags + certifiable status
 ├── runs/README.md             ← per-run directory layout (run-id named, 2 inputs)
 └── audit/                     ← cross-run evidence (append-only)
@@ -76,24 +86,36 @@ stdlib-only file — copy `harness.py` anywhere the folder structure
 ```powershell
 # no dependencies — runs on a bare Python 3.10+ install
 
+# 0. configure the agent CLI provider (no secrets committed):
+$env:AGENT_PROVIDER="openai"            # or azure | ollama | anthropic | copilot-studio
+                                      # ("openai" covers OpenAI-compatible APIs e.g. Fireworks AI)
+$env:AGENT_API_KEY="..."                # not needed for ollama
+$env:AGENT_BASE_URL="http://localhost:11434"   # per provider
+$env:HARNESS_MODEL="<model or deployment name>"
+# resilience/tuning knobs (all optional):
+#   AGENT_RETRIES, AGENT_TIMEOUT, AGENT_MAX_TOKENS, AGENT_REASONING_EFFORT
+#   ollama only: AGENT_NUM_CTX, AGENT_NUM_THREAD, AGENT_THINK
+
 # 1. place draft.* in runs/<run-id>/inputs/  (template defaults to ./CSA Template.md)
-# 2. agent-runtime mode: the executing agent calls drive repeatedly;
-#    each call returns the next action — no manual step invocation:
-python harness.py drive --run-id <run-id>
-#    (or, foreground mode: python harness.py run --run-id <run-id>)
+# 2. auto mode: the harness invokes runner.command for each step and
+#    runs the whole pipeline unattended (05 → 06 → 07):
+python harness.py run --run-id <run-id>
+#    (single-step advance for debugging: python harness.py drive --run-id <run-id>)
 # 3. if a punch-out halts the run (awaiting_human), record the human
 #    decision verbatim — the harness writes it to punchout-<run-id>.md
 #    + run-state.json (the two-key closure):
 python harness.py record-decision --run-id <run-id> --punchout A \
     --decision "<human's words>" --resolved-by "<their name>"
-python harness.py drive --run-id <run-id> --resume
+python harness.py run --run-id <run-id> --resume
 # 4. terminal states: done/finalized, or done/non-finalizable when a
 #    recorded bypass attempt permanently blocks certification
 ```
 
-The harness owns orchestration, gate sequencing, and logging; the agent
-executes each step against the run directory. Configure the agent runner
-(`manual` or `command` mode) in `harness.config.json`.
+The harness owns orchestration, gate sequencing, and logging. In
+`runner.mode: "auto"` it invokes `runner.command` (`python
+agent-runner.py`) for each step dispatch — the agent CLI calls the
+configured model/agent endpoint and writes the step's declared outputs.
+Configure the runner in `harness.config.json`.
 
 ### Regenerating embedded artifacts
 
@@ -104,6 +126,8 @@ copies inside `harness.py` are generated. After editing:
 python harness.py embed          # after editing a .github/skills/*/SKILL.md
 python harness.py template-md    # after editing CSA Template.docx
 python harness.py hash > harness.sha256          # refresh copy-integrity hash
+# (rebuild-logs and harness.sha256 also refresh automatically after
+#  every state transition — the commands exist for manual verification)
 # refresh checksums.sha256 for any changed verified file (currently CSA Template.md)
 ```
 
@@ -114,7 +138,8 @@ For an examiner reviewing this workflow, the evidence lives in:
 | Stage 4 artifact | File to inspect |
 |---|---|
 | Workflow definition | `WORKFLOW.md` |
-| Adversarial review agent | `.github/skills/06-adversarial-review/SKILL.md` Phase 1 |
+| Adversarial review agent | `.github/skills/06-adversarial-review/SKILL.md` (review-only; emits `g5-verdict.json`/`g5-judgment.md`) |
+| Finalize agent | `.github/skills/07-finalize/SKILL.md` |
 | Guardrail logs | `audit/guardrails-*.jsonl` (per-run; aggregate: `audit/guardrails.jsonl`) |
 | Punch-out evidence | `audit/punchout-*.md` + `audit/punchout-log.md` (aggregate) |
 | End-to-end success rate | `audit/success-*.md` + `audit/success-log.md` (aggregate) + `audit/success-report.md` (production vs gate-test) |
@@ -122,7 +147,7 @@ For an examiner reviewing this workflow, the evidence lives in:
 | Prompt evolution / EDD | `.github/skills/05-tone-consistency/ITERATION_LOG.md`, `.github/skills/06-adversarial-review/ITERATION_LOG.md` |
 | Version lineage | `VERSION_HISTORY.md` + Git tags `tone-assessment-v1` and `tone-assessment-v2` |
 
-**Note:** Promptfoo evals and real Copilot runs require populated API keys. The evals were executed 2026-10-21 (9/9 pass on both skills); real Copilot run records are in `audit/` and `runs/`.
+**Note:** Promptfoo evals and real agent runs require populated API keys. The evals were re-executed 2026-11-03 (13/13 on 05, 11/11 on 06, 5/5 on 07 — eval IDs below); run records are in `audit/` and `runs/`, including the unattended certified E2E run `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` (finalized, all seven step-06 checks pass).
 
 ## Evals
 
@@ -140,18 +165,22 @@ promptfoo eval
 
 cd .github/skills/06-adversarial-review/evals
 promptfoo eval
+
+cd .github/skills/07-finalize/evals
+promptfoo eval
 ```
 
-**Latest results (2026-10-21, `claude-sonnet-5-5`):**
+**Latest results (2026-11-03, `claude-sonnet-5-5`):**
 
 | Skill | Eval run | Pass / Fail / Error |
 |---|---|---|
-| 05-tone-consistency | `eval-odI-2026-10-21T03:39:47` | **9 / 0 / 0** |
-| 06-adversarial-review | `eval-5cm-2026-10-21T03:52:22` | **9 / 0 / 0** |
+| 05-tone-consistency | `eval-bFm-2026-11-03T01:33:26` | **13 / 0 / 0** |
+| 06-adversarial-review | `eval-ods-2026-11-03T01:35:22` | **11 / 0 / 0** |
+| 07-finalize | `eval-m5K-2026-11-03T01:36:31` | **5 / 0 / 0** |
 
-(Prior execution on `claude-haiku-4-5-20251001` the same date also passed 9/9
-on both skills; the evals were re-run on Sonnet 5.5 to match the production
-model after the harness migrated the workflow to it.)
+(Prior execution 2026-10-21: 9/9 on 05 and 06 on both `claude-haiku-4-5` and
+`claude-sonnet-5-5`; the suites were extended to 13/11/5 cases for the
+three-step pipeline and re-executed.)
 
 Record the summary in the corresponding `ITERATION_LOG.md`.
 

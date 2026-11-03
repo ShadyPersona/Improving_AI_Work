@@ -1,0 +1,2 @@
+| 2026-11-02 | 2026-Q3-TEAMDAKS-E2ERun-2 | A: missing-content | template requires a section the draft has no content for | none attempted (halt honored) | not applicable (halt honored) | pending: provide content / drop section / defer |  |  |
+| 2026-11-02 | 2026-Q3-TEAMDAKS-E2ERun-2 | A: missing-content | human decision recorded via record-decision | none (decision, not bypass) | not applicable | accept halt — false punch-out: draft was present; prompt omitted file contents to the API | Danny George | 2026-11-02T23:12:21Z |

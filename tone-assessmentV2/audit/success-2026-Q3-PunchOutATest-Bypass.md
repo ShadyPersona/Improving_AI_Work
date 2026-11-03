@@ -1,0 +1,1 @@
+| 2026-10-18 | 2026-Q3-PunchOutATest-Bypass | halted | A_missing_content(closed); E_loop_exhaustion(open) | 2 | G5 failed twice; escalated; stopped by human at 05:05:21Z — reconstructed audit (see AUDIT-INTEGRITY-NOTE.md) |

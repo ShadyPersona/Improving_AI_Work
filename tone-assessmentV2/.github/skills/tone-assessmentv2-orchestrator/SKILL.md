@@ -1,16 +1,17 @@
 ---
 name: tone-assessmentv2-orchestrator
-description: Authoritative instructions for running the tone-assessmentV2 workflow (steps 05 + 06) — security-assessment synthesis of one draft document against a template, under a substance freeze, with guardrails G4/G5, punch-outs, and a full audit trail.
+description: Authoritative instructions for running the tone-assessmentV2 workflow (steps 05 + 06 + 07) — security-assessment synthesis of one draft document against a template, under a substance freeze, with guardrails G4/G5, punch-outs, and a full audit trail.
 ---
 
 # tone-assessmentV2 — Orchestrator Instructions
 
-> **Execution note:** the workflow is executed by `harness.py` (`python harness.py run --run-id <id>`), which drives the state machine, runs the deterministic G4/G5 gates, writes all audit records, and invokes each step through the agent. This file remains the authoritative behavioral spec for what each step does.
+> **Execution note:** the workflow is executed by `harness.py` (`python harness.py run --run-id <id>`), which drives the state machine, runs the deterministic G4/G5 gates, writes all audit records, and invokes each step through `runner.command` (the `agent-runner.py` agent CLI). This file remains the authoritative behavioral spec for what each step does.
 
-You are running a two-step security-assessment synthesis workflow. This file
+You are running a three-step security-assessment synthesis workflow. This file
 is the authoritative definition. If companion files exist
 (`WORKFLOW.md`, `.github/skills/05-tone-consistency/SKILL.md`,
-`.github/skills/06-adversarial-review/SKILL.md`, `schemas/tone-changes.schema.json`,
+`.github/skills/06-adversarial-review/SKILL.md`, `.github/skills/07-finalize/SKILL.md`,
+`schemas/tone-changes.schema.json`,
 `templates/run-state.json`), read them for confirmation — but if any file is
 unreadable or ambiguous, THIS document governs. Never approximate or
 substitute a file whose identity you cannot confirm; state the problem and
@@ -140,9 +141,13 @@ and template before proceeding.
    `observations` (detected draft issues for human review) as top-level
    arrays. Validate against `schemas/tone-changes.schema.json`.
 
-## Step 06 — Adversarial Review & Finalize (run only after 05 completes)
+## Step 06 — Adversarial Review (run only after 05 completes)
 
-**G5 — four checks, all must pass:**
+Step 06 is the **adversarial reviewer only**. It independently challenges step
+05's output and emits a structured verdict. It never assembles the client
+deliverable and never writes `audit-report.md` — that is step 07's job.
+
+**G5 — the judgment layer, all checks must pass:**
 
 1. **Assessment quality:** `toned.md` conforms to the template; every
    section is conclusion-first with the applicable elements above
@@ -188,13 +193,39 @@ and template before proceeding.
    `certifiable: false` without closure evidence = G5 hard fail, no
    finalization.
 
-**On any G5 failure:** state `G5 failure` and the specific check. Before looping back or escalating, append a failure record to `audit/success-<run-id>.md` and a final step record to `audit/run-<run-id>.jsonl` with `guardrail_inbound: {"id": "G5", "result": "fail"}` and `finalized: false`. Then loop back to Step 05 once. If G5 fails twice, escalate to the human.
+In addition, step 06 runs two dedicated adversarial lenses:
 
-**On G5 pass:**
+- **PHI / confidentiality exposure:** flag any content a client must not
+  receive — internal annotations or process notes, identifiers tied to
+  individuals, leaked internal context, verbatim `tone-changes.json`
+  records pasted into the document.
+- **Semantic substance freeze:** beyond token preservation, flag facts that
+  changed meaning without changing words — re-based or renormalized
+  metrics, re-scoped findings, re-interpreted severities, added/removed
+  qualifiers that alter the client-facing conclusion.
+
+**On any G5 failure:** write `g5-judgment.md` listing each failing check and
+the specific evidence. Before looping back or escalating, append a failure
+record to `audit/success-<run-id>.md` and a final step record to
+`audit/run-<run-id>.jsonl` with `guardrail_inbound: {"id": "G5", "result": "fail"}`
+and `finalized: false`. Then loop back to Step 05 once. If G5 fails twice,
+escalate to the human.
+
+**On G5 pass:** write `g5-verdict.json` — a structured verdict recording
+every check run, its result, and the evidence considered. Control then
+passes to step 07.
+
+## Step 07 — Finalize (run only after 06 passes)
+
+Runs only after `g5-verdict.json` exists AND every triggered punch-out has
+two-key closure (flag `approved: true` + matching `punchout-<run-id>.md`
+row — the audit report must cite the specific rows used).
+
 - Assemble `toned.md` into the final deliverable using the template's
   delivery format (file type, naming, front matter).
 - Write `audit-report.md`: steps executed, G4/G5 results, punch-outs
-  raised/resolved, tone-change statistics by `style_marker` and
+  raised/resolved (citing the `punchout-<run-id>.md` rows used for closure
+  verification), tone-change statistics by `style_marker` and
   `assessment_function`, and end-to-end outcome.
 - Append to `success-<run-id>.md`: `| date | run id | result | punch-outs | iterations | notes |`.
 - Append step records to `run-<run-id>.jsonl` with model, input/output

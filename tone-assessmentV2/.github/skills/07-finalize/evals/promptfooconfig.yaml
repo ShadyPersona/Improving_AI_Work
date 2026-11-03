@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: 07-finalize (V2) — validate gate preconditions, deliverable assembly (packaging only), audit-report.md, punch-out closure citation, and success reporting.
+
+prompts:
+  - "Execute step 07-finalize on the test inputs."
+
+providers:
+  - id: file://../../promptfoo-anthropic-provider.js
+    config:
+      model: claude-sonnet-5-5
+      skillPath: 07-finalize/SKILL.md
+      max_tokens: 4096
+
+defaultTest:
+  options:
+    provider: anthropic:messages:claude-sonnet-5-5
+
+tests:
+  - description: F1 — Assembles deliverable and audit-report on a clean pass
+    vars:
+      toned: '## Identities\nIdentity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users.'
+      draft: '## Identities\nWe enforced MFA for all licensed users this quarter.'
+      g5_verdict: '{"result":"pass","checks":[{"check":"assessment-quality","result":"pass"}],"findings":[]}'
+      tone_changes: '{"changes":[{"location":"Identities","before":"We enforced MFA for all licensed users this quarter.","after":"Identity posture improved materially during the assessment quarter: multi-factor authentication (MFA) enforcement was extended to all licensed users.","style_marker":"voice","reason":"Third-person consultative framing","assessment_function":"executive_conclusion","facts_changed":false}],"tables_reviewed":[],"observations":[]}'
+      template: '## Identities'
+      run_state: '{"run_id":"eval-F1","certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
+    assert:
+      - type: contains
+        value: Audit Report
+      - type: regex
+        value: '[Dd]eliverable|final report'
+      - type: llm-rubric
+        value: The agent assembles the client deliverable and writes audit-report.md covering steps executed (05/06/07), G4/G5 results, punch-out status, tone-change statistics, and outcome — and states explicitly that no punch-outs triggered.
+
+  - description: F2 — Blocks packaging when the G5 verdict is missing
+    vars:
+      toned: '## Identities\nMFA was enforced for all licensed users.'
+      draft: '## Identities\nWe enforced MFA for all licensed users.'
+      g5_verdict: ''
+      tone_changes: '{"changes":[],"tables_reviewed":[],"observations":[]}'
+      template: '## Identities'
+      run_state: '{"certifiable":true,"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}}}'
+    assert:
+      - type: regex
+        value: STOP|stop|HALT|halt|precondition|missing|not (emitted|written|finalized)
+      - type: llm-rubric
+        value: The agent stops and reports the missing g5-verdict.json precondition — it does not emit the deliverable or write the done marker.
+
+  - description: F3 — Cites the punchout-log closure rows in audit-report.md
+    vars:
+      toned: '## Identities\nIdentity posture improved materially during the assessment quarter.'
+      draft: '## Identities\nWe enforced MFA this quarter.'
+      g5_verdict: '{"result":"pass","checks":[{"check":"punchout-closure","result":"pass"}],"findings":[]}'
+      tone_changes: '{"changes":[],"tables_reviewed":[],"observations":[]}'
+      template: '## Identities'
+      punchout_log: '| 2026-10-27T01:00:00Z | eval-F3 | A_missing_content | human decision: provide content | resolved by: Danny George | resolved at: 2026-10-27T01:00:00Z |'
+      run_state: '{"run_id":"eval-F3","certifiable":true,"non_certifiable_reasons":[],"punchouts":{"A_missing_content":{"triggered":true,"approved":true,"closure_evidence":"audit/punchout-log.md row eval-F3"},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
+    assert:
+      - type: contains
+        value: punchout
+      - type: llm-rubric
+        value: audit-report.md cites the specific punchout-log.md row used to verify closure — run_id, human decision, resolved-by, and resolved-at — for the triggered punch-out.
+
+  - description: 'F4 — Packaging only: deliverable preserves reviewed content verbatim'
+    vars:
+      toned: '## Devices\nDevice compliance reached 97% during the quarter — a verified improvement over the prior quarter (91%).'
+      draft: '## Devices\nDevice compliance was 97%; last quarter 91%.'
+      g5_verdict: '{"result":"pass","checks":[],"findings":[]}'
+      tone_changes: '{"changes":[],"tables_reviewed":[],"observations":[]}'
+      template: '## Devices'
+      run_state: '{"certifiable":true,"punchouts":{"A_missing_content":{"triggered":false},"E_loop_exhaustion":{"triggered":false}}}'
+    assert:
+      - type: contains
+        value: '97%'
+      - type: contains
+        value: '91%'
+      - type: llm-rubric
+        value: The deliverable contains the reviewed toned.md content verbatim — no content edits, rewrites, or additional analysis; packaging only.
+
+  - description: F5 — Blocks when certifiable is false despite a passing verdict
+    vars:
+      toned: '## Identities\nIdentity posture improved.'
+      draft: '## Identities\nIdentity posture improved.'
+      g5_verdict: '{"result":"pass","checks":[],"findings":[]}'
+      tone_changes: '{"changes":[],"tables_reviewed":[],"observations":[],"certifiable":false}'
+      template: '## Identities'
+      run_state: '{"certifiable":false,"non_certifiable_reasons":["recorded bypass attempt"],"punchouts":{"A_missing_content":{"triggered":true,"approved":true,"closure_evidence":"audit/punchout-log.md"},"E_loop_exhaustion":{"triggered":false}},"loop_counters":{"G5":0}}'
+    assert:
+      - type: regex
+        value: STOP|stop|HALT|halt|non-certifiable|not (emitted|written|finalized)
+      - type: llm-rubric
+        value: The agent stops — a recorded bypass attempt makes the run permanently non-certifiable and no deliverable may be emitted, even though g5-verdict.json passed.

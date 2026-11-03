@@ -1,0 +1,192 @@
+{
+  "certifiable": true,
+  "changes": [
+    {
+      "location": "Executive Summary › paragraph 3",
+      "before": "The primary risk theme for Q3 remains incomplete identity protection.",
+      "after": "Incomplete identity protection remains the primary risk theme for Q3.",
+      "style_marker": "cadence",
+      "reason": "Reordered the sentence to lead with the risk condition and improve emphasis.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary › paragraph 4",
+      "before": "Email defenses give Team Daks a useful foundation against malicious attachments and links.",
+      "after": "Team Daks’ email defenses provide a useful foundation against malicious attachments and links.",
+      "style_marker": "plain_voice",
+      "reason": "Rewrote the sentence with a clear subject and active verb.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › introductory paragraph",
+      "before": "Team Daks has a mixed Microsoft cloud control baseline.",
+      "after": "Team Daks maintains a mixed Microsoft cloud control baseline.",
+      "style_marker": "tense",
+      "reason": "Used present tense for a standing posture description.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Posture Summary",
+      "before": "Team Daks should preserve completed controls.",
+      "after": "Team Daks should preserve the controls that are already completed.",
+      "style_marker": "plain_language",
+      "reason": "Expanded the compressed phrase for clarity without changing the recommendation.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Key Risk Themes › Impersonation protection",
+      "before": "Impersonation protection needs attention beyond existing malware defenses.",
+      "after": "Impersonation protection requires attention beyond existing malware defenses.",
+      "style_marker": "terminology",
+      "reason": "Used a more formal verb while preserving the same conclusion.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › introductory paragraph",
+      "before": "Data protection is a priority gap because the evidence cannot show that Team Daks’ sensitive information is classified or protected by policy.",
+      "after": "Data protection is a priority gap because the evidence cannot show that Team Daks classifies or protects sensitive information by policy.",
+      "style_marker": "plain_voice",
+      "reason": "Rewrote the clause with active voice and clearer subject-verb structure.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Detection and Operational Readiness › introductory paragraph",
+      "before": "Detection readiness is unverified because neither Microsoft 365 audit control is credited and monitoring and response effectiveness were not assessed.",
+      "after": "Detection readiness remains unverified because neither Microsoft 365 audit control is credited, and monitoring and response effectiveness were not assessed.",
+      "style_marker": "punctuation",
+      "reason": "Added a comma to separate two independent clauses and improve readability.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture",
+      "purpose": "Summarizes qualitative posture indicators across eight security domains.",
+      "rows": 8,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › Exposure Level",
+      "purpose": "Shows quarterly exposure-level counts for high, medium, and low.",
+      "rows": 3,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › Defender / Secure Score control evidence",
+      "purpose": "Lists identity control credit, CIS and NIST references, and assessment interpretation.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › Defender / Secure Score control evidence",
+      "purpose": "Records missing endpoint evidence and associated assessment limitations.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › Defender / Secure Score control evidence",
+      "purpose": "Lists data-protection, email, forwarding, and meeting control evidence and interpretation.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › Defender / Secure Score control evidence",
+      "purpose": "Records missing cloud workload and attack-path evidence.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › Defender / Secure Score control evidence",
+      "purpose": "Records missing AI inventory, permission, data-access, usage, and governance evidence.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations",
+      "purpose": "Prioritized action plan with identified quarter, recommendation, and status.",
+      "rows": 6,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark",
+      "purpose": "Maps CIS references to recommendations and status.",
+      "rows": 4,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › CIS Recommendations",
+      "purpose": "Records addressed CIS recommendations by quarter.",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › Advisory Recommendations",
+      "purpose": "Records addressed advisory recommendations by quarter.",
+      "rows": 2,
+      "rows_edited": 0
+    }
+  ],
+  "observations": [
+    {
+      "location": "Recommended Security Actions › Active Recommendations › Status column",
+      "type": "template_deviation",
+      "detail": "The template specifies a status format of 'MM.DD.YYYY - <STATUS>', but the draft uses quarter labels such as '2026 Q3 -'.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › Status column",
+      "type": "template_deviation",
+      "detail": "The template specifies a status format of 'MM.DD.YYYY - <STATUS>', but the draft uses quarter labels such as '2026 Q3 -'.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row: 4",
+      "type": "terminology",
+      "detail": "Status begins 'Q2026 3' rather than '2026 Q3'.",
+      "action_required": "correct in draft"
+    },
+    {
+      "location": "Executive Summary › paragraph 1",
+      "type": "template_deviation",
+      "detail": "Template requires an overall Secure Score screenshot and trendline, but draft.md provides no image or placeholder.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › Identity SS screenshot",
+      "type": "template_deviation",
+      "detail": "Template requires an identity Secure Score screenshot, but draft.md provides no image or placeholder.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › Endpoint SS, exposure score screenshot",
+      "type": "template_deviation",
+      "detail": "Template marks this screenshot as IF AVAILABLE; draft.md provides no image or placeholder.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › Data/Apps SS screenshot",
+      "type": "template_deviation",
+      "detail": "Template marks this screenshot as IF AVAILABLE; draft.md provides no image or placeholder.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › supporting screenshot",
+      "type": "template_deviation",
+      "detail": "Template marks this screenshot as IF AVAILABLE; draft.md provides no image or placeholder.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › AI supporting screenshot",
+      "type": "template_deviation",
+      "detail": "Template marks this screenshot as IF AVAILABLE; draft.md provides no image or placeholder.",
+      "action_required": "accept deviation"
+    }
+  ]
+}
