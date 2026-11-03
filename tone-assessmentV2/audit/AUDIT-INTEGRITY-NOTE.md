@@ -103,6 +103,16 @@ with real token counts — estimates remain labeled
 usage data. Historical records keep their original labels; the
 estimate-to-real cutover begins with post-2026-11-03 runs.
 
+**Price-table mismatch (`cost_usd` on provider-usage records):**
+token counts on `provider-usage` records are real, but
+`price_usd_per_1k_tokens` in `harness.config.json` still carried
+Anthropic-tier rates ($0.003/$0.015 per 1K) when run
+`2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-04` executed — its
+`cost_usd` values (~$0.81 total) overstate the actual Fireworks
+DeepSeek cost (~$0.07 at $0.56/$1.68 per 1M). The config was
+corrected on 2026-11-03; earlier records are untouched per
+append-only policy, and this note is the disclosure.
+
 **Step-05 model attribution
 (`audit/run-2026-Q3-HHAFullHarness_Sonnet5-5.jsonl`):** line 1 records
 `claude-haiku-4-5-20251001`, carried over from a Haiku run template; the

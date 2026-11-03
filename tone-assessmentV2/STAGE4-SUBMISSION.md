@@ -88,13 +88,14 @@ omitted `2026-Q3-IRONTRAX`, `2026-Q3-TeamDaks`,
 `2026-Q3-TEAMDAKSFullHarness` (stalled at needs-step06, counted as halted),
 and the 2026-10-18 gate-test runs:
 
-- **Production: 13/15 finalized** (2 halted — `TEAMDAKSFullHarness` never
+- **Production: 14/16 finalized** (2 halted — `TEAMDAKSFullHarness` never
   completed step 06; `2026-Q3-IRONTRAX-E2ERun-Fireworks-DeepSeek-01`
   halted at G5 loop_max on real model failures — including an invented
   NIST token caught by D4 — and settled `non-finalizable`); the newest
   finalized production runs are
-  `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01`, `-02`, and `-03`
-  (`-03` records real `provider-usage` metering end-to-end)
+  `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01`, `-02`, `-03`, and
+  `-04` (`-03`/`-04` record real `provider-usage` metering end-to-end;
+  `-04` executed on the post-Copilot-removal harness)
 - **Gate-test: 0/7 finalized — 7 halted at their intended gates**
 - **Trend (≥2 reporting periods):** 2026-10-17/18 pre-harness runs 2/2
   finalized (IRONTRAX, TeamDaks); 2026-10-20/21 harness runs 8/9
@@ -162,9 +163,10 @@ and the 2026-10-18 gate-test runs:
   `certifiable: true`, zero punch-outs, `status: finalized`;
   deliverable `Team-Daks-Cloud-Security-Assessment-2026-Q3.md` and
   `audit-report.md` emitted in each. `-03` repeated the pass on the
-  current harness hash with real `provider-usage` token metering —
-  three identical-input passes demonstrate reproducibility, not a
-  one-off. Provider: Fireworks AI `deepseek-v4p1-flash`.
+  cleaned harness hash with real `provider-usage` token metering, and
+  `-04` passed again on the post-Copilot-removal hash — four
+  identical-input passes demonstrate reproducibility, not a one-off.
+  Provider: Fireworks AI `deepseek-v4p1-flash`.
   Prior attempts (`E2ERun`–`E2ERun-4`) are preserved as failure
   evidence — each failure mode maps to a shipped fix in
   `audit/AUDIT-INTEGRITY-NOTE.md` §5.

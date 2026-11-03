@@ -3,7 +3,7 @@
 Gate-test runs (run-ids containing 'Test') deliberately
 trip guards; 'halted' is the expected pass state for them.
 
-## Production runs — 13 finalized / 22 records (9 halted)
+## Production runs — 14 finalized / 23 records (9 halted)
 
 | date | run id | result | punch-outs | G5 iterations | notes |
 |---|---|---|---|---|---|
@@ -30,6 +30,7 @@ trip guards; 'halted' is the expected pass state for them.
 | 2026-11-03 | 2026-Q3-IRONTRAX-E2ERun-Fireworks-DeepSeek-01 | halted | E_loop_exhaustion(open) | 2 | deterministic G5 failed at loop_max; escalated |
 | 2026-11-03 | 2026-Q3-IRONTRAX-E2ERun-Fireworks-DeepSeek-01 | halted | E_loop_exhaustion(closed) | 2 | deterministic G5 failed at loop_max; escalated |
 | 2026-11-03 | 2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-03 | pass | none | 2 | G4 pass; deterministic G5 pass; step 07 finalized |
+| 2026-11-03 | 2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-04 | pass | none | 1 | G4 pass; deterministic G5 pass; step 07 finalized |
 
 ## Gate-test runs — 0 finalized / 7 records (7 halted — expected)
 

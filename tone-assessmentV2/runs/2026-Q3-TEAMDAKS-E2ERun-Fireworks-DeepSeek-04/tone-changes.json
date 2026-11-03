@@ -1,0 +1,315 @@
+{
+  "certifiable": true,
+  "changes": [
+    {
+      "location": "Executive Summary › paragraph 1",
+      "before": "Team Daks made limited, measurable progress in Q3, but the evidence does not yet show a material reduction in identity or data-protection risk.",
+      "after": "Team Daks made limited, measurable progress in Q3, and the evidence does not yet demonstrate a material reduction in identity or data-protection risk.",
+      "style_marker": "voice",
+      "reason": "Refined conjunction and verb for a more formal, consultative tone without altering the conclusion.",
+      "assessment_function": "executive_conclusion",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary › Email defenses paragraph",
+      "before": "Email defenses give Team Daks a useful foundation against malicious attachments and links.",
+      "after": "Email defenses provide Team Daks with a useful foundation against malicious attachments and links.",
+      "style_marker": "voice",
+      "reason": "Replaced a conversational verb with a more formal construction.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Executive Summary › Data protection paragraph",
+      "before": "Data protection is the weaker area: data-protection controls are uncredited, and the Data category stands at 0%.",
+      "after": "Data protection is the weaker area: data-protection controls remain uncredited, and the Data category stands at 0%.",
+      "style_marker": "tense",
+      "reason": "Used present-tense state verb to describe the ongoing control gap.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › intro",
+      "before": "Team Daks has a mixed Microsoft cloud control baseline.",
+      "after": "Team Daks maintains a mixed Microsoft cloud control baseline.",
+      "style_marker": "voice",
+      "reason": "Chose a more formal verb for the client's posture.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    },
+    {
+      "location": "Posture Summary › first sentence",
+      "before": "Team Daks’ posture sits below the peer reference point, and Data is the weakest category.",
+      "after": "Team Daks’ posture remains below the peer reference point, and Data is the weakest category.",
+      "style_marker": "voice",
+      "reason": "Used a more precise state verb for the comparative posture.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › intro",
+      "before": "Data protection is a priority gap because the evidence cannot show that Team Daks’ sensitive information is classified or protected by policy.",
+      "after": "Data protection is a priority gap because the evidence cannot demonstrate that Team Daks’ sensitive information is classified or protected by policy.",
+      "style_marker": "plain_language",
+      "reason": "Replaced a weaker verb with one that better conveys the evidentiary gap.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › email defenses paragraph",
+      "before": "Email defenses against malware and malicious links are well credited, but impersonation protection is largely uncredited.",
+      "after": "Email defenses against malware and malicious links are well credited, but impersonation protection remains largely uncredited.",
+      "style_marker": "tense",
+      "reason": "Clarified that the impersonation gap is ongoing.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Detection and Operational Readiness › intro",
+      "before": "Detection readiness is unverified because neither Microsoft 365 audit control is credited and monitoring and response effectiveness were not assessed.",
+      "after": "Detection readiness remains unverified because neither Microsoft 365 audit control is credited and monitoring and response effectiveness were not assessed.",
+      "style_marker": "tense",
+      "reason": "Clarified that the verification gap persists.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Defender / Secure Score control evidence › row: Device inventory not available.",
+      "before": "| Device inventory not available. | Not mapped | Not assessed | Asset population and endpoint scope cannot be established. |",
+      "after": "| Device inventory was not available. | Not mapped | Not assessed | Asset population and endpoint scope cannot be established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Defender / Secure Score control evidence › row: Onboarding and sensor-health evidence not available.",
+      "before": "| Onboarding and sensor-health evidence not available. | Not mapped | Not assessed | Defender coverage and monitoring effectiveness cannot be validated. |",
+      "after": "| Onboarding and sensor-health evidence was not available. | Not mapped | Not assessed | Defender coverage and monitoring effectiveness cannot be validated. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Defender / Secure Score control evidence › row: Exposure distribution and score not available.",
+      "before": "| Exposure distribution and score not available. | Not mapped | Not assessed | High, medium, and low counts are unavailable, not zero. |",
+      "after": "| Exposure distribution and score were not available. | Not mapped | Not assessed | High, medium, and low counts are unavailable, not zero. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Defender / Secure Score control evidence › row: Vulnerability and CVE records not available.",
+      "before": "| Vulnerability and CVE records not available. | Not mapped | Not assessed | Affected assets, exploitability, and remediation priorities cannot be established. |",
+      "after": "| Vulnerability and CVE records were not available. | Not mapped | Not assessed | Affected assets, exploitability, and remediation priorities cannot be established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Defender / Secure Score control evidence › row: Endpoint remediation evidence not available.",
+      "before": "| Endpoint remediation evidence not available. | Not mapped | Not assessed | No endpoint improvement, regression, or resolved vulnerability is claimed. |",
+      "after": "| Endpoint remediation evidence was not available. | Not mapped | Not assessed | No endpoint improvement, regression, or resolved vulnerability is claimed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Defender / Secure Score control evidence › row: Cloud workload inventory not available.",
+      "before": "| Cloud workload inventory not available. | Not mapped | Not assessed | Workload scope and ownership cannot be established. |",
+      "after": "| Cloud workload inventory was not available. | Not mapped | Not assessed | Workload scope and ownership cannot be established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Defender / Secure Score control evidence › row: Workload configuration and posture findings not available.",
+      "before": "| Workload configuration and posture findings not available. | Not mapped | Not assessed | No client-specific cloud misconfiguration is asserted. |",
+      "after": "| Workload configuration and posture findings were not available. | Not mapped | Not assessed | No client-specific cloud misconfiguration is asserted. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Defender / Secure Score control evidence › row: Attack-path analysis not available.",
+      "before": "| Attack-path analysis not available. | Not mapped | Not assessed | No reachable attack path or lateral-movement exposure is demonstrated. |",
+      "after": "| Attack-path analysis was not available. | Not mapped | Not assessed | No reachable attack path or lateral-movement exposure is demonstrated. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Defender / Secure Score control evidence › row: Workload vulnerability evidence not available.",
+      "before": "| Workload vulnerability evidence not available. | Not mapped | Not assessed | Cloud vulnerability exposure cannot be evaluated. |",
+      "after": "| Workload vulnerability evidence was not available. | Not mapped | Not assessed | Cloud vulnerability exposure cannot be evaluated. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Defender / Secure Score control evidence › row: Workload monitoring and remediation evidence not available.",
+      "before": "| Workload monitoring and remediation evidence not available. | Not mapped | Not assessed | No workload monitoring effectiveness or remediation was assessed. |",
+      "after": "| Workload monitoring and remediation evidence was not available. | Not mapped | Not assessed | No workload monitoring effectiveness or remediation was assessed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › Defender / Secure Score control evidence › row: AI service and agent inventory not available.",
+      "before": "| AI service and agent inventory not available. | Not mapped | Not assessed | AI deployment and adoption cannot be established. |",
+      "after": "| AI service and agent inventory was not available. | Not mapped | Not assessed | AI deployment and adoption cannot be established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › Defender / Secure Score control evidence › row: Agent permissions and consent evidence not available.",
+      "before": "| Agent permissions and consent evidence not available. | Not mapped | Not assessed | The general app-consent score does not validate individual AI agents or their permissions. |",
+      "after": "| Agent permissions and consent evidence was not available. | Not mapped | Not assessed | The general app-consent score does not validate individual AI agents or their permissions. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › Defender / Secure Score control evidence › row: AI data-access and handling evidence not available.",
+      "before": "| AI data-access and handling evidence not available. | Not mapped | Not assessed | Sensitive-data use by AI services cannot be evaluated. |",
+      "after": "| AI data-access and handling evidence was not available. | Not mapped | Not assessed | Sensitive-data use by AI services cannot be evaluated. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › Defender / Secure Score control evidence › row: AI usage and monitoring evidence not available.",
+      "before": "| AI usage and monitoring evidence not available. | Not mapped | Not assessed | No usage trend or monitoring effectiveness is asserted. |",
+      "after": "| AI usage and monitoring evidence was not available. | Not mapped | Not assessed | No usage trend or monitoring effectiveness is asserted. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › Defender / Secure Score control evidence › row: AI governance and remediation evidence not available.",
+      "before": "| AI governance and remediation evidence not available. | Not mapped | Not assessed | No AI finding is presented as implemented, accepted, or resolved. |",
+      "after": "| AI governance and remediation evidence was not available. | Not mapped | Not assessed | No AI finding is presented as implemented, accepted, or resolved. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › Defender / Secure Score control evidence › row: Mailbox intelligence",
+      "before": "| Mailbox intelligence: 8/8. Intelligence for impersonation: 0/8; anti-phishing policy: 0/3. Related impersonation settings uncredited. | 2.1.7 — E5 Level 2 | PR.PS‑01 | Existing mailbox intelligence is not full impersonation protection. Validate protected users/domains, actions, safety tips, and threshold. |",
+      "after": "| Mailbox intelligence: 8/8. Intelligence for impersonation: 0/8; anti-phishing policy: 0/3. Related impersonation settings remain uncredited. | 2.1.7 — E5 Level 2 | PR.PS‑01 | Existing mailbox intelligence is not full impersonation protection. Validate protected users/domains, actions, safety tips, and threshold. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Data Protection and Collaboration › Defender / Secure Score control evidence › row: Teams lobby",
+      "before": "| Teams lobby, external-control, and anonymous-start restrictions completed. Anonymous joining, invited-only auto-admission, and presenter limits uncredited. | Not mapped in this review | PR.AA‑05; PR.PS‑01 | Confirm effective meeting policies and business exceptions rather than treating partial meeting controls as complete access governance. |",
+      "after": "| Teams lobby, external-control, and anonymous-start restrictions completed. Anonymous joining, invited-only auto-admission, and presenter limits remain uncredited. | Not mapped in this review | PR.AA‑05; PR.PS‑01 | Confirm effective meeting policies and business exceptions rather than treating partial meeting controls as complete access governance. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless evidence-gap fragment into a complete sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row: 4",
+      "before": "| 4 | 2026.Q3 | Validate audit coverage and investigative readiness. Confirm audit log search, mailbox audit actions and mailbox types, retrieval of representative events, retention, and access. Assign ownership for alert review and incident escalation, then validate these arrangements through an exercise. | Q2026 3 - Audit controls are uncredited. Monitoring and response effectiveness were not assessed. |",
+      "after": "| 4 | 2026.Q3 | Validate audit coverage and investigative readiness. Confirm audit log search, mailbox audit actions and mailbox types, retrieval of representative events, retention, and access. Assign ownership for alert review and incident escalation, then validate these arrangements through an exercise. | 2026 Q3 - Audit controls are uncredited. Monitoring and response effectiveness were not assessed. |",
+      "style_marker": "terminology",
+      "reason": "Corrected a nonstandard quarter label to match the document's quarter convention.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Domain Posture",
+      "purpose": "Summarizes qualitative posture indicators across major security domains.",
+      "rows": 8,
+      "rows_edited": 0
+    },
+    {
+      "location": "Identity and Access › Defender / Secure Score control evidence",
+      "purpose": "Lists identity control evidence, framework mappings, and assessment interpretations.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Exposure Level",
+      "purpose": "Shows endpoint exposure counts by quarter.",
+      "rows": 3,
+      "rows_edited": 0
+    },
+    {
+      "location": "Endpoint and Vulnerabilities › Defender / Secure Score control evidence",
+      "purpose": "Lists endpoint control evidence, framework mappings, and assessment interpretations.",
+      "rows": 5,
+      "rows_edited": 5
+    },
+    {
+      "location": "Data Protection and Collaboration › Defender / Secure Score control evidence",
+      "purpose": "Lists data protection and collaboration control evidence, framework mappings, and assessment interpretations.",
+      "rows": 5,
+      "rows_edited": 2
+    },
+    {
+      "location": "Cloud Workload and Attack Path Exposure › Defender / Secure Score control evidence",
+      "purpose": "Lists cloud workload control evidence, framework mappings, and assessment interpretations.",
+      "rows": 5,
+      "rows_edited": 5
+    },
+    {
+      "location": "AI Agents and Generative AI Usage › Defender / Secure Score control evidence",
+      "purpose": "Lists AI control evidence, framework mappings, and assessment interpretations.",
+      "rows": 5,
+      "rows_edited": 5
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations",
+      "purpose": "Lists prioritized recommendations with identification quarter and status.",
+      "rows": 6,
+      "rows_edited": 1
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark",
+      "purpose": "Maps recommendations to CIS Microsoft 365 Benchmark references.",
+      "rows": 4,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommendation History › CIS Recommendations",
+      "purpose": "Tracks historical CIS recommendation closure status.",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommendation History › Advisory Recommendations",
+      "purpose": "Tracks historical advisory recommendation closure status.",
+      "rows": 2,
+      "rows_edited": 0
+    }
+  ],
+  "observations": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Control Movement and Baseline Changes",
+      "type": "template_deviation",
+      "detail": "Template includes placeholders for overall Secure Score and trendline screenshots, but draft.md provides no screenshot content.",
+      "action_required": "accept deviation"
+    }
+  ]
+}

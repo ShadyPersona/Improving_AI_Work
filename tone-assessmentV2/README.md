@@ -148,7 +148,7 @@ For an examiner reviewing this workflow, the evidence lives in:
 | Prompt evolution / EDD | `.github/skills/05-tone-consistency/ITERATION_LOG.md`, `.github/skills/06-adversarial-review/ITERATION_LOG.md` |
 | Version lineage | `VERSION_HISTORY.md` + Git tags `tone-assessment-v1` and `tone-assessment-v2` |
 
-**Note:** Promptfoo evals and real agent runs require populated API keys. The evals were re-executed 2026-11-03 (13/13 + E14 on 05, 11/11 on 06, 5/5 on 07 — eval IDs below); run records are in `audit/` and `runs/`, including the unattended certified E2E runs `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` and `-02` (finalized, all seven step-06 checks pass).
+**Note:** Promptfoo evals and real agent runs require populated API keys. The evals were re-executed 2026-11-03 (13/13 + E14 on 05, 11/11 on 06, 5/5 on 07 — eval IDs below); run records are in `audit/` and `runs/`, including the unattended certified E2E runs `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` through `-04` (all finalized; all seven step-06 checks pass on each).
 
 ## Provider history — why the runner is provider-agnostic
 
