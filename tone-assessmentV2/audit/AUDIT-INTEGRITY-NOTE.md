@@ -92,6 +92,17 @@ not fabricated. Where an output artifact survives (`audit-report.md` for
 both runs), an appended `metering_backfill` record supplies a
 `backfill-estimated-chars1.75` estimate.
 
+**Provider-usage metering (added 2026-11-03):** `agent-runner.py` now
+captures each provider's real `usage` counters (`prompt_tokens`/
+`completion_tokens` for OpenAI-compatible APIs, `prompt_eval_count`/
+`eval_count` for Ollama, streamed `usage` events for Anthropic) and
+writes them to `runs/<run-id>/.harness-stepNN-usage.json`. When that
+file exists, `meter_step` records `metering_method: "provider-usage"`
+with real token counts — estimates remain labeled
+`estimated-chars1.75` and are used only when a provider returns no
+usage data. Historical records keep their original labels; the
+estimate-to-real cutover begins with post-2026-11-03 runs.
+
 **Step-05 model attribution
 (`audit/run-2026-Q3-HHAFullHarness_Sonnet5-5.jsonl`):** line 1 records
 `claude-haiku-4-5-20251001`, carried over from a Haiku run template; the
@@ -141,3 +152,39 @@ disclosed here; the surrounding records are unaffected.
 `punchout-missing-content.md` written on E2ERun-2 is retained in the run
 directory as the false punch-out's own evidence; the run was closed via
 recorded decision "accept halt — false punch-out".
+
+## 6. Harness edge cases fixed during the IRONTRAX E2E (2026-11-03)
+
+`2026-Q3-IRONTRAX-E2ERun-Fireworks-DeepSeek-01` ended `non-finalizable`
+after model-quality failures (see the 05 ITERATION_LOG regressions
+section). The run also exposed two harness edge cases, both fixed:
+
+1. **Consumed punch-out approvals:** when punch-out E re-triggered after
+   a recorded "approve retry", the prior `approved`/`closure_evidence`
+   remained set — `record-decision` then refused a fresh decision
+   ("would look like tampering") while `drive --resume` would re-dispatch
+   a paid step on stale authority. `_trigger_punchout` now clears a
+   consumed approval on re-trigger so each escalation requires a new
+   recorded human decision; the new pending log row documents it.
+2. **Non-finalizable settle:** `escalated` runs with all punch-outs
+   closed and `certifiable: false` now settle `non-finalizable` on
+   `drive` (previously only `awaiting-human` settled), unless a recorded
+   "approve retry" decision is outstanding.
+
+`step07-precondition-failure.md` in the run directory is retained: the
+finalize agent correctly refused to package a deliverable for a
+non-certifiable run — evidence of the gate working as designed.
+
+## 7. Production-path bypass test (2026-11-03)
+
+The examiner noted bypass testing had only covered gate-test runs.
+`2026-Q3-TEAMDAKS-ProdBypassTest` is a copy of the certified production
+run `…-E2ERun-Fireworks-DeepSeek-02` under a new run ID, with punch-out
+`A_missing_content` **synthetically set to `triggered: true`** (the
+successful run itself never triggered one — a bypass test requires an
+open punch-out). `python harness.py bypass-test` then exercised both
+attack paths on the production run's own state and configuration: both
+`no-approval continuation` and `forged approval flag` were **blocked**.
+The run is permanently non-certifiable (recorded bypass attempt). The
+synthetic trigger is disclosed here and in the run's
+`non_certifiable_reasons`; the certified `-01`/`-02` runs are untouched.

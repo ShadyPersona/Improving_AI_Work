@@ -87,8 +87,11 @@ omitted `2026-Q3-IRONTRAX`, `2026-Q3-TeamDaks`,
 `2026-Q3-TEAMDAKSFullHarness` (stalled at needs-step06, counted as halted),
 and the 2026-10-18 gate-test runs:
 
-- **Production: 12/13 finalized** (1 halted — `TEAMDAKSFullHarness` never
-  completed step 06); the newest finalized production runs are
+- **Production: 12/14 finalized** (2 halted — `TEAMDAKSFullHarness` never
+  completed step 06; `2026-Q3-IRONTRAX-E2ERun-Fireworks-DeepSeek-01`
+  halted at G5 loop_max on real model failures — including an invented
+  NIST token caught by D4 — and settled `non-finalizable`); the newest
+  finalized production runs are
   `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` and `-02` (see below)
 - **Gate-test: 0/7 finalized — 7 halted at their intended gates**
 - **Trend (≥2 reporting periods):** 2026-10-17/18 pre-harness runs 2/2
@@ -99,6 +102,17 @@ and the 2026-10-18 gate-test runs:
   every state transition (no manual step to keep
   `success-log.md`/`success-report.md`/`guardrails.jsonl` in lockstep),
   and `harness.sha256` is refreshed in the same hook.
+- **Sample limitation (disclosed):** all runs were executed by one
+  operator against 2026-Q3 inputs; the trend shows date-over-date
+  stability (2026-10-17/18 → 2026-10-20/21 → 2026-11-03), not
+  quarter-over-quarter. A true quarter-over-quarter trend requires the
+  next reporting period and is a roadmap item, not a claim made here.
+- **Metering:** post-2026-11-03 run records carry real provider usage
+  (`metering_method: "provider-usage"`) when the API returns usage;
+  older records are labeled estimates — see integrity note §3.
+- **Bypass testing:** exercised on a production-run state
+  (`2026-Q3-TEAMDAKS-ProdBypassTest`, copied from the certified
+  `…-DeepSeek-02` run) — both attack paths blocked; disclosed in §6.
 
 ## Audit trail (Artifact 5)
 

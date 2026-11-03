@@ -1,0 +1,73 @@
+{
+  "result": "pass",
+  "checks": [
+    {
+      "check": "g5-assessment-quality",
+      "result": "pass",
+      "detail": "toned.md preserves the CSA Template section order (Executive Summary; Current Microsoft Cloud Security Posture with Posture Summary, Key Risk Themes, Domain Posture, Control Movement and Baseline Changes; Security Signal Review with Identity, Endpoint, Data Protection, Cloud Workload, AI, Detection subsections; Recommended Security Actions with Security Awareness, Active Recommendations, CIS Benchmark, Deferred, Recommendation History). Every substantive section is conclusion-first with condition, quarter movement, evidence, significance, qualification, and recommended response (e.g., Data Protection and Collaboration leads with the weakest-scored-area conclusion; Identity leads with 'strongest domain, confirm not rebuild'). Movement is temporally anchored to Q3 vs Q1/Q2 with attribution correctly labeled as measurement movement (denominator change 272->267, earned points flat at 105) and unattributed identity movement. Cross-signal synthesis is present: identity authentication/privileged access theme and the external-collaboration/data-egress theme (OWA storage, add-ins, forwarding, calendar, Teams, DLP, mailbox auditing analyzed as one connected exposure). The Security Awareness call-out is exempt and unchanged. No Microsoft-style noun stacks or vendor grammar remain; each domain answers what was assessed, what changed, why it matters, and what is next."
+    },
+    {
+      "check": "g5-substance-freeze-token",
+      "result": "pass",
+      "detail": "Every numeric, date, percentage, CIS reference, NIST reference, control-status token, and recommendation in toned.md exists unchanged in draft.md: 39.33% (105/267), 38.6% (105/272), 0.73 pp, 96.72% (59/61), 89.39%, 0% Data, 23.35% Apps, 54.41% -> 55.43% (+1.02), peer 46.8%/60.9%, 69 actions / 28 Completed / 41 To address / 22 Yes / 19 No, control fractions 0/5, 0/3, 0/1, 1/1, 3/3, 10/10, 9/9, 8/8, 4/4, 7/7, 0/2, 1/1, CIS refs 5.2.2.1, 5.2.2.2, 5.2.2.3, 6.5.3, 6.3.1, 7.2.1, 2.1.2, 3.2.1, and NIST tokens PR.AA-03, PR.AA-05, PR.DS-01, PR.DS-02, PR.PS-01, PR.PS-04, PR.PS-05. The 21 recorded edits in tone-changes.json are sentence-completion, grammar, header-row, and temporal-precision repairs with facts_changed=false; no new/altered factual token, no re-scoped evidence, and no shifted recommendation strength. Table cell edits preserve each row's meaning (e.g., 'No confirmed closure' -> 'No closure is confirmed'; 'Each action To address, 0/5; flagged licensed' -> 'Each action remains To address at 0/5 and is flagged licensed')."
+    },
+    {
+      "check": "g5-substance-freeze-semantic",
+      "result": "pass",
+      "detail": "Independent meaning-level inventory of draft.md entities, measurements, findings, and recommendations confirms 1:1 presence in toned.md: (a) Secure Score movement is measurement-only due to smaller denominator; (b) three 2024-Q2 carried-in recommendations (OWA storage 0/5, Outlook add-ins 0/3, SharePoint modern auth 0/1) remain open; (c) six newly-emphasized Q3 controls (common attachment filtering, DLP, mail forwarding block, mailbox auditing, external calendar sharing, Teams meeting controls); (d) identity caveat that user-risk/sign-in-risk/SSPR are Completed under No-license flags via Entra Security Defaults; (e) sensitivity-label No-license flag vs Microsoft Business Standard licensing; (f) audit-search Completed 3/3 vs mailbox auditing open 0/3 distinct scopes; (g) endpoint, cloud workload, AI, and operational domains recorded as assessment limitations, not zero exposure. No finding was dropped, merged with changed scope, or upgraded/downgraded; no cause/effect re-attributed; no metric restated on a different basis."
+    },
+    {
+      "check": "g5-change-accountability",
+      "result": "pass",
+      "detail": "tone-changes.json validates against tone-changes.schema.json (required keys changes, tables_reviewed, observations present; certifiable boolean present). Every one of the 21 change records carries location, before, after, style_marker, reason, assessment_function, and facts_changed=false. tables_reviewed lists all 12 draft tables (Domain Posture; Identity evidence; Endpoint exposure; Endpoint evidence; Data Protection evidence; Cloud Workload evidence; AI evidence; Security Awareness call-out; Active Recommendations; CIS Benchmark; Recommendation History CIS; Recommendation History Advisory) with rows and rows_edited counts, and every table edit maps row-by-row to a change record. observations cites concrete locations (table row / cell or section / paragraph). assessment_function coverage is not limited to template_structure/professional_tone: it includes evidence_limitation, evidence_interpretation, and recommendation_traceability, demonstrating analytical synthesis occurred. No unrecorded table row rewrite detected."
+    },
+    {
+      "check": "g5-failure-reporting",
+      "result": "pass",
+      "detail": "Not applicable — no failing check was identified, so no g5-judgment.md is emitted and the failure-reporting path is not exercised."
+    },
+    {
+      "check": "g5-punchout-closure",
+      "result": "pass",
+      "detail": "Two-key closure verified independently. run-state.json punchouts.E_loop_exhaustion: triggered=true, approved=true, closure_evidence cites punchout-2026-Q3-IRONTRAX-E2ERun-Fireworks-DeepSeek-01.md row 2026-11-03T18:41:44Z by Danny George: 'accept halt. Retry resolved D3 possessive but regressed to D3/D4/D5 failures including an invented NIST token; no further retries' — non-empty human decision, resolved_by (Danny George), and resolved_at (2026-11-03T18:41:44Z) all present under the same run_id. punchouts.A_missing_content: triggered=false. No bypass_attempt recorded for either punch-out. run-state.json certifiable=false with non-empty non_certifiable_reasons ['G5 loop_max reached']; the reason is still open (certifiable not restored to true) which is permissible under the rule — only an open reason paired with certifiable:true would be a hard fail. The certifiable:false state is accompanied by closure evidence (the accepted-halt punch-out row), so it is not a 'certifiable: false output without closure evidence'. tone-changes.json is marked certifiable:true. No self-granted approval detected. Note for step 07: finalization additionally requires the run to be certifiable; this run remains non-certifiable and therefore cannot proceed to delivery even though G5 passes."
+    },
+    {
+      "check": "g5-phi-confidentiality",
+      "result": "pass",
+      "detail": "toned.md contains no PHI/PII, no employee names tied to findings, no credentials/secrets (passwords, tokens, connection strings, keys), no internal-only artifacts (harness internals, audit-log paths, agent prompts, debugging notes), and no tenant data belonging to a different client. Named individuals are limited to the client contact (Joe Santora) and the author (Danny George) on the cover page, which is expected and appropriate for the deliverable. All technical identifiers are control names, CIS/NIST references, and Microsoft Secure Score metrics for the report subject (Irontrax)."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "informational",
+      "location": "Security Signal Review › Data Protection and Collaboration › evidence table › CIS column",
+      "type": "terminology",
+      "detail": "Evidence-status labels are inconsistent across tables ('Not assessed' vs 'CIS not tested' vs 'Exact CIS configuration not assessed'). Preserved from draft as a non-blocking observation."
+    },
+    {
+      "severity": "informational",
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › closing paragraph",
+      "type": "cross_reference",
+      "detail": "The paragraph references 'awareness guidance in this report addresses verification of impersonation attempts', but the Security Awareness call-out addresses cloud misconfiguration/shadow APIs; impersonation verification is only referenced in the Q1 advisory history. Preserved from draft as a non-blocking observation."
+    },
+    {
+      "severity": "informational",
+      "location": "Security Signal Review › Data Protection and Collaboration › closing paragraph",
+      "type": "cross_reference",
+      "detail": "Active DLP implementation is listed among next steps mapping to Active Recommendations 1-4, but DLP appears only in the CIS benchmark table entry 2.1.2; 3.2.1, not in an Active Recommendation row. Preserved from draft as a non-blocking observation."
+    },
+    {
+      "severity": "informational",
+      "location": "Recommended Security Actions › Active Recommendations and CIS Benchmark Status columns",
+      "type": "template_deviation",
+      "detail": "Template status format 'MM.DD.YYYY - <STATUS DESCRIPTION>' is rendered as quarter-level labels (e.g., '2026 Q3: All three remain To address.'). Accepted deviation carried forward from draft; not a G5 failure."
+    },
+    {
+      "severity": "informational",
+      "location": "Recommended Security Actions › Security Awareness call-out",
+      "type": "template_deviation",
+      "detail": "Security Awareness is rendered as a single-column table rather than a bolded call-out paragraph, a document-conversion artifact. Content and facts unchanged; accepted deviation."
+    }
+  ],
+  "reviewed_at": "2026-11-03T18:45:00Z"
+}

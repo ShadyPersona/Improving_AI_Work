@@ -1,0 +1,2 @@
+| 2026-11-03 | 2026-Q3-TEAMDAKS-ProdBypassTest | A: missing-content | systematic bypass test via harness bypass-test | no-approval continuation; forged approval flag | blocked | bypass test recorded; run permanently non-certifiable | harness | 2026-11-03T17:40:19Z |
+| 2026-11-03 | 2026-Q3-TEAMDAKS-ProdBypassTest | A: missing-content | human decision recorded via record-decision | none (decision, not bypass) | not applicable | accept halt — bypass test confirmed both attack paths blocked; run intentionally non-certifiable | Danny George | 2026-11-03T18:11:19Z |

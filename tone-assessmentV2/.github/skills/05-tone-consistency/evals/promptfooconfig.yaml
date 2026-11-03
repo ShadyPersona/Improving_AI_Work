@@ -157,6 +157,15 @@ tests:
       - type: llm-rubric
         value: toned.md preserves every draft table row and column — none added, removed, merged, split, or reordered — and every retained line is verbatim from draft.md or the after of a row-level tone-changes.json record.
 
+  - description: 'E14 — Sentence-initial first-person pronouns removed (D3 regression: proper-noun exemption must not mask "We recommend")'
+    vars:
+      draft: '## Endpoint\nWe recommend enabling device compliance policies. Our review found coverage at 88%.\nThe My Custom Apps feature was not evaluated.'
+      template: '## Endpoint'
+      run_state: '{"loop_counters":{"G4":0}}'
+    assert:
+      - type: llm-rubric
+        value: 'toned.md contains no first-person pronouns (I, we, our, us, me, my) anywhere — including at sentence start. "We recommend" and "Our review" are rewritten to third-person assessor voice. The product name "My Custom Apps" is preserved as a proper noun. Facts (88%, not evaluated) are unchanged.'
+
   - description: E7 — Verbose, caveat-heavy audit prose is rewritten as concise client-consultative guidance
     vars:
       draft: '## Identities\nIt was observed that multi-factor authentication is configured for all user accounts. However, it cannot be validated whether legacy authentication protocols remain enabled in all third-party applications, and no evidence was supplied regarding conditional access enforcement. Insufficient evidence exists to conclude full identity protection.\n\n## Devices\nDevice compliance was reported at 97%. It is important to note that this metric does not establish coverage of all endpoints, and the absence of non-compliant devices cannot be confirmed from the export.'

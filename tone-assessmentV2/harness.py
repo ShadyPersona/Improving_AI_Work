@@ -469,10 +469,24 @@ def _usage_from_session_log(path):
     return (tin, tout) if found else None
 
 
-def meter_step(config, step_prompt, step_output):
+def meter_step(config, step_prompt, step_output, rd=None, step=None):
     mcfg = config.get("metering", {})
+    usage_file = (rd / f".harness-step{step}-usage.json"
+                  if rd is not None and step else None)
+    provider_usage = None
+    if usage_file and usage_file.exists():
+        try:
+            provider_usage = json.loads(
+                usage_file.read_text(encoding="utf-8"))
+        except Exception:
+            provider_usage = None
     usage = _usage_from_session_log(mcfg.get("session_log_path"))
-    if usage:
+    if provider_usage and isinstance(
+            provider_usage.get("input_tokens"), int):
+        tokens_in = provider_usage["input_tokens"]
+        tokens_out = provider_usage.get("output_tokens") or 0
+        method = "provider-usage"
+    elif usage:
         tokens_in, tokens_out, method = usage[0], usage[1], "session_log"
     else:
         cpt = mcfg.get("estimation_chars_per_token", 1.75)
@@ -791,14 +805,22 @@ def g5_check(run_id):
             if m and j == 0:
                 # proper-noun exemption: a capitalized first-person token
                 # followed by a capitalized word is a product/role name
-                # ("My Custom Apps", "We Cloud Services"), not pronouns
+                # ("My Custom Apps", "We Cloud Services"), not pronouns.
+                # Never exempt at sentence start — "We recommend…" is a
+                # pronoun even when followed by a capitalized word.
                 rest = line[m.end():].lstrip()
-                if m.group(0)[0].isupper() and rest[:1].isupper():
+                sentence_start = re.search(
+                    r"(^|[.!?]\s+)$", line[:m.start()]) is not None
+                if (m.group(0)[0].isupper() and rest[:1].isupper()
+                        and not sentence_start):
                     m = first_person.search(line, m.end())
                     if not m:
                         continue
                     rest = line[m.end():].lstrip()
-                    if m.group(0)[0].isupper() and rest[:1].isupper():
+                    sentence_start = re.search(
+                        r"(^|[.!?]\s+)$", line[:m.start()]) is not None
+                    if (m.group(0)[0].isupper() and rest[:1].isupper()
+                            and not sentence_start):
                         continue
             if m:
                 hits.append(f"line {i}: {m.group(0)!r}")
@@ -881,7 +903,17 @@ def _log_punchout_trigger(run_id, letter, reason):
 
 
 def _trigger_punchout(state, key, reason):
-    state["punchouts"][key]["triggered"] = True
+    po = state["punchouts"][key]
+    if po.get("triggered") and po.get("approved"):
+        # Re-trigger after a consumed "approve retry" — the prior closure
+        # authorized one re-execution, which has now escalated again.
+        # Clear it so a fresh human decision is required; the punch-out
+        # log already holds a new pending row for this escalation.
+        po["approved"] = False
+        po["closure_evidence"] = None
+        po.pop("resolved_by", None)
+        po.pop("resolved_at", None)
+    po["triggered"] = True
     state["certifiable"] = False
     if reason not in state["non_certifiable_reasons"]:
         state["non_certifiable_reasons"].append(reason)
@@ -899,7 +931,7 @@ def _record_step(run_id, config, step_name, gate, gate_result, rd,
     output_hashes = {n: sha256_file(rd / n)
                      for n in EXPECTED_OUTPUTS[step_name]
                      if (rd / n).exists()}
-    meter = meter_step(config, prompt, outputs_text)
+    meter = meter_step(config, prompt, outputs_text, rd=rd, step=step_name)
     step_names = {"05": "05-tone-consistency",
                   "06": "06-adversarial-review",
                   "07": "07-finalize"}
@@ -987,8 +1019,10 @@ def _advance(run_id, config, resume=False):
                      or not punchout_log_has_closure(run_id, n[0]))]
         # All punch-outs closed but certifiable is permanently false —
         # nothing left for a human to decide: settle terminally.
-        if not open_pos and status == "awaiting-human" \
-                and not state.get("certifiable", True):
+        if not open_pos and status in ("awaiting-human", "escalated") \
+                and not state.get("certifiable", True) \
+                and not any("approve retry" in str(po.get("closure_evidence", "")).lower()
+                            for po in state.get("punchouts", {}).values()):
             state["status"] = "non-finalizable"
             save_state(run_id, state)
             return {"action": "done", "status": "non-finalizable",

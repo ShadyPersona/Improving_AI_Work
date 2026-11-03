@@ -78,7 +78,11 @@ def _get(url, headers, timeout=None):
 
 
 def call_model(provider, base_url, api_key, model, prompt):
-    """Return the model's text response for the given provider."""
+    """Return (text, usage) for the given provider.
+
+    usage is {"input_tokens": int, "output_tokens": int} from the
+    provider's real metering, or None when the provider doesn't report
+    it — the harness falls back to the labeled estimate in that case."""
     if provider == "anthropic":
         # Streamed request — large prompts + long outputs otherwise hit the
         # non-streaming gateway timeout (HTTP 504).
@@ -109,6 +113,7 @@ def call_model(provider, base_url, api_key, model, prompt):
         except Exception as e:
             raise RuntimeError(str(e))
         chunks = []
+        usage = {}
         for raw_line in resp:
             line = raw_line.decode("utf-8", errors="replace").strip()
             if not line.startswith("data:"):
@@ -123,7 +128,14 @@ def call_model(provider, base_url, api_key, model, prompt):
             if (ev.get("type") == "content_block_delta"
                     and ev.get("delta", {}).get("type") == "text_delta"):
                 chunks.append(ev["delta"].get("text", ""))
-        return "".join(chunks)
+            u = (ev.get("usage")
+                 or (ev.get("message") or {}).get("usage") or {})
+            if u.get("input_tokens"):
+                usage["input_tokens"] = u["input_tokens"]
+            if u.get("output_tokens"):
+                usage["output_tokens"] = u["output_tokens"]
+        return ("".join(chunks),
+                usage if "input_tokens" in usage else None)
 
     if provider == "ollama":
         # Long-context runs: AGENT_NUM_CTX sets the KV window (prompt +
@@ -150,7 +162,11 @@ def call_model(provider, base_url, api_key, model, prompt):
             f"{base_url}/api/chat",
             {"content-type": "application/json"},
             body)
-        return data.get("message", {}).get("content", "")
+        text = data.get("message", {}).get("content", "")
+        u = {"input_tokens": data.get("prompt_eval_count"),
+             "output_tokens": data.get("eval_count")}
+        return (text,
+                u if isinstance(u["input_tokens"], int) else None)
 
     if provider == "azure":
         # AGENT_BASE_URL should be the full chat-completions URL, e.g.
@@ -160,7 +176,11 @@ def call_model(provider, base_url, api_key, model, prompt):
             {"content-type": "application/json", "api-key": api_key},
             {"max_tokens": 8192,
              "messages": [{"role": "user", "content": prompt}]})
-        return data["choices"][0]["message"]["content"]
+        u = data.get("usage") or {}
+        usage = ({"input_tokens": u["prompt_tokens"],
+                  "output_tokens": u["completion_tokens"]}
+                 if u.get("prompt_tokens") is not None else None)
+        return data["choices"][0]["message"]["content"], usage
 
     if provider == "copilot-studio":
         # Direct Line conversation. AGENT_BASE_URL should be the bot endpoint,
@@ -191,7 +211,7 @@ def call_model(provider, base_url, api_key, model, prompt):
                         and a.get("from", {}).get("id") != "harness"
                         and a.get("text")]
             if bot_msgs:
-                return bot_msgs[-1]["text"]
+                return bot_msgs[-1]["text"], None
         raise RuntimeError("copilot-studio: no bot reply within timeout")
 
     # default: openai-compatible chat completions
@@ -218,7 +238,11 @@ def call_model(provider, base_url, api_key, model, prompt):
         raise RuntimeError(
             f"null content; finish_reason={choice.get('finish_reason')}, "
             f"message keys={keys}, reasoning[:200]={reasoning!r}")
-    return content
+    u = data.get("usage") or {}
+    usage = ({"input_tokens": u["prompt_tokens"],
+              "output_tokens": u["completion_tokens"]}
+             if u.get("prompt_tokens") is not None else None)
+    return content, usage
 
 
 def extract_file_map(text):
@@ -274,12 +298,14 @@ def main():
 
         text = None
         last_err = None
+        usage = None
         attempts = int(os.environ.get("AGENT_RETRIES", "4"))
         import time as _time
         for attempt in range(attempts):
             t0 = _time.time()
             try:
-                text = call_model(provider, base_url, api_key, model, prompt)
+                text, usage = call_model(
+                    provider, base_url, api_key, model, prompt)
                 files = extract_file_map(text)
                 break
             except Exception as e:
@@ -305,6 +331,14 @@ def main():
         written = []
         for name, content in files.items():
             written.append(safe_write(run_dir, name, content))
+
+        if usage:
+            (run_dir / f".harness-step{step}-usage.json").write_text(
+                json.dumps({"input_tokens": usage["input_tokens"],
+                            "output_tokens": usage.get("output_tokens"),
+                            "metering": "provider-usage",
+                            "provider": provider, "model": model}),
+                encoding="utf-8")
 
         failure_files = {"g5-judgment.md", "punchout-missing-content.md"}
         produced_failure = any(n in failure_files for n in written)

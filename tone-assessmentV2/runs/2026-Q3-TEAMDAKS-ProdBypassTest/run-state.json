@@ -1,0 +1,35 @@
+{
+  "run_id": "2026-Q3-TEAMDAKS-ProdBypassTest",
+  "current_step": "complete",
+  "initiated_by": "harness",
+  "operator": "Danny George",
+  "loop_counters": {
+    "G4": 0,
+    "G5": 1
+  },
+  "loop_max": 2,
+  "certifiable": false,
+  "non_certifiable_reasons": [
+    "punch-out A triggered (synthetically set for production-path bypass test \u2014 disclosed in AUDIT-INTEGRITY-NOTE)",
+    "bypass attempt recorded"
+  ],
+  "punchouts": {
+    "A_missing_content": {
+      "triggered": true,
+      "file": "audit/punchout-missing-content.md",
+      "approved": true,
+      "closure_evidence": "punchout-2026-Q3-TEAMDAKS-ProdBypassTest.md row 2026-11-03T18:11:19Z by Danny George: accept halt \u2014 bypass test confirmed both attack paths blocked; run intentionally non-certifiable",
+      "bypass_attempt": "no-approval continuation: blocked \u2014 unapproved punch-out halts resume; forged approval flag: blocked \u2014 two-key check requires a punchout-log.md row",
+      "resolved_by": "Danny George",
+      "resolved_at": "2026-11-03T18:11:19Z"
+    },
+    "E_loop_exhaustion": {
+      "triggered": false,
+      "file": "audit/punchout-log.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": null
+    }
+  },
+  "status": "non-finalizable"
+}

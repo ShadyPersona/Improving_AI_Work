@@ -1,0 +1,309 @@
+{
+  "certifiable": true,
+  "changes": [
+    {
+      "location": "Security Signal Review › Identity and Access › assurance caveat paragraph",
+      "before": "One caveat the assurance these statuses provide. User-risk and sign-in-risk policies and all-user self-service password reset appear Completed despite No licensing flags. These policies are enabled and enforced due to Entra Security Defaults. If Irontrax ever wanted to move away from Security Defaults, these policies would need manually implemented.",
+      "after": "One caveat limits the assurance these statuses provide. User-risk and sign-in-risk policies and all-user self-service password reset appear Completed despite No licensing flags. These policies are enabled and enforced because of Entra Security Defaults. If Irontrax were to move away from Security Defaults, these policies would need to be implemented manually.",
+      "style_marker": "complete_sentences",
+      "reason": "Repaired a broken sentence fragment and an incomplete verb phrase so the licensing caveat reads as a complete, client-facing statement.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › evidence table › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the column labels occupy the header rather than a data row created by document conversion.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › evidence table › row: Administrator MFA 10/10; all-user MFA 9/9, Completed",
+      "before": "| Administrator MFA 10/10; all-user MFA 9/9, Completed | 5.2.2.1; 5.2.2.2 | PR.AA-03 | User and Administrator authentication protection enabled and enforced |",
+      "after": "| Administrator MFA 10/10; all-user MFA 9/9, Completed | 5.2.2.1; 5.2.2.2 | PR.AA-03 | User and administrator authentication protection is enabled and enforced. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a verbless interpretation fragment into a complete sentence without altering the control evidence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › evidence table › row: User-risk and sign-in-risk policies 7/7 each; SSPR All 1/1, Completed",
+      "before": "| User-risk and sign-in-risk policies 7/7 each; SSPR All 1/1, Completed | CIS not tested | PR.AA-03 | “Have license = No” accompanies these Completed statuses. Enabled due to Entra Security Defaults |",
+      "after": "| User-risk and sign-in-risk policies 7/7 each; SSPR All 1/1, Completed | CIS not tested | PR.AA-03 | “Have license = No” accompanies these Completed statuses. These policies are enabled because of Entra Security Defaults. |",
+      "style_marker": "complete_sentences",
+      "reason": "Gave the licensing caveat cell a subject and verb so the interpretation reads as a complete sentence.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › header row",
+      "before": "|  |  |  |\n| --- | --- | --- |\n| Domain | Posture Indicator | Interpretation |",
+      "after": "| Domain | Posture Indicator | Interpretation |\n| --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the domain posture table carries its column labels in the header rather than in a data row.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › row: Data Protection",
+      "before": "| Data Protection | Requires control review | Data 0%; DLP To address at 0/5. Information-protection scope and label entitlement require review and implementation. |",
+      "after": "| Data Protection | Requires control review | Data 0%; DLP is To address at 0/5. Information-protection scope and label entitlement require review and implementation. |",
+      "style_marker": "complete_sentences",
+      "reason": "Supplied the missing verb so the DLP status statement reads as a complete sentence within the interpretation cell.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture › row: AI Agents & Generative AI",
+      "before": "| AI Agents & Generative AI | Not assessed | Evidence on AI agent inventory, usage, permissions, and AI-specific protections were not available. |",
+      "after": "| AI Agents & Generative AI | Not assessed | Evidence on AI agent inventory, usage, permissions, and AI-specific protections was not available. |",
+      "style_marker": "grammar",
+      "reason": "Corrected subject-verb agreement so the evidence-limitation statement is grammatically sound.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › exposure table › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Exposure Level | 2026 Q1 | 2026 Q2 | 2026 Q3 |",
+      "after": "| Exposure Level | 2026 Q1 | 2026 Q2 | 2026 Q3 |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the quarter labels occupy the header rather than a data row created by document conversion.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › evidence table › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the column labels occupy the header rather than a data row created by document conversion.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › licensing paragraph",
+      "before": "Irontrax currently has Microsoft Business Standard, so the sensitivity-label action is currently unavailable, limiting Irontrax’s data protection capabilities.",
+      "after": "Irontrax has Microsoft Business Standard licensing, so the sensitivity-label action is unavailable, which limits Irontrax’s data protection capabilities.",
+      "style_marker": "temporal_precision",
+      "reason": "Removed the unsupported relative time word so the licensing limitation is stated as a standing condition rather than a point-in-time observation.",
+      "assessment_function": "evidence_limitation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › evidence table › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the column labels occupy the header rather than a data row created by document conversion.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › evidence table › row: SharePoint modern authentication 0/1, To address",
+      "before": "| SharePoint modern authentication 0/1, To address | 7.2.1 (Level 1) | PR.AA-03 | SharePoint-specific legacy-authentication setting does not close this action. Modern authentication to SharePoint must be enforced to complete this control. |",
+      "after": "| SharePoint modern authentication 0/1, To address | 7.2.1 (Level 1) | PR.AA-03 | The SharePoint-specific legacy-authentication setting does not close this action. Modern authentication to SharePoint must be enforced to complete this control. |",
+      "style_marker": "complete_sentences",
+      "reason": "Added the missing article so the interpretation cell opens with a complete sentence identifying the setting under discussion.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › evidence table › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the column labels occupy the header rather than a data row created by document conversion.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › evidence table › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |",
+      "after": "| Defender / Secure Score control evidence | CIS Microsoft 365 Benchmark | NIST CSF 2.0 | Assessment interpretation |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the column labels occupy the header rather than a data row created by document conversion.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Priority | Identified | Recommendation | Status |",
+      "after": "| Priority | Identified | Recommendation | Status |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the recommendation columns are labelled in the header rather than in a data row.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row: 1",
+      "before": "| 1 | 2024 Q2 | **Continuing Outlook and SharePoint hardening.** Complete the three continuing Outlook and SharePoint recommendations below. Managed IT should verify effective settings and retain test results. | 2026 Q3: All three remain To address; no supported resolution. |",
+      "after": "| 1 | 2024 Q2 | **Continuing Outlook and SharePoint hardening.** Complete the three continuing Outlook and SharePoint recommendations below. Managed IT should verify effective settings and retain test results. | 2026 Q3: All three remain To address. No resolution is supported. |",
+      "style_marker": "sentence_discipline",
+      "reason": "Split the semicolon-joined status and conclusion into separate sentences so the carried-in status is unambiguous.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row: 4",
+      "before": "| 4 | 2026 Q3 | **Mailbox audit validation.** Validate mailbox audit activities, populations, and bypass settings. Demonstrate retrieval of representative events. | Open: mailbox auditing 0/3; flagged licensed. Audit search separately Completed. |",
+      "after": "| 4 | 2026 Q3 | **Mailbox audit validation.** Validate mailbox audit activities, populations, and bypass settings. Demonstrate retrieval of representative events. | Open: mailbox auditing 0/3, flagged licensed. Audit search is separately Completed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Repaired a verbless status fragment so the distinct audit-search status reads as a complete sentence.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| CIS Ref. | Recommendation | Description | Status |",
+      "after": "| CIS Ref. | Recommendation | Description | Status |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the CIS columns are labelled in the header rather than in a data row.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › row: 7.2.1",
+      "before": "| 7.2.1 | **Ensure Modern Authentication for SharePoint Applications Is Required** | Level 1. Set LegacyAuthProtocolsEnabled to False, or Block access for apps without modern authentication. Test legitimate SharePoint application access independently of identity and Exchange protections. | Identified 2024 Q2. Q3: To address, 0/1. No confirmed closure. |",
+      "after": "| 7.2.1 | **Ensure Modern Authentication for SharePoint Applications Is Required** | Level 1. Set LegacyAuthProtocolsEnabled to False, or Block access for apps without modern authentication. Test legitimate SharePoint application access independently of identity and Exchange protections. | Identified 2024 Q2. Q3: To address, 0/1. No closure is confirmed. |",
+      "style_marker": "complete_sentences",
+      "reason": "Replaced a verbless fragment with a complete sentence stating that closure is not confirmed.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › row: 2.1.2; 3.2.1",
+      "before": "| 2.1.2; 3.2.1 | **Enable Common Attachment Filtering and Active DLP Coverage** | Level 1. Enable common attachment filtering in the default anti-malware policy, retaining required extensions and scoped exceptions. Implement active DLP with appropriate information types, locations, and tested enforcement. | Emphasized in Q3. Each action To address, 0/5; flagged licensed. Prior configuration and onset were not established. |",
+      "after": "| 2.1.2; 3.2.1 | **Enable Common Attachment Filtering and Active DLP Coverage** | Level 1. Enable common attachment filtering in the default anti-malware policy, retaining required extensions and scoped exceptions. Implement active DLP with appropriate information types, locations, and tested enforcement. | Emphasized in Q3. Each action remains To address at 0/5 and is flagged licensed. Prior configuration and onset were not established. |",
+      "style_marker": "complete_sentences",
+      "reason": "Converted a shorthand status fragment into a complete sentence covering the control status and licensing flag.",
+      "assessment_function": "recommendation_traceability",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › CIS Recommendations › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Quarter | Recommendation | Action | Details |",
+      "after": "| Quarter | Recommendation | Action | Details |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the history columns are labelled in the header rather than in a data row.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › Advisory Recommendations › header row",
+      "before": "|  |  |  |  |\n| --- | --- | --- | --- |\n| Quarter | Recommendation | Action | Details |",
+      "after": "| Quarter | Recommendation | Action | Details |\n| --- | --- | --- | --- |",
+      "style_marker": "template_formatting",
+      "reason": "Applied the template header row so the advisory history columns are labelled in the header rather than in a data row.",
+      "assessment_function": "template_structure",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture",
+      "purpose": "Domain-level posture indicators and their interpretation for the Q3 baseline.",
+      "rows": 9,
+      "rows_edited": 3
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › evidence table",
+      "purpose": "Identity control evidence with CIS and NIST mappings and assessment interpretation.",
+      "rows": 6,
+      "rows_edited": 3
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › exposure table",
+      "purpose": "Quarter-over-quarter exposure levels showing the assessment limitation for endpoint data.",
+      "rows": 4,
+      "rows_edited": 1
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › evidence table",
+      "purpose": "Endpoint and vulnerability evidence gaps recorded as assessment limitations.",
+      "rows": 6,
+      "rows_edited": 1
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › evidence table",
+      "purpose": "Data protection, egress, and collaboration control evidence with CIS and NIST mappings.",
+      "rows": 6,
+      "rows_edited": 2
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › evidence table",
+      "purpose": "Cloud workload and attack-path evidence gaps recorded as assessment limitations.",
+      "rows": 6,
+      "rows_edited": 1
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › evidence table",
+      "purpose": "AI governance and usage evidence gaps recorded as assessment limitations.",
+      "rows": 6,
+      "rows_edited": 1
+    },
+    {
+      "location": "Recommended Security Actions › Security Awareness call-out",
+      "purpose": "Security awareness topic presented as a single-column call-out box.",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations",
+      "purpose": "Prioritized active recommendations with identification quarter and current status.",
+      "rows": 5,
+      "rows_edited": 3
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark",
+      "purpose": "CIS benchmark recommendations with descriptions and current status.",
+      "rows": 5,
+      "rows_edited": 3
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › CIS Recommendations",
+      "purpose": "Historical record of CIS recommendation disposition.",
+      "rows": 2,
+      "rows_edited": 1
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › Advisory Recommendations",
+      "purpose": "Historical record of advisory recommendation disposition.",
+      "rows": 3,
+      "rows_edited": 1
+    }
+  ],
+  "observations": [
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › evidence table › row: Forwarding block 0/5; mailbox auditing 0/3, To address › CIS Microsoft 365 Benchmark column",
+      "type": "terminology",
+      "detail": "Evidence-status wording is inconsistent across tables: 'Not assessed' appears in the endpoint, cloud workload, and AI tables; 'CIS not tested' appears in the identity table; and 'Exact CIS configuration not assessed' appears in this row and the calendar-sharing row. The draft does not establish that these labels carry different meanings.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › closing paragraph",
+      "type": "cross_reference",
+      "detail": "The paragraph states that 'the awareness guidance in this report addresses verification of impersonation attempts', but the Security Awareness call-out in Recommended Security Actions addresses cloud misconfiguration and shadow API exposure. Impersonation verification is referenced only in the Recommendation History advisory table for Q1.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › closing paragraph",
+      "type": "cross_reference",
+      "detail": "The paragraph lists five actions (the three continuing recommendations, attachment filtering, forwarding review, active DLP implementation, and calendar and Teams restrictions) and states they correspond to Active Recommendations 1 through 4, but active DLP implementation is not named in any Active Recommendation row; DLP appears only in the CIS benchmark table entry 2.1.2; 3.2.1.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › Status column; Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › Status column",
+      "type": "template_deviation",
+      "detail": "The template specifies the status format 'MM.DD.YYYY - <STATUS DESCRIPTION>'; the draft supplies quarter-level labels such as '2026 Q3: All three remain To address.' without per-item dates.",
+      "action_required": "accept deviation"
+    },
+    {
+      "location": "Recommended Security Actions › Security Awareness call-out",
+      "type": "template_deviation",
+      "detail": "The template presents Security Awareness as a bolded call-out paragraph; the draft renders it as a single-column table produced by document conversion. Content and facts are unchanged.",
+      "action_required": "accept deviation"
+    }
+  ]
+}
