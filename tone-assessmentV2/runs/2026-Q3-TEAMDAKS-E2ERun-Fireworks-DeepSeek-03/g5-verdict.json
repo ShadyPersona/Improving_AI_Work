@@ -1,0 +1,42 @@
+{
+  "result": "pass",
+  "checks": [
+    {
+      "check": "g5-assessment-quality",
+      "result": "pass",
+      "detail": "toned.md conforms to the CSA Template structure: all required top-level sections present and ordered (Executive Summary; Current Microsoft Cloud Security Posture with Posture Summary, Key Risk Themes, Domain Posture, Control Movement and Baseline Changes; Security Signal Review with Identity and Access, Endpoint and Vulnerabilities, Data Protection and Collaboration, Cloud Workload and Attack Path Exposure, AI Agents and Generative AI Usage, Detection and Operational Readiness; Recommended Security Actions with Security Awareness, Active Recommendations, CIS Microsoft 365 Foundation Benchmark, Deferred Recommendations, Recommendation History). Every substantive domain section is conclusion-first (condition, evidence, significance, qualification, recommended response) and ties findings to client business risk; the Data Protection, Impersonation, and Identity sections explicitly state the 'so what'. Quarter movement is anchored to Q3 vs Q1/Q2, and unattributable movement (population-driven MFA score drift) is explicitly named as such. Cross-signal synthesis present (authentication+legacy auth; email malware controls vs impersonation gap; forwarding/calendar/sharing as data-egress theme; audit+detection). No Microsoft noun stacks or vendor grammar remain; no bare data reproductions without interpretation. Sections titled Security Awareness are exempt from conclusion-first and none of the remaining sections are data-only."
+    },
+    {
+      "check": "g5-substance-freeze-token",
+      "result": "pass",
+      "detail": "Compared every number, date, percentage, control point value, CIS reference, NIST reference, and finding title in toned.md against draft.md: 37.49%, 36.72%, 36.61%, 48.33%, 44.42%, 43.85%, 100.48/268, 35.86%, 46.08%, 55.54%, 2.14/9, 1.99/9, 9.41/10, 7.93/8, 0.15, 1.85/9, 2.06/9, 0.07, 0/8, 0/7, 4/4, 1/1, 3/3, 0/1, 0/5, 0/2, 0/1, 9/9, 8/8, 5/5, 6/6, 3/3, 1/1, 0/8, 0/3, 101/131, 103/130, 0.77, 0.88, 3.91, 4.48, 2023.Q3, 2026.Q1, 2026.Q3, Q1-Q2 2026, Q1-Q3 2026, CIS 5.2.2.1/5.2.2.2/5.2.2.3/5.1.5.1/1.3.1/6.5.1/7.2.1/2.1.7/2.1.4/2.1.5/2.1.1/6.2.1/3.2.1/3.3.1/3.1.1/6.1.2, NIST PR.AA-03/PR.PS-01/PR.AA-05/PR.DS-01/PR.DS-02/PR.DS-10/PR.PS-04/DE.CM-09/PR.AT-01/PR.AT-02 — all tokens present in draft.md unchanged. Table cells and embedded evidence blocks match draft.md row-by-row. Three prose edits (see tone-changes.json) changed only cadence, plain-language framing, and a temporal qualifier; no factual token was introduced, altered, or re-scoped."
+    },
+    {
+      "check": "g5-substance-freeze-semantic",
+      "result": "pass",
+      "detail": "Independent semantic inventory of draft.md entities, findings, and recommendations confirms one-to-one presence in toned.md with unchanged client-facing meaning: eight domain posture indicators (Identity, Endpoint, Vulnerability, Data, Email & Collaboration, Detection, Cloud Workload, AI) all retained with same indicator/interpretation; four key risk themes retained; all CIS and NIST mappings retained with same applicability levels; all control point values and completion states retained; all active recommendations (priorities 0-5) retained with same origin quarters and status meaning; deferred and history statements retained. The three prose edits were verified not to drop, merge, upgrade, downgrade, or re-attribute any finding, metric basis, or recommendation strength: 'leave room for' → 'leave accounts exposed to' preserves the exposure claim; 'both are marked for attention' → 'both controls require attention' preserves the attention designation; 'Recent analyses' → 'Published analyses' preserves the sourcing without strengthening or weakening the claim. No metric basis shift (e.g., evaluated vs total) occurred."
+    },
+    {
+      "check": "g5-change-accountability",
+      "result": "pass",
+      "detail": "tone-changes.json validates against schemas/tone-changes.schema.json: required top-level keys changes, tables_reviewed, observations present; each change entry carries location, before, after, style_marker, reason, assessment_function, facts_changed (all facts_changed: false); each tables_reviewed entry carries location, purpose, rows, rows_edited; each observation entry carries location, type, detail, action_required. All three edits between draft.md and toned.md are recorded (Identity paragraph cadence edit; Key Risk Themes plain-language edit; Security Awareness temporal-precision edit) with matching before/after strings. Row-by-row verification of every table in draft.md shows zero unrecorded cell rewrites. All 11 draft tables appear in tables_reviewed (Domain Posture 8 rows; Identity control evidence 6 rows; Exposure Level 3 rows; Endpoint control evidence 5 rows; Data Protection control evidence 5 rows; Cloud Workload control evidence 5 rows; AI control evidence 5 rows; Active Recommendations 6 rows; CIS Benchmark 4 rows; Recommendation History CIS 1 row; Recommendation History Advisory 3 rows). assessment_function coverage demonstrates analytical synthesis (evidence_interpretation, security_significance) rather than template_structure/professional_tone only. Observations cite concrete table/row/cell and section locations."
+    },
+    {
+      "check": "g5-punchout-closure",
+      "result": "pass",
+      "detail": "run-state.json shows certifiable: true, non_certifiable_reasons: [], punchouts.A_missing_content.triggered: false, punchouts.E_loop_exhaustion.triggered: false, and no bypass_attempt recorded. No triggered punch-out requires two-key closure, so the closure check is vacuously satisfied. tone-changes.json is marked \"certifiable\": true, consistent with run-state.json. No self-granted approval present and no open non-certifiable reason."
+    },
+    {
+      "check": "g5-phi-confidentiality",
+      "result": "pass",
+      "detail": "Scanned toned.md for PHI/PII (no health data, no employee names tied to findings — only report author and prepared-for metadata), credentials/secrets (none), internal-only artifacts (no harness internals, audit-log paths, agent prompts, or debugging notes), and cross-tenant data (none; all data is Team Daks' Microsoft 365 tenant). No exposure present."
+    },
+    {
+      "check": "g5-verdict-emission",
+      "result": "pass",
+      "detail": "Verdict emitted with result: pass and one entry per check in instructions 1-7. Findings array empty. reviewed_at timestamp present."
+    }
+  ],
+  "findings": [],
+  "reviewed_at": "2026-10-08T14:30:00Z"
+}

@@ -1,0 +1,114 @@
+{
+  "certifiable": true,
+  "changes": [
+    {
+      "location": "Security Signal Review › Identity and Access › paragraph 1",
+      "before": "All-user MFA receives 2.14/9 and administrative MFA receives 9.41/10, and both are marked for attention.",
+      "after": "All-user MFA receives 2.14/9 and administrative MFA receives 9.41/10; both controls require attention.",
+      "style_marker": "cadence",
+      "reason": "Replaced the doubled 'and' conjunction with a semicolon and named the subject of the second clause so each control state reads as a distinct, declarative claim.",
+      "assessment_function": "evidence_interpretation",
+      "facts_changed": false
+    },
+    {
+      "location": "Current Microsoft Cloud Security Posture › Key Risk Themes › Authentication coverage paragraph",
+      "before": "Partial MFA coverage and a small regression in legacy-authentication blocking leave room for credential-based account compromise.",
+      "after": "Partial MFA coverage and a small regression in legacy-authentication blocking leave accounts exposed to credential-based compromise.",
+      "style_marker": "plain_language",
+      "reason": "Replaced the vague 'leave room for' phrasing with a direct exposure statement so the theme names what is at risk rather than implying possibility.",
+      "assessment_function": "security_significance",
+      "facts_changed": false
+    },
+    {
+      "location": "Recommended Security Actions › Security Awareness › paragraph 1",
+      "before": "Recent analyses highlight that a vast majority of cloud security incidents stem from basic configuration oversights, such as overly permissive storage accounts and forgotten keys, not from sophisticated zero-day software exploits.",
+      "after": "Published analyses highlight that a vast majority of cloud security incidents stem from basic configuration oversights, such as overly permissive storage accounts and forgotten keys, not from sophisticated zero-day software exploits.",
+      "style_marker": "temporal_precision",
+      "reason": "Replaced the vague temporal qualifier 'Recent' with 'Published' so the citation is anchored to a concrete class of source rather than an unanchored time window.",
+      "assessment_function": "professional_tone",
+      "facts_changed": false
+    }
+  ],
+  "tables_reviewed": [
+    {
+      "location": "Current Microsoft Cloud Security Posture › Domain Posture",
+      "purpose": "Qualitative posture indicator and interpretation for each of the eight security domains.",
+      "rows": 8,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Identity and Access › Defender / Secure Score control evidence",
+      "purpose": "Identity control credit, CIS and NIST mappings, and assessment interpretation for authentication and governance controls.",
+      "rows": 6,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › Exposure Level",
+      "purpose": "Quarter-over-quarter high, medium, and low endpoint exposure counts for Q1, Q2, and Q3 2026.",
+      "rows": 3,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Endpoint and Vulnerabilities › Defender / Secure Score control evidence",
+      "purpose": "Endpoint and vulnerability evidence availability with framework and interpretation notes.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Data Protection and Collaboration › Defender / Secure Score control evidence",
+      "purpose": "Data protection, impersonation, Safe Attachments/Safe Links, forwarding, and meeting-access control evidence with mappings.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › Cloud Workload and Attack Path Exposure › Defender / Secure Score control evidence",
+      "purpose": "Cloud workload inventory, posture, attack-path, vulnerability, and monitoring evidence availability.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Security Signal Review › AI Agents and Generative AI Usage › Defender / Secure Score control evidence",
+      "purpose": "AI inventory, permissions, data-access, usage, and governance evidence availability.",
+      "rows": 5,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations",
+      "purpose": "Prioritized active recommendations with origin quarter, description, and current status.",
+      "rows": 6,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark",
+      "purpose": "CIS-aligned actions with reference IDs, description, and status.",
+      "rows": 4,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › CIS Recommendations",
+      "purpose": "Historical view of addressed CIS recommendations across the reporting period.",
+      "rows": 1,
+      "rows_edited": 0
+    },
+    {
+      "location": "Recommended Security Actions › Recommendation History › Advisory Recommendations",
+      "purpose": "Historical view of advisory recommendations and their disposition across quarters.",
+      "rows": 3,
+      "rows_edited": 0
+    }
+  ],
+  "observations": [
+    {
+      "location": "Recommended Security Actions › Active Recommendations › row: 4 › Status cell",
+      "type": "table_prose_mismatch",
+      "detail": "The Priority 4 status cell reads 'Q2026 3 - Audit controls are uncredited.' The sibling rows use the '2026 Q3 - ' form, so this appears to be a typographical transposition of the quarter label rather than a distinct convention.",
+      "action_required": "confirm"
+    },
+    {
+      "location": "Recommended Security Actions › Active Recommendations › Status column and Recommended Security Actions › CIS Microsoft 365 Foundation Benchmark › Status column",
+      "type": "template_deviation",
+      "detail": "The template status format is 'MM.DD.YYYY - <STATUS>', but the draft uses 'YYYY Qn - <status>' because no per-item implementation dates were supplied. The draft value was retained without substitution.",
+      "action_required": "accept deviation"
+    }
+  ]
+}

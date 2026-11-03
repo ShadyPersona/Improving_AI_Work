@@ -42,7 +42,8 @@ tone-assessmentV2/
 │                                per-step metering, bypass-test mode. No pip needed.
 ├── agent-runner.py            ← the agent CLI — invoked by harness.py via runner.command;
 │                                calls the configured model/agent endpoint
-│                                (AGENT_PROVIDER: copilot-studio|openai|azure|ollama|anthropic),
+│                                (AGENT_PROVIDER: openai|azure|ollama|anthropic —
+│                                 "openai" covers OpenAI-compatible APIs e.g. Fireworks AI),
 │                                writes the step's output files from a JSON file map
 ├── harness.sha256             ← copy-integrity checksum (`python harness.py hash`;
 │                                refreshed automatically after every state transition)
@@ -87,7 +88,7 @@ stdlib-only file — copy `harness.py` anywhere the folder structure
 # no dependencies — runs on a bare Python 3.10+ install
 
 # 0. configure the agent CLI provider (no secrets committed):
-$env:AGENT_PROVIDER="openai"            # or azure | ollama | anthropic | copilot-studio
+$env:AGENT_PROVIDER="openai"            # or azure | ollama | anthropic
                                       # ("openai" covers OpenAI-compatible APIs e.g. Fireworks AI)
 $env:AGENT_API_KEY="..."                # not needed for ollama
 $env:AGENT_BASE_URL="http://localhost:11434"   # per provider
@@ -147,7 +148,27 @@ For an examiner reviewing this workflow, the evidence lives in:
 | Prompt evolution / EDD | `.github/skills/05-tone-consistency/ITERATION_LOG.md`, `.github/skills/06-adversarial-review/ITERATION_LOG.md` |
 | Version lineage | `VERSION_HISTORY.md` + Git tags `tone-assessment-v1` and `tone-assessment-v2` |
 
-**Note:** Promptfoo evals and real agent runs require populated API keys. The evals were re-executed 2026-11-03 (13/13 on 05, 11/11 on 06, 5/5 on 07 — eval IDs below); run records are in `audit/` and `runs/`, including the unattended certified E2E run `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` (finalized, all seven step-06 checks pass).
+**Note:** Promptfoo evals and real agent runs require populated API keys. The evals were re-executed 2026-11-03 (13/13 + E14 on 05, 11/11 on 06, 5/5 on 07 — eval IDs below); run records are in `audit/` and `runs/`, including the unattended certified E2E runs `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` and `-02` (finalized, all seven step-06 checks pass).
+
+## Provider history — why the runner is provider-agnostic
+
+The workflow originally targeted Microsoft Copilot Studio as the agent
+entry point: the Copilot agent would receive a run request and relay each
+step. That path was abandoned after testing showed the Copilot agent had
+**no execution surface** — no shell, no flows or connectors to the repo,
+and orchestrator instructions that forbid executing steps (documented in
+`audit/AUDIT-INTEGRITY-NOTE.md` §5: Direct Line channel access worked, but
+the agent could only return conversational text, not step outputs).
+
+The harness was therefore made the executor itself: `runner.command`
+invokes `agent-runner.py`, a provider-agnostic CLI, per step. Subsequent
+provider attempts — Anthropic (repeated edge 504s on long requests) and
+local Ollama (qwen2.5:14b schema failures; qwen3:30b-a3b exceeded
+available RAM) — are preserved as `runner_exec` failure evidence in the
+audit trail. The certified E2E runs executed on **Fireworks AI**
+(`deepseek-v4p1-flash`, OpenAI-compatible API). Any compatible provider
+can be substituted via `AGENT_*` env vars — the workflow, gates, and
+audit format are unchanged.
 
 ## Evals
 

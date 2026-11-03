@@ -939,7 +939,7 @@ def _record_step(run_id, config, step_name, gate, gate_result, rd,
         "step": step_names.get(step_name, step_name),
         "model": (os.environ.get("HARNESS_MODEL")
                 or config.get("model", "unknown")),
-        "environment": "copilot-agent",
+        "environment": "runner-api",
         "operator": config.get("operator", ""),
         "initiated_by": "harness",
         "input_hashes": input_hashes,

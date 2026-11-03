@@ -4,7 +4,7 @@
 **Harness hash:** `ca71cd71997ac763b165154037c1651cd87613bd6e655492ecf06a403101d380` (`python harness.py hash`; refreshed automatically after every state transition)
 **Model:** configured via `HARNESS_MODEL` / `harness.config.json` `model`.
 The agent CLI is provider-agnostic — `AGENT_PROVIDER` accepts
-`copilot-studio` | `openai` (and OpenAI-compatible endpoints such as
+`openai` (and OpenAI-compatible endpoints such as
 Fireworks AI) | `azure` | `ollama` | `anthropic`. The certified E2E
 run below executed on Fireworks `deepseek-v4p1-flash`; step-level
 resilience (`AGENT_RETRIES`, `AGENT_TIMEOUT`, `AGENT_MAX_TOKENS`,
@@ -21,15 +21,16 @@ configured agent CLI — `runner.command` (`python agent-runner.py`,
 `HARNESS_DONE_MARKER`/`HARNESS_EXPECTED_OUTPUTS`, and captures
 stdout/stderr into `audit/run-<run-id>.jsonl`. `agent-runner.py` is a
 stdlib-only, provider-agnostic agent CLI
-(`AGENT_PROVIDER` = `copilot-studio` | `openai` | `azure` | `ollama` |
+(`AGENT_PROVIDER` = `openai` | `azure` | `ollama` |
 `anthropic`; `AGENT_API_KEY`; `AGENT_BASE_URL`; `HARNESS_MODEL`) that sends
 the assembled step prompt, parses a JSON file-map response, writes the
 declared outputs into the run directory, and creates the done marker only
 when every expected output exists — never when `g5-judgment.md` or
-`punchout-missing-content.md` is produced. The Copilot Studio agent may be
-the entry point that calls `python harness.py run`, but the harness is
-always the orchestrator and the agent CLI is always invoked via
-`runner.command`. Step prompts now inline every artifact the model
+`punchout-missing-content.md` is produced. The harness is always the
+orchestrator and the agent CLI is always invoked via `runner.command`;
+the earlier Copilot-Studio entry-point design was abandoned (the agent
+has no execution surface — see `audit/AUDIT-INTEGRITY-NOTE.md` §5 and
+the README provider-history section). Step prompts now inline every artifact the model
 needs — the `tone-changes.schema.json` output contract and, for
 steps 06/07, the prior-step outputs (`toned.md`, `tone-changes.json`,
 `run-state.json`, `g5-verdict.json`) — because the agent has no
@@ -87,12 +88,13 @@ omitted `2026-Q3-IRONTRAX`, `2026-Q3-TeamDaks`,
 `2026-Q3-TEAMDAKSFullHarness` (stalled at needs-step06, counted as halted),
 and the 2026-10-18 gate-test runs:
 
-- **Production: 12/14 finalized** (2 halted — `TEAMDAKSFullHarness` never
+- **Production: 13/15 finalized** (2 halted — `TEAMDAKSFullHarness` never
   completed step 06; `2026-Q3-IRONTRAX-E2ERun-Fireworks-DeepSeek-01`
   halted at G5 loop_max on real model failures — including an invented
   NIST token caught by D4 — and settled `non-finalizable`); the newest
   finalized production runs are
-  `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01` and `-02` (see below)
+  `2026-Q3-TEAMDAKS-E2ERun-Fireworks-DeepSeek-01`, `-02`, and `-03`
+  (`-03` records real `provider-usage` metering end-to-end)
 - **Gate-test: 0/7 finalized — 7 halted at their intended gates**
 - **Trend (≥2 reporting periods):** 2026-10-17/18 pre-harness runs 2/2
   finalized (IRONTRAX, TeamDaks); 2026-10-20/21 harness runs 8/9
@@ -159,9 +161,10 @@ and the 2026-10-18 gate-test runs:
   runs (`runs/<run-id>/g5-verdict.json`); `run-state.json` shows
   `certifiable: true`, zero punch-outs, `status: finalized`;
   deliverable `Team-Daks-Cloud-Security-Assessment-2026-Q3.md` and
-  `audit-report.md` emitted in each. Two identical-input passes
-  demonstrate the run was reproducible, not a one-off. Provider:
-  Fireworks AI `deepseek-v4p1-flash`.
+  `audit-report.md` emitted in each. `-03` repeated the pass on the
+  current harness hash with real `provider-usage` token metering —
+  three identical-input passes demonstrate reproducibility, not a
+  one-off. Provider: Fireworks AI `deepseek-v4p1-flash`.
   Prior attempts (`E2ERun`–`E2ERun-4`) are preserved as failure
   evidence — each failure mode maps to a shipped fix in
   `audit/AUDIT-INTEGRITY-NOTE.md` §5.

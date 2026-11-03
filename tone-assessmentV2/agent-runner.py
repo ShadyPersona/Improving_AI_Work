@@ -7,7 +7,8 @@ map, writes the files into the run directory, and creates the done marker when
 all expected outputs exist.
 
 Configuration (environment variables — never commit secrets):
-  AGENT_PROVIDER     copilot-studio | openai | azure | ollama | anthropic
+  AGENT_PROVIDER     openai | azure | ollama | anthropic
+                     ("openai" also covers OpenAI-compatible APIs, e.g. Fireworks AI)
   AGENT_API_KEY      API key for cloud providers (not needed for ollama)
   AGENT_BASE_URL     endpoint URL (Direct Line / OpenAI / Azure / http://localhost:11434 / api.anthropic.com)
   HARNESS_MODEL      model/deployment name recorded in step records
@@ -181,38 +182,6 @@ def call_model(provider, base_url, api_key, model, prompt):
                   "output_tokens": u["completion_tokens"]}
                  if u.get("prompt_tokens") is not None else None)
         return data["choices"][0]["message"]["content"], usage
-
-    if provider == "copilot-studio":
-        # Direct Line conversation. AGENT_BASE_URL should be the bot endpoint,
-        # e.g. https://directline.botframework.com/v3/directline
-        conv = _post(
-            f"{base_url}/conversations",
-            {"Authorization": f"Bearer {api_key}",
-             "content-type": "application/json"}, {})
-        conv_id = conv["conversationId"]
-        _post(
-            f"{base_url}/conversations/{conv_id}/activities",
-            {"Authorization": f"Bearer {api_key}",
-             "content-type": "application/json"},
-            {"type": "message",
-             "from": {"id": "harness"},
-             "text": prompt})
-        # Poll for the bot reply (simple long-poll loop)
-        import time
-        watermark = ""
-        for _ in range(120):
-            time.sleep(2)
-            acts = _get(
-                f"{base_url}/conversations/{conv_id}/activities?watermark={watermark}",
-                {"Authorization": f"Bearer {api_key}"})
-            watermark = acts.get("watermark", watermark)
-            bot_msgs = [a for a in acts.get("activities", [])
-                        if a.get("type") == "message"
-                        and a.get("from", {}).get("id") != "harness"
-                        and a.get("text")]
-            if bot_msgs:
-                return bot_msgs[-1]["text"], None
-        raise RuntimeError("copilot-studio: no bot reply within timeout")
 
     # default: openai-compatible chat completions
     max_tokens = int(os.environ.get("AGENT_MAX_TOKENS", "8192"))
