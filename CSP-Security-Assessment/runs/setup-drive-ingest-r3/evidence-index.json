@@ -1,0 +1,16 @@
+{
+  "files": [
+    {
+      "path": "inputs/defender-export-folder/devices.csv",
+      "sha256": "e46adf9857bfecbd2cb39ce9701896bade70c7c7aa144e7bdb4e3cf6e113d675",
+      "domain": "devices",
+      "description": "Synthetic CSV with a metric/value header and one row: Current managed devices, 12."
+    },
+    {
+      "path": "inputs/defender-export-folder/identity.csv",
+      "sha256": "6f8dcc45bf2d2a8824aa9d7b91a3f02bbb6ce67d378d7083b2364beb627533df",
+      "domain": "identities",
+      "description": "Synthetic CSV with a metric/value header and one row: Current MFA coverage, 95%."
+    }
+  ]
+}

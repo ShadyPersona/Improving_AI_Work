@@ -1,0 +1,57 @@
+{
+  "run_id": "setup-coordinator-ingest-r2",
+  "note": "Observed hashes of the six runtime files as staged from OneDrive via the binary reader and programmatic base64 decoding. sha256_raw_bytes is the hash of the staged bytes (authoritative). checksums.sha256 comparison is informational; the harness's own verify routine normalises CRLF to LF before hashing.",
+  "files": [
+    {
+      "path": "s5-harness.py",
+      "bytes": 137987,
+      "sha256_raw_bytes": "026461711fe87fcf47465d71980af7ecf94122660f40f2be33b87b3e1fe4cd95",
+      "sha256_lf_normalised": "a8e4a594418908b1f333c6cc11d8cff46a6a3cfa4afb55c79533da3166443fe1",
+      "stated_checksum": "026461711fe87fcf47465d71980af7ecf94122660f40f2be33b87b3e1fe4cd95",
+      "matches_required_harness_hash_and_s5_harness.sha256": true
+    },
+    {
+      "path": "s5-harness.config.json",
+      "bytes": 257,
+      "sha256_raw_bytes": "c6e2df2895a59ddc15a6b2bc4ca526e394851f634543e2aa4f723c958f35cbae",
+      "sha256_lf_normalised": "c6e2df2895a59ddc15a6b2bc4ca526e394851f634543e2aa4f723c958f35cbae",
+      "stated_checksum": null
+    },
+    {
+      "path": "templates/run-state.json",
+      "bytes": 1554,
+      "sha256_raw_bytes": "90423cf943eea7c7d600c33aae864c8a3596457940e5a6c42e9891d2b898473e",
+      "sha256_lf_normalised": "9fc8a21b0c43dd72b299a55828b31944e142b19b8c903c101bbb13a96913fdb4",
+      "stated_checksum": "9fc8a21b0c43dd72b299a55828b31944e142b19b8c903c101bbb13a96913fdb4",
+      "raw_matches_checksums_sha256": false,
+      "lf_normalised_matches_checksums_sha256": true
+    },
+    {
+      "path": "schemas/inventory.schema.json",
+      "bytes": 1168,
+      "sha256_raw_bytes": "c1279629ccf8f4e134b79f2959ee57ee5e678d6ea54e7f822214e36bc1772331",
+      "sha256_lf_normalised": "e6a77b3ff8c2e4340457fca8fadc6ea227a38fa0a63d1be5c15dc8f3db4ec3b9",
+      "stated_checksum": "e6a77b3ff8c2e4340457fca8fadc6ea227a38fa0a63d1be5c15dc8f3db4ec3b9",
+      "raw_matches_checksums_sha256": false,
+      "lf_normalised_matches_checksums_sha256": true
+    },
+    {
+      "path": "schemas/evidence-index.schema.json",
+      "bytes": 795,
+      "sha256_raw_bytes": "87a3842ae60fb6e62ae3e5fdb9585275a88243007b607b5bbe1632f9f18bb039",
+      "sha256_lf_normalised": "fc27c61685d6a49459db3041fb0d79321bfad16c36a513979b2a38a346fbb08a",
+      "stated_checksum": "fc27c61685d6a49459db3041fb0d79321bfad16c36a513979b2a38a346fbb08a",
+      "raw_matches_checksums_sha256": false,
+      "lf_normalised_matches_checksums_sha256": true
+    },
+    {
+      "path": "schemas/style-profile.schema.json",
+      "bytes": 1008,
+      "sha256_raw_bytes": "a0751adb7f1d631de06056e6147650fefc14c5ec204a4926ee749a1b0274f628",
+      "sha256_lf_normalised": "11841a408786e76beb111554aba396fd54e6656ee210f50eb4d31014575f3d41",
+      "stated_checksum": "a0751adb7f1d631de06056e6147650fefc14c5ec204a4926ee749a1b0274f628",
+      "raw_matches_checksums_sha256": true,
+      "lf_normalised_matches_checksums_sha256": false
+    }
+  ]
+}

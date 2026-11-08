@@ -1,0 +1,9 @@
+{
+  "runner": { "mode": "auto", "command": "python agent-runner.py", "timeout_seconds": 1800 },
+  "model": "csp-assess",
+  "price_usd_per_1k_tokens": { "input": 0.002, "output": 0.008 },
+  "metering": { "session_log_path": null, "estimation_chars_per_token": 1.75 },
+  "loop_max": 2,
+  "operator": "",
+  "default_template": "CSA Template.md"
+}

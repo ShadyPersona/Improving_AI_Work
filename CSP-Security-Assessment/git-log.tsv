@@ -1,0 +1,9 @@
+63b489d268c3757cb1bb82a95cf5d4934d9312a9	2026-10-21 18:12:06 -0400	Stage 5: harness-driven pipeline — s5-harness.py FSM, dispatch verification, per-agent least-privilege
+11e69f807ea166fc212926dca08ebeae80693f0e	2026-10-18 23:31:35 -0400	Add Copilot Studio setup guide and expand README
+a3224ea55eb98630de5140964f948e315cb36163	2026-10-18 23:23:07 -0400	Stage 5: 9-agent candidate-selection system in Copilot Studio
+0d4d940c15bffa15cbf5051341c6d23331708a97	2026-10-18 13:11:20 -0400	Remove accidental promptfoo init artifacts and nul file
+5096a1e78f64cf2bccdefe5dff12c142b7623739	2026-10-14 18:56:30 -0400	Moved tone-assessment to its own folder
+27fd01640b6ebcfebf632cfa15099bac8bd2afe6	2026-10-14 18:53:39 -0400	Add self-contained tone-assessment workflow (steps 05-06) for Stage 4 certification
+f5bbcf6103efbefb48cf39fbfc52da53fa7e73eb	2026-10-14 17:16:00 -0400	Attempting to get PromptFoo working.
+2a8bd552616383795024c11172a4d37d0181dbf8	2026-10-14 14:32:45 -0400	Stage 3-certify skills and add Copilot orchestrator
+5886c31c1a15c7cb3d05a039b54819048e077cbc	2026-10-14 10:37:54 -0400	Initial upload for Copilot to access

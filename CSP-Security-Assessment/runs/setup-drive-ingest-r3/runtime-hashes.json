@@ -1,0 +1,23 @@
+{
+  "zip": {
+    "name": "Stage5-Runtime-Bundle-1efc7cb0.zip",
+    "id": "01XX6TFES4SMNV5ZK6R5C2USYULHRBZFBX",
+    "size": 41325,
+    "sha256": "473859e7bf04e45c2262b95b71bc7f1e236ee74eb99e3c8e4edb98481fb65e39"
+  },
+  "files": {
+    "s5-harness.py": "1efc7cb0cf55a5325f86ea79097569afd5f225a9a10f0d99d0e2458a5d29149c",
+    "s5-harness.config.json": "c6e2df2895a59ddc15a6b2bc4ca526e394851f634543e2aa4f723c958f35cbae",
+    "s5-harness.sha256": "6ec88eb2354d0a649697856587cf7e8e63e9e910297ca48eb0cf028254ef9aaa",
+    "checksums.sha256": "f933e24992a9d7141e8fabdb5675d4127308a3b806fdcc8998954fc1e55d2dde",
+    "templates/run-state.json": "90423cf943eea7c7d600c33aae864c8a3596457940e5a6c42e9891d2b898473e",
+    "schemas/inventory.schema.json": "c1279629ccf8f4e134b79f2959ee57ee5e678d6ea54e7f822214e36bc1772331",
+    "schemas/evidence-index.schema.json": "87a3842ae60fb6e62ae3e5fdb9585275a88243007b607b5bbe1632f9f18bb039",
+    "schemas/style-profile.schema.json": "a0751adb7f1d631de06056e6147650fefc14c5ec204a4926ee749a1b0274f628",
+    "schemas/matrix.schema.json": "e1877585bd2c720ddc96a93a49b1e47ed196567a95ac6ce6418909fd77e440b7",
+    "schemas/draft-map.schema.json": "3d824bc98bccb0232ff507e41773ddc54346dfe347b4b6a1b444bee7607d48d0",
+    "schemas/review.schema.json": "50b7abb4907b5f8722a26b3d93d78c1851f2227ccf7815ba919dfbe483764467",
+    "schemas/selection-report.schema.json": "bd30e6d865a27870ad97dc08469d0d287c975716e453bb2a228c9a90c4e826a0",
+    "schemas/tone-changes.schema.json": "3f43c764e31d4d445c6e9358187cec15bdf748c86ca658399f37de597aacd0e5"
+  }
+}

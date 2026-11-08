@@ -1,0 +1,61 @@
+{
+  "run_id": "setup-drive-ingest-r3",
+  "current_step": "01-ingest",
+  "initiated_by": "harness",
+  "operator": "",
+  "loop_counters": {
+    "G1": 0,
+    "G2": 0,
+    "G3": 0,
+    "G4": 0,
+    "G5": 0
+  },
+  "loop_max": 2,
+  "certifiable": true,
+  "non_certifiable_reasons": [],
+  "punchouts": {
+    "A_unable_to_validate": {
+      "triggered": false,
+      "file": "audit/punchout-unable-to-validate.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": null
+    },
+    "B_framework_mappings": {
+      "triggered": false,
+      "file": "audit/punchout-framework-mappings.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": null
+    },
+    "C_regressions": {
+      "triggered": false,
+      "file": "audit/punchout-regressions.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": null
+    },
+    "D_structure_changes": {
+      "triggered": false,
+      "file": "audit/punchout-structure-changes.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": null
+    },
+    "E_loop_exhaustion": {
+      "triggered": false,
+      "file": "audit/punchout-log.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": null
+    },
+    "F_missing_content": {
+      "triggered": false,
+      "file": "audit/punchout-missing-content.md",
+      "approved": false,
+      "closure_evidence": null,
+      "bypass_attempt": null
+    }
+  },
+  "status": "needs-g1"
+}

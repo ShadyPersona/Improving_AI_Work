@@ -1,0 +1,5 @@
+mechanism: custom minimal Python draft-07 subset validator (jsonschema not installed; no installs allowed)
+supported keywords: ['$schema', 'description', 'enum', 'items', 'minItems', 'pattern', 'properties', 'required', 'title', 'type'] - any other keyword is rejected
+disk export files: ['inputs/defender-export-folder/devices.csv', 'inputs/defender-export-folder/identity.csv']
+ERRORS: []
+RESULT: PASS

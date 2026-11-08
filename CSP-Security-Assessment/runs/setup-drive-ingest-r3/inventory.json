@@ -1,0 +1,48 @@
+{
+  "sources": [
+    {
+      "path": "inputs/prior-report.md",
+      "sha256": "268d633efba5b690c00f585421d74a7286930039166efe450bfd157e4c86f819",
+      "role": "prior-report"
+    },
+    {
+      "path": "inputs/history-report.md",
+      "sha256": "a8c83e6341244b0d05af36d9d823c2e91ba94a397e8dbbc8848b1a9c7b2ffd4b",
+      "role": "history-report"
+    },
+    {
+      "path": "inputs/defender-export-folder/devices.csv",
+      "sha256": "e46adf9857bfecbd2cb39ce9701896bade70c7c7aa144e7bdb4e3cf6e113d675",
+      "role": "defender-export"
+    },
+    {
+      "path": "inputs/defender-export-folder/identity.csv",
+      "sha256": "6f8dcc45bf2d2a8824aa9d7b91a3f02bbb6ce67d378d7083b2364beb627533df",
+      "role": "defender-export"
+    },
+    {
+      "path": "inputs/cis.md",
+      "sha256": "09d6ee2e009a4650fc017a7d75a69d6911a5df13cca8dfa183ecede970843bf7",
+      "role": "cis-ref"
+    },
+    {
+      "path": "inputs/nist.md",
+      "sha256": "203f4d4f06b60d26190ef6ad0f3071825edab26a88233cbf172081dd51589d45",
+      "role": "nist-ref"
+    }
+  ],
+  "export_files": [
+    "inputs/defender-export-folder/devices.csv",
+    "inputs/defender-export-folder/identity.csv"
+  ],
+  "section_map": [
+    {
+      "heading": "Identity Security",
+      "order": 1
+    },
+    {
+      "heading": "Device Security",
+      "order": 2
+    }
+  ]
+}

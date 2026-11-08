@@ -1,0 +1,87 @@
+{
+  "run_id": "setup-coordinator-ingest-r2",
+  "root": "runs/setup-coordinator-ingest-r2/",
+  "note": "Lists every file to be uploaded under the run folder except this manifest. .harness-step01-done is uploaded last.",
+  "files": [
+    {
+      "path": ".harness-step01-done",
+      "bytes": 44,
+      "sha256": "c08c1add4d8960228758f44966468bf76bcc69441f4912d2ec74c22e54bb8404"
+    },
+    {
+      "path": "dispatch-received-01.json",
+      "bytes": 23,
+      "sha256": "69d290ac4f089af95056636d1c426b750a00d29a85d08f362126e62425ebd752"
+    },
+    {
+      "path": "evidence/g1-exit-code.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "evidence/g1-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/g1-stdout.txt",
+      "bytes": 2041,
+      "sha256": "951bad10a9da85d9b475fe45eacc0584761373d91fd3310ca1b9b8bfffee4bf9"
+    },
+    {
+      "path": "evidence/guardrails-setup-coordinator-ingest-r2.jsonl",
+      "bytes": 1578,
+      "sha256": "064ecc796e93985d7cf0d96e82844e0b0f7b983215e1ef9d39ff8c646b432e99"
+    },
+    {
+      "path": "evidence/runtime-hashes.json",
+      "bytes": 2952,
+      "sha256": "3a72e2d904e6d25e4c78d33a9d1e29dc9e7fa54f3234a704d84410e222f219df"
+    },
+    {
+      "path": "evidence-index.json",
+      "bytes": 650,
+      "sha256": "3dda0e08857055c47b13cb7119c9edf1c6aca783626aea2ff887d06f4472ba5f"
+    },
+    {
+      "path": "inputs/cis.md",
+      "bytes": 150,
+      "sha256": "2c076ec1c90659af564205c5cdadafb3b7f4c3f9d58c85a472249f375f165dc1"
+    },
+    {
+      "path": "inputs/defender-export-folder/devices.csv",
+      "bytes": 32,
+      "sha256": "ed46bf51141b16c0ce0652d39dfb1a90d99ba0a1766411d02ddf16bf5e6f8ca7"
+    },
+    {
+      "path": "inputs/defender-export-folder/identity.csv",
+      "bytes": 53,
+      "sha256": "64809d56d6332042d1aee079cb0fcc5dc06115cdcf59240215f3e25e4f9db95f"
+    },
+    {
+      "path": "inputs/history-report.md",
+      "bytes": 761,
+      "sha256": "9732dc366455cbe1078ef5167d035a10271046c53bb2bdfdc79028862d98a028"
+    },
+    {
+      "path": "inputs/nist.md",
+      "bytes": 154,
+      "sha256": "e7b76b1c0c624807ca0e400d01efcf8e9dc7b8d1eec12e5d16e718520d46fded"
+    },
+    {
+      "path": "inputs/prior-report.md",
+      "bytes": 807,
+      "sha256": "ea4755bc799972e6088569ee8044b365a87ceaf5a489321647b2dcdb79ac5bd3"
+    },
+    {
+      "path": "inventory.json",
+      "bytes": 1439,
+      "sha256": "be725eafb79f003e5a99fa5632473904dd22c7e0f2f2a57cd1b39b6e7a024d5c"
+    },
+    {
+      "path": "style-profile.json",
+      "bytes": 1162,
+      "sha256": "579073273199021b5fc01d6a5c6af5187415f0cc9e94b2f502a59bb3982c345d"
+    }
+  ]
+}

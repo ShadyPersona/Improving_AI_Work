@@ -1,0 +1,22 @@
+{
+  "voice": "third-person, formal, consultative (explicit workflow requirement); the synthetic prior report contains no prose, so voice is not observable in it",
+  "tense": "past tense for observed states and measurements during the quarter; present tense for standing facts and recommendations (explicit workflow requirement); the synthetic prior report contains no sentences to confirm this",
+  "sentence_style": "declarative sentences with one claim per sentence and a clear subject and verb (explicit workflow requirement); the synthetic prior report contains no prose sentences, so this is not observable in it",
+  "phrasing_conventions": [
+    "Metric labels are 'MFA coverage' and 'Managed devices', each paired with a single value cell",
+    "Percentage values are written with a percent sign and no decimals (90%)",
+    "Counts are written as bare integers (10)"
+  ],
+  "formatting_conventions": [
+    "Document title is a single H1 heading",
+    "Assessment sections are H2 headings in this order: Identity Security, then Device Security",
+    "Each section contains one two-column markdown table with header row 'Metric | Value'",
+    "The prior report carries a blockquote line marking it as a synthetic test fixture"
+  ],
+  "banned_patterns": [
+    "first person (explicit workflow requirement)",
+    "contractions (explicit workflow requirement)",
+    "colloquialisms, filler, and marketing language (explicit workflow requirement)",
+    "internal classification labels such as Regressed, Improved, and Unable to validate as report text, because that convention is not present in the prior report (explicit workflow requirement)"
+  ]
+}

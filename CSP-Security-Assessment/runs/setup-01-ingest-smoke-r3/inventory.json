@@ -1,0 +1,50 @@
+{
+  "sources": [
+    {
+      "path": "inputs/prior-report.md",
+      "sha256": "908a921637cce0e9c6dbcad00982f417ae3e943e5138b78dcd55d27e3541d00b",
+      "role": "prior-report"
+    },
+    {
+      "path": "inputs/history-report.md",
+      "sha256": "94b74e765a34349eb1bcce2bd89380e41c5a398110507de77e05b3ad055c84d6",
+      "role": "history-report"
+    },
+    {
+      "path": "inputs/defender-export-folder/devices.csv",
+      "sha256": "4dcc35ceb03fb437e1ba9beab625f3d65553ee395a4f4fcd9e3ecc63d10d9cbb",
+      "role": "defender-export"
+    },
+    {
+      "path": "inputs/defender-export-folder/identity.csv",
+      "sha256": "ac89803f879a6392d7c2e60dfbbf0eaab4e3093d7d087ba2642c5b8065c11405",
+      "role": "defender-export"
+    },
+    {
+      "path": "inputs/cis.md",
+      "sha256": "548df8d17d68281d96deddb7a9a985eaa273a09f6c7d6797b280a56cdc6a7595",
+      "role": "cis-ref"
+    },
+    {
+      "path": "inputs/nist.md",
+      "sha256": "b521275df7a95d6c4ef5b7ad4ab15aec2a10ee6a1f9b3014a9b78cd64da73895",
+      "role": "nist-ref"
+    }
+  ],
+  "export_files": [
+    "inputs/defender-export-folder/devices.csv",
+    "inputs/defender-export-folder/identity.csv"
+  ],
+  "section_map": [
+    {
+      "heading": "Identity Security",
+      "order": 1,
+      "subsections": ["Metric table: MFA coverage"]
+    },
+    {
+      "heading": "Device Security",
+      "order": 2,
+      "subsections": ["Metric table: Managed devices"]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "action": "needs-inputs",
+  "detail": "created /app/workspace/proj/runs/setup-drive-ingest-r3; place the five input sources in inputs/ (prior-report.*, history-report.*, defender-export-folder/, cis.*, nist.*) then call drive again"
+}

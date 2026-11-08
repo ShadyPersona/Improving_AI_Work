@@ -1,0 +1,21 @@
+{
+  "voice": "third-person, formal, consultative",
+  "tense": "past tense for assessment observations (for example, 'The assessment observed'); present tense for report-purpose statements ('This report summarizes')",
+  "sentence_style": "short declarative sentences in plain formal prose, one or two sentences per observation, with no first-person pronouns",
+  "phrasing_conventions": [
+    "The assessment observed that",
+    "The assessment found that",
+    "This report summarizes",
+    "should be extended"
+  ],
+  "formatting_conventions": [
+    "H1 report title followed by H2 domain sections in the order: Identity Security, Device Security",
+    "H3 metric subsections under each H2 section (MFA Coverage, Managed Device Count)",
+    "Each metric subsection holds a two-column Markdown table with header 'Metric | Value'",
+    "Percentages are written with a percent sign (for example, 90%); counts are written as plain integers"
+  ],
+  "banned_patterns": [
+    "first-person pronouns (explicit workflow requirement: voice is third-person)",
+    "internal classification labels (explicit workflow requirement; see style-profile schema description)"
+  ]
+}

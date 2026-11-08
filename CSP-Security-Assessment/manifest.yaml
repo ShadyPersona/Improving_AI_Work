@@ -1,0 +1,201 @@
+schema_version: 2
+submission:
+  title: csp-security-assessment
+  stage: 5
+
+coordinator:
+  entry_point: s5-harness.py            # FSM: dispatch-only, no inference of its own
+  prompt_file: .github/skills/00-coordinator/SKILL.md
+  dispatch: subprocess                  # runner.command invokes agent-runner.py per step
+
+agents:
+  - name: coordinator
+    role: coordinator
+    workflows: [security-assessment]
+    allowed_tools: [dispatch_step, record_decision]
+    reviews: []
+    isolated_context: false
+  - name: 01-ingest
+    role: subagent
+    workflows: [security-assessment]
+    allowed_tools: [read_inlined_inputs, emit_file_map]
+    reviews: []
+    isolated_context: true
+  - name: 02-findings-matrix
+    role: subagent
+    workflows: [security-assessment]
+    allowed_tools: [read_inlined_inputs, emit_file_map]
+    reviews: []
+    isolated_context: true
+  - name: 03-draft-update
+    role: subagent
+    workflows: [security-assessment]
+    allowed_tools: [read_inlined_inputs, emit_file_map]
+    reviews: []
+    isolated_context: true
+  - name: 04b-draft-selector
+    role: subagent
+    workflows: [security-assessment]
+    allowed_tools: [read_inlined_inputs, emit_file_map]
+    reviews: []
+    isolated_context: true
+  - name: 05-tone-consistency
+    role: subagent
+    workflows: [security-assessment]
+    allowed_tools: [read_inlined_inputs, emit_file_map]
+    reviews: []
+    isolated_context: true
+  - name: 07-finalize
+    role: subagent
+    workflows: [security-assessment]
+    allowed_tools: [read_inlined_inputs, emit_file_map]
+    reviews: []
+    isolated_context: true
+  - name: 04-adversarial-review-candidate-a
+    role: adversarial
+    workflows: [security-assessment]
+    allowed_tools: [read_inlined_inputs, emit_file_map]
+    reviews: [03-draft-update]          # candidate A only — never sees B's artifacts
+    isolated_context: true
+  - name: 04-adversarial-review-candidate-b
+    role: adversarial
+    workflows: [security-assessment]
+    allowed_tools: [read_inlined_inputs, emit_file_map]
+    reviews: [03-draft-update]          # candidate B only — never sees A's artifacts
+    isolated_context: true
+  - name: 06-adversarial-review
+    role: adversarial
+    workflows: [security-assessment]
+    allowed_tools: [read_inlined_inputs, emit_file_map]
+    reviews: [05-tone-consistency]
+    isolated_context: true
+
+workflows:
+  - name: security-assessment
+    sub_agent_entry_point: agent-runner.py
+    steps:
+      - name: 01-ingest
+        prompt_file: .github/skills/01-ingest/SKILL.md
+        eval_files: [evals/01-ingest.csv]
+        log_files: [.github/skills/01-ingest/ITERATION_LOG.md]
+      - name: 02-findings-matrix
+        prompt_file: .github/skills/02-findings-matrix/SKILL.md
+        eval_files: [evals/02-findings-matrix.csv]
+        log_files: [.github/skills/02-findings-matrix/ITERATION_LOG.md]
+      - name: 03-draft-update
+        prompt_file: .github/skills/03-draft-update/SKILL.md
+        eval_files: [evals/03-draft-update.csv]
+        log_files: [.github/skills/03-draft-update/ITERATION_LOG.md]
+      - name: 04-adversarial-review-candidate-a
+        prompt_file: .github/skills/04-adversarial-review-candidate-a/SKILL.md
+        eval_files: [evals/04-adversarial-review-candidate-a.csv]
+        log_files: [.github/skills/04-adversarial-review-candidate-a/ITERATION_LOG.md]
+      - name: 04-adversarial-review-candidate-b
+        prompt_file: .github/skills/04-adversarial-review-candidate-b/SKILL.md
+        eval_files: [evals/04-adversarial-review-candidate-b.csv]
+        log_files: [.github/skills/04-adversarial-review-candidate-b/ITERATION_LOG.md]
+      - name: 04b-draft-selector
+        prompt_file: .github/skills/04b-draft-selector/SKILL.md
+        eval_files: [evals/04b-draft-selector.csv]
+        log_files: [.github/skills/04b-draft-selector/ITERATION_LOG.md]
+      - name: 05-tone-consistency
+        prompt_file: .github/skills/05-tone-consistency/SKILL.md
+        eval_files: [evals/05-tone-consistency.csv]
+        log_files: [.github/skills/05-tone-consistency/ITERATION_LOG.md]
+      - name: 06-adversarial-review
+        prompt_file: .github/skills/06-adversarial-review/SKILL.md
+        eval_files: [evals/06-adversarial-review.csv]
+        log_files: [.github/skills/06-adversarial-review/ITERATION_LOG.md]
+      - name: 07-finalize
+        prompt_file: .github/skills/07-finalize/SKILL.md
+        eval_files: [evals/07-finalize.csv]
+        log_files: [.github/skills/07-finalize/ITERATION_LOG.md]
+    artifacts:
+      log: audit/guardrails.jsonl
+      success_rate: audit/success-log.md
+
+punch_outs:
+  - name: A-unable-to-validate
+    evidence:
+      - audit/punchout-unable-to-validate.md
+      - audit/punchout-log.md
+  - name: B-framework-mappings
+    evidence:
+      - audit/punchout-framework-mappings.md
+      - audit/punchout-log.md
+  - name: C-regressions
+    evidence:
+      - audit/punchout-regressions.md
+      - audit/punchout-log.md
+  - name: D-structure-changes
+    evidence:
+      - audit/punchout-structure-changes.md
+      - audit/punchout-log.md
+  - name: E-loop-exhaustion
+    evidence:
+      - audit/punchout-log.md
+  - name: F-missing-content
+    evidence:
+      - audit/punchout-missing-content.md
+      - audit/punchout-log.md
+
+adversarial_review:
+  reviewer_agent: 06-adversarial-review
+  evidence:
+    - .github/skills/06-adversarial-review/SKILL.md
+    - evals/06-adversarial-review.csv
+    - audit/AUDIT-INTEGRITY-NOTE.md
+
+version_control:
+  evidence:
+    - git-log.tsv
+
+not_judged:
+  - path: runs/
+    reason: run artifacts — Copilot-era setup probes; evidence is in audit/ logs and per-run state
+  - path: .gitignore
+    reason: vcs noise
+  - path: evals/00-coordinator.csv
+    reason: coordinator eval set — dispatch contract is documented in the coordinator prompt; no step consumes it
+  - path: .github/skills/00-coordinator/ITERATION_LOG.md
+    reason: coordinator design history — documentation, not a step log
+  - path: Prove_Local_Ingestion.zip
+    reason: Copilot-era evidence bundle, superseded by audit/ records
+  - path: Stage5-Runtime-Bundle-02646171.zip
+    reason: prior packaging artifact, superseded
+  - path: Stage5-Runtime-Bundle-1efc7cb0.zip
+    reason: prior packaging artifact, superseded
+  - path: Stage5-Runtime-Bundle-f7c88b31.zip
+    reason: prior packaging artifact, superseded
+  - path: Stage3Certification.png
+    reason: stage-3 rubric screenshot — reference, not stage-5 evidence
+  - path: Stage4Certification.webp
+    reason: stage-4 rubric screenshot — reference, not stage-5 evidence
+  - path: Stage5Certification.webp
+    reason: stage-5 rubric screenshot — reference, not evidence
+  - path: .github/skills/.archive/
+    reason: superseded legacy skills kept for lineage only
+  - path: __pycache__/
+    reason: python bytecode cache
+  - path: schemas/
+    reason: JSON schemas — supporting contracts, examined implicitly via gates, not standalone evidence
+  - path: templates/
+    reason: run-state seed template — boilerplate, not evidence
+  - path: test_s5_g1.py
+    reason: developer gate test — supporting verification, not a workflow artifact
+  - path: checksums.sha256
+    reason: input integrity manifest from Copilot-era runs
+  - path: s5-harness.sha256
+    reason: self-hash for copy integrity — supporting verification
+  - path: s5-harness.config.json
+    reason: runner/model/pricing config — environment, not evidence
+  - path: README.md
+    reason: documentation guide for the examiner
+  - path: WORKFLOW.md
+    reason: pipeline definition — documentation, covered by step prompts
+  - path: VERSION_HISTORY.md
+    reason: design lineage documentation
+  - path: AZURE-SETUP.md
+    reason: environment provisioning guide — infrastructure docs, not judged artifact
+  - path: DEPARTMENT-SETUP.md
+    reason: operator onboarding guide — infrastructure docs, not judged artifact

@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "files": {
+    "templates/run-state.json": "match",
+    "schemas/inventory.schema.json": "match",
+    "schemas/evidence-index.schema.json": "match",
+    "schemas/style-profile.schema.json": "match",
+    "schemas/matrix.schema.json": "match",
+    "schemas/draft-map.schema.json": "match",
+    "schemas/review.schema.json": "match",
+    "schemas/selection-report.schema.json": "match",
+    "schemas/tone-changes.schema.json": "match"
+  },
+  "harness_self_hash": "1efc7cb0cf55a5325f86ea79097569afd5f225a9a10f0d99d0e2458a5d29149c"
+}

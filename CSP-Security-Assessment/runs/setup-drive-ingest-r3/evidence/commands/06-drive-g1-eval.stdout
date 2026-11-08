@@ -1,0 +1,13 @@
+{
+  "action": "execute_step",
+  "step": "02",
+  "dispatch": {
+    "agent": "02-findings-matrix"
+  },
+  "prompt_file": "/app/workspace/proj/runs/setup-drive-ingest-r3/.harness-step02-prompt.md",
+  "expected_outputs": [
+    "matrix.json",
+    "dispatch-received-02.json"
+  ],
+  "done_marker": "/app/workspace/proj/runs/setup-drive-ingest-r3/.harness-step02-done"
+}

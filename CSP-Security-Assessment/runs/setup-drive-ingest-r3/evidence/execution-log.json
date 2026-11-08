@@ -1,0 +1,234 @@
+{
+  "note": "ordered command executions with state/marker snapshots before and after each call",
+  "commands": [
+    {
+      "seq": "01",
+      "label": "verify",
+      "command": "python s5-harness.py verify",
+      "cwd": "project root",
+      "started_utc": "2026-10-22T18:04:47.695487Z",
+      "finished_utc": "2026-10-22T18:04:47.751472Z",
+      "exit_code": 0,
+      "before": {
+        "run_dir_exists": false,
+        "status": null,
+        "marker_exists": false,
+        "files": []
+      },
+      "after": {
+        "run_dir_exists": false,
+        "status": null,
+        "marker_exists": false,
+        "files": []
+      },
+      "files_created": []
+    },
+    {
+      "seq": "02",
+      "label": "drive-initial",
+      "command": "python s5-harness.py drive --run-id setup-drive-ingest-r3",
+      "cwd": "project root",
+      "started_utc": "2026-10-22T18:04:50.677863Z",
+      "finished_utc": "2026-10-22T18:04:50.730791Z",
+      "exit_code": 0,
+      "before": {
+        "run_dir_exists": false,
+        "status": null,
+        "marker_exists": false,
+        "files": []
+      },
+      "after": {
+        "run_dir_exists": true,
+        "status": "in-progress",
+        "marker_exists": false,
+        "files": [
+          "run-state.json"
+        ]
+      },
+      "files_created": [
+        "run-state.json"
+      ]
+    },
+    {
+      "seq": "03",
+      "label": "drive-step01-emit",
+      "command": "python s5-harness.py drive --run-id setup-drive-ingest-r3",
+      "cwd": "project root",
+      "started_utc": "2026-10-22T18:05:07.701446Z",
+      "finished_utc": "2026-10-22T18:05:07.755831Z",
+      "exit_code": 0,
+      "before": {
+        "run_dir_exists": true,
+        "status": "in-progress",
+        "marker_exists": false,
+        "files": [
+          "inputs/cis.md",
+          "inputs/defender-export-folder/devices.csv",
+          "inputs/defender-export-folder/identity.csv",
+          "inputs/history-report.md",
+          "inputs/nist.md",
+          "inputs/prior-report.md",
+          "run-state.json"
+        ]
+      },
+      "after": {
+        "run_dir_exists": true,
+        "status": "needs-step01",
+        "marker_exists": false,
+        "files": [
+          ".harness-step01-prompt.md",
+          "inputs/cis.md",
+          "inputs/defender-export-folder/devices.csv",
+          "inputs/defender-export-folder/identity.csv",
+          "inputs/history-report.md",
+          "inputs/nist.md",
+          "inputs/prior-report.md",
+          "run-state.json"
+        ]
+      },
+      "files_created": [
+        ".harness-step01-prompt.md"
+      ]
+    },
+    {
+      "seq": "04",
+      "label": "drive-precompletion-wait",
+      "command": "python s5-harness.py drive --run-id setup-drive-ingest-r3",
+      "cwd": "project root",
+      "started_utc": "2026-10-22T18:05:10.251186Z",
+      "finished_utc": "2026-10-22T18:05:10.322515Z",
+      "exit_code": 0,
+      "before": {
+        "run_dir_exists": true,
+        "status": "needs-step01",
+        "marker_exists": false,
+        "files": [
+          ".harness-step01-prompt.md",
+          "inputs/cis.md",
+          "inputs/defender-export-folder/devices.csv",
+          "inputs/defender-export-folder/identity.csv",
+          "inputs/history-report.md",
+          "inputs/nist.md",
+          "inputs/prior-report.md",
+          "run-state.json"
+        ]
+      },
+      "after": {
+        "run_dir_exists": true,
+        "status": "needs-step01",
+        "marker_exists": false,
+        "files": [
+          ".harness-step01-prompt.md",
+          "inputs/cis.md",
+          "inputs/defender-export-folder/devices.csv",
+          "inputs/defender-export-folder/identity.csv",
+          "inputs/history-report.md",
+          "inputs/nist.md",
+          "inputs/prior-report.md",
+          "run-state.json"
+        ]
+      },
+      "files_created": []
+    },
+    {
+      "seq": "05",
+      "label": "drive-consume-step01",
+      "command": "python s5-harness.py drive --run-id setup-drive-ingest-r3",
+      "cwd": "project root",
+      "started_utc": "2026-10-22T18:06:00.171132Z",
+      "finished_utc": "2026-10-22T18:06:00.336479Z",
+      "exit_code": 0,
+      "before": {
+        "run_dir_exists": true,
+        "status": "needs-step01",
+        "marker_exists": true,
+        "files": [
+          ".harness-step01-done",
+          ".harness-step01-prompt.md",
+          "dispatch-received-01.json",
+          "evidence-index.json",
+          "inputs/cis.md",
+          "inputs/defender-export-folder/devices.csv",
+          "inputs/defender-export-folder/identity.csv",
+          "inputs/history-report.md",
+          "inputs/nist.md",
+          "inputs/prior-report.md",
+          "inventory.json",
+          "run-state.json",
+          "style-profile.json"
+        ]
+      },
+      "after": {
+        "run_dir_exists": true,
+        "status": "needs-g1",
+        "marker_exists": false,
+        "files": [
+          ".harness-step01-prompt.md",
+          "dispatch-received-01.json",
+          "evidence-index.json",
+          "inputs/cis.md",
+          "inputs/defender-export-folder/devices.csv",
+          "inputs/defender-export-folder/identity.csv",
+          "inputs/history-report.md",
+          "inputs/nist.md",
+          "inputs/prior-report.md",
+          "inventory.json",
+          "run-state.json",
+          "style-profile.json"
+        ]
+      },
+      "files_created": []
+    },
+    {
+      "seq": "06",
+      "label": "drive-g1-eval",
+      "command": "python s5-harness.py drive --run-id setup-drive-ingest-r3",
+      "cwd": "project root",
+      "started_utc": "2026-10-22T18:06:03.067347Z",
+      "finished_utc": "2026-10-22T18:06:03.127686Z",
+      "exit_code": 0,
+      "before": {
+        "run_dir_exists": true,
+        "status": "needs-g1",
+        "marker_exists": false,
+        "files": [
+          ".harness-step01-prompt.md",
+          "dispatch-received-01.json",
+          "evidence-index.json",
+          "inputs/cis.md",
+          "inputs/defender-export-folder/devices.csv",
+          "inputs/defender-export-folder/identity.csv",
+          "inputs/history-report.md",
+          "inputs/nist.md",
+          "inputs/prior-report.md",
+          "inventory.json",
+          "run-state.json",
+          "style-profile.json"
+        ]
+      },
+      "after": {
+        "run_dir_exists": true,
+        "status": "needs-step02",
+        "marker_exists": false,
+        "files": [
+          ".harness-step01-prompt.md",
+          ".harness-step02-prompt.md",
+          "dispatch-received-01.json",
+          "evidence-index.json",
+          "inputs/cis.md",
+          "inputs/defender-export-folder/devices.csv",
+          "inputs/defender-export-folder/identity.csv",
+          "inputs/history-report.md",
+          "inputs/nist.md",
+          "inputs/prior-report.md",
+          "inventory.json",
+          "run-state.json",
+          "style-profile.json"
+        ]
+      },
+      "files_created": [
+        ".harness-step02-prompt.md"
+      ]
+    }
+  ]
+}

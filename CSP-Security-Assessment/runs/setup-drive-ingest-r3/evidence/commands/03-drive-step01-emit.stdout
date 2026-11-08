@@ -1,0 +1,15 @@
+{
+  "action": "execute_step",
+  "step": "01",
+  "dispatch": {
+    "agent": "01-ingest"
+  },
+  "prompt_file": "/app/workspace/proj/runs/setup-drive-ingest-r3/.harness-step01-prompt.md",
+  "expected_outputs": [
+    "inventory.json",
+    "evidence-index.json",
+    "style-profile.json",
+    "dispatch-received-01.json"
+  ],
+  "done_marker": "/app/workspace/proj/runs/setup-drive-ingest-r3/.harness-step01-done"
+}

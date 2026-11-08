@@ -1,0 +1,193 @@
+{
+  "root": "runs/setup-drive-ingest-r3",
+  "excludes": [
+    "transfer-manifest.json"
+  ],
+  "files": [
+    {
+      "path": ".harness-step01-prompt.md",
+      "bytes": 5272,
+      "sha256": "ae3eb2f3448a1b00d5d9669c370ddb219902e4494645ddef1d398d52a069c1c8"
+    },
+    {
+      "path": ".harness-step02-prompt.md",
+      "bytes": 4692,
+      "sha256": "3c9e207e70f0d85282ea39e857e33412b8b4508354d0385054881986a24ddc6d"
+    },
+    {
+      "path": "dispatch-received-01.json",
+      "bytes": 27,
+      "sha256": "514c04fbe3a60b4b90ea8cf51699bf650afcbb887d12e7724ddee9293355ea17"
+    },
+    {
+      "path": "evidence-index.json",
+      "bytes": 600,
+      "sha256": "30b0060876647ff3bf3ab053dcbdeaccb4b97cd3b4764afdaaf4c41d1a5b345c"
+    },
+    {
+      "path": "evidence/audit/guardrails-setup-drive-ingest-r3.jsonl",
+      "bytes": 1588,
+      "sha256": "6a13b08b5120fbd0ea84bc5fd84bb85af723db46f06aa9fdfb81e22e6bebf266"
+    },
+    {
+      "path": "evidence/audit/guardrails.jsonl",
+      "bytes": 1588,
+      "sha256": "6a13b08b5120fbd0ea84bc5fd84bb85af723db46f06aa9fdfb81e22e6bebf266"
+    },
+    {
+      "path": "evidence/audit/punchout-log.md",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/audit/run-setup-drive-ingest-r3.jsonl",
+      "bytes": 1078,
+      "sha256": "ba010ebe6df686607451f6bf44f78e2158264b49d47700e35b16bedbbcc2c5ac"
+    },
+    {
+      "path": "evidence/audit/success-log.md",
+      "bytes": 87,
+      "sha256": "a038de34b76787388cd09685465bd26bbb5ac066df1f211af985994b9664140f"
+    },
+    {
+      "path": "evidence/audit/success-report.md",
+      "bytes": 497,
+      "sha256": "a99157cfc12e769b893bf856a202ae9c83d0e88b0bced92b9688a130a2cfe2d8"
+    },
+    {
+      "path": "evidence/commands/01-verify.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/commands/01-verify.stdout",
+      "bytes": 547,
+      "sha256": "6af90dd00298ae1e3f8e4e1d11ad552484e0e51de32a62cfda359bd956dade93"
+    },
+    {
+      "path": "evidence/commands/02-drive-initial.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/commands/02-drive-initial.stdout",
+      "bytes": 239,
+      "sha256": "47c9a4f0f6cb8a044224df2873ad732b3a889bacf0bb081e01a74160cfbf7fd4"
+    },
+    {
+      "path": "evidence/commands/03-drive-step01-emit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/commands/03-drive-step01-emit.stdout",
+      "bytes": 410,
+      "sha256": "8c6c75dcdecc628c2af55f3d2838caf65c270d5235613742a6007cea4d16c2b3"
+    },
+    {
+      "path": "evidence/commands/04-drive-precompletion-wait.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/commands/04-drive-precompletion-wait.stdout",
+      "bytes": 71,
+      "sha256": "355965ea8e2c0d858b2f0601c0195368847d8a41ac4084e2b1b85e2c8aef68b5"
+    },
+    {
+      "path": "evidence/commands/05-drive-consume-step01.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/commands/05-drive-consume-step01.stdout",
+      "bytes": 77,
+      "sha256": "087bebbdb69cbcf1e84801554a3261e06395b388c52723e4ac011c716d743bdb"
+    },
+    {
+      "path": "evidence/commands/06-drive-g1-eval.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/commands/06-drive-g1-eval.stdout",
+      "bytes": 363,
+      "sha256": "2d074047085c5dec95e2b06b2418494df3ec5aa31e4d4a6bbc8a6799541d878a"
+    },
+    {
+      "path": "evidence/execution-log.json",
+      "bytes": 6978,
+      "sha256": "b9513e28b1228514f4c546f5fc11f981d1eedc7c25e805bdfb5c6518913e1ce8"
+    },
+    {
+      "path": "evidence/marker-snapshots/harness-step01-done.pre-consumption",
+      "bytes": 5,
+      "sha256": "d117fa006ba9208500b2930ce69cbde436c647afa917cb7396a9bc9111a46dd2"
+    },
+    {
+      "path": "evidence/state-snapshots/run-state.after-call05.json",
+      "bytes": 1504,
+      "sha256": "36e9541e6956a7008e583e8dbaafa1cce1509de3c2935de837742f4113f494b6"
+    },
+    {
+      "path": "evidence/state-snapshots/run-state.before-call05.json",
+      "bytes": 1508,
+      "sha256": "a2c7c90445544452acdf2e082fe0b3d107a1adc2b9bf375df38663f61cb9b465"
+    },
+    {
+      "path": "evidence/validation-output.txt",
+      "bytes": 404,
+      "sha256": "267c7453bf666400d5450e9d6e639253b00cca7e4a702c139671383570ebfb2b"
+    },
+    {
+      "path": "inputs/cis.md",
+      "bytes": 161,
+      "sha256": "09d6ee2e009a4650fc017a7d75a69d6911a5df13cca8dfa183ecede970843bf7"
+    },
+    {
+      "path": "inputs/defender-export-folder/devices.csv",
+      "bytes": 40,
+      "sha256": "e46adf9857bfecbd2cb39ce9701896bade70c7c7aa144e7bdb4e3cf6e113d675"
+    },
+    {
+      "path": "inputs/defender-export-folder/identity.csv",
+      "bytes": 38,
+      "sha256": "6f8dcc45bf2d2a8824aa9d7b91a3f02bbb6ce67d378d7083b2364beb627533df"
+    },
+    {
+      "path": "inputs/history-report.md",
+      "bytes": 433,
+      "sha256": "a8c83e6341244b0d05af36d9d823c2e91ba94a397e8dbbc8848b1a9c7b2ffd4b"
+    },
+    {
+      "path": "inputs/nist.md",
+      "bytes": 163,
+      "sha256": "203f4d4f06b60d26190ef6ad0f3071825edab26a88233cbf172081dd51589d45"
+    },
+    {
+      "path": "inputs/prior-report.md",
+      "bytes": 526,
+      "sha256": "268d633efba5b690c00f585421d74a7286930039166efe450bfd157e4c86f819"
+    },
+    {
+      "path": "inventory.json",
+      "bytes": 1321,
+      "sha256": "2fe8be46ad161b025ddfadf3a310412d17c9fba5e09b449fca5a623b5392df89"
+    },
+    {
+      "path": "run-state.json",
+      "bytes": 1508,
+      "sha256": "ce53b79a6db34dcaf7b26f08cf194224a2c73f1cbc1519031b84fd98a9f54edf"
+    },
+    {
+      "path": "runtime-hashes.json",
+      "bytes": 1558,
+      "sha256": "755bf1a82c853a57ef1f083d6a58aa9bfd32198e6b30a7321565b26b82b82d7f"
+    },
+    {
+      "path": "style-profile.json",
+      "bytes": 1207,
+      "sha256": "783acb1199f357734910687e6bccf4b40869afd86bf88a6c0ca2dd51b7c5e8cf"
+    }
+  ]
+}

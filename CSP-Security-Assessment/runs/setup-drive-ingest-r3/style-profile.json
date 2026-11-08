@@ -1,0 +1,20 @@
+{
+  "voice": "third-person, formal, consultative",
+  "tense": "past tense for assessment activities and findings of the review period (for example 'was assessed', 'was reviewed', 'found')",
+  "sentence_style": "short declarative sentences in formal prose, typically one to two sentences per section introducing a metrics table",
+  "phrasing_conventions": [
+    "Passive constructions describe assessment activity (for example 'Multi-factor authentication coverage was assessed')",
+    "Section prose is followed by a Metric/Value table",
+    "Metric names are noun phrases such as 'MFA coverage' and 'Managed devices'"
+  ],
+  "formatting_conventions": [
+    "Single H1 report title",
+    "H2 headings for each major section, in order: Identity Security, Device Security",
+    "Each H2 section contains short prose followed by a two-column pipe table with header 'Metric | Value'",
+    "Percentages are written with a percent sign (for example 90%)",
+    "Counts are written as plain integers (for example 10)"
+  ],
+  "banned_patterns": [
+    "first-person voice (I, we, our), as the prior report is written in third person and the style-profile schema names first-person as an example banned pattern"
+  ]
+}

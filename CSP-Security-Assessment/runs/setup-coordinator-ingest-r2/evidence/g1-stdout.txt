@@ -1,0 +1,101 @@
+{
+  "result": "pass",
+  "checks": [
+    {
+      "check": "dispatch-verified",
+      "result": "pass",
+      "agent": "01-ingest"
+    },
+    {
+      "check": "input:prior-report",
+      "result": "pass",
+      "file": "prior-report.md"
+    },
+    {
+      "check": "input:history-report",
+      "result": "pass",
+      "file": "history-report.md"
+    },
+    {
+      "check": "input:cis-ref",
+      "result": "pass",
+      "file": "cis.md"
+    },
+    {
+      "check": "input:nist-ref",
+      "result": "pass",
+      "file": "nist.md"
+    },
+    {
+      "check": "input:defender-export",
+      "result": "pass",
+      "files": 2
+    },
+    {
+      "check": "schema:inventory",
+      "result": "pass",
+      "validator": "builtin-mini-validator",
+      "detail": ""
+    },
+    {
+      "check": "schema:evidence-index",
+      "result": "pass",
+      "validator": "builtin-mini-validator",
+      "detail": ""
+    },
+    {
+      "check": "schema:style-profile",
+      "result": "pass",
+      "validator": "builtin-mini-validator",
+      "detail": ""
+    },
+    {
+      "check": "source-hashes-verified",
+      "result": "pass",
+      "detail": ""
+    },
+    {
+      "check": "evidence-hashes-verified",
+      "result": "pass",
+      "detail": ""
+    },
+    {
+      "check": "inventory-export-paths",
+      "result": "pass",
+      "detail": ""
+    },
+    {
+      "check": "source-role-paths",
+      "result": "pass",
+      "detail": ""
+    },
+    {
+      "check": "complete-export-coverage",
+      "result": "pass",
+      "detail": "disk, inventory, sources, and evidence index must match"
+    },
+    {
+      "check": "all-5-sources-catalogued",
+      "result": "pass",
+      "detail": ""
+    },
+    {
+      "check": "source-hashes-recorded",
+      "result": "pass",
+      "detail": ""
+    },
+    {
+      "check": "export-files-enumerated",
+      "result": "pass"
+    },
+    {
+      "check": "section-map-present",
+      "result": "pass"
+    },
+    {
+      "check": "all-exports-domain-mapped",
+      "result": "pass",
+      "detail": ""
+    }
+  ]
+}

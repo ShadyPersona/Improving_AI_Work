@@ -1,0 +1,70 @@
+{
+  "purpose": "Transfer manifest for OneDrive persistence test (synthetic fixture, not a workflow output)",
+  "run_id": "setup-01-ingest-smoke-r3",
+  "hash_algorithm": "sha256 over raw file bytes",
+  "files": [
+    {
+      "path": "inputs/prior-report.md",
+      "bytes": 261,
+      "sha256": "908a921637cce0e9c6dbcad00982f417ae3e943e5138b78dcd55d27e3541d00b"
+    },
+    {
+      "path": "inputs/history-report.md",
+      "bytes": 262,
+      "sha256": "94b74e765a34349eb1bcce2bd89380e41c5a398110507de77e05b3ad055c84d6"
+    },
+    {
+      "path": "inputs/cis.md",
+      "bytes": 196,
+      "sha256": "548df8d17d68281d96deddb7a9a985eaa273a09f6c7d6797b280a56cdc6a7595"
+    },
+    {
+      "path": "inputs/nist.md",
+      "bytes": 168,
+      "sha256": "b521275df7a95d6c4ef5b7ad4ab15aec2a10ee6a1f9b3014a9b78cd64da73895"
+    },
+    {
+      "path": "inputs/defender-export-folder/identity.csv",
+      "bytes": 30,
+      "sha256": "ac89803f879a6392d7c2e60dfbbf0eaab4e3093d7d087ba2642c5b8065c11405"
+    },
+    {
+      "path": "inputs/defender-export-folder/devices.csv",
+      "bytes": 32,
+      "sha256": "4dcc35ceb03fb437e1ba9beab625f3d65553ee395a4f4fcd9e3ecc63d10d9cbb"
+    },
+    {
+      "path": "inventory.json",
+      "bytes": 1430,
+      "sha256": "4dfda5378b0eea2e551f57938d51a73a73a458b5571795b3adee616872562093"
+    },
+    {
+      "path": "evidence-index.json",
+      "bytes": 578,
+      "sha256": "3564d2e79c762d1f8f39ef56f3bd2088cb70a2180e4d0615446dc0ea7160761e"
+    },
+    {
+      "path": "style-profile.json",
+      "bytes": 1651,
+      "sha256": "bbced51f795c1b5bd21c58693dca166a36a792108db9333d94142ba380987934"
+    },
+    {
+      "path": "dispatch-received-01.json",
+      "bytes": 22,
+      "sha256": "918525384a751dcd4f975bbd8b6d42043869baeb940de6b0f92575a4e7563508"
+    },
+    {
+      "path": ".harness-step01-done",
+      "bytes": 73,
+      "sha256": "e988df670b812e8dbd2429ad3666eb2fe10d70ac3c9ea5440585721aadc50a87"
+    }
+  ],
+  "additional_evidence": [
+    {
+      "path": "g1-evidence.jsonl",
+      "source": "audit/guardrails-setup-01-ingest-smoke-r3.jsonl (exact copy)",
+      "bytes": 3150,
+      "sha256": "07b9944fb5e9de8af0f613a5591234d7fb2201c6f5e1509788248a866686c444"
+    }
+  ]
+}

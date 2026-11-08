@@ -1,0 +1,4 @@
+{
+  "action": "wait",
+  "detail": "waiting for .harness-step01-done"
+}
